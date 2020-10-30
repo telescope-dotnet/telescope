@@ -9,9 +9,13 @@ namespace TeleScope.Connectors.Abstractions
 	{
 		// -- events
 
-		event ConnectorEventHandler AfterConnect;
-		event ConnectorEventHandler AfterDisconnect;
-		event ConnectorErrorEventHandler OnError;
+		event ConnectorEventHandler Connected;
+		event ConnectorEventHandler Disconnected;
+		event ConnectorErrorEventHandler Error;
+
+		// -- properties
+
+		bool IsConnected { get; }
 
 		// -- methods
 

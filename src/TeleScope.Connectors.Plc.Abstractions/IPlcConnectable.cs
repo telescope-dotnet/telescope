@@ -5,8 +5,8 @@ namespace TeleScope.Connectors.Plc.Abstractions
 {
 	public interface IPlcConnectable : IConnectable
 	{
-		IConnectable Select(object parameter);
-		IConnectable Select(object[] parameters);
+		IPlcConnectable Select(object parameter);
+		IPlcConnectable Select(object[] parameters);
 		T Read<T>();
 		void Write<T>(T data);
 	}

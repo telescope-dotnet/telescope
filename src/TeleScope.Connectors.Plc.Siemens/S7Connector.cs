@@ -109,7 +109,7 @@ namespace TeleScope.Connectors.Plc.Siemens
 		/// </summary>
 		/// <param name="parameter">The S7 specific parameters.</param>
 		/// <returns>The calling instance.</returns>
-		public IConnectable Select(S7Selector parameter)
+		public IPlcConnectable Select(S7Selector parameter)
 		{
 			_parameter = parameter;
 			return this;
@@ -122,7 +122,7 @@ namespace TeleScope.Connectors.Plc.Siemens
 		/// </summary>
 		/// <param name="parameter">The generic object may contain the select parameters in different forms.</param>
 		/// <returns>The calling instance.</returns>
-		public IConnectable Select(object parameter)
+		public IPlcConnectable Select(object parameter)
 		{
 			try
 			{
@@ -190,7 +190,7 @@ namespace TeleScope.Connectors.Plc.Siemens
 		/// </summary>
 		/// <param name="parameters">The array of S7 parameters to select and read lateron the data.</param>
 		/// <returns>The calling instance.</returns>
-		public IConnectable Select(object[] parameters)
+		public IPlcConnectable Select(object[] parameters)
 		{
 			var length = 3;
 			int result = 0;

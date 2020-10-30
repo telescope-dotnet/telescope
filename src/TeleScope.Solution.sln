@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeleScope.Connectors.Abstra
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Abstractions", "Abstractions", "{99762FB4-DCB4-4175-A71A-2B65124F71DB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0_Tests_Docu", "0_Tests_Docu", "{A3D17E25-1044-47CE-BC6C-EF37CF1CCB78}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Tests_Docu", "_Tests_Docu", "{A3D17E25-1044-47CE-BC6C-EF37CF1CCB78}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeleScope.MSTest", "TeleScope.MSTest\TeleScope.MSTest.csproj", "{AE2E097D-39C5-409B-B572-EC8D4FCAAD6A}"
 EndProject

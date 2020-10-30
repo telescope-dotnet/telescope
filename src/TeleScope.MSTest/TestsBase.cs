@@ -8,6 +8,9 @@ namespace TeleScope.MSTest
 
         // -- fields
 
+
+        protected const string SKIP_PLC_TESTS = "SkipPlcTests";
+
         // -- base methods
 
         public virtual void Arrange()

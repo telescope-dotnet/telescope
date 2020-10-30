@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TeleScope.Connectors.Abstractions.Events;
 using TeleScope.Connectors.Plc.Siemens;
@@ -19,7 +17,7 @@ namespace TeleScope.MSTest.Infrastructure
 		private S7Setup _setup;
 
 		// -- overrides
-		
+
 		/// <summary>
 		/// Initialize method that runs once for the entire class.
 		/// </summary>

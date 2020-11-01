@@ -1,4 +1,4 @@
-name: Deploy to NuGet
+name: Publish to NuGet
 on:
   push:
     branches:
@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix: 
-        Projects: [src/TeleScope.Connectors.Abstractions/TeleScope.Connectors.Abstractions.csproj, src/TeleScope.Connectors.Plc.Abstractions/TeleScope.Connectors.Plc.Abstractions.csproj,]
+        Projects: [Connectors.Abstractions, Connectors.Plc.Abstractions]
     steps:
       - uses: actions/checkout@v2
         
@@ -20,7 +20,7 @@ jobs:
         uses: rohith/publish-nuget@v2
         with:
           # Filepath of the project to be packaged, relative to root of repository
-          PROJECT_FILE_PATH: ${{matrix.projects}}
+          PROJECT_FILE_PATH: src/TeleScope.${{matrix.projects}}/TeleScope.${{matrix.projects}}.csproj
           
           # NuGet package id, used for version detection & defaults to project name
           # PACKAGE_NAME: Core

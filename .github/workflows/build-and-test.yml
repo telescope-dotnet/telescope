@@ -1,5 +1,5 @@
 name: Build and Test
-on: push # pull_request
+on: [push, pull_request] # replace array with 'pull_request' only to reduce action executions
 
 env:
   working-dir: src

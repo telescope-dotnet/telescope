@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -8,6 +8,9 @@
     <RepositoryUrl>https://github.com/telescope-dotnet/telescope</RepositoryUrl>
     <PackageProjectUrl>https://github.com/telescope-dotnet/telescope</PackageProjectUrl>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageReleaseNotes></PackageReleaseNotes>
+    <PackageTags>Siemens, Sharp7</PackageTags>
+    <Description>Contains the implementation of the TeleScope.Connectors.Plc.Abstractions assembly and uses the Sharp7 logic.</Description>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,9 +1,9 @@
 name: Build and Test
-on: pull_request
+on: pull_request # replace with array '[push, pull_request]' to trigger the action on each push and pull request
 
 env:
   working-dir: src
-  test-settings: TeleScope.MSTest\github.runsettings
+  test-settings: TeleScope.MSTest/github.runsettings
 
 jobs:
   build:

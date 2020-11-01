@@ -3,6 +3,7 @@ on: pull_request
 
 env:
   working-dir: src
+  test-settings: TeleScope.MSTest\github.runsettings
 
 jobs:
   build:
@@ -23,4 +24,4 @@ jobs:
     - name: Build
       run: dotnet build --configuration Release --no-restore
     - name: Test
-      run: dotnet test --configuration Release --no-restore --settings github.runsettings --verbosity normal
+      run: dotnet test --configuration Release --no-restore --settings ${{env.test-settings}} --verbosity normal

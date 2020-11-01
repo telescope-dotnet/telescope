@@ -1,0 +1,22 @@
+name: Publish Docu
+on: [push, pull_request] # replace with array '[push, pull_request]' to trigger the action on each push and pull request
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    name: Publish documentation
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup .NET Core
+    - uses: nikeee/docfx-action@v1.0.0
+      name: Build Documentation
+      with:
+        args: src/TeleScope.Docu/docfx.json
+
+    # Publish generated site using GitHub Pages
+    - uses: maxheld83/ghpages@master
+      name: Publish Documentation on GitHub Pages
+      env:
+        BUILD_DIR: _site # docfx's default output directory is _site
+        GH_PAT: ${{ secrets.GH_PAGES }} # See https://github.com/maxheld83/ghpages

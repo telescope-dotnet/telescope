@@ -17,6 +17,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeleScope.Connectors.Plc.Siemens", "TeleScope.Connectors.Plc.Siemens\TeleScope.Connectors.Plc.Siemens.csproj", "{B64E303F-BC18-4D3B-BC7C-4C8F0042D1AC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2F1806C7-C1A8-4A27-9B64-6CD7B45D5516}"
+	ProjectSection(SolutionItems) = preProject
+		..\.github\workflows\build-and-test.yml = ..\.github\workflows\build-and-test.yml
+		..\.github\workflows\publish-to-nuget.yml = ..\.github\workflows\publish-to-nuget.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

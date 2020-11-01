@@ -1,0 +1,1 @@
+﻿Open Packet-Manager console and run `docfx TeleScope.Docu/docfx.json --serve`

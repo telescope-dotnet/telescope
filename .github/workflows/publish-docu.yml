@@ -4,11 +4,15 @@ on: [push, pull_request] # replace with array '[push, pull_request]' to trigger 
 jobs:
   publish:
     runs-on: ubuntu-latest
-    name: Publish documentation
     
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.301
+    - name: Install dependencies
+      run: dotnet restore
     - uses: nikeee/docfx-action@v1.0.0
       name: Build Documentation
       with:

@@ -1,9 +1,9 @@
 name: Build and Test
-on: pull_request
+on: push # pull_request
 
 env:
   working-dir: src
-  test-settings: TeleScope.MSTest\github.runsettings
+  test-settings: TeleScope.MSTest/github.runsettings
 
 jobs:
   build:

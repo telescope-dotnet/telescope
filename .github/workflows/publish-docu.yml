@@ -1,5 +1,8 @@
 name: Publish Docu
-on: [push, pull_request] # replace with array '[push, pull_request]' to trigger the action on each push and pull request
+on:
+  push:
+    branches:
+      - main # Default release branch
 
 env:
   docu-dir: src/TeleScope.Docu/

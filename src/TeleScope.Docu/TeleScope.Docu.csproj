@@ -11,4 +11,13 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="images\favicon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="images\logo.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

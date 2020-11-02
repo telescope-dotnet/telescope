@@ -12,6 +12,7 @@ The goal of the **TeleScope** project is to create reusable nuget packages that 
 | ------------------------- |
 | ![Build and Test](https://github.com/telescope-dotnet/telescope/workflows/Build%20and%20Test/badge.svg)
 | ![Publish to NuGet](https://github.com/telescope-dotnet/telescope/workflows/Publish%20to%20NuGet/badge.svg)
+| ![Publish Docu](https://github.com/telescope-dotnet/telescope/workflows/Publish%20Docu/badge.svg)
 
 #### TOC
 

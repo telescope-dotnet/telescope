@@ -39,7 +39,7 @@ namespace TeleScope.MSTest.Infrastructure
 			_s7 = new S7Connector();
 			_s7.Connected += Connected;
 			_s7.Disconnected += Disconnected;
-			_s7.Error += Error;
+			_s7.Failed += Error;
 
 			_setup = new S7Setup
 			{
@@ -56,7 +56,7 @@ namespace TeleScope.MSTest.Infrastructure
 			base.Cleanup();
 			_s7.Connected -= Connected;
 			_s7.Disconnected -= Disconnected;
-			_s7.Error -= Error;
+			_s7.Failed -= Error;
 			_s7 = null;
 		}
 
@@ -110,7 +110,7 @@ namespace TeleScope.MSTest.Infrastructure
 		// -- helper
 
 
-		private void Error(object sender, ConnectorErrorEventArgs e)
+		private void Error(object sender, ConnectorFailedEventArgs e)
 		{
 			Console.WriteLine($"Error fired from '{e.Name}'.");
 			Console.WriteLine(e.Exception.Message);

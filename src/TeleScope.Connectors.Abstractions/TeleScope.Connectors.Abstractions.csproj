@@ -2,14 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>0.1.1</Version>
+    <Version>0.2.0</Version>
     <PackageIcon>logo-nuget.png</PackageIcon>
     <RepositoryUrl>https://github.com/telescope-dotnet/telescope</RepositoryUrl>
     <PackageProjectUrl>https://github.com/telescope-dotnet/telescope</PackageProjectUrl>
     <Company>TeleScope-dotnet</Company>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <Description>Contains basic abstractions and interfaces to implement different types of conncetors. Potential connectors may be used for HTTP-, MQTT-, S7- or SMTP-based protocols.</Description>
-    <AssemblyVersion>0.1.1.0</AssemblyVersion>
+    <AssemblyVersion>0.2.0.0</AssemblyVersion>
     <PackageTags>Abstractions, Connectors</PackageTags>
   </PropertyGroup>
 

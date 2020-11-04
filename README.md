@@ -22,16 +22,28 @@ The goal of the **TeleScope** project is to create reusable nuget packages that 
 
 ## Usage
 
-An example of getting some data out of the system or a little demo. Spice this up with code blocks and potentially screenshots or gifs.
+The TeleScope repository contains one solution with lots of [NuGet](https://www.nuget.org/profiles/telescope-dotnet) packages.
+These packages may be used within your domain specific application in different layers depending on your architectural approach. 
+
+#### Clean Architecture
+
+`will be written soon`
 
 ![ipsum picsum](https://picsum.photos/id/0/400/200 "Ipsum Picsum")
 
-
 #### NuGet Packages
 
-###### TeleScope.Connectors.*
+###### Versioning
+
+The NuGet versions follow the [Semantic Versioning](https://semver.org/) pattern.
+If a version is in state `0.x.x`, this indicates that the package is not used in productive environments so far and
+that feature updates also may cause breaking changes. 
 
 <table>
+<thead>
+<tr align="center"><th colspan="2">TeleScope.Connectors.*</th></tr>
+</thead>
+<tbody>
 <tr align="center">
 <td colspan="2">
   
@@ -58,11 +70,13 @@ MQTT.Abstractions
 
 </td>
 </tr>
+</tbody>
 </table>
 
-#### Official Documentation
+#### Documentation
 
-* Link to the api documentation and reference guide
+* The public [Repository](https://github.com/telescope-dotnet/telescope)
+* The official [API Documentation and Reference manual](https://telescope-dotnet.github.io/telescope/)
 
 #### Acknowledgement
 

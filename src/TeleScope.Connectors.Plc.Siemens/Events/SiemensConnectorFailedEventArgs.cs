@@ -5,7 +5,7 @@ using TeleScope.Connectors.Abstractions.Events;
 
 namespace TeleScope.Connectors.Plc.Siemens.Events
 {
-	public class SiemensConnectorErrorEventArgs : ConnectorErrorEventArgs
+	public class SiemensConnectorFailedEventArgs : ConnectorFailedEventArgs
 	{
 		// -- properties
 
@@ -14,18 +14,12 @@ namespace TeleScope.Connectors.Plc.Siemens.Events
 		/// </summary>
 		public int ResultCode { get; protected set; }
 
-		/// <summary>
-		/// Gets the string representation of the result code.
-		/// </summary>
-		public string Result { get; protected set; }
-
 		// -- constructors
 
-		public SiemensConnectorErrorEventArgs(Exception ex, string name, int resultCode, string result)
-			: base(ex, name)
+		public SiemensConnectorFailedEventArgs(Exception ex, int resultCode, string result, string name)
+			: base(ex, result, name) 
 		{
 			ResultCode = resultCode;
-			Result = result;
 		}
 	}
 }

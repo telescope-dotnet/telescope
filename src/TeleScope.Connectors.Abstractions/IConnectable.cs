@@ -11,7 +11,8 @@ namespace TeleScope.Connectors.Abstractions
 
 		event ConnectorEventHandler Connected;
 		event ConnectorEventHandler Disconnected;
-		event ConnectorFailedEventHandler Error;
+		event ConnectorCompletedEventHandler Completed;
+		event ConnectorFailedEventHandler Failed;
 
 		// -- properties
 

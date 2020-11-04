@@ -22,7 +22,7 @@ namespace TeleScope.Connectors.Plc.Siemens
 
 		public event ConnectorEventHandler Connected;
 		public event ConnectorEventHandler Disconnected;
-		public event ConnectorErrorEventHandler Error;
+		public event ConnectorFailedEventHandler Error;
 
 		// -- properties
 
@@ -85,7 +85,7 @@ namespace TeleScope.Connectors.Plc.Siemens
 			catch (Exception ex)
 			{
 				Error?.Invoke(this,
-					new SiemensConnectorErrorEventArgs(ex, _setup.Name, result, S7Results.GetString(result)));
+					new SiemensConnectorFailedEventArgs(ex, result, S7Results.GetString(result), _setup.Name));
 			}
 
 			return this;
@@ -179,7 +179,7 @@ namespace TeleScope.Connectors.Plc.Siemens
 			{
 				var result = S7Results.CliInvalidParams;
 				Error?.Invoke(this,
-					   new SiemensConnectorErrorEventArgs(ex, _setup.Name, result, S7Results.GetString(result)));
+					   new SiemensConnectorFailedEventArgs(ex, result, S7Results.GetString(result), _setup.Name));
 			}
 		}
 
@@ -204,7 +204,7 @@ namespace TeleScope.Connectors.Plc.Siemens
 			catch (Exception ex)
 			{
 				Error?.Invoke(this,
-				   new SiemensConnectorErrorEventArgs(ex, _setup.Name, result, S7Results.GetString(result)));
+				   new SiemensConnectorFailedEventArgs(ex, result, S7Results.GetString(result), _setup.Name));
 
 				return this;
 			}
@@ -329,7 +329,7 @@ namespace TeleScope.Connectors.Plc.Siemens
 			catch (Exception ex)
 			{
 				Error?.Invoke(this,
-					new SiemensConnectorErrorEventArgs(ex, _setup.Name, result, S7Results.GetString(result)));
+					new SiemensConnectorFailedEventArgs(ex, result, S7Results.GetString(result), _setup.Name));
 			}
 
 			return obj;

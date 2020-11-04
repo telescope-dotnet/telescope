@@ -110,7 +110,7 @@ namespace TeleScope.MSTest.Infrastructure
 		// -- helper
 
 
-		private void Error(object sender, ConnectorErrorEventArgs e)
+		private void Error(object sender, ConnectorFailedEventArgs e)
 		{
 			Console.WriteLine($"Error fired from '{e.Name}'.");
 			Console.WriteLine(e.Exception.Message);

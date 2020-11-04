@@ -5,15 +5,15 @@ VisualStudioVersion = 16.0.30128.74
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeleScope.Connectors.Abstractions", "TeleScope.Connectors.Abstractions\TeleScope.Connectors.Abstractions.csproj", "{E2417A4C-1860-4D77-9E54-D73D036FF9D1}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Abstractions", "Abstractions", "{99762FB4-DCB4-4175-A71A-2B65124F71DB}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1_Abstractions", "1_Abstractions", "{99762FB4-DCB4-4175-A71A-2B65124F71DB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Tests_Docu", "_Tests_Docu", "{A3D17E25-1044-47CE-BC6C-EF37CF1CCB78}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0_Tests_Docu", "0_Tests_Docu", "{A3D17E25-1044-47CE-BC6C-EF37CF1CCB78}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeleScope.MSTest", "TeleScope.MSTest\TeleScope.MSTest.csproj", "{AE2E097D-39C5-409B-B572-EC8D4FCAAD6A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeleScope.Connectors.Plc.Abstractions", "TeleScope.Connectors.Plc.Abstractions\TeleScope.Connectors.Plc.Abstractions.csproj", "{51F1A146-B31C-41A5-B9BA-2966B8AA5ED0}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{29C196D1-13DF-4C2C-A0E1-81D75B555731}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2_Infrastructure", "2_Infrastructure", "{29C196D1-13DF-4C2C-A0E1-81D75B555731}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeleScope.Connectors.Plc.Siemens", "TeleScope.Connectors.Plc.Siemens\TeleScope.Connectors.Plc.Siemens.csproj", "{B64E303F-BC18-4D3B-BC7C-4C8F0042D1AC}"
 EndProject
@@ -24,7 +24,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeleScope.Docu", "TeleScope.Docu\TeleScope.Docu.csproj", "{71239DCF-1597-4CD8-82AC-DA2927C7BB02}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeleScope.Docu", "TeleScope.Docu\TeleScope.Docu.csproj", "{71239DCF-1597-4CD8-82AC-DA2927C7BB02}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3_User Interface", "3_User Interface", "{7C9EDD00-B039-428F-B898-1C2E02A11597}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

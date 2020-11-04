@@ -73,6 +73,19 @@ MQTT.Abstractions
 </tbody>
 </table>
 
+<table>
+<thead>
+<tr align="center"><th colspan="2">TeleScope.UI.*</th></tr>
+</thead>
+<tbody>
+<tr align="center">
+<td>
+TeleScope.UI.Cli | v0.1.0
+</td>
+</tr>
+</tbody>
+</table>
+
 #### Documentation
 
 * The public [Repository](https://github.com/telescope-dotnet/telescope)

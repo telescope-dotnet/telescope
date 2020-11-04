@@ -17,6 +17,7 @@
     <ProjectReference Include="..\TeleScope.Connectors.Abstractions\TeleScope.Connectors.Abstractions.csproj" />
     <ProjectReference Include="..\TeleScope.Connectors.Plc.Abstractions\TeleScope.Connectors.Plc.Abstractions.csproj" />
     <ProjectReference Include="..\TeleScope.Connectors.Plc.Siemens\TeleScope.Connectors.Plc.Siemens.csproj" />
+    <ProjectReference Include="..\TeleScope.UI.Cli\TeleScope.UI.Cli.csproj" />
   </ItemGroup>
 
 </Project>

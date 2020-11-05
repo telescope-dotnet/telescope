@@ -28,7 +28,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeleScope.Docu", "TeleScope
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3_User Interface", "3_User Interface", "{7C9EDD00-B039-428F-B898-1C2E02A11597}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeleScope.UI.Cli", "TeleScope.UI.Cli\TeleScope.UI.Cli.csproj", "{8EBBF61A-1E0D-4596-9F7C-EA7D4BA31232}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeleScope.UI.Cli", "TeleScope.UI.Cli\TeleScope.UI.Cli.csproj", "{8EBBF61A-1E0D-4596-9F7C-EA7D4BA31232}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeleScope.Logging.Abstractions", "TeleScope.Logging.Abstractions\TeleScope.Logging.Abstractions.csproj", "{5077DD30-D964-4E52-B514-7B99E705897A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +61,10 @@ Global
 		{8EBBF61A-1E0D-4596-9F7C-EA7D4BA31232}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8EBBF61A-1E0D-4596-9F7C-EA7D4BA31232}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8EBBF61A-1E0D-4596-9F7C-EA7D4BA31232}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5077DD30-D964-4E52-B514-7B99E705897A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5077DD30-D964-4E52-B514-7B99E705897A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5077DD30-D964-4E52-B514-7B99E705897A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5077DD30-D964-4E52-B514-7B99E705897A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -70,6 +76,7 @@ Global
 		{B64E303F-BC18-4D3B-BC7C-4C8F0042D1AC} = {29C196D1-13DF-4C2C-A0E1-81D75B555731}
 		{71239DCF-1597-4CD8-82AC-DA2927C7BB02} = {A3D17E25-1044-47CE-BC6C-EF37CF1CCB78}
 		{8EBBF61A-1E0D-4596-9F7C-EA7D4BA31232} = {7C9EDD00-B039-428F-B898-1C2E02A11597}
+		{5077DD30-D964-4E52-B514-7B99E705897A} = {99762FB4-DCB4-4175-A71A-2B65124F71DB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EE960345-7F7E-4A17-A2C4-F22378A1FDCA}

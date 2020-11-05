@@ -41,7 +41,11 @@ that feature updates also may cause breaking changes.
 
 <table>
 <thead>
-<tr align="center"><th colspan="2">TeleScope.Connectors.*</th></tr>
+<tr align="center"><th colspan="2">
+  
+[TeleScope.Connectors.*](https://www.nuget.org/packages?q=TeleScope.Connectors)
+  
+</th></tr>
 </thead>
 <tbody>
 <tr align="center">
@@ -75,6 +79,25 @@ MQTT.Abstractions
 
 <table>
 <thead>
+<tr align="center"><th colspan="2">
+  
+[TeleScope.UI.*](https://www.nuget.org/packages?q=TeleScope.UI)
+  
+</th></tr>
+</thead>
+<tbody>
+<tr align="center">
+<td>
+  
+[![Nuget](https://img.shields.io/nuget/v/TeleScope.UI.Cli.svg?label=Cli)](https://www.nuget.org/packages/TeleScope.UI.Cli/)
+
+</td>
+</tr>
+</tbody>
+</table>
+
+<table>
+<thead>
 <tr align="center"><th colspan="2">TeleScope.UI.*</th></tr>
 </thead>
 <tbody>
@@ -91,13 +114,17 @@ TeleScope.UI.Cli | v0.1.0
 * The public [Repository](https://github.com/telescope-dotnet/telescope)
 * The official [API Documentation and Reference manual](https://telescope-dotnet.github.io/telescope/)
 
-#### Acknowledgement
-
+```markdown
 * Mention supportes
 * Create a list with links, maybe to important resources,
 * to wiki pages or staging servers
+```
 
 ## Development
+
+`will come soon`
+
+~~~markdown
 Step by step explanation about how to get the project running, preferably with command line examples that can be copy-pasted by readers
 
 #### Prerequisites
@@ -127,5 +154,4 @@ Step by step explanation about how to get the project running, preferably with c
 #### Known Issues
 - [ ] known bugs or
 - [ ] limitations
-
-
+~~~

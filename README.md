@@ -41,7 +41,11 @@ that feature updates also may cause breaking changes.
 
 <table>
 <thead>
-<tr align="center"><th colspan="2">[TeleScope.Connectors.*](https://www.nuget.org/packages?q=TeleScope.Connectors)</th></tr>
+<tr align="center"><th colspan="2">
+  
+[TeleScope.Connectors.*](https://www.nuget.org/packages?q=TeleScope.Connectors)
+  
+</th></tr>
 </thead>
 <tbody>
 <tr align="center">
@@ -75,7 +79,11 @@ MQTT.Abstractions
 
 <table>
 <thead>
-<tr align="center"><th colspan="2">[TeleScope.UI.*](https://www.nuget.org/packages?q=TeleScope.UI)</th></tr>
+<tr align="center"><th colspan="2">
+  
+[TeleScope.UI.*](https://www.nuget.org/packages?q=TeleScope.UI)
+  
+</th></tr>
 </thead>
 <tbody>
 <tr align="center">

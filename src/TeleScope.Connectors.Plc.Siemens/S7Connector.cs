@@ -56,7 +56,6 @@ namespace TeleScope.Connectors.Plc.Siemens
 		public S7Connector()
 		{
 			_log = Log.Factory.CreateLogger<S7Connector>();
-
 			_client = new S7Client();
 		}
 

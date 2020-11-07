@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TeleScope.Connectors.Plc.Abstractions\TeleScope.Connectors.Plc.Abstractions.csproj" />
-    <ProjectReference Include="..\TeleScope.Logging.Abstractions\TeleScope.Logging.Abstractions.csproj" />
+    <ProjectReference Include="..\TeleScope.Logging\TeleScope.Logging.csproj" />
   </ItemGroup>
 
   <ItemGroup>

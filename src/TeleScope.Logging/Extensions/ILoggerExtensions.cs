@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Extensions.Logging;
 
-namespace TeleScope.Logging.Abstractions
+namespace TeleScope.Logging.Extensions
 {
 	public static class ILoggerExtensions
 	{
@@ -49,7 +49,10 @@ namespace TeleScope.Logging.Abstractions
 		{
 			logger.LogError(message, args);
 		}
-
+		public static void Critical(this ILogger logger, Exception ex)
+		{
+			logger.LogCritical(ex, ex.Message);
+		}
 		public static void Critical(this ILogger logger, Exception ex, string message, params object[] args)
 		{
 			logger.LogCritical(ex, message, args);

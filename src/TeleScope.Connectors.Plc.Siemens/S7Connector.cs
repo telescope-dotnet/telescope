@@ -7,7 +7,8 @@ using TeleScope.Connectors.Plc.Abstractions;
 using TeleScope.Connectors.Plc.Siemens.Extensions;
 using TeleScope.Connectors.Plc.Siemens.Events;
 using Microsoft.Extensions.Logging;
-using TeleScope.Logging.Abstractions;
+using TeleScope.Logging;
+using TeleScope.Logging.Extensions;
 
 namespace TeleScope.Connectors.Plc.Siemens
 {
@@ -55,7 +56,7 @@ namespace TeleScope.Connectors.Plc.Siemens
 		/// </summary>
 		public S7Connector()
 		{
-			_log = Log.Factory.CreateLogger<S7Connector>();
+			_log = LoggingProvider.Factory.CreateLogger<S7Connector>();
 			_client = new S7Client();
 		}
 
@@ -70,7 +71,8 @@ namespace TeleScope.Connectors.Plc.Siemens
 		{
 			try
 			{
-				_setup = this.ValidateSetup<S7Setup>(s7Setup);
+				_setup = this.ValidateSetupOrThrow<S7Setup>(s7Setup);
+				_log.Debug("Setup completed in {0}", this);
 			}
 			catch (ArgumentNullException ex)
 			{
@@ -80,6 +82,7 @@ namespace TeleScope.Connectors.Plc.Siemens
 			{
 				_log.Error(ex, $"The setup was not successfull. The setup is of type {s7Setup.GetType()}.");
 			}
+
 			
 			return this;
 		}

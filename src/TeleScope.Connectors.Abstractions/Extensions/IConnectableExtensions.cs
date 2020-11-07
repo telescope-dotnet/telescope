@@ -6,7 +6,7 @@ namespace TeleScope.Connectors.Abstractions.Extensions
 {
 	public static class IConnectableExtensions
 	{
-		public static T ValidateSetup<T>(this IConnectable connector, SetupBase setup)
+		public static T ValidateSetupOrThrow<T>(this IConnectable connector, SetupBase setup)
 		{
 			var type = typeof(T); 
 			if (setup == null)

@@ -29,6 +29,23 @@ These packages may be used within your domain specific application in different 
 
 `will be written soon`
 
+Regular **Markdown** here.
+
+<div hidden>
+    
+    @startuml firstDiagram
+
+    Alice -> Bob: Hello
+    Bob -> Alice: Hi!
+
+    @enduml
+    
+</div>
+
+![](firstDiagram.svg)
+
+Some more markdown.
+
 ![ipsum picsum](https://picsum.photos/id/0/400/200 "Ipsum Picsum")
 
 #### NuGet Packages

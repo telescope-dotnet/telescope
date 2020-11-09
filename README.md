@@ -101,16 +101,31 @@ MQTT.Abstractions
 
 <table>
 <thead>
-<tr align="center"><th colspan="2">TeleScope.UI.*</th></tr>
+<tr align="center"><th colspan="2">
+
+[TeleScope.Logging.*](https://www.nuget.org/packages?q=TeleScope.Logging)
+
+</th></tr>
 </thead>
 <tbody>
 <tr align="center">
 <td>
-TeleScope.UI.Cli | v0.1.0
+
+[![Nuget](https://img.shields.io/nuget/v/TeleScope.Logging.svg?label=Logging)](https://www.nuget.org/packages/TeleScope.Logging/)
+
+</td>
+</tr>
+
+<tr align="center">
+<td>
+
+[![Nuget](https://img.shields.io/nuget/v/TeleScope.Logging.Extensions.Serilog.svg?label=Logging.Extensions.Serilog)](https://www.nuget.org/packages/TeleScope.Logging.Extensions.Serilog/)
+
 </td>
 </tr>
 </tbody>
 </table>
+
 
 #### Documentation
 

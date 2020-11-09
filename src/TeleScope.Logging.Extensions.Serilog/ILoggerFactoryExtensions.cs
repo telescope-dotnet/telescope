@@ -53,15 +53,15 @@ namespace TeleScope.Logging.Extensions.Serilog
 		}
 
 		/// <summary>
-		/// Not implemented yet
+		/// TODO: add implementation here
 		/// </summary>
 		/// <param name="factory"></param>
 		/// <param name="uri"></param>
 		/// <returns></returns>
-		public static ILoggerFactory AddSerilogHttp(this ILoggerFactory factory, Uri uri)
-		{
-			throw new NotImplementedException();
-		}
+		//public static ILoggerFactory AddSerilogHttp(this ILoggerFactory factory, Uri uri)
+		//{
+		//	throw new NotImplementedException();
+		//}
 
 		// -- helper methods
 

@@ -1,4 +1,4 @@
-# ![TeleScope](images/logo-long.png)
+# ![TeleScope](images/telescope-logo.svg)
 
 ## Introduction
 
@@ -27,9 +27,12 @@ These packages may be used within your domain specific application in different 
 
 #### Clean Architecture
 
-`will be written soon`
+The intention of this project is to support applications that follow the clean architecture principles. There might be differences in naming the architectural layers, but the theory remains the same.
+> Keeping your business logic clean, which means free from breaking changes through external dependencies.
 
-![ipsum picsum](https://picsum.photos/id/0/400/200 "Ipsum Picsum")
+Of course the TeleScope packages are external dependencies to other projects. Nevertheless, TeleScope provides reusable and extensible entities and their implementations within infrastructure and presentation layers, like shown below.
+
+![TeleScope](images/telescope-ca.svg)
 
 #### NuGet Packages
 
@@ -42,29 +45,29 @@ that feature updates also may cause breaking changes.
 <table>
 <thead>
 <tr align="center"><th colspan="2">
-  
+
 [TeleScope.Connectors.*](https://www.nuget.org/packages?q=TeleScope.Connectors)
-  
+
 </th></tr>
 </thead>
 <tbody>
 <tr align="center">
 <td colspan="2">
-  
+
 [![Nuget](https://img.shields.io/nuget/v/TeleScope.Connectors.Abstractions.svg?label=Abstractions)](https://www.nuget.org/packages/TeleScope.Connectors.Abstractions/)
 
 </td>
 </tr>
 <tr align="center">
 <td rowspan="2">
-  
+
 MQTT.Abstractions
-  
+
 </td>
 <td>
-  
+
 [![Nuget](https://img.shields.io/nuget/v/TeleScope.Connectors.Plc.Abstractions.svg?label=Plc.Abstractions)](https://www.nuget.org/packages/TeleScope.Connectors.Plc.Abstractions/)
-  
+
 </td>
 </tr>
 <tr align="center">
@@ -80,15 +83,15 @@ MQTT.Abstractions
 <table>
 <thead>
 <tr align="center"><th colspan="2">
-  
+
 [TeleScope.UI.*](https://www.nuget.org/packages?q=TeleScope.UI)
-  
+
 </th></tr>
 </thead>
 <tbody>
 <tr align="center">
 <td>
-  
+
 [![Nuget](https://img.shields.io/nuget/v/TeleScope.UI.Cli.svg?label=Cli)](https://www.nuget.org/packages/TeleScope.UI.Cli/)
 
 </td>
@@ -96,7 +99,20 @@ MQTT.Abstractions
 </tbody>
 </table>
 
-#### Worth Knowing
+<table>
+<thead>
+<tr align="center"><th colspan="2">TeleScope.UI.*</th></tr>
+</thead>
+<tbody>
+<tr align="center">
+<td>
+TeleScope.UI.Cli | v0.1.0
+</td>
+</tr>
+</tbody>
+</table>
+
+#### Documentation
 
 * The public [Repository](https://github.com/telescope-dotnet/telescope)
 * The official [API Documentation and Reference manual](https://telescope-dotnet.github.io/telescope/)

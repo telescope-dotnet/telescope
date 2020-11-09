@@ -12,6 +12,7 @@
     <Description>Contains further specialized abstractions and interfaces to implement PLC connectors like S7. Depends on the assembly TeleScope.Connectors.Abstractions.</Description>
     <AssemblyVersion>0.1.1.0</AssemblyVersion>
     <PackageTags>Abstractions, PLC</PackageTags>
+    <Authors />
   </PropertyGroup>
 
   <ItemGroup>

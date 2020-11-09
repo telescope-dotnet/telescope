@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>0.2.0</Version>
+    <Version>0.2.1</Version>
     <PackageIcon>logo-nuget.png</PackageIcon>
     <Company>TeleScope-dotnet</Company>
     <RepositoryUrl>https://github.com/telescope-dotnet/telescope</RepositoryUrl>
@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TeleScope.Connectors.Plc.Abstractions\TeleScope.Connectors.Plc.Abstractions.csproj" />
+    <ProjectReference Include="..\TeleScope.Logging\TeleScope.Logging.csproj" />
   </ItemGroup>
 
   <ItemGroup>

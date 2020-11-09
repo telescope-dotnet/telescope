@@ -1,11 +1,14 @@
 ﻿using System;
 using Sharp7;
 using TeleScope.Connectors.Abstractions;
+using TeleScope.Connectors.Abstractions.Extensions;
 using TeleScope.Connectors.Abstractions.Events;
 using TeleScope.Connectors.Plc.Abstractions;
 using TeleScope.Connectors.Plc.Siemens.Extensions;
 using TeleScope.Connectors.Plc.Siemens.Events;
-
+using Microsoft.Extensions.Logging;
+using TeleScope.Logging;
+using TeleScope.Logging.Extensions;
 
 namespace TeleScope.Connectors.Plc.Siemens
 {
@@ -17,6 +20,8 @@ namespace TeleScope.Connectors.Plc.Siemens
 		private S7Setup _setup;
 
 		private S7Selector _parameter;
+
+		private ILogger _log;
 
 		// -- events
 
@@ -51,6 +56,7 @@ namespace TeleScope.Connectors.Plc.Siemens
 		/// </summary>
 		public S7Connector()
 		{
+			_log = LoggingProvider.CreateLogger<S7Connector>();
 			_client = new S7Client();
 		}
 
@@ -63,7 +69,21 @@ namespace TeleScope.Connectors.Plc.Siemens
 		/// <returns>The calling instance.</returns>
 		public IConnectable Setup(SetupBase s7Setup)
 		{
-			_setup = s7Setup as S7Setup;
+			try
+			{
+				_setup = this.ValidateSetupOrThrow<S7Setup>(s7Setup);
+				_log.Debug("Setup completed in {0}", this);
+			}
+			catch (ArgumentNullException ex)
+			{
+				_log.Error(ex, "The setup was not successfull. The setup parameter was null.");
+			}
+			catch (Exception ex)
+			{
+				_log.Error(ex, $"The setup was not successfull. The setup is of type {s7Setup.GetType()}.");
+			}
+
+			
 			return this;
 		}
 

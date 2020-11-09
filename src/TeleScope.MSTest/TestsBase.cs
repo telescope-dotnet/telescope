@@ -1,5 +1,7 @@
 using System;
+using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using TeleScope.Logging;
 
 namespace TeleScope.MSTest
 {
@@ -15,7 +17,7 @@ namespace TeleScope.MSTest
 
         public virtual void Arrange()
         {
-
+            LoggingProvider.Initialize(LoggerFactory.Create(builder => builder.AddConsole()));
         }
 
         public virtual void Cleanup()

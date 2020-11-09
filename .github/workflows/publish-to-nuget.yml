@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix: 
-        Projects: [Connectors.Abstractions, Connectors.Plc.Abstractions, Connectors.Plc.Siemens, UI.Cli]
+        Projects: [Connectors.Abstractions, Connectors.Plc.Abstractions, Connectors.Plc.Siemens, UI.Cli, Logging, Logging.Extensions.Serilog]
     steps:
       - uses: actions/checkout@v2
         

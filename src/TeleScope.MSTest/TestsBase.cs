@@ -17,10 +17,7 @@ namespace TeleScope.MSTest
 
         public virtual void Arrange()
         {
-            if (!LoggingProvider.IsInitialized)
-			{
-                LoggingProvider.Initialize(LoggerFactory.Create(builder => builder.AddConsole()));
-            }
+            LoggingProvider.Initialize(LoggerFactory.Create(builder => builder.AddConsole()));
         }
 
         public virtual void Cleanup()

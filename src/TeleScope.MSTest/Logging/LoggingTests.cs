@@ -33,7 +33,8 @@ namespace TeleScope.MSTest.Logging
 			LoggingProvider.Initialize(
 				new LoggerFactory()
 					.UseTemplate("{Timestamp: HH:mm:ss} [{Level}] - {Message}{NewLine}{Exception}")
-					.AddSerilog(LogLevel.Trace, "./App_Data/log/log.json"));
+					.UseLevel(LogLevel.Trace)
+					.AddSerilogConsole());
 			base.Arrange();
 		}
 
@@ -49,7 +50,7 @@ namespace TeleScope.MSTest.Logging
 		public void TestSerilog()
 		{
 			// arrange
-			var _log = LoggingProvider.Factory.CreateLogger<LoggingTests>();
+			var _log = LoggingProvider.CreateLogger<LoggingTests>();
 
 			// act
 			_log.Trace("Tracing log");
@@ -60,7 +61,7 @@ namespace TeleScope.MSTest.Logging
 			_log.Critical(new Exception("Now a really critical thing happended."));
 
 			// assert
-			Assert.IsTrue(LoggingProvider.IsInitialized, "The log was inactive");
+			Assert.IsTrue(_log != null, "The log was inactive");
 		}
 
 		[TestMethod]
@@ -73,8 +74,7 @@ namespace TeleScope.MSTest.Logging
 			connector.Setup(new MockupSetup());
 			connector.Setup(new S7Setup());
 
-			// assert
-			Assert.IsTrue(LoggingProvider.IsInitialized, "The log was inactive");
+			// no assertment
 		}
 	}
 

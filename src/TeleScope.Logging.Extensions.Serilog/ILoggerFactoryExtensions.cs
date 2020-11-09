@@ -1,12 +1,20 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System;
+using Microsoft.Extensions.Logging;
 using Serilog;
+using Serilog.Formatting;
 using Serilog.Formatting.Compact;
 
 namespace TeleScope.Logging.Extensions.Serilog
 {
 	public static class ILoggerFactoryExtensions
 	{
+		// -- fields
+
 		private static string _template = "{Timestamp:yyyy-MM-dd HH:mm:ss} [{Level}] [{SourceContext:l}] {Message}{NewLine}{Exception}";
+		private static LogLevel _level = LogLevel.Information;
+		private static ITextFormatter _formatter = new CompactJsonFormatter();
+
+		// -- extension methods
 
 		public static ILoggerFactory UseTemplate(this ILoggerFactory factory, string newTemplate)
 		{
@@ -14,40 +22,54 @@ namespace TeleScope.Logging.Extensions.Serilog
 			return factory;
 		}
 
-		public static ILoggerFactory AddSerilog(this ILoggerFactory factory, LogLevel minimumLevel)
+		public static ILoggerFactory UseLevel(this ILoggerFactory factory, LogLevel minimumLevel)
+		{
+			_level = minimumLevel;
+			return factory;
+		}
+
+		public static ILoggerFactory UseFormatter(this ILoggerFactory factory, ITextFormatter formatter)
+		{
+			_formatter = formatter;
+			return factory;
+		}
+
+		public static ILoggerFactory AddSerilogConsole(this ILoggerFactory factory)
 		{
 			factory.AddSerilog(
-				GetConfig(minimumLevel)
+				GetConfig()
+					.WriteTo.Console(outputTemplate: _template)
 					.CreateLogger());
 			return factory;
 		}
 
-		public static ILoggerFactory AddSerilog(this ILoggerFactory factory, string file)
+		public static ILoggerFactory AddSerilogFile(this ILoggerFactory factory, string file)
 		{
 			factory.AddSerilog(
-				GetConfig(LogLevel.Information)
-					.WriteTo.File(new CompactJsonFormatter(), file)
+				GetConfig()
+					.WriteTo.File(_formatter, file)
 					.CreateLogger());
 			return factory;
 		}
 
-		public static ILoggerFactory AddSerilog(this ILoggerFactory factory, LogLevel minimumLevel, string file)
+		/// <summary>
+		/// Not implemented yet
+		/// </summary>
+		/// <param name="factory"></param>
+		/// <param name="uri"></param>
+		/// <returns></returns>
+		public static ILoggerFactory AddSerilogHttp(this ILoggerFactory factory, Uri uri)
 		{
-			factory.AddSerilog(
-				GetConfig(minimumLevel)
-					.WriteTo.File(new CompactJsonFormatter(), file)
-					.CreateLogger());
-			return factory;
+			throw new NotImplementedException();
 		}
 
 		// -- helper methods
 
-		private static LoggerConfiguration GetConfig(LogLevel minimumLevel)
+		private static LoggerConfiguration GetConfig()
 		{
-			var config = new LoggerConfiguration()
-				.WriteTo.Console(outputTemplate: _template);
+			var config = new LoggerConfiguration();
 
-			switch (minimumLevel)
+			switch (_level)
 			{
 				case LogLevel.Critical:
 					config.MinimumLevel.Fatal();

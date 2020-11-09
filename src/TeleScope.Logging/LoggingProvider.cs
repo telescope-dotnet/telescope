@@ -8,23 +8,18 @@ namespace TeleScope.Logging
 
 		// -- properties
 
-		public static ILoggerFactory Factory { get; private set; } = new NullLoggerFactory();
-
-		/// <summary>
-		/// Gets the fact wheather Factory is initialized of not. 
-		/// </summary>
-		public static bool IsInitialized => !Factory.GetType().IsAssignableFrom(typeof(NullLoggerFactory)); 
+		private static ILoggerFactory _factory = new NullLoggerFactory();
 
 		// -- methods
 
 		public static void Initialize(ILoggerFactory loggerFactory)
 		{
-			Factory = loggerFactory ?? new NullLoggerFactory();
+			_factory = loggerFactory ?? new NullLoggerFactory();
 		}
 
-		public static void Clear()
+		public static ILogger CreateLogger<T>()
 		{
-			Factory = new NullLoggerFactory();
+			return _factory.CreateLogger<T>();
 		}
 	}
 }

@@ -2,14 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>0.1.0</Version>
+    <Version>0.1.1</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <Company>TeleScope-dotnet</Company>
-    <Description>The UI.Cli package provides common logic to simplify command line applications.</Description>
+    <Description>Provides common logic to simplify command line applications e.g. reading the start arguments.</Description>
     <PackageTags>cli option-parser</PackageTags>
     <RepositoryUrl>https://github.com/telescope-dotnet/telescope</RepositoryUrl>
     <PackageProjectUrl>https://github.com/telescope-dotnet/telescope</PackageProjectUrl>
     <PackageIcon>logo-nuget.png</PackageIcon>
+    <Authors>TeleScope-dotnet members</Authors>
   </PropertyGroup>
 
   <ItemGroup>

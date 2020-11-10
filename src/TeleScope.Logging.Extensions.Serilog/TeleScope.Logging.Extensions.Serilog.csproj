@@ -3,12 +3,14 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Company>TeleScope-dotnet</Company>
-    <Version>0.1.0</Version>
+    <Version>0.1.1</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/telescope-dotnet/telescope</PackageProjectUrl>
     <PackageIcon>logo-nuget.png</PackageIcon>
     <RepositoryUrl>https://github.com/telescope-dotnet/telescope</RepositoryUrl>
     <PackageTags>logging, extensions, Serilog</PackageTags>
+    <Authors>TeleScope-dotnet members</Authors>
+    <Description>Implements extensions to use Serilog with preconfigured settings and adds them to Microsofts LoggerFactory. Depends on the assembly TeleScope.Logging.</Description>
   </PropertyGroup>
 
   <ItemGroup>

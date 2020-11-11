@@ -32,7 +32,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeleScope.UI.Cli", "TeleSco
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeleScope.Logging", "TeleScope.Logging\TeleScope.Logging.csproj", "{5077DD30-D964-4E52-B514-7B99E705897A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeleScope.Logging.Extensions.Serilog", "TeleScope.Logging.Extensions.Serilog\TeleScope.Logging.Extensions.Serilog.csproj", "{0EE552A4-23C7-473F-8999-FAF22ECD5421}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeleScope.Logging.Extensions.Serilog", "TeleScope.Logging.Extensions.Serilog\TeleScope.Logging.Extensions.Serilog.csproj", "{0EE552A4-23C7-473F-8999-FAF22ECD5421}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeleScope.Connectors.Mqtt.Abstractions", "TeleScope.Connectors.Mqtt.Abstractions\TeleScope.Connectors.Mqtt.Abstractions.csproj", "{29718F5F-2F66-4CAF-B808-433791C9B9FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeleScope.Connectors.Mqtt", "TeleScope.Connectors.Mqtt\TeleScope.Connectors.Mqtt.csproj", "{6C45BA2F-81BB-4C36-9F0F-43FB82851063}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,6 +75,14 @@ Global
 		{0EE552A4-23C7-473F-8999-FAF22ECD5421}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0EE552A4-23C7-473F-8999-FAF22ECD5421}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0EE552A4-23C7-473F-8999-FAF22ECD5421}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29718F5F-2F66-4CAF-B808-433791C9B9FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29718F5F-2F66-4CAF-B808-433791C9B9FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29718F5F-2F66-4CAF-B808-433791C9B9FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29718F5F-2F66-4CAF-B808-433791C9B9FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C45BA2F-81BB-4C36-9F0F-43FB82851063}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C45BA2F-81BB-4C36-9F0F-43FB82851063}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C45BA2F-81BB-4C36-9F0F-43FB82851063}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C45BA2F-81BB-4C36-9F0F-43FB82851063}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -84,6 +96,8 @@ Global
 		{8EBBF61A-1E0D-4596-9F7C-EA7D4BA31232} = {7C9EDD00-B039-428F-B898-1C2E02A11597}
 		{5077DD30-D964-4E52-B514-7B99E705897A} = {99762FB4-DCB4-4175-A71A-2B65124F71DB}
 		{0EE552A4-23C7-473F-8999-FAF22ECD5421} = {7C9EDD00-B039-428F-B898-1C2E02A11597}
+		{29718F5F-2F66-4CAF-B808-433791C9B9FB} = {99762FB4-DCB4-4175-A71A-2B65124F71DB}
+		{6C45BA2F-81BB-4C36-9F0F-43FB82851063} = {29C196D1-13DF-4C2C-A0E1-81D75B555731}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EE960345-7F7E-4A17-A2C4-F22378A1FDCA}

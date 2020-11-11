@@ -2,6 +2,7 @@ using System;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TeleScope.Logging;
+using TeleScope.Logging.Extensions.Serilog;
 
 namespace TeleScope.MSTest
 {
@@ -10,14 +11,19 @@ namespace TeleScope.MSTest
 
         // -- fields
 
-
+        protected ILogger _log;
         protected const string SKIP_PLC_TESTS = "SkipPlcTests";
 
         // -- base methods
 
         public virtual void Arrange()
         {
-            LoggingProvider.Initialize(LoggerFactory.Create(builder => builder.AddConsole()));
+            LoggingProvider.Initialize(
+                 new LoggerFactory()
+                     .UseTemplate("{Timestamp: HH:mm:ss} [{Level}] - {Message}{NewLine}{Exception}")
+                     .UseLevel(LogLevel.Trace)
+                     .AddSerilogConsole());
+            _log = LoggingProvider.CreateLogger<TestsBase>();
         }
 
         public virtual void Cleanup()

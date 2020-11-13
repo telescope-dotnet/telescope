@@ -112,7 +112,7 @@ namespace TeleScope.Connectors.Mqtt
 					MessageReceived?.Invoke(this, new MqttConnectorEventArgs(topic, msg));
 				});
 
-				_log.Debug("Setup completed in {0}", this);
+				_log.Debug("Setup completed in {0} - {1}", _setup.ToString(), this);
 			}
 			catch (ArgumentNullException ex)
 			{
@@ -174,7 +174,7 @@ namespace TeleScope.Connectors.Mqtt
 
 			await _client.PublishAsync(msg).ContinueWith((r) =>
 			{
-				_log.Trace($"Publish finished with '{r.Result.ReasonString}'.", r);
+				_log.Trace($"Publish finished with status '{r.Status}'.", r);
 				Completed?.Invoke(this, new ConnectorCompletedEventArgs(r.Result.ReasonString, _setup.Broker));
 			});
 		}

@@ -57,10 +57,10 @@ namespace TeleScope.Connectors.Mqtt
 				_setup = this.ValidateSetupOrThrow<MqttSetup>(mqttSetup);
 
 				_options = new MqttClientOptionsBuilder()
-			   .WithTcpServer(_setup.Broker, _setup.Port)
-			   .WithClientId(_setup.ClientID)
-			   .WithCleanSession(true)
-			   .Build();
+				   .WithTcpServer(_setup.Broker, _setup.Port)
+				   .WithClientId(_setup.ClientID)
+				   .WithCleanSession(true)
+				   .Build();
 
 				var factory = new MqttFactory();
 				_client = factory.CreateMqttClient();
@@ -77,10 +77,9 @@ namespace TeleScope.Connectors.Mqtt
 					// bind all topics to the connected broker
 					foreach (string topic in _setup.Topics)
 					{
-						await _client.SubscribeAsync(new MqttTopicFilterBuilder().WithTopic(topic).Build());
+						SubscribeOnClient(topic);
 					}
 				});
-
 
 				_client.UseDisconnectedHandler(async e =>
 				{
@@ -103,7 +102,6 @@ namespace TeleScope.Connectors.Mqtt
 					}
 				});
 
-
 				_client.UseApplicationMessageReceivedHandler(e =>
 				{
 					_log.Trace($"Mqtt received topic: {e.ApplicationMessage.Topic}", e);
@@ -125,7 +123,6 @@ namespace TeleScope.Connectors.Mqtt
 
 			return this;
 		}
-
 
 		public IConnectable Connect()
 		{
@@ -183,7 +180,44 @@ namespace TeleScope.Connectors.Mqtt
 		{
 			_setup.Topics.Add(topic);
 			_setup.Topics = _setup.Topics.Distinct().ToList();
+
+			if (IsConnected)
+			{
+				SubscribeOnClient(topic);
+			}
 			return this;
+		}
+
+		public IMqttConnectable UnSubscribe(string topic)
+		{
+			_setup.Topics.Remove(topic);
+			_client.UnsubscribeAsync(topic);
+			return this;
+		}
+
+		// -- helper
+
+		private void SubscribeOnClient(string topic)
+		{
+			_client.SubscribeAsync(
+				new MqttTopicFilterBuilder()
+					.WithQualityOfServiceLevel(GetQoS(_setup.QoS))
+					.WithTopic(topic)
+					.Build());
+		}
+
+		private MqttQualityOfServiceLevel GetQoS(int qos)
+		{
+			switch(qos)
+			{
+				case 2:
+					return MqttQualityOfServiceLevel.ExactlyOnce;
+				case 1:
+					return MqttQualityOfServiceLevel.AtMostOnce;
+				case 0:
+				default:
+					return MqttQualityOfServiceLevel.AtLeastOnce;
+			}
 		}
 	}
 }

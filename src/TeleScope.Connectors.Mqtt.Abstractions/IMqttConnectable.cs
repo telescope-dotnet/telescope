@@ -9,6 +9,8 @@ namespace TeleScope.Connectors.Mqtt.Abstractions
 
 		IMqttConnectable Subscribe(string topic);
 
+		IMqttConnectable UnSubscribe(string topic);
+
 		Task PublishAsync(string topic, string message);
 
 		Task PublishAsync(string topic, string message, int qualityOfService);

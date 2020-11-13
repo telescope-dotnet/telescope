@@ -4,7 +4,7 @@
 
 #### Welcome
 
-The goal of the **TeleScope** project is to create reusable nuget packages that are based strongly on clean architecure principles.
+The goal of the **TeleScope** project is to create reusable nuget packages that are based strongly on clean architecture principles.
 
 #### Status
 

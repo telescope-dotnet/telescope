@@ -110,7 +110,7 @@ namespace TeleScope.Connectors.Mqtt
 					MessageReceived?.Invoke(this, new MqttConnectorEventArgs(topic, msg));
 				});
 
-				_log.Debug("Setup completed in {0} - {1}", _setup.ToString(), this);
+				_log.Trace("Setup completed in {0} - {1}", _setup.ToString(), this);
 			}
 			catch (ArgumentNullException ex)
 			{
@@ -213,10 +213,10 @@ namespace TeleScope.Connectors.Mqtt
 				case 2:
 					return MqttQualityOfServiceLevel.ExactlyOnce;
 				case 1:
-					return MqttQualityOfServiceLevel.AtMostOnce;
+					return MqttQualityOfServiceLevel.AtLeastOnce;
 				case 0:
 				default:
-					return MqttQualityOfServiceLevel.AtLeastOnce;
+					return MqttQualityOfServiceLevel.AtMostOnce;
 			}
 		}
 	}

@@ -49,17 +49,7 @@ namespace TeleScope.MSTest.Infrastructure
 			var received = false;
 			var transmitted = false;
 
-			var receiver = new MqttConnector()
-				.Setup(new MqttSetup
-				{
-					ClientID = $"telescope-receiver-{ts}",
-					Topics = new List<string>
-					{
-						topic
-					}
-				})
-				.Connect() as MqttConnector;
-
+			var receiver = new MqttConnector();
 			receiver.MessageReceived += (o, e) =>
 			{
 				_log.Info($"Message received from '{e.Name}': '{e.Message}'");
@@ -71,17 +61,19 @@ namespace TeleScope.MSTest.Infrastructure
 				Assert.Fail(e.Message);
 			};
 
+			receiver.Setup(new MqttSetup
+				{
+					ClientID = $"telescope-receiver-{ts}",
+					Topics = new List<string>
+					{
+						topic
+					}
+				})
+				.Connect();
+
 			Assert.IsTrue(receiver.IsConnected, "The receiver should be connected.");
 
-			var transmitter = new MqttConnector()
-				.Setup(new MqttSetup
-				{
-					ClientID = $"telescope-transmitter-{ts}",
-				})
-				.Connect() as MqttConnector;
-
-			Assert.IsTrue(transmitter.IsConnected, "The transmitter should be connected.");
-
+			var transmitter = new MqttConnector();
 			transmitter.Completed += (o, e) =>
 			{
 				_log.Info("Transmission completed");
@@ -92,6 +84,14 @@ namespace TeleScope.MSTest.Infrastructure
 				_log.Critical(e.Exception, e.Message, e);
 				Assert.Fail(e.Message);
 			};
+
+			transmitter.Setup(new MqttSetup
+				{
+					ClientID = $"telescope-transmitter-{ts}",
+				})
+				.Connect();
+
+			Assert.IsTrue(transmitter.IsConnected, "The transmitter should be connected.");
 
 			// act
 
@@ -120,7 +120,6 @@ namespace TeleScope.MSTest.Infrastructure
 
 			Assert.IsTrue(transmitted, "Message transmission not completed");
 			Assert.IsTrue(received, "Message not received");
-
 		}
 
 		[TestMethod]

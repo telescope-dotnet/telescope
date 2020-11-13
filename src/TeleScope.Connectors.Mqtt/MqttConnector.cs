@@ -65,11 +65,12 @@ namespace TeleScope.Connectors.Mqtt
 				var factory = new MqttFactory();
 				_client = factory.CreateMqttClient();
 
-				_client.UseConnectedHandler(async e =>
+				_client.UseConnectedHandler(async e => await Task.Run(() =>
 				{
 					// fire own event for application layer
 					if (e.AuthenticateResult.ResultCode != MqttClientConnectResultCode.Success)
 					{
+						Failed?.Invoke(this, new ConnectorFailedEventArgs(e.AuthenticateResult.ResultCode.ToString(), this._setup.Name));
 						throw new Exception($"Connection error '{e.AuthenticateResult.ResultCode.ToString()}' in {this.GetType().Name}");
 					}
 
@@ -79,7 +80,7 @@ namespace TeleScope.Connectors.Mqtt
 					{
 						SubscribeOnClient(topic);
 					}
-				});
+				}));
 
 				_client.UseDisconnectedHandler(async e =>
 				{
@@ -132,7 +133,29 @@ namespace TeleScope.Connectors.Mqtt
 
 		public async Task ConnectAsync()
 		{
-			await _client.ConnectAsync(_options);
+			await _client
+				.ConnectAsync(_options)
+				.ContinueWith(t =>
+				{
+					if (!t.IsFaulted)
+					{
+						return;
+					}
+
+					var msg = "Connection failed";
+					var args = default(ConnectorFailedEventArgs);
+
+					if (t.Exception != null)
+					{
+						args = new ConnectorFailedEventArgs(t.Exception, msg, _setup?.Name);
+					}
+					else
+					{
+						args = new ConnectorFailedEventArgs(msg, _setup?.Name);
+					}
+
+					Failed?.Invoke(this, args);
+				});
 		}
 
 		public IConnectable Disconnect()
@@ -169,10 +192,17 @@ namespace TeleScope.Connectors.Mqtt
 				msg.QualityOfServiceLevel = MqttQualityOfServiceLevel.AtMostOnce;
 			}
 
-			await _client.PublishAsync(msg).ContinueWith((r) =>
+			await _client.PublishAsync(msg).ContinueWith((t) =>
 			{
-				_log.Trace($"Publish finished with status '{r.Status}'.", r);
-				Completed?.Invoke(this, new ConnectorCompletedEventArgs(r.Result.ReasonString, _setup.Broker));
+				_log.Trace($"Publish finished with status '{t.Status}'.", t);
+				if (t.IsFaulted)
+				{
+					Failed?.Invoke(this, new ConnectorFailedEventArgs(t.Exception, _setup.Name));
+				}
+				else
+				{
+					Completed?.Invoke(this, new ConnectorCompletedEventArgs(t.Result.ReasonString, _setup.Name));
+				}
 			});
 		}
 
@@ -208,7 +238,7 @@ namespace TeleScope.Connectors.Mqtt
 
 		private MqttQualityOfServiceLevel GetQoS(int qos)
 		{
-			switch(qos)
+			switch (qos)
 			{
 				case 2:
 					return MqttQualityOfServiceLevel.ExactlyOnce;

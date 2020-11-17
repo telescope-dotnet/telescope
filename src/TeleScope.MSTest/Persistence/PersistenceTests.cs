@@ -22,8 +22,7 @@ namespace TeleScope.MSTest.Persistence
 		private CrudeProvider _crud;
 
 		public PersistenceTests()
-		{
-			
+		{			
 			LoggingProvider.Initialize(
 				new LoggerFactory()
 					.UseTemplate("{Timestamp: HH:mm:ss} [{Level}] - {Message}{NewLine}{Exception}")
@@ -33,24 +32,20 @@ namespace TeleScope.MSTest.Persistence
 
 			var factory = new CrudeFactory();
 			_json = factory.Json("output.json");
-
-			var creator = factory.Creator;
-
 			_crud = factory.CreateProvider();
-
-			creator.Create("interface data only");
+			
+			var creator = _crud.Creator;
 		}
 
 		[TestMethod]
 		public void JsonCrude()
 		{
-			//_json.Create("data");
-
+			_json.Create("data", "data.json", "subdir");
 			
 			var data = _json.Read<string>();
 			_log.Debug("{0} returned", data);
 
-			_json.Delete();
+			_json.Delete("data.json");
 		}
 	}
 }

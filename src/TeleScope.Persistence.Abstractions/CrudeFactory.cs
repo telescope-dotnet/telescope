@@ -9,39 +9,39 @@ namespace TeleScope.Persistence.Abstractions
 	{
 		// -- properties
 
-		public ICreatable Creator { get; private set; }
-		public IReadable Reader { get; private set; }
-		public IUpdatable Updater { get; private set; }
-		public IDeletable Deleter { get; private set; }
+		private ICreatable _creator;
+		private IReadable _reader;
+		private IUpdatable _updater;
+		private IDeletable _deleter;
 
 		// -- methods
 
 		public CrudeProvider CreateProvider()
 		{
-			return new CrudeProvider(this.Creator, this.Reader, this.Updater, this.Deleter);
+			return new CrudeProvider(this._creator, this._reader, this._updater, this._deleter);
 		}
 
 		public CrudeFactory Set(ICreatable creator)
 		{
-			Creator = creator;
+			_creator = creator;
 			return this;
 		}
 
 		public CrudeFactory Set(IReadable reader)
 		{
-			Reader = reader;
+			_reader = reader;
 			return this;
 		}
 
 		public CrudeFactory Set(IUpdatable updater)
 		{
-			Updater = updater;
+			_updater = updater;
 			return this;
 		}
 
 		public CrudeFactory Set(IDeletable deleter)
 		{
-			Deleter = deleter;
+			_deleter = deleter;
 			return this;
 		}
 	}

@@ -1,12 +1,11 @@
 ﻿using System;
+using Microsoft.Extensions.Logging;
 using Sharp7;
 using TeleScope.Connectors.Abstractions;
-using TeleScope.Connectors.Abstractions.Extensions;
 using TeleScope.Connectors.Abstractions.Events;
 using TeleScope.Connectors.Plc.Abstractions;
-using TeleScope.Connectors.Plc.Siemens.Extensions;
 using TeleScope.Connectors.Plc.Siemens.Events;
-using Microsoft.Extensions.Logging;
+using TeleScope.Connectors.Plc.Siemens.Extensions;
 using TeleScope.Logging;
 using TeleScope.Logging.Extensions;
 
@@ -18,9 +17,7 @@ namespace TeleScope.Connectors.Plc.Siemens
 
 		private S7Client _client;
 		private S7Setup _setup;
-
 		private S7Selector _parameter;
-
 		private ILogger _log;
 
 		// -- events
@@ -35,7 +32,7 @@ namespace TeleScope.Connectors.Plc.Siemens
 		/// <summary>
 		/// Gets the information if the client is instanciated and connected or not.
 		/// </summary>
-		public bool IsConnected => (_client != null ? _client.Connected : false);
+		public bool IsConnected => _client?.Connected ?? false;
 
 		/// <summary>
 		/// Gets the last received result code from the connected PLC.
@@ -54,10 +51,12 @@ namespace TeleScope.Connectors.Plc.Siemens
 		/// <summary>
 		/// The default empty constructor instanciates the internal S7 client.
 		/// </summary>
-		public S7Connector()
+		public S7Connector(S7Setup s7Setup)
 		{
 			_log = LoggingProvider.CreateLogger<S7Connector>();
 			_client = new S7Client();
+
+			Setup(s7Setup);
 		}
 
 		// -- methods
@@ -67,12 +66,12 @@ namespace TeleScope.Connectors.Plc.Siemens
 		/// </summary>
 		/// <param name="setup">The concrete setup for the connector.</param>
 		/// <returns>The calling instance.</returns>
-		public IConnectable Setup(SetupBase s7Setup)
+		private void Setup(S7Setup s7Setup)
 		{
 			try
 			{
-				_setup = this.ValidateSetupOrThrow<S7Setup>(s7Setup);
-				_log.Debug("Setup completed in {0}", this);
+				_setup = s7Setup;
+				_log.Trace("Setup completed in {0}", this);
 			}
 			catch (ArgumentNullException ex)
 			{
@@ -82,9 +81,6 @@ namespace TeleScope.Connectors.Plc.Siemens
 			{
 				_log.Error(ex, $"The setup was not successfull. The setup is of type {s7Setup.GetType()}.");
 			}
-
-			
-			return this;
 		}
 
 		/// <summary>
@@ -106,7 +102,7 @@ namespace TeleScope.Connectors.Plc.Siemens
 			catch (Exception ex)
 			{
 				Failed?.Invoke(this,
-					new SiemensConnectorFailedEventArgs(ex, result, S7Results.GetString(result), _setup.Name));
+					new SiemensConnectorFailedEventArgs(ex, _setup.Name, result, S7Results.GetString(result)));
 			}
 
 			return this;
@@ -200,7 +196,7 @@ namespace TeleScope.Connectors.Plc.Siemens
 			{
 				var result = S7Results.CliInvalidParams;
 				Failed?.Invoke(this,
-					   new SiemensConnectorFailedEventArgs(ex, result, S7Results.GetString(result), _setup.Name));
+					   new SiemensConnectorFailedEventArgs(ex, _setup.Name, result, S7Results.GetString(result)));
 			}
 		}
 
@@ -225,7 +221,7 @@ namespace TeleScope.Connectors.Plc.Siemens
 			catch (Exception ex)
 			{
 				Failed?.Invoke(this,
-				   new SiemensConnectorFailedEventArgs(ex, result, S7Results.GetString(result), _setup.Name));
+				   new SiemensConnectorFailedEventArgs(ex, _setup.Name, result, S7Results.GetString(result)));
 
 				return this;
 			}
@@ -350,12 +346,12 @@ namespace TeleScope.Connectors.Plc.Siemens
 			catch (Exception ex)
 			{
 				Failed?.Invoke(this,
-					new SiemensConnectorFailedEventArgs(ex, result, S7Results.GetString(result), _setup.Name));
+					new SiemensConnectorFailedEventArgs(ex, _setup.Name, result, S7Results.GetString(result)));
 			}
 			finally
 			{
 				Completed?.Invoke(this,
-					new ConnectorCompletedEventArgs(S7Results.GetString(result), _setup.Name));
+					new ConnectorCompletedEventArgs(_setup.Name, S7Results.GetString(result)));
 			}
 
 			return obj;

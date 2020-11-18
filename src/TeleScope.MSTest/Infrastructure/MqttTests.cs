@@ -49,7 +49,14 @@ namespace TeleScope.MSTest.Infrastructure
 			var received = false;
 			var transmitted = false;
 
-			var receiver = new MqttConnector();
+			var receiver = new MqttConnector(new MqttSetup
+			{
+				ClientID = $"telescope-receiver-{ts}",
+				Topics = new List<string>
+					{
+						topic
+					}
+			});
 			receiver.MessageReceived += (o, e) =>
 			{
 				_log.Info($"Message received from '{e.Name}': '{e.Message}'");
@@ -61,19 +68,14 @@ namespace TeleScope.MSTest.Infrastructure
 				Assert.Fail(e.Message);
 			};
 
-			receiver.Setup(new MqttSetup
-				{
-					ClientID = $"telescope-receiver-{ts}",
-					Topics = new List<string>
-					{
-						topic
-					}
-				})
-				.Connect();
+			receiver.Connect();
 
 			Assert.IsTrue(receiver.IsConnected, "The receiver should be connected.");
 
-			var transmitter = new MqttConnector();
+			var transmitter = new MqttConnector(new MqttSetup
+			{
+				ClientID = $"telescope-transmitter-{ts}",
+			});
 			transmitter.Completed += (o, e) =>
 			{
 				_log.Info("Transmission completed");
@@ -85,11 +87,7 @@ namespace TeleScope.MSTest.Infrastructure
 				Assert.Fail(e.Message);
 			};
 
-			transmitter.Setup(new MqttSetup
-				{
-					ClientID = $"telescope-transmitter-{ts}",
-				})
-				.Connect();
+			transmitter.Connect();
 
 			Assert.IsTrue(transmitter.IsConnected, "The transmitter should be connected.");
 
@@ -155,16 +153,15 @@ namespace TeleScope.MSTest.Infrastructure
 		// -- private methods
 
 		private void SetupClient()
-		{
-			_mqtt = new MqttConnector();
+		{		
 			_setup = new MqttSetup
 			{
 				Broker = "broker.hivemq.com",
 				Port = 1883,
 				ClientID = "TeleScope.MSTest"
 			};
+			_mqtt = new MqttConnector(_setup);
 			_mqtt.Connected += OnConnected;
-			_mqtt.Setup(_setup);
 		}
 
 		private async Task ConnectAsync()

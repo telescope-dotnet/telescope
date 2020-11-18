@@ -63,23 +63,5 @@ namespace TeleScope.MSTest.Logging
 			// assert
 			Assert.IsTrue(_log != null, "The log was inactive");
 		}
-
-		[TestMethod]
-		public void TestS7ConnectorLogging()
-		{
-			// arrange
-			var connector = new S7Connector();
-
-			// act
-			connector.Setup(new MockupSetup());
-			connector.Setup(new S7Setup());
-
-			// no assertment
-		}
-	}
-
-	class MockupSetup : SetupBase
-	{
-
 	}
 }

@@ -14,12 +14,8 @@ namespace TeleScope.Connectors.Abstractions.Events
 
 		// -- constructors
 
-		public ConnectorCompletedEventArgs(object response) : base()
-		{
-			Response = response;
-		}
 
-		public ConnectorCompletedEventArgs(object response, string name) : base(name)
+		public ConnectorCompletedEventArgs(string name, object response) : base(name)
 		{
 			Response = response;
 		}

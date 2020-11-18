@@ -4,7 +4,7 @@ using TeleScope.Connectors.Abstractions;
 
 namespace TeleScope.Connectors.Mqtt
 {
-	public class MqttSetup : SetupBase
+	public class MqttSetup 
 	{
 		// fields
 
@@ -15,7 +15,7 @@ namespace TeleScope.Connectors.Mqtt
 		/// <summary>
 		/// Gets tha broker and port as string information.
 		/// </summary>
-		public new string Name => $"{Broker}:{Port}";
+		public string Name => $"{Broker}:{Port}";
 
 		/// <summary>
 		/// Gets or sets the broker for a MQTT connection.
@@ -35,7 +35,7 @@ namespace TeleScope.Connectors.Mqtt
 		/// <summary>
 		/// Message to be published by the client when he disconnects
 		/// </summary>
-		public string LasWill { get; set; }
+		public string LastWill { get; set; }
 
 		/// <summary>
 		/// Gets or sets the quality of service value [0..2].

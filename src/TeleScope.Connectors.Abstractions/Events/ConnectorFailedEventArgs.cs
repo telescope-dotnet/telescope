@@ -24,13 +24,13 @@ namespace TeleScope.Connectors.Abstractions.Events
 			Name = name;
 		}
 
-		public ConnectorFailedEventArgs(string message, string name) : base()
+		public ConnectorFailedEventArgs(string name, string message) : base()
 		{
 			Message = message;
 			Name = name;
 		}
 
-		public ConnectorFailedEventArgs(Exception ex, string message, string name) : base()
+		public ConnectorFailedEventArgs(Exception ex, string name, string message) : base()
 		{
 			Exception = ex;
 			Message = message;

@@ -35,12 +35,6 @@ namespace TeleScope.MSTest.Infrastructure
 		public override void Arrange()
 		{
 			base.Arrange();
-
-			_s7 = new S7Connector();
-			_s7.Connected += Connected;
-			_s7.Disconnected += Disconnected;
-			_s7.Failed += Error;
-
 			_setup = new S7Setup
 			{
 				Name = "SIEMENS 08/15",
@@ -48,6 +42,10 @@ namespace TeleScope.MSTest.Infrastructure
 				Rack = 0,
 				Slot = 2
 			};
+			_s7 = new S7Connector(_setup);
+			_s7.Connected += Connected;
+			_s7.Disconnected += Disconnected;
+			_s7.Failed += Error;
 		}
 
 		[TestCleanup]
@@ -72,7 +70,7 @@ namespace TeleScope.MSTest.Infrastructure
 			}
 
 			// arrange
-			_s7.Setup(_setup).Connect();
+			_s7.Connect();
 			Assert.IsTrue(_s7.IsConnected, $"The connector should be connected to {_setup.Name}: {_setup.IPAddress}");
 			Assert.IsTrue(_s7.ResultCode == 0, $"The connector returned with the Result '{_s7.Result}'.");
 
@@ -100,7 +98,7 @@ namespace TeleScope.MSTest.Infrastructure
 			}
 
 			// arrange & act
-			_s7.Setup(_setup).Connect();
+			_s7.Connect();
 
 			// assert
 			Assert.IsTrue(_s7.IsConnected, $"The connector should be connected to {_setup.Name}: {_setup.IPAddress}");

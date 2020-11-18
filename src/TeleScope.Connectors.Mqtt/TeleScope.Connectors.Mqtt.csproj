@@ -2,6 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>TeleScope-dotnet members</Authors>
+    <Company>TeleScope-dotnet</Company>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/telescope-dotnet/telescope</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/telescope-dotnet/telescope</RepositoryUrl>
+    <AssemblyVersion>0.1.0.0</AssemblyVersion>
+    <Version>0.1.0</Version>
+    <PackageTags>Mqtt, MQTTnet</PackageTags>
+    <Description>Contains an implementation of the IConnectable interface for Mqtt. Depends on the assembly TeleScope.Connectors.Mqtt.Abstractions and MQTTnet.</Description>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,6 +20,13 @@
   <ItemGroup>
     <ProjectReference Include="..\TeleScope.Connectors.Mqtt.Abstractions\TeleScope.Connectors.Mqtt.Abstractions.csproj" />
     <ProjectReference Include="..\TeleScope.Logging\TeleScope.Logging.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

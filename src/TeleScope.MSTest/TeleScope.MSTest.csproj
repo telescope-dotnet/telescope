@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TeleScope.Connectors.Abstractions\TeleScope.Connectors.Abstractions.csproj" />
+    <ProjectReference Include="..\TeleScope.Connectors.Mqtt\TeleScope.Connectors.Mqtt.csproj" />
     <ProjectReference Include="..\TeleScope.Connectors.Plc.Abstractions\TeleScope.Connectors.Plc.Abstractions.csproj" />
     <ProjectReference Include="..\TeleScope.Connectors.Plc.Siemens\TeleScope.Connectors.Plc.Siemens.csproj" />
     <ProjectReference Include="..\TeleScope.Logging.Extensions.Serilog\TeleScope.Logging.Extensions.Serilog.csproj" />

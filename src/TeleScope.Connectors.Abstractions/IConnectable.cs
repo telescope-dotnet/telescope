@@ -20,8 +20,6 @@ namespace TeleScope.Connectors.Abstractions
 
 		// -- methods
 
-		IConnectable Setup(SetupBase setup);
-
 		IConnectable Connect();
 
 		IConnectable Disconnect();

@@ -59,9 +59,10 @@ that feature updates also may cause breaking changes.
 </td>
 </tr>
 <tr align="center">
-<td rowspan="2">
+<td>
 
-MQTT.Abstractions
+[![Nuget](https://img.shields.io/nuget/v/TeleScope.Connectors.Mqtt.Abstractions.svg?label=Mqtt.Abstractions)](https://www.nuget.org/packages/TeleScope.Connectors.Mqtt.Abstractions/)
+
 
 </td>
 <td>
@@ -71,6 +72,11 @@ MQTT.Abstractions
 </td>
 </tr>
 <tr align="center">
+<td>
+
+[![Nuget](https://img.shields.io/nuget/v/TeleScope.Connectors.Mqtt.svg?label=Mqtt)](https://www.nuget.org/packages/TeleScope.Connectors.Mqtt/)
+
+</td>
 <td>
 
 [![Nuget](https://img.shields.io/nuget/v/TeleScope.Connectors.Plc.Siemens.svg?label=Plc.Siemens)](https://www.nuget.org/packages/TeleScope.Connectors.Plc.Siemens/)

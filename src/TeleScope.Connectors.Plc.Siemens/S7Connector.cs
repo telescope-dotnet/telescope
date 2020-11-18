@@ -54,7 +54,7 @@ namespace TeleScope.Connectors.Plc.Siemens
 		public S7Connector(S7Setup s7Setup)
 		{
 			_log = LoggingProvider.CreateLogger<S7Connector>();
-			_client = new S7Client();
+			
 
 			Setup(s7Setup);
 		}
@@ -71,6 +71,7 @@ namespace TeleScope.Connectors.Plc.Siemens
 			try
 			{
 				_setup = s7Setup;
+				_client = new S7Client();
 				_log.Trace("Setup completed in {0}", this);
 			}
 			catch (ArgumentNullException ex)
@@ -152,7 +153,7 @@ namespace TeleScope.Connectors.Plc.Siemens
 					/*
 					 * Examples: 
 					 * "DB652.DBD82"
-					 * "DB652.DBX82.1"  // last values` is the number of the bit, range [0..7]
+					 * "DB652.DBX82.1"  // The last value is the number of the bit, range [0..7]
 					 * 
 					 * Meanings:
 					 * DBD = Double

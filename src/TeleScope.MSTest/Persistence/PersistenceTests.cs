@@ -9,43 +9,75 @@ using TeleScope.Logging.Extensions;
 using TeleScope.Persistence.Abstractions;
 using TeleScope.Persistence.Json;
 using TeleScope.Persistence.Json.Extensions;
+using System.IO;
 
 namespace TeleScope.MSTest.Persistence
 {
 	[TestClass]
-	public class PersistenceTests
+	public class PersistenceTests : TestsBase
 	{
-		private ILogger _log;
+		// -- fields
 
-		private JsonCrude  _json;
+		private JsonCrude  _jsonCrude;
 
-		private CrudeProvider _crud;
+		// -- overrides
 
-		public PersistenceTests()
-		{			
-			LoggingProvider.Initialize(
-				new LoggerFactory()
-					.UseTemplate("{Timestamp: HH:mm:ss} [{Level}] - {Message}{NewLine}{Exception}")
-					.UseLevel(LogLevel.Trace)
-					.AddSerilogConsole());
-			_log = LoggingProvider.CreateLogger<PersistenceTests>();
+		[TestInitialize]
+		public override void Arrange()
+		{
+			base.Arrange();
 
 			var factory = new CrudeFactory();
-			_json = factory.Json("output.json");
-			_crud = factory.CreateProvider();
-			
-			var creator = _crud.Creator;
+			_jsonCrude = factory.Json("output.json");
+			var provider = factory.CreateProvider();
+			var creator = provider.Creator;
 		}
+
+		[TestCleanup]
+		public override void Cleanup()
+		{
+			base.Cleanup();
+		}
+
+		// -- tests
 
 		[TestMethod]
 		public void JsonCrude()
 		{
-			_json.Create("data", "data.json", "subdir");
-			
-			var data = _json.Read<string>();
-			_log.Debug("{0} returned", data);
+			// arrange
+			var file = Path.Combine("subdir", "data.json");
+			var testNumber = 8.15;
 
-			_json.Delete("data.json");
+			// act & assert - create
+			_jsonCrude.Create(new MockupData
+			{
+				Number = testNumber
+			}, file);
+
+			Assert.IsTrue(File.Exists(file), $"The file '{file}' was not created.");
+			
+			// act & assert - read
+			var result = _jsonCrude.Read<MockupData>();
+			_log.Debug("{0} returned", result);
+			Assert.IsNotNull(result, $"The object was not deserialized.");
+			Assert.IsTrue(result.Number == testNumber , $"The object was not deserialized correctly.");
+
+			// act & assert - delete
+			_jsonCrude.Delete(file);
+			Assert.IsTrue(!File.Exists(file), $"The file '{file}' was not deleted.");
+		}
+	}
+
+	class MockupData
+	{
+		public string Greetings { get; set; }
+
+		public double Number { get; set; }
+
+		public MockupData()
+		{
+			Greetings = "Hello World";
+			Number = 47.11;
 		}
 	}
 }

@@ -8,7 +8,7 @@ using TeleScope.Persistence.Abstractions.Crude;
 
 namespace TeleScope.Persistence.Json
 {
-	public class JsonCrude : ICreatable, IReadable, IDeletable
+	public class JsonCrude : CrudeBase, ICreatable, IReadable, IDeletable
 	{
 		private string _file;
 		private ILogger _log;
@@ -35,7 +35,7 @@ namespace TeleScope.Persistence.Json
 
 		public void Create(object input, params object[] parameters)
 		{
-			Create(input, parameters[0], parameters[1]);
+			Create(input, ConvertOrThrow<string>(parameters[0]));
 		}
 
 		public void Create(object input, string file)
@@ -64,20 +64,31 @@ namespace TeleScope.Persistence.Json
 
 		public T Read<T>(params object[] parameters)
 		{
-			_log.Trace("json reading successfull from {0}", _file, parameters);
+			
+			return Read<T>(ConvertOrThrow<string>(parameters[0]));
+		}
+
+		public T Read<T>(string file)
+		{
+			_file = file;
 			return Read<T>();
 		}
 
 		public T Read<T>()
 		{
-			_log.Trace("json reading successfull from {0}", _file);
-			return default(T);
+			string json = string.Empty;
+			using (StreamReader r = new StreamReader(_file))
+			{
+				json = r.ReadToEnd();
+			}
+			var obj = JsonConvert.DeserializeObject<T>(json, _settings);
+			_log.Trace("Reading json successfull from {0}", _file);
+			return obj;
 		}
 
 		public void Delete(params object[] parameters)
 		{
-			// TODO: validate parameters
-			Delete(parameters[0] as string);
+			Delete(ConvertOrThrow<string>(parameters[0]));
 		}
 
 		public void Delete(string file)
@@ -88,7 +99,15 @@ namespace TeleScope.Persistence.Json
 
 		public void Delete()
 		{
-			_log.Trace("{0} was deleted.", _file);
-		}	
+			if (File.Exists(_file))
+			{
+				File.Delete(_file);
+				_log.Trace("The file {0} was deleted.", _file);
+			}
+			else
+			{
+				_log.Trace("The file {0} was not found for deletion.", _file);
+			}
+		}
 	}
 }

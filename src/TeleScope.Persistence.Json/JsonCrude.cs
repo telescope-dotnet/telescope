@@ -56,15 +56,12 @@ namespace TeleScope.Persistence.Json
 			}
 
 			var json = JsonConvert.SerializeObject(input, Formatting.Indented, _settings);
-
 			File.WriteAllText(_file, json);
-
 			_log.Trace("Json file created: {0}", _file);
 		}
 
 		public T Read<T>(params object[] parameters)
-		{
-			
+		{	
 			return Read<T>(ConvertOrThrow<string>(parameters[0]));
 		}
 

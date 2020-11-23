@@ -28,9 +28,9 @@ namespace TeleScope.MSTest.Persistence
 			base.Arrange();
 
 			var factory = new CrudeFactory();
-			_jsonCrude = factory.Json("output.json");
+			_jsonCrude = factory.AddJson("output.json");
 			var provider = factory.CreateProvider();
-			var creator = provider.Creator;
+			var jsonCrude = provider.As<JsonCrude>();
 		}
 
 		[TestCleanup]

@@ -1,20 +1,27 @@
-﻿using TeleScope.Persistence.Abstractions.Crude;
+﻿using System;
+using TeleScope.Persistence.Abstractions.Crude;
 
 namespace TeleScope.Persistence.Abstractions
 {
 	public class CrudeProvider : ICreatable, IReadable, IUpdatable, IDeletable
 	{
-		public ICreatable Creator { get; private set; }
-		public IReadable Reader { get; private set; }
-		public IUpdatable Updater { get; private set; }
-		public IDeletable Deleter { get; private set; }
+		private CrudeBase _crude;
 
-		public CrudeProvider(ICreatable c, IReadable r, IUpdatable u, IDeletable d)
+		public ICreatable Creator => (_crude is ICreatable ? _crude as ICreatable : null);
+		public IReadable Reader => (_crude is IReadable ? _crude as IReadable : null);
+		public IUpdatable Updater => (_crude is IUpdatable ? _crude as IUpdatable : null);
+		public IDeletable Deleter => (_crude is IDeletable ? _crude as IDeletable : null);
+
+		public CrudeProvider(CrudeBase crude)
 		{
-			Creator = c;
-			Reader = r;
-			Updater = u;
-			Deleter = d;
+			_crude = crude;
+		}
+
+		// -- generic methods
+
+		public T As<T>() where T : CrudeBase
+		{
+			return (T)Convert.ChangeType(_crude, typeof(T));
 		}
 
 		public void Create(object data)

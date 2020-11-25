@@ -5,8 +5,7 @@ using System.Text;
 namespace TeleScope.Persistence.Abstractions.Crude
 {
 	public abstract class CrudeBase
-	{
-		 
+	{		
 		protected T ConvertOrThrow<T>(object param)
 		{
 			if (param == null)

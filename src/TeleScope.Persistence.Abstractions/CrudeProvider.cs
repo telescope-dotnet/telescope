@@ -26,42 +26,42 @@ namespace TeleScope.Persistence.Abstractions
 
 		public void Create(object data)
 		{
-			Creator.Create(data);
+			Creator?.Create(data);
 		}
 
 		public void Create(object data, params object[] parameters)
 		{
-			Creator.Create(data, parameters);
+			Creator?.Create(data, parameters);
 		}
 
 		public T Read<T>()
 		{
-			return Reader.Read<T>();
+			return Reader != null ? Reader.Read<T>() : default;
 		}
 
 		public T Read<T>(params object[] parameters)
 		{
-			return Reader.Read<T>(parameters);
+			return Reader != null ? Reader.Read<T>(parameters) : default;
 		}
 
 		public void Update(object data)
 		{
-			Updater.Update(data);
+			Updater?.Update(data);
 		}
 
 		public void Update(object data, params object[] parameters)
 		{
-			Updater.Update(data, parameters);
+			Updater?.Update(data, parameters);
 		}
 
 		public void Delete()
 		{
-			Deleter.Delete();
+			Deleter?.Delete();
 		}
 
 		public void Delete(params object[] parameters)
 		{
-			Deleter.Delete(parameters);
+			Deleter?.Delete(parameters);
 		}
 	}
 }

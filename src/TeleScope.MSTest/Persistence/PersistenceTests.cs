@@ -19,6 +19,7 @@ namespace TeleScope.MSTest.Persistence
 		// -- fields
 
 		private JsonCrude  _jsonCrude;
+		private CrudeProvider _provider;
 
 		// -- overrides
 
@@ -28,9 +29,9 @@ namespace TeleScope.MSTest.Persistence
 			base.Arrange();
 
 			var factory = new CrudeFactory();
-			_jsonCrude = factory.AddJson("output.json");
-			var provider = factory.CreateProvider();
-			var jsonCrude = provider.As<JsonCrude>();
+			factory.AddJson("output.json");
+			_provider = factory.CreateProvider();
+			_jsonCrude = _provider.As<JsonCrude>();
 		}
 
 		[TestCleanup]
@@ -47,12 +48,13 @@ namespace TeleScope.MSTest.Persistence
 			// arrange
 			var file = Path.Combine("subdir", "data.json");
 			var testNumber = 8.15;
-
-			// act & assert - create
-			_jsonCrude.Create(new MockupData
+			var data = new MockupData
 			{
 				Number = testNumber
-			}, file);
+			};
+
+			// act & assert - create
+			_jsonCrude.Create(data, file);
 
 			Assert.IsTrue(File.Exists(file), $"The file '{file}' was not created.");
 			
@@ -65,6 +67,11 @@ namespace TeleScope.MSTest.Persistence
 			// act & assert - delete
 			_jsonCrude.Delete(file);
 			Assert.IsTrue(!File.Exists(file), $"The file '{file}' was not deleted.");
+
+			// act assert - update (should not throw an exception)
+			_provider.Update(data);
+
+
 		}
 	}
 

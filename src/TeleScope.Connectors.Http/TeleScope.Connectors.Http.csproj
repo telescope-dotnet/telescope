@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TeleScope.Connectors.Http.Abstractions\TeleScope.Connectors.Http.Abstractions.csproj" />
+    <ProjectReference Include="..\TeleScope.Logging\TeleScope.Logging.csproj" />
+  </ItemGroup>
+
+</Project>

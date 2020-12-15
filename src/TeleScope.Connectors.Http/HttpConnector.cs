@@ -50,15 +50,35 @@ namespace TeleScope.Connectors.Http
 
 		// -- methods
 
-		IConnectable IConnectable.Connect()
+		/// <summary>
+		/// Tests the connectivity to the configured http endpoint and
+		/// sets the endpoint configuration.
+		/// </summary>
+		/// <param name="endpoint"></param>
+		/// <returns>The calling instance.</returns>
+		public IHttpConnectable Connect(HttpEndpoint endpoint)
 		{
-			throw new NotImplementedException();
+			return Connect(_client, endpoint);
+		}
+
+		/// <summary>
+		/// Tests the connectivity to the configured http endpoint and
+		/// sets the client and endpoint configuration.
+		/// </summary>
+		/// <param name="client"></param>
+		/// <param name="endpoint"></param>
+		/// <returns>The calling instance.</returns>
+		public IHttpConnectable Connect(HttpClient client, HttpEndpoint endpoint)
+		{
+			_client = client;
+			_endpoint = endpoint;
+			return Connect();
 		}
 
 		/// <summary>
 		/// Tests the connectivity to the configured http endpoint.
 		/// </summary>
-		/// <returns></returns>
+		/// <returns>The calling instance.</returns>
 		public IHttpConnectable Connect()
 		{
 			if (!Validate())
@@ -96,18 +116,9 @@ namespace TeleScope.Connectors.Http
 			return this;
 		}
 
-		/// <summary>
-		/// Tests the connectivity to the configured http endpoint and
-		/// sets the client and endpoint configuration.
-		/// </summary>
-		/// <param name="client"></param>
-		/// <param name="endpoint"></param>
-		/// <returns></returns>
-		public IHttpConnectable Connect(HttpClient client, HttpEndpoint endpoint)
+		IConnectable IConnectable.Connect()
 		{
-			_client = client;
-			_endpoint = endpoint;
-			return Connect();
+			throw new NotImplementedException();
 		}
 
 		public IConnectable Disconnect()
@@ -189,5 +200,7 @@ namespace TeleScope.Connectors.Http
 
 			return true;
 		}
+
+	
 	}
 }

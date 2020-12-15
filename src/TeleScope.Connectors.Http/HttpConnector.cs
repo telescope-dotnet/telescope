@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using TeleScope.Connectors.Abstractions;
 using TeleScope.Connectors.Abstractions.Events;
-using TeleScope.Connectors.Abstractions.Secrets;
 using TeleScope.Connectors.Http.Abstractions;
 using TeleScope.Logging;
 using TeleScope.Logging.Extensions;
@@ -56,8 +55,17 @@ namespace TeleScope.Connectors.Http
 			throw new NotImplementedException();
 		}
 
+		/// <summary>
+		/// Tests the connectivity to the configured http endpoint.
+		/// </summary>
+		/// <returns></returns>
 		public IHttpConnectable Connect()
 		{
+			if (!Validate())
+			{
+				return this;
+			}
+
 			_client.BaseAddress = _endpoint.Address;
 
 			HttpWebRequest request = (HttpWebRequest)WebRequest.Create(_client.BaseAddress);
@@ -80,6 +88,7 @@ namespace TeleScope.Connectors.Http
 			}
 			catch (WebException wex)
 			{
+				_log.Trace(wex, $"Http connection failed '{_client.BaseAddress.AbsoluteUri}'.");
 				Failed?.Invoke(this, new ConnectorFailedEventArgs(wex, _client.BaseAddress.AbsoluteUri));
 			}
 
@@ -87,6 +96,13 @@ namespace TeleScope.Connectors.Http
 			return this;
 		}
 
+		/// <summary>
+		/// Tests the connectivity to the configured http endpoint and
+		/// sets the client and endpoint configuration.
+		/// </summary>
+		/// <param name="client"></param>
+		/// <param name="endpoint"></param>
+		/// <returns></returns>
 		public IHttpConnectable Connect(HttpClient client, HttpEndpoint endpoint)
 		{
 			_client = client;
@@ -154,5 +170,24 @@ namespace TeleScope.Connectors.Http
 			return convert(response);
 		}
 
+		// -- helper
+
+		private bool Validate()
+		{
+			var err = "The http conncetor is not ready.";
+			if (_client == null)
+			{
+				_log.Error($"{err} The client is null.");
+				return false;
+			}
+
+			if (_endpoint == null)
+			{
+				_log.Error($"{err} The endpoint configuration is null.");
+				return false;
+			}
+
+			return true;
+		}
 	}
 }

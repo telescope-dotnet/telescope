@@ -30,7 +30,6 @@ namespace TeleScope.MSTest.Infrastructure
 		[TestMethod]
 		public async Task RequestResponse()
 		{
-
             // arrange
             var endpoint = new HttpEndpoint
             {
@@ -42,7 +41,7 @@ namespace TeleScope.MSTest.Infrastructure
             http.Connected += (o, e) =>
             {
                 var message = e.Name;
-                _log.Info($"Http connection ok to: {e.Name}");
+                _log.Info($"Http connection successful: {e.Name}");
                 Assert.IsTrue(http.IsConnected, "The http connection should be okay");
             };
             http.Failed += (o, e) =>

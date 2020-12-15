@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,39 +25,49 @@ namespace TeleScope.MSTest.Infrastructure
 		}
 
 		// -- Test methods
-
+		
 		[TestMethod]
 		public async Task RequestResponse()
 		{
-            // arrange
-            var endpoint = new HttpEndpoint
-            {
-                Address = new Uri(new Uri("https://reqres.in"), "/api/users"),
-                MethodName = "get"
-            };
-            
-            var http = new HttpConnector(new HttpClient(), endpoint);
-            http.Connected += (o, e) =>
-            {
-                var message = e.Name;
-                _log.Info($"Http connection successful: {e.Name}");
-                Assert.IsTrue(http.IsConnected, "The http connection should be okay");
-            };
-            http.Failed += (o, e) =>
-            {
-                _log.Error(e.Exception, $"Http failed: {e.Message}");
-                Assert.Fail(e.Message);
-            };
+			// arrange
+			var endpoint = new HttpEndpoint
+			{
+				Address = new Uri(new Uri("https://reqres.in"), "/api/users"),
+				MethodName = "get"
+			};
+			var http = GetHttpConnector(endpoint);
+			
 
-            var connected = http.Connect().IsConnected;
-            Assert.IsTrue(connected, "The connection should be good");
+			// act
+			var result = await http.CallAsync();
 
-            // act
-            var result = await http
-                .CallAsync();
+			// assert
+			Assert.IsNotNull(result);
+		}
 
-            // assert
-            Assert.IsNotNull(result);
-        }
+		// -- helper
+
+		private IHttpConnectable GetHttpConnector(HttpEndpoint endpoint)
+		{
+			var http = new HttpConnector(new HttpClient(), endpoint);
+			http.Connected += (o, e) =>
+			{
+				var message = e.Name;
+				_log.Info($"Http connection successful: {e.Name}");
+				Assert.IsTrue(http.IsConnected, "The http connection should be okay");
+			};
+			http.Failed += (o, e) =>
+			{
+				_log.Error(e.Exception, $"Http failed: {e.Message}");
+				Assert.Fail(e.Message);
+			};
+
+			var connected = http.Connect().IsConnected;
+			Assert.IsTrue(connected, "The connection should be good");
+
+			return http;
+		}
+
+
 	}
 }

@@ -22,6 +22,6 @@ jobs:
     - name: Install dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --configuration Release --no-restore --unsafe
+      run: dotnet build --configuration Release --no-restore
     - name: Test
       run: dotnet test --configuration Release --no-restore --settings ${{env.test-settings}} --verbosity normal

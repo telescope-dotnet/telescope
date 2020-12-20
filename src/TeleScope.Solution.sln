@@ -19,6 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeleScope.Connectors.Plc.Si
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2F1806C7-C1A8-4A27-9B64-6CD7B45D5516}"
 	ProjectSection(SolutionItems) = preProject
+		..\.sonarcloud.properties = ..\.sonarcloud.properties
 		..\.github\workflows\build-and-test.yml = ..\.github\workflows\build-and-test.yml
 		..\.github\workflows\publish-to-nuget.yml = ..\.github\workflows\publish-to-nuget.yml
 		..\README.md = ..\README.md
@@ -38,9 +39,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeleScope.Connectors.Mqtt.A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeleScope.Connectors.Mqtt", "TeleScope.Connectors.Mqtt\TeleScope.Connectors.Mqtt.csproj", "{6C45BA2F-81BB-4C36-9F0F-43FB82851063}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeleScope.Connectors.Http.Abstractions", "TeleScope.Connectors.Http.Abstractions\TeleScope.Connectors.Http.Abstractions.csproj", "{868FEB20-0EBD-4721-8070-AC9B05FF4CBD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeleScope.Connectors.Http.Abstractions", "TeleScope.Connectors.Http.Abstractions\TeleScope.Connectors.Http.Abstractions.csproj", "{868FEB20-0EBD-4721-8070-AC9B05FF4CBD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeleScope.Connectors.Http", "TeleScope.Connectors.Http\TeleScope.Connectors.Http.csproj", "{224EA20A-2E3E-4A25-99B2-DC3FFE9949CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeleScope.Connectors.Http", "TeleScope.Connectors.Http\TeleScope.Connectors.Http.csproj", "{224EA20A-2E3E-4A25-99B2-DC3FFE9949CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

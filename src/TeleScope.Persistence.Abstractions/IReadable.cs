@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TeleScope.Persistence.Abstractions.Crude
+namespace TeleScope.Persistence.Abstractions
 {
 	public interface IReadable
 	{
 		T Read<T>();
-		T Read<T>(params object[] parameters);
 	}
 }

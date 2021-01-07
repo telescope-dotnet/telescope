@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.Extensions.Logging;
+﻿using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TeleScope.Logging;
-using TeleScope.Logging.Extensions.Serilog;
 using TeleScope.Logging.Extensions;
-using TeleScope.Persistence.Abstractions;
+using TeleScope.Persistence.Abstractions.Factory;
 using TeleScope.Persistence.Json;
 using TeleScope.Persistence.Json.Extensions;
-using System.IO;
 
 namespace TeleScope.MSTest.Persistence
 {
@@ -18,8 +12,9 @@ namespace TeleScope.MSTest.Persistence
 	{
 		// -- fields
 
-		private JsonCrude  _jsonCrude;
-		private CrudeProvider _provider;
+		private StorageFactory _factory;
+		private JsonStorage _json;
+		private StorageProxyBase _proxy;
 
 		// -- overrides
 
@@ -28,10 +23,11 @@ namespace TeleScope.MSTest.Persistence
 		{
 			base.Arrange();
 
-			var factory = new CrudeFactory();
-			factory.AddJson("output.json");
-			_provider = factory.CreateProvider();
-			_jsonCrude = _provider.As<JsonCrude>();
+			var file = "output.json";
+			_factory = new StorageFactory();
+			_json = _factory.AddJson(file, "json-1");
+			_json = new JsonStorage(file, true, true);
+			_factory.Add("json-2", _json);
 		}
 
 		[TestCleanup]
@@ -43,7 +39,7 @@ namespace TeleScope.MSTest.Persistence
 		// -- tests
 
 		[TestMethod]
-		public void JsonCrude()
+		public void JsonWriteReadDelete()
 		{
 			// arrange
 			var file = Path.Combine("subdir", "data.json");
@@ -53,25 +49,21 @@ namespace TeleScope.MSTest.Persistence
 				Number = testNumber
 			};
 
-			// act & assert - create
-			_jsonCrude.Create(data, file);
-
+			// act & assert - write (create) 
+			_json.SetFile(file).Write(data);
 			Assert.IsTrue(File.Exists(file), $"The file '{file}' was not created.");
-			
+
 			// act & assert - read
-			var result = _jsonCrude.Read<MockupData>();
-			_log.Debug("{0} returned", result);
+			_proxy = _factory.CreateProxy("json-2", (s) => new JsonProxy(s));
+
+			var result = _proxy.Read<MockupData>();
+			_log.Debug("{0} returned from read method", result);
 			Assert.IsNotNull(result, $"The object was not deserialized.");
-			Assert.IsTrue(result.Number == testNumber , $"The object was not deserialized correctly.");
+			Assert.IsTrue(result.Number == testNumber, $"The object was not deserialized correctly.");
 
-			// act & assert - delete
-			_jsonCrude.Delete(file);
+			// act & assert - write (delete)
+			_factory.GetWriterAccess("json-2").Write<MockupData>(null);
 			Assert.IsTrue(!File.Exists(file), $"The file '{file}' was not deleted.");
-
-			// act assert - update (should not throw an exception)
-			_provider.Update(data);
-
-
 		}
 	}
 

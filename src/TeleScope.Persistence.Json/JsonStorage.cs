@@ -7,10 +7,11 @@ using TeleScope.Persistence.Abstractions;
 
 namespace TeleScope.Persistence.Json
 {
-	public class JsonStorage : IStorable
+	public class JsonStorage : IReadable, IWritable
 	{
 		private ILogger _log;
 		private string _file;
+		private string _input;
 		private JsonSerializerSettings _settings;
 
 		public bool CanCreate { get; protected set; }
@@ -54,22 +55,28 @@ namespace TeleScope.Persistence.Json
 
 		// -- methods
 
-		public IStorable SetFile(string file)
+		public IReadable SetFile(string file)
 		{
 			_file = file;
 			return this;
 		}
 
-		public T Read<T>()
+
+		public IReadable Read()
 		{
-			string json = string.Empty;
+			_input = string.Empty;
 			using (StreamReader r = new StreamReader(_file))
 			{
-				json = r.ReadToEnd();
+				_input = r.ReadToEnd();
 			}
-			var obj = JsonConvert.DeserializeObject<T>(json, _settings);
+			
 			_log.Trace("Reading json successfull from {0}", _file);
-			return obj;
+			return this;
+		}
+
+		public T As<T>()
+		{
+			return JsonConvert.DeserializeObject<T>(_input, _settings);
 		}
 
 		public void Write<T>(T data)
@@ -118,5 +125,6 @@ namespace TeleScope.Persistence.Json
 				_log.Trace("The file {0} was not found for deletion.", _file);
 			}
 		}
+
 	}
 }

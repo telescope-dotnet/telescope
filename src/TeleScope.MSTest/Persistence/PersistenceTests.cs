@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TeleScope.Logging.Extensions;
 using TeleScope.Persistence.Abstractions.Factory;
+using TeleScope.Persistence.Csv;
 using TeleScope.Persistence.Json;
 using TeleScope.Persistence.Json.Extensions;
 
@@ -13,8 +14,6 @@ namespace TeleScope.MSTest.Persistence
 		// -- fields
 
 		private StorageFactory _factory;
-		private JsonStorage _json;
-		private StorageProxyBase _proxy;
 
 		// -- overrides
 
@@ -25,9 +24,9 @@ namespace TeleScope.MSTest.Persistence
 
 			var file = "output.json";
 			_factory = new StorageFactory();
-			_json = _factory.AddJson(file, "json-1");
-			_json = new JsonStorage(file, true, true);
-			_factory.Add("json-2", _json);
+			_factory.AddJson(file, "json-1");
+			var json = new JsonStorage(file, true, true);
+			_factory.Add("json-2", json);
 		}
 
 		[TestCleanup]
@@ -36,7 +35,17 @@ namespace TeleScope.MSTest.Persistence
 			base.Cleanup();
 		}
 
-		// -- tests
+		// -- tests#
+
+		[TestMethod]
+		public void CsvRead()
+		{
+			var setup = new CsvStorageSetup("data.csv");
+
+			var csv = new CsvStorage(setup);
+
+			var result = csv.Read<MockupData>();
+		}
 
 		[TestMethod]
 		public void JsonWriteReadDelete()
@@ -48,15 +57,16 @@ namespace TeleScope.MSTest.Persistence
 			{
 				Number = testNumber
 			};
+			var json = _factory.GetStorageAccess("json-2") as JsonStorage;
+			var proxy = _factory.CreateProxy("json-2", (s) => new JsonProxy(s));
 
 			// act & assert - write (create) 
-			_json.SetFile(file).Write(data);
+			json.SetFile(file).Write(data);
 			Assert.IsTrue(File.Exists(file), $"The file '{file}' was not created.");
 
 			// act & assert - read
-			_proxy = _factory.CreateProxy("json-2", (s) => new JsonProxy(s));
 
-			var result = _proxy.Read<MockupData>();
+			var result = proxy.Read<MockupData>();
 			_log.Debug("{0} returned from read method", result);
 			Assert.IsNotNull(result, $"The object was not deserialized.");
 			Assert.IsTrue(result.Number == testNumber, $"The object was not deserialized correctly.");

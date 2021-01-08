@@ -6,6 +6,8 @@ namespace TeleScope.Persistence.Abstractions
 {
 	public interface IReadable
 	{
-		T Read<T>();
+		IReadable Read();
+
+		T As<T>();
 	}
 }

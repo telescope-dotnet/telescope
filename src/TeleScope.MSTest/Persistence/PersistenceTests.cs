@@ -1,10 +1,11 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TeleScope.Logging.Extensions;
-using TeleScope.Persistence.Abstractions.Factory;
+using TeleScope.Persistence.Abstractions;
 using TeleScope.Persistence.Csv;
 using TeleScope.Persistence.Json;
-using TeleScope.Persistence.Json.Extensions;
 
 namespace TeleScope.MSTest.Persistence
 {
@@ -13,7 +14,7 @@ namespace TeleScope.MSTest.Persistence
 	{
 		// -- fields
 
-		private StorageFactory _factory;
+		//private StorageFactory _factory;
 
 		// -- overrides
 
@@ -21,12 +22,6 @@ namespace TeleScope.MSTest.Persistence
 		public override void Arrange()
 		{
 			base.Arrange();
-
-			var file = "output.json";
-			_factory = new StorageFactory();
-			_factory.AddJson(file, "json-1");
-			var json = new JsonStorage(file, true, true);
-			_factory.Add("json-2", json);
 		}
 
 		[TestCleanup]
@@ -35,58 +30,109 @@ namespace TeleScope.MSTest.Persistence
 			base.Cleanup();
 		}
 
-		// -- tests#
+		// -- tests
 
 		[TestMethod]
-		public void CsvRead()
+		public void CsvCreateReadDelete()
 		{
-			var setup = new CsvStorageSetup("data.csv");
+			// arrange
+			var setup = new CsvStorageSetup("App_Data/data.csv");
+			setup.Header = "This is my awesome\r\nHEADER";
+			setup.StartIndex = 2;
+			var csv = new CsvStorage<Mockup>(setup)
+			{
+				IncomingParser = new CsvToMockupParser(),
+				OutgoingParser = new MockupToCsvParser()
+			};
 
-			var csv = new CsvStorage(setup);
+			var data = new List<Mockup>
+			{
+				new Mockup
+				{
+					Greetings = "mockup 1",
+					Number = 123
+				},
+				new Mockup
+				{
+					Greetings = "whohoo 2",
+					Number = -456
+				}
+			};
 
-			var result = csv.Read<MockupData>();
+			// act & assert: create
+			csv.Write(data);
+			Assert.IsTrue(File.Exists(setup.File), $"The file '{setup.File}' was not created.");
+
+			// act & assert: read
+			var result = csv.Read();
+			Assert.IsNotNull(result);
+			Assert.IsTrue(result.Count() == 2);
+
+			// act & assert: delete
+			csv.Write(null);
+			Assert.IsTrue(!File.Exists(setup.File), $"The file '{setup.File}' was not deleted.");
 		}
 
 		[TestMethod]
-		public void JsonWriteReadDelete()
+		public void JsonCreateReadDelete()
 		{
 			// arrange
-			var file = Path.Combine("subdir", "data.json");
-			var testNumber = 8.15;
-			var data = new MockupData
+			var file = Path.Combine("App_Data", "data.json");
+			var testNumber = 4711;
+			var data = new Mockup
 			{
 				Number = testNumber
 			};
-			var json = _factory.GetStorageAccess("json-2") as JsonStorage;
-			var proxy = _factory.CreateProxy("json-2", (s) => new JsonProxy(s));
+
+			var json = new JsonStorage<Mockup>(file, true, true);
 
 			// act & assert - write (create) 
-			json.SetFile(file).Write(data);
+			json.Write(new Mockup[] { data });
 			Assert.IsTrue(File.Exists(file), $"The file '{file}' was not created.");
 
 			// act & assert - read
 
-			var result = proxy.Read<MockupData>();
+			var array = json.Read();
+			var result = array.First();
 			_log.Debug("{0} returned from read method", result);
 			Assert.IsNotNull(result, $"The object was not deserialized.");
 			Assert.IsTrue(result.Number == testNumber, $"The object was not deserialized correctly.");
 
 			// act & assert - write (delete)
-			_factory.GetWriterAccess("json-2").Write<MockupData>(null);
+			json.Write(null);
 			Assert.IsTrue(!File.Exists(file), $"The file '{file}' was not deleted.");
 		}
 	}
 
-	class MockupData
+	class Mockup
 	{
 		public string Greetings { get; set; }
 
-		public double Number { get; set; }
+		public int Number { get; set; }
 
-		public MockupData()
+		public Mockup()
 		{
 			Greetings = "Hello World";
-			Number = 47.11;
+			Number = -1;
+		}
+	}
+
+	class CsvToMockupParser : IParsable<Mockup>
+	{
+		public Mockup Parse<Tin>(Tin input)
+		{
+			string[] fields = input as string[];
+			return new Mockup { Number = int.Parse(fields[0]), Greetings = fields[1] };
+		}
+	}
+
+	class MockupToCsvParser : IParsable<string[]>
+	{
+		string[] IParsable<string[]>.Parse<Tin>(Tin input)
+		{
+			var mockup = input as Mockup;
+
+			return new string[] { mockup.Number.ToString(), $"Mockup says '{mockup.Greetings}'." };
 		}
 	}
 }

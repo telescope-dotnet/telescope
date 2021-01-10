@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TeleScope.Persistence.Abstractions
 {
-	public interface IWritable
+	public interface IWritable<Tin, Tout>
 	{
 
 		// -- properties
@@ -13,8 +13,10 @@ namespace TeleScope.Persistence.Abstractions
 
 		bool CanDelete { get; }
 
+		IParsable<Tout> OutgoingParser { get; set; }
+
 		// -- methods
 
-		void Write<T>(T data);
+		void Write(IEnumerable<Tin> data);
 	}
 }

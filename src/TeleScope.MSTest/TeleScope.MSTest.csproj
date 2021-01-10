@@ -26,4 +26,8 @@
     <ProjectReference Include="..\TeleScope.UI.Cli\TeleScope.UI.Cli.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+
 </Project>

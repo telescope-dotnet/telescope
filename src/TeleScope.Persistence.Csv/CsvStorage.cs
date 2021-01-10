@@ -1,7 +1,5 @@
-﻿using System;
-using System.Data;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using Microsoft.Extensions.Logging;
 using TeleScope.Logging;
@@ -10,7 +8,7 @@ using TeleScope.Persistence.Abstractions;
 
 namespace TeleScope.Persistence.Csv
 {
-	public class CsvStorage : IReadable, IWritable
+	public class CsvStorage<T> : IReadable<string[], T>, IWritable<T, string[]>
 	{
 
 		// -- fields
@@ -18,88 +16,101 @@ namespace TeleScope.Persistence.Csv
 		private ILogger _log;
 		private CsvStorageSetup _setup;
 
-		private DataTable _table;
-
 		// -- properties
 
-		public bool CanCreate => throw new NotImplementedException();
+		public bool CanCreate { get; private set; }
+		public bool CanDelete { get; private set; }
+		public IParsable<T> IncomingParser { get; set; }
+		public IParsable<string[]> OutgoingParser { get; set; }
 
-		public bool CanDelete => throw new NotImplementedException();
+		// -- concstructor
 
-
-
-		public CsvStorage(CsvStorageSetup setup)
+		public CsvStorage(CsvStorageSetup setup, bool canCreate = true, bool canDelete = true)
 		{
-			_log = LoggingProvider.CreateLogger<CsvStorage>();
+			_log = LoggingProvider.CreateLogger<CsvStorage<T>>();
 			_setup = setup;
 
+			// TODO implement create and delete behavior
+			CanCreate = canCreate;
+			CanDelete = canDelete;
 		}
 
-		public IReadable Read()
+		public IEnumerable<T> Read()
+		{
+			List<T> result = new List<T>();
+
+			string[] lines = File.ReadAllLines(_setup.File);
+
+			// read all rows
+			for (int i = _setup.StartIndex; i < lines.Length; i++)
+			{
+				string[] fields = lines[i].Split(_setup.Separator);
+				result.Add(IncomingParser.Parse<string[]>(fields));
+			}
+
+			_log.Trace($"csv import successfull for '{_setup.Filename}'");
+
+			return result;
+		}
+
+		public void Write(IEnumerable<T> data)
 		{
 
-			try
+			if (data == null)
 			{
-				_table = new DataTable();
-				_table.TableName = _setup.Filename;
-
-				string[] lines = File.ReadAllLines(_setup.File);
-
-				string[] fields;
-
-				// TODO: find a solution for files without header
-
-				/*
-				 * prepare table
-				 */
-				_table.Columns.AddRange(
-					lines[0]		// read header at line 0, this must be present currently
-					.ToLower()
-					.Split(new char[] { _setup.Separator })
-					.Select(s => new DataColumn(s))
-					.ToArray());
-
-
-				/*
-				 * read all rows
-				 */
-				DataRow row;
-				for (int i = 1; i < lines.GetLength(0); i++)
+				if (CanDelete)
 				{
-					fields = lines[i].Split(new char[] { _setup.Separator });
-					row = _table.NewRow();
-					for (int f = 0; f < fields.Length; f++)
-					{
-						row[f] = fields[f];
-
-					}
-					_table.Rows.Add(row);
+					Delete();
 				}
-
-				_log.Trace($"csv import successfull for '{_setup.Filename}'");
+				return;
 			}
-			catch (Exception ex)
+
+			if (CanCreate &&
+				!string.IsNullOrEmpty(_setup.Location) &&
+				!Directory.Exists(_setup.Location))
 			{
-				throw ex;
+				Create(_setup.Location);
 			}
-			finally
+
+			var csv = new StringBuilder();
+			var result = string.Empty;
+			var seperator = _setup.Separator.ToString();
+
+			if (_setup.HasHeader)
 			{
-
+				csv.AppendLine(_setup.Header);
 			}
-			
-			return this;
+
+			// append data
+			foreach (T item in data)
+			{
+				var line = string.Join(seperator, OutgoingParser.Parse<T>(item));
+				csv.AppendLine(line);
+			}
+
+			// flush to file
+			File.WriteAllText(_setup.File, csv.ToString());
+			_log.Trace($"csv export successfull for '{_setup.Filename}'");
 		}
 
-		public T As<T>()
+		private void Create(string location)
 		{
-			throw new NotImplementedException();
+			Directory.CreateDirectory(location);
+			_log.Trace("Directory created for file: {0}", _setup.File);
 		}
 
-		public void Write<T>(T data)
+		private void Delete()
 		{
-			throw new NotImplementedException();
+			if (File.Exists(_setup.File))
+			{
+				File.Delete(_setup.File);
+				_log.Trace("The file {0} was deleted.", _setup.File);
+			}
+			else
+			{
+				_log.Trace("The file {0} was not found for deletion.", _setup.File);
+			}
 		}
 
-		
 	}
 }

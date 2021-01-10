@@ -4,10 +4,14 @@ using System.Text;
 
 namespace TeleScope.Persistence.Abstractions
 {
-	public interface IReadable
-	{
-		IReadable Read();
+	public interface IReadable<Tin, Tout>
+	{	
+		// -- properties
+		
+		IParsable<Tout> IncomingParser { get; set; }
 
-		T As<T>();
+		// -- methods
+
+		IEnumerable<Tout> Read();
 	}
 }

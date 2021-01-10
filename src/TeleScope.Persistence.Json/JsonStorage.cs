@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using TeleScope.Logging;
@@ -7,22 +9,22 @@ using TeleScope.Persistence.Abstractions;
 
 namespace TeleScope.Persistence.Json
 {
-	public class JsonStorage : IReadable, IWritable
+	public class JsonStorage<T> : IReadable<string, T>, IWritable<T, string>
 	{
 		private ILogger _log;
 		private string _file;
-		private string _input;
 		private JsonSerializerSettings _settings;
 
 		public bool CanCreate { get; protected set; }
-
 		public bool CanDelete { get; protected set; }
+		public IParsable<T> IncomingParser { get; set; }
+		public IParsable<string> OutgoingParser { get; set; }
 
 		// -- constructors
 
 		private JsonStorage()
 		{
-			_log = LoggingProvider.CreateLogger<JsonStorage>();
+			_log = LoggingProvider.CreateLogger<JsonStorage<T>>();
 
 			_file = "output.json";
 			_settings = new JsonSerializerSettings();
@@ -55,31 +57,22 @@ namespace TeleScope.Persistence.Json
 
 		// -- methods
 
-		public IReadable SetFile(string file)
+		public IEnumerable<T> Read()
 		{
-			_file = file;
-			return this;
-		}
-
-
-		public IReadable Read()
-		{
-			_input = string.Empty;
+			T result = default;
 			using (StreamReader r = new StreamReader(_file))
 			{
-				_input = r.ReadToEnd();
+				// TODO convert 
+				string input = r.ReadToEnd();
+				result = JsonConvert.DeserializeObject<T>(input);
 			}
 			
 			_log.Trace("Reading json successfull from {0}", _file);
-			return this;
+			return new List<T> { result };
 		}
 
-		public T As<T>()
-		{
-			return JsonConvert.DeserializeObject<T>(_input, _settings);
-		}
 
-		public void Write<T>(T data)
+		public void Write(IEnumerable<T> data)
 		{
 			if (data == null)
 			{
@@ -97,20 +90,30 @@ namespace TeleScope.Persistence.Json
 			var filename = Path.GetFileName(_file);
 			var location = Path.GetFullPath(_file).Replace(filename, "");
 
-			if (!string.IsNullOrEmpty(location) && !Directory.Exists(location) && CanCreate)
+			if (CanCreate &&
+				!string.IsNullOrEmpty(location) &&
+				!Directory.Exists(location))
 			{
 				Create(location);
 			}
 
-			var json = JsonConvert.SerializeObject(data, Formatting.Indented, _settings);
+			string json;
+			if (data.Count() == 1)
+			{
+				json = JsonConvert.SerializeObject(data.First(), Formatting.Indented, _settings);
+			}
+			else
+			{
+				json = JsonConvert.SerializeObject(data, Formatting.Indented, _settings);
+			}
+			
 			File.WriteAllText(_file, json);
-
 		}
 
 		private void Create(string location)
 		{
 			Directory.CreateDirectory(location);
-			_log.Trace("Directory for json file created: {0}", _file);
+			_log.Trace("Directory created for file: {0}", _file);
 		}
 
 		private void Delete()
@@ -125,6 +128,5 @@ namespace TeleScope.Persistence.Json
 				_log.Trace("The file {0} was not found for deletion.", _file);
 			}
 		}
-
 	}
 }

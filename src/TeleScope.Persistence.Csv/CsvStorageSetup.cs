@@ -19,6 +19,12 @@ namespace TeleScope.Persistence.Csv
         /// </summary>
         public char Separator { get; set; }
 
+        public int StartIndex { get; set; }
+
+        public string Header { get; set; }
+
+        public bool HasHeader => !string.IsNullOrEmpty(Header);
+
         public string File => _info.FullName;
 
         public string Filename => _info.Name;

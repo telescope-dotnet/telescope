@@ -31,7 +31,7 @@ namespace TeleScope.Persistence.Json
 
 		// -- methods;
 
-		public IReadable Read()
+		public  Read()
 		{
 			_storage.Read();
 			_log.Trace("Some proxy code is running after reading...");

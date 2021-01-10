@@ -15,11 +15,14 @@ namespace TeleScope.Persistence.Csv
         // -- properties
 
         /// <summary>
-        /// Gibt das Trennzeichen zwischen den Spalten aus oder legt dieses fest.
+        /// Gets or sets the character to identify the separation between values.
         /// </summary>
         public char Separator { get; set; }
 
-        public int StartIndex { get; set; }
+        /// <summary>
+        /// Gets or sets the index of the first row where the character seperated values are beginning.
+        /// </summary>
+        public int StartRow { get; set; }
 
         public string Header { get; set; }
 

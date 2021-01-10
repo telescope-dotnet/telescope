@@ -42,7 +42,7 @@ namespace TeleScope.Persistence.Csv
 			string[] lines = File.ReadAllLines(_setup.File);
 
 			// read all rows
-			for (int i = _setup.StartIndex; i < lines.Length; i++)
+			for (int i = _setup.StartRow; i < lines.Length; i++)
 			{
 				string[] fields = lines[i].Split(_setup.Separator);
 				result.Add(IncomingParser.Parse<string[]>(fields));

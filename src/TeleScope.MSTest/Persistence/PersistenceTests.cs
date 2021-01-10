@@ -38,7 +38,7 @@ namespace TeleScope.MSTest.Persistence
 			// arrange
 			var setup = new CsvStorageSetup("App_Data/data.csv");
 			setup.Header = "This is my awesome\r\nHEADER";
-			setup.StartIndex = 2;
+			setup.StartRow = 2;
 			var csv = new CsvStorage<Mockup>(setup)
 			{
 				IncomingParser = new CsvToMockupParser(),

@@ -43,7 +43,7 @@ namespace TeleScope.MSTest.UI
 			// assert
 			Assert.IsNotNull(options, "The options should not be null");
 			Assert.IsTrue(options.Counter == counter, "Counter does not match.");
-			Assert.IsTrue(options.Floating == flt, "Float does not match."); ;
+			Assert.IsTrue(options.Floating == flt, "Float does not match.");
 			Assert.IsTrue(options.Double == dbl, "Double does not match.");
 			Assert.IsFalse(options.Verbose, "Verbose should be false");
 			Assert.IsTrue(!string.IsNullOrEmpty(options.Path), "Path sould be present");

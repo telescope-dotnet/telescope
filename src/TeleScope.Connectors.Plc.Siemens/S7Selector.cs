@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TeleScope.Connectors.Plc.Siemens
+﻿namespace TeleScope.Connectors.Plc.Siemens
 {
 	/// <summary>
 	/// This structure holds information to select a data source on SIEMENS S7 PLCs.

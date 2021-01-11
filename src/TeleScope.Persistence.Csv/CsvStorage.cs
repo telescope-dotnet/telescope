@@ -13,8 +13,8 @@ namespace TeleScope.Persistence.Csv
 
 		// -- fields
 
-		private ILogger _log;
-		private CsvStorageSetup _setup;
+		private readonly ILogger _log;
+		private readonly CsvStorageSetup _setup;
 
 		// -- properties
 
@@ -30,7 +30,7 @@ namespace TeleScope.Persistence.Csv
 			_log = LoggingProvider.CreateLogger<CsvStorage<T>>();
 			_setup = setup;
 
-			// TODO implement create and delete behavior
+			// TODO: implement create and delete behavior
 			CanCreate = canCreate;
 			CanDelete = canDelete;
 		}
@@ -73,7 +73,6 @@ namespace TeleScope.Persistence.Csv
 			}
 
 			var csv = new StringBuilder();
-			var result = string.Empty;
 			var seperator = _setup.Separator.ToString();
 
 			if (_setup.HasHeader)

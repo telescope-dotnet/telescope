@@ -11,9 +11,9 @@ namespace TeleScope.Persistence.Json
 {
 	public class JsonStorage<T> : IReadable<string, T>, IWritable<T, string>
 	{
-		private ILogger _log;
-		private string _file;
-		private JsonSerializerSettings _settings;
+		private readonly ILogger _log;
+		private readonly string _file;
+		private readonly JsonSerializerSettings _settings;
 
 		public bool CanCreate { get; protected set; }
 		public bool CanDelete { get; protected set; }
@@ -59,10 +59,9 @@ namespace TeleScope.Persistence.Json
 
 		public IEnumerable<T> Read()
 		{
-			T result = default;
+			T result;
 			using (StreamReader r = new StreamReader(_file))
 			{
-				// TODO convert 
 				string input = r.ReadToEnd();
 				result = JsonConvert.DeserializeObject<T>(input);
 			}

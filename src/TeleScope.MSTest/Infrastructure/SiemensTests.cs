@@ -86,6 +86,10 @@ namespace TeleScope.MSTest.Infrastructure
 
 			// assert
 			Assert.IsTrue(_s7.ResultCode == 0, $"The connector returned with the Result '{_s7.Result}'.");
+			Assert.IsTrue(real1 != 0, $"'{nameof(real1)}'should not be null");
+			Assert.IsTrue(real2 != 0, $"'{nameof(real2)}' should not be null");
+			Assert.IsTrue(real3 != 0, $"'{nameof(real3)}' should not be null");
+			Assert.IsTrue(bit, $"'{nameof(bit)}' should not be false");
 		}
 
 		[TestMethod]

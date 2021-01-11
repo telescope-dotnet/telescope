@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TeleScope.Connectors.Abstractions;
-
-namespace TeleScope.Connectors.Plc.Siemens
+﻿namespace TeleScope.Connectors.Plc.Siemens
 {
 	/// <summary>
 	/// This class holds setup-information to connect SIEMENS S7 PLCs. 

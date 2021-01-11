@@ -12,9 +12,6 @@ namespace TeleScope.MSTest.Persistence
 	[TestClass]
 	public class PersistenceTests : TestsBase
 	{
-		// -- fields
-
-		//private StorageFactory _factory;
 
 		// -- overrides
 

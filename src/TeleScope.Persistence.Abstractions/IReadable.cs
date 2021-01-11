@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace TeleScope.Persistence.Abstractions
 {
 	public interface IReadable<Tin, Tout>
-	{	
+	{
 		// -- properties
-		
+
 		IParsable<Tout> IncomingParser { get; set; }
 
 		// -- methods

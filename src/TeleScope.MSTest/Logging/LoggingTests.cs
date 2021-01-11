@@ -1,12 +1,9 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System;
+using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Serilog;
-using TeleScope.Connectors.Abstractions;
-using TeleScope.Connectors.Plc.Siemens;
 using TeleScope.Logging;
-using TeleScope.Logging.Extensions.Serilog;
 using TeleScope.Logging.Extensions;
-using System;
+using TeleScope.Logging.Extensions.Serilog;
 
 namespace TeleScope.MSTest.Logging
 {
@@ -16,20 +13,6 @@ namespace TeleScope.MSTest.Logging
 		[TestInitialize]
 		public override void Arrange()
 		{
-			// old version
-			/*
-			var loggerFactory = (ILoggerFactory)new LoggerFactory();
-			var serilogLogger =
-				new LoggerConfiguration()
-				.MinimumLevel.Debug()
-				.WriteTo.Console(outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss} [{Level}] [{SourceContext:l}] {Message}{NewLine}{Exception}")
-				.WriteTo.File(new CompactJsonFormatter(), "./App_Data//log.json")
-				.CreateLogger();
-			loggerFactory.AddSerilog(serilogLogger);
-			LoggingProvider.Initialize(loggerFactory);
-			*/
-
-			// new version: TeleScope.Logging.Extensions.Serilog;
 			LoggingProvider.Initialize(
 				new LoggerFactory()
 					.UseTemplate("{Timestamp: HH:mm:ss} [{Level}] - {Message}{NewLine}{Exception}")

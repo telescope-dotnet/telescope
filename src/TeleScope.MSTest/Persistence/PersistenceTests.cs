@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -6,6 +7,7 @@ using TeleScope.Logging.Extensions;
 using TeleScope.Persistence.Abstractions;
 using TeleScope.Persistence.Csv;
 using TeleScope.Persistence.Json;
+using TeleScope.Persistence.Parquet;
 
 namespace TeleScope.MSTest.Persistence
 {
@@ -99,7 +101,38 @@ namespace TeleScope.MSTest.Persistence
 			json.Write(null);
 			Assert.IsTrue(!File.Exists(file), $"The file '{file}' was not deleted.");
 		}
+
+		[TestMethod]
+		public void TestParquet()
+		{
+			// arrange
+			var length = 100000;
+			var file = "App_Data/data.parquet";
+			var parquet = new ParquetStorage<Mockup>(file);
+			var data = GenerateMockupList(length);
+
+			// act write (create)
+			parquet.Write(data);
+
+			// assert
+			Assert.IsTrue(File.Exists(file), $"The parquet file '{file}' was not created.");
+
+			File.Delete(file);
+		}
+
+		private List<Mockup> GenerateMockupList(int length)
+		{
+			var list = new List<Mockup>();
+			var rand = new Random();
+			for (int i = 0; i < length; i++)
+			{
+				list.Add(new Mockup { Greetings = $"Greeting no. {i}", Number = rand.Next(1000) });
+			}
+
+			return list;
+		}
 	}
+
 
 	class Mockup
 	{

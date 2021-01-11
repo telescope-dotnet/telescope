@@ -13,6 +13,10 @@ namespace TeleScope.Logging.Extensions
 		{
 			logger.LogTrace(message, args);
 		}
+		public static void Trace(this ILogger logger, object data)
+		{
+			logger.LogTrace(data.ToString());
+		}
 
 		public static void Debug(this ILogger logger, Exception ex, string message, params object[] args)
 		{
@@ -21,6 +25,10 @@ namespace TeleScope.Logging.Extensions
 		public static void Debug(this ILogger logger, string message, params object[] args)
 		{
 			logger.LogDebug(message, args);
+		}
+		public static void Debug(this ILogger logger, object data)
+		{
+			logger.LogDebug(data.ToString());
 		}
 
 		public static void Info(this ILogger logger, Exception ex, string message, params object[] args)
@@ -31,6 +39,10 @@ namespace TeleScope.Logging.Extensions
 		{
 			logger.LogInformation(message, args);
 		}
+		public static void Info(this ILogger logger, object data)
+		{
+			logger.LogInformation(data.ToString());
+		}
 
 		public static void Warn(this ILogger logger, Exception ex, string message, params object[] args)
 		{
@@ -39,6 +51,10 @@ namespace TeleScope.Logging.Extensions
 		public static void Warn(this ILogger logger, string message, params object[] args)
 		{
 			logger.LogWarning(message, args);
+		}
+		public static void Warn(this ILogger logger, object data)
+		{
+			logger.LogWarning(data.ToString());
 		}
 
 		public static void Error(this ILogger logger, Exception ex, string message, params object[] args)
@@ -49,6 +65,11 @@ namespace TeleScope.Logging.Extensions
 		{
 			logger.LogError(message, args);
 		}
+		public static void Error(this ILogger logger, object data)
+		{
+			logger.LogError(data.ToString());
+		}
+
 		public static void Critical(this ILogger logger, Exception ex)
 		{
 			logger.LogCritical(ex, ex.Message);
@@ -60,6 +81,10 @@ namespace TeleScope.Logging.Extensions
 		public static void Critical(this ILogger logger, string message, params object[] args)
 		{
 			logger.LogCritical(message, args);
+		}
+		public static void Critical(this ILogger logger, object data)
+		{
+			logger.LogCritical(data.ToString());
 		}
 	}
 }

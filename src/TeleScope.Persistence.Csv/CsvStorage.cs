@@ -30,7 +30,6 @@ namespace TeleScope.Persistence.Csv
 			_log = LoggingProvider.CreateLogger<CsvStorage<T>>();
 			_setup = setup;
 
-			// TODO: implement create and delete behavior
 			CanCreate = canCreate;
 			CanDelete = canDelete;
 		}
@@ -64,12 +63,17 @@ namespace TeleScope.Persistence.Csv
 				}
 				return;
 			}
-
-			if (CanCreate &&
-				!string.IsNullOrEmpty(_setup.Location) &&
-				!Directory.Exists(_setup.Location))
+			else if (CanCreate &&
+				     !string.IsNullOrEmpty(_setup.Location) &&
+					 !Directory.Exists(_setup.Location))
 			{
 				Create(_setup.Location);
+			}
+			else if (!CanCreate &&
+					 !File.Exists(_setup.File))
+			{
+				_log.Trace($"Not allowed to create csv file");
+				return;
 			}
 
 			var csv = new StringBuilder();

@@ -12,6 +12,7 @@
     <AssemblyVersion>0.2.1.0</AssemblyVersion>
     <PackageTags>Abstractions, Connectors</PackageTags>
     <Authors>TeleScope-dotnet members</Authors>
+	<SonarQubeExclude>false</SonarQubeExclude>
   </PropertyGroup>
 
   <ItemGroup>

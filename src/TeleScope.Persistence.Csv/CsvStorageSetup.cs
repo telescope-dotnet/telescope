@@ -44,6 +44,8 @@ namespace TeleScope.Persistence.Csv
 			StartRow = startRow;
 			Separator = separator;
 			Header = header;
+			CanCreate = true;
+			CanDelete = true;
 		}
 	}
 }

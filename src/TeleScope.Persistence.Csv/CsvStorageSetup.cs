@@ -7,6 +7,11 @@ namespace TeleScope.Persistence.Csv
 	{
 		// --fields
 
+		private const char DEFAULT_SEPERATOR = ';';
+		private const uint DEFAULT_START_ROW = 0;
+		private const bool DEFAULT_CAN_CREATE = true;
+		private const bool DEFAULT_CAN_DELETE = true;
+
 		private readonly FileInfo _csvFileInfo;
 
 		// -- properties
@@ -36,14 +41,22 @@ namespace TeleScope.Persistence.Csv
 		public bool CanCreate { get; set; }
 		public bool CanDelete { get; set; }
 
-		// constructor
+		// constructors
 
-		public CsvStorageSetup(FileInfo csvFileInfo, uint startRow = 0, char separator = ';', string header = default)
+		public CsvStorageSetup(
+			FileInfo csvFileInfo,
+			uint startRow = DEFAULT_START_ROW,
+			char separator = DEFAULT_SEPERATOR,
+			string header = default,
+			bool canCreate = DEFAULT_CAN_CREATE,
+			bool canDelete = DEFAULT_CAN_DELETE)
 		{
 			_csvFileInfo = csvFileInfo ?? throw new ArgumentNullException(nameof(csvFileInfo));
 			StartRow = startRow;
 			Separator = separator;
 			Header = header;
+			CanCreate = canCreate;
+			CanDelete = canDelete;
 		}
 	}
 }

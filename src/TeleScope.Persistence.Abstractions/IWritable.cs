@@ -2,7 +2,7 @@
 
 namespace TeleScope.Persistence.Abstractions
 {
-	public interface IWritable<Tin, Tout>
+	public interface IWritable<in T>
 	{
 		// -- properties
 
@@ -13,6 +13,6 @@ namespace TeleScope.Persistence.Abstractions
 
 		// -- methods
 
-		void Write(IEnumerable<Tin> data);
+		void Write(IEnumerable<T> data);
 	}
 }

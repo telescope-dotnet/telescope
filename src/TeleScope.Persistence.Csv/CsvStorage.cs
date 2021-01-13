@@ -9,33 +9,33 @@ using TeleScope.Persistence.Abstractions;
 
 namespace TeleScope.Persistence.Csv
 {
-	public class CsvStorage<T> : IReadable<string[], T>, IWritable<T, string[]>
+	public class CsvStorage<T> : IReadable<T>, IWritable<T>
 	{
 
 		// -- fields
 
 		private readonly ILogger _log;
 		private readonly CsvStorageSetup _setup;
+		private readonly IParsable<T> _incomingParser;
+		private readonly IParsable<string[]> _outgoingParser;
 
 		// -- properties
 
 		public bool CanCreate { get; private set; }
 		public bool CanDelete { get; private set; }
-		public IParsable<T> IncomingParser { get; private set; }
-		public IParsable<string[]> OutgoingParser { get; private set; }
 
 		// -- concstructor
 
-		public CsvStorage(CsvStorageSetup setup, IParsable<T> incomingParser, IParsable<string[]> outgoingParser, bool canCreate = true, bool canDelete = true)
+		public CsvStorage(CsvStorageSetup setup, IParsable<T> incomingParser, IParsable<string[]> outgoingParser)
 		{
 			_log = LoggingProvider.CreateLogger<CsvStorage<T>>();
 
 			_setup = setup ?? throw new ArgumentNullException(nameof(setup));
+			_incomingParser = incomingParser ?? throw new ArgumentNullException(nameof(incomingParser));
+			_outgoingParser = outgoingParser ?? throw new ArgumentNullException(nameof(outgoingParser));
 
-			CanCreate = canCreate;
-			CanDelete = canDelete;
-			IncomingParser = incomingParser ?? throw new ArgumentNullException(nameof(incomingParser));
-			OutgoingParser = outgoingParser ?? throw new ArgumentNullException(nameof(outgoingParser));
+			CanCreate = _setup.CanCreate;
+			CanDelete = _setup.CanDelete;
 		}
 
 		public IEnumerable<T> Read()
@@ -48,7 +48,7 @@ namespace TeleScope.Persistence.Csv
 			for (uint i = _setup.StartRow; i < lines.Length; i++)
 			{
 				string[] fields = lines[i].Split(_setup.Separator);
-				result.Add(IncomingParser.Parse<string[]>(fields));
+				result.Add(_incomingParser.Parse<string[]>(fields));
 			}
 
 			_log.Trace($"csv import successfull for '{_setup.Filename}'");
@@ -91,7 +91,7 @@ namespace TeleScope.Persistence.Csv
 			// append data
 			foreach (T item in data)
 			{
-				var line = string.Join(seperator, OutgoingParser.Parse<T>(item));
+				var line = string.Join(seperator, _outgoingParser.Parse<T>(item));
 				csv.AppendLine(line);
 			}
 
@@ -118,6 +118,5 @@ namespace TeleScope.Persistence.Csv
 				_log.Trace("The file {0} was not found for deletion.", _setup.File);
 			}
 		}
-
 	}
 }

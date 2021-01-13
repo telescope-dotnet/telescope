@@ -5,7 +5,7 @@ using TeleScope.Persistence.Abstractions;
 
 namespace TeleScope.Persistence.Parquet
 {
-	public class ParquetStorage<T> : IReadable<T, T>, IWritable<T, T> where T : new()
+	public class ParquetStorage<T> : IReadable<T>, IWritable<T> where T : new()
 	{
 
 		// -- fields
@@ -17,10 +17,6 @@ namespace TeleScope.Persistence.Parquet
 		public bool CanCreate { get; private set; }
 
 		public bool CanDelete { get; private set; }
-
-		//public IParsable<T> IncomingParser { get; set; }
-
-		//public IParsable<T> OutgoingParser { get; set; }
 
 		// -- constructor
 

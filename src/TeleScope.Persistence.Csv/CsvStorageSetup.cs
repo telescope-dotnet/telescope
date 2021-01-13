@@ -33,6 +33,9 @@ namespace TeleScope.Persistence.Csv
 
 		public string Location => _csvFileInfo.Directory.FullName;
 
+		public bool CanCreate { get; set; }
+		public bool CanDelete { get; set; }
+
 		// constructor
 
 		public CsvStorageSetup(FileInfo csvFileInfo, uint startRow = 0, char separator = ';', string header = default)

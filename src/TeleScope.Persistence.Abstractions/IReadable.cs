@@ -2,10 +2,10 @@
 
 namespace TeleScope.Persistence.Abstractions
 {
-	public interface IReadable<Tin, Tout>
+	public interface IReadable<out T>
 	{
 		// -- methods
 
-		IEnumerable<Tout> Read();
+		IEnumerable<T> Read();
 	}
 }

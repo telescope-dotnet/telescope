@@ -9,7 +9,7 @@ using TeleScope.Persistence.Abstractions;
 
 namespace TeleScope.Persistence.Json
 {
-	public class JsonStorage<T> : IReadable<string, T>, IWritable<T, string>
+	public class JsonStorage<T> : IReadable<T>, IWritable<T>
 	{
 		private readonly ILogger _log;
 		private readonly string _file;
@@ -17,8 +17,6 @@ namespace TeleScope.Persistence.Json
 
 		public bool CanCreate { get; protected set; }
 		public bool CanDelete { get; protected set; }
-		//public IParsable<T> IncomingParser { get; set; }
-		//public IParsable<string> OutgoingParser { get; set; }
 
 		// -- constructors
 

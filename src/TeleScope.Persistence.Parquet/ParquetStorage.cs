@@ -18,9 +18,9 @@ namespace TeleScope.Persistence.Parquet
 
 		public bool CanDelete { get; private set; }
 
-		public IParsable<T> IncomingParser { get; set; }
+		//public IParsable<T> IncomingParser { get; set; }
 
-		public IParsable<T> OutgoingParser { get; set; }
+		//public IParsable<T> OutgoingParser { get; set; }
 
 		// -- constructor
 

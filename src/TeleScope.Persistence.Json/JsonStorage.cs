@@ -17,8 +17,8 @@ namespace TeleScope.Persistence.Json
 
 		public bool CanCreate { get; protected set; }
 		public bool CanDelete { get; protected set; }
-		public IParsable<T> IncomingParser { get; set; }
-		public IParsable<string> OutgoingParser { get; set; }
+		//public IParsable<T> IncomingParser { get; set; }
+		//public IParsable<string> OutgoingParser { get; set; }
 
 		// -- constructors
 

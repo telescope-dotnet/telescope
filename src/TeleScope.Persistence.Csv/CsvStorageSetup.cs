@@ -1,44 +1,46 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace TeleScope.Persistence.Csv
 {
 	public class CsvStorageSetup
 	{
-
 		// --fields
 
-		private readonly FileInfo _info;
+		private readonly FileInfo _csvFileInfo;
 
 		// -- properties
 
 		/// <summary>
 		/// Gets or sets the character to identify the separation between values.
 		/// </summary>
-		public char Separator { get; set; }
+		public char Separator { get; private set; }
 
 		/// <summary>
 		/// Gets or sets the index of the first row where the character seperated values are beginning.
 		/// </summary>
-		public int StartRow { get; set; }
+		public uint StartRow { get; private set; }
 
-		public string Header { get; set; }
+		public string Header { get; private set; }
 
 		public bool HasHeader => !string.IsNullOrEmpty(Header);
 
-		public string File => _info.FullName;
+		public string File => _csvFileInfo.FullName;
 
-		public string Filename => _info.Name;
+		public string Filename => _csvFileInfo.Name;
 
-		public string Extension => _info.Extension;
+		public string Extension => _csvFileInfo.Extension;
 
-		public string Location => _info.Directory.FullName;
+		public string Location => _csvFileInfo.Directory.FullName;
 
 		// constructor
 
-		public CsvStorageSetup(string file)
+		public CsvStorageSetup(FileInfo csvFileInfo, uint startRow = 0, char separator = ';', string header = default)
 		{
-			Separator = ';';
-			_info = new FileInfo(file);
+			_csvFileInfo = csvFileInfo ?? throw new ArgumentNullException(nameof(csvFileInfo));
+			StartRow = startRow;
+			Separator = separator;
+			Header = header;
 		}
 	}
 }

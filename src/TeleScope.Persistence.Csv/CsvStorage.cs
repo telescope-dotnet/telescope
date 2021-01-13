@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Microsoft.Extensions.Logging;
@@ -20,18 +21,21 @@ namespace TeleScope.Persistence.Csv
 
 		public bool CanCreate { get; private set; }
 		public bool CanDelete { get; private set; }
-		public IParsable<T> IncomingParser { get; set; }
-		public IParsable<string[]> OutgoingParser { get; set; }
+		public IParsable<T> IncomingParser { get; private set; }
+		public IParsable<string[]> OutgoingParser { get; private set; }
 
 		// -- concstructor
 
-		public CsvStorage(CsvStorageSetup setup, bool canCreate = true, bool canDelete = true)
+		public CsvStorage(CsvStorageSetup setup, IParsable<T> incomingParser, IParsable<string[]> outgoingParser, bool canCreate = true, bool canDelete = true)
 		{
 			_log = LoggingProvider.CreateLogger<CsvStorage<T>>();
-			_setup = setup;
+
+			_setup = setup ?? throw new ArgumentNullException(nameof(setup));
 
 			CanCreate = canCreate;
 			CanDelete = canDelete;
+			IncomingParser = incomingParser ?? throw new ArgumentNullException(nameof(incomingParser));
+			OutgoingParser = outgoingParser ?? throw new ArgumentNullException(nameof(outgoingParser));
 		}
 
 		public IEnumerable<T> Read()
@@ -41,7 +45,7 @@ namespace TeleScope.Persistence.Csv
 			string[] lines = File.ReadAllLines(_setup.File);
 
 			// read all rows
-			for (int i = _setup.StartRow; i < lines.Length; i++)
+			for (uint i = _setup.StartRow; i < lines.Length; i++)
 			{
 				string[] fields = lines[i].Split(_setup.Separator);
 				result.Add(IncomingParser.Parse<string[]>(fields));

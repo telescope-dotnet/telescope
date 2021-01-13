@@ -47,15 +47,13 @@ namespace TeleScope.MSTest.Persistence
 		public void TestCsv()
 		{
 			// arrange
-			_file = "App_Data/data.csv";
-			var setup = new CsvStorageSetup(_file);
-			setup.Header = "This is my awesome\r\nHEADER";
-			setup.StartRow = 2;
-			var csv = new CsvStorage<Mockup>(setup)
-			{
-				IncomingParser = new CsvToMockupParser(),
-				OutgoingParser = new MockupToCsvParser()
-			};
+			var setup = new CsvStorageSetup(
+				csvFileInfo: new FileInfo("App_Data/data.csv"),
+				startRow: 2,
+				header: "This is my awesome\r\nHEADER"
+			);
+
+			var csv = new CsvStorage<Mockup>(setup, new CsvToMockupParser(), new MockupToCsvParser());
 
 			var data = Mockup.RandomArray(_length);
 

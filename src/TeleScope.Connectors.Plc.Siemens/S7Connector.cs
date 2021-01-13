@@ -21,7 +21,7 @@ namespace TeleScope.Connectors.Plc.Siemens
 
 		private S7Selector _parameter;
 
-		private ILogger _log;
+		private ILogger<S7Connector> _log;
 
 		// -- events
 

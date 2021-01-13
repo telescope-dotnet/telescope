@@ -17,7 +17,7 @@ namespace TeleScope.Logging
 			_factory = loggerFactory ?? new NullLoggerFactory();
 		}
 
-		public static ILogger CreateLogger<T>()
+		public static ILogger<T> CreateLogger<T>()
 		{
 			return _factory.CreateLogger<T>();
 		}

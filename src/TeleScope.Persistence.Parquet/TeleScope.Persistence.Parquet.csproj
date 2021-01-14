@@ -2,6 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>0.1.0</Version>
+    <Authors>TeleScope-dotnet members</Authors>
+    <Company>TeleScope-dotnet</Company>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/telescope-dotnet/telescope</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/telescope-dotnet/telescope</RepositoryUrl>
+    <PackageIcon>logo-nuget.png</PackageIcon>
+    <PackageTags>Persistence Parquet, Parquet.Net</PackageTags>
+    <PackageReleaseNotes>initial packaged version</PackageReleaseNotes>
+    <Description>Contains an implementation of the IReadable and IWritable interfaces to access parquet files. Depends on the assemblies TeleScope.Persistence.Abstractions and Parquet.Net.</Description>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,6 +21,17 @@
   <ItemGroup>
     <ProjectReference Include="..\TeleScope.Logging\TeleScope.Logging.csproj" />
     <ProjectReference Include="..\TeleScope.Persistence.Abstractions\TeleScope.Persistence.Abstractions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\images\logo-nuget.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

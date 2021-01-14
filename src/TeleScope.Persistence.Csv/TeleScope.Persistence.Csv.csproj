@@ -2,11 +2,32 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>0.1.0</Version>
+    <Authors>TeleScope-dotnet members</Authors>
+    <Company>TeleScope-dotnet</Company>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageIcon>logo-nuget.png</PackageIcon>
+    <PackageProjectUrl>https://github.com/telescope-dotnet/telescope</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/telescope-dotnet/telescope</RepositoryUrl>
+    <PackageReleaseNotes>initial packaged version</PackageReleaseNotes>
+    <PackageTags>Persistence, Csv</PackageTags>
+    <Description>Contains an implementation of the IReadable and IWritable interfaces to access Character Seperated Value files. Depends on the assemblies TeleScope.Persistence.Abstractions.</Description>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\TeleScope.Logging\TeleScope.Logging.csproj" />
     <ProjectReference Include="..\TeleScope.Persistence.Abstractions\TeleScope.Persistence.Abstractions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\images\logo-nuget.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

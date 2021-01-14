@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using TeleScope.Connectors.Abstractions;
 
 namespace TeleScope.Connectors.Mqtt.Abstractions

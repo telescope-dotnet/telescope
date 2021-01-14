@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TeleScope.Connectors.Abstractions.Events
+﻿namespace TeleScope.Connectors.Abstractions.Events
 {
 	public delegate void ConnectorEventHandler(object sender, ConnectorEventArgs e);
 

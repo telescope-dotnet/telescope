@@ -1,16 +1,17 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>0.1.2</Version>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <Version>0.1.0</Version>
+    <Authors>TeleScope-dotnet members</Authors>
     <Company>TeleScope-dotnet</Company>
-    <Description>Provides common logic to simplify command line applications e.g. reading the start arguments.</Description>
-    <PackageTags>cli option-parser</PackageTags>
-    <RepositoryUrl>https://github.com/telescope-dotnet/telescope</RepositoryUrl>
+    <PackageReleaseNotes>initial packaged version</PackageReleaseNotes>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/telescope-dotnet/telescope</PackageProjectUrl>
     <PackageIcon>logo-nuget.png</PackageIcon>
-    <Authors>TeleScope-dotnet members</Authors>
+    <RepositoryUrl>https://github.com/telescope-dotnet/telescope</RepositoryUrl>
+    <Description>Contains abstractions to implement a persistence layer for any kind of data source with a minimal contract.</Description>
+    <PackageTags>Abstractions, Persistence</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>

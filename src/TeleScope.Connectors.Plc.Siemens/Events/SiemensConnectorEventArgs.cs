@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TeleScope.Connectors.Abstractions.Events;
+﻿using TeleScope.Connectors.Abstractions.Events;
 
 namespace TeleScope.Connectors.Plc.Siemens.Events
 {

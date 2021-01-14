@@ -2,25 +2,29 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>0.1.0</Version>
     <Authors>TeleScope-dotnet members</Authors>
     <Company>TeleScope-dotnet</Company>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/telescope-dotnet/telescope</PackageProjectUrl>
     <RepositoryUrl>https://github.com/telescope-dotnet/telescope</RepositoryUrl>
-    <AssemblyVersion>0.3.1.0</AssemblyVersion>
-    <Version>0.3.1</Version>
-    <PackageTags>Mqtt, MQTTnet</PackageTags>
-    <Description>Contains an implementation of the IConnectable interface for Mqtt. Depends on the assemblies TeleScope.Connectors.Mqtt.Abstractions and MQTTnet.</Description>
     <PackageIcon>logo-nuget.png</PackageIcon>
+    <PackageReleaseNotes>initial packaged version</PackageReleaseNotes>
+    <PackageTags>Persistence, Json, Newtonsoft.Json</PackageTags>
+    <Description>Contains an implementation of the IReadable and IWritable interfaces to access Json files. Depends on the assemblies TeleScope.Persistence.Abstractions and Newtonsoft.Json.</Description>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MQTTnet" Version="3.0.13" />
+    <Compile Remove="JsonProxy.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TeleScope.Connectors.Mqtt.Abstractions\TeleScope.Connectors.Mqtt.Abstractions.csproj" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\TeleScope.Logging\TeleScope.Logging.csproj" />
+    <ProjectReference Include="..\TeleScope.Persistence.Abstractions\TeleScope.Persistence.Abstractions.csproj" />
   </ItemGroup>
 
   <ItemGroup>

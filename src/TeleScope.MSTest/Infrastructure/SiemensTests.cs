@@ -37,6 +37,7 @@ namespace TeleScope.MSTest.Infrastructure
 			base.Arrange();
 			_setup = new S7Setup
 			{
+
 				Name = "SIEMENS 08/15",
 				IPAddress = "0.0.0.0",
 				Rack = 0,

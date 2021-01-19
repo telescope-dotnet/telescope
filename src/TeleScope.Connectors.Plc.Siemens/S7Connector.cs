@@ -2,25 +2,23 @@
 using Microsoft.Extensions.Logging;
 using Sharp7;
 using TeleScope.Connectors.Abstractions;
-using TeleScope.Connectors.Abstractions.Extensions;
 using TeleScope.Connectors.Abstractions.Events;
 using TeleScope.Connectors.Plc.Abstractions;
 using TeleScope.Connectors.Plc.Siemens.Events;
-using Microsoft.Extensions.Logging;
+using TeleScope.Connectors.Plc.Siemens.Extensions;
 using TeleScope.Logging;
 using TeleScope.Logging.Extensions;
+
 namespace TeleScope.Connectors.Plc.Siemens
 {
 	public class S7Connector : IPlcConnectable
 	{
 		// -- fields
 
+		private readonly ILogger<S7Connector> _log;
 		private S7Client _client;
 		private S7Setup _setup;
 		private S7Selector _parameter;
-		private readonly ILogger _log;
-
-		private ILogger<S7Connector> _log;
 
 		// -- events
 
@@ -56,7 +54,7 @@ namespace TeleScope.Connectors.Plc.Siemens
 		public S7Connector(S7Setup s7Setup)
 		{
 			_log = LoggingProvider.CreateLogger<S7Connector>();
-			
+
 
 			Setup(s7Setup);
 		}

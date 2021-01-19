@@ -1,21 +1,20 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>TeleScope.Logging</AssemblyName>
-    <Version>0.1.2</Version>
+    <Authors>TeleScope-dotnet members</Authors>
     <Company>TeleScope-dotnet</Company>
+    <Version>0.3.1</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/telescope-dotnet/telescope</PackageProjectUrl>
+    <PackageTags>Abstractions, MQTT</PackageTags>
     <PackageIcon>logo-nuget.png</PackageIcon>
     <RepositoryUrl>https://github.com/telescope-dotnet/telescope</RepositoryUrl>
-    <PackageTags>logging, extensions</PackageTags>
-    <Description>Extends Microsofts ILogger interface and provides static access to bind logger factories and use them within the entire architecture. Depends on the assembly Microsoft.Extensions.Logging.Abstractions.</Description>
-    <Authors>TeleScope-dotnet members</Authors>
+    <Description>Contains further abstractions and interfaces to implement MQTT connectors. Depends on the assembly TeleScope.Connectors.Abstractions.</Description>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.9" />
+    <ProjectReference Include="..\TeleScope.Connectors.Abstractions\TeleScope.Connectors.Abstractions.csproj" />
   </ItemGroup>
 
   <ItemGroup>

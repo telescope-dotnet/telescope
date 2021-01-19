@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TeleScope.Connectors.Abstractions.Events;
+﻿using TeleScope.Connectors.Abstractions.Events;
 
 namespace TeleScope.Connectors.Abstractions
 {
@@ -19,8 +16,6 @@ namespace TeleScope.Connectors.Abstractions
 		bool IsConnected { get; }
 
 		// -- methods
-
-		IConnectable Setup(SetupBase setup);
 
 		IConnectable Connect();
 

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using TeleScope.Connectors.Abstractions.Events;
 
 namespace TeleScope.Connectors.Plc.Siemens.Events
@@ -16,8 +14,8 @@ namespace TeleScope.Connectors.Plc.Siemens.Events
 
 		// -- constructors
 
-		public SiemensConnectorFailedEventArgs(Exception ex, int resultCode, string result, string name)
-			: base(ex, result, name) 
+		public SiemensConnectorFailedEventArgs(Exception ex, string name, int resultCode, string result)
+			: base(ex, name, result)
 		{
 			ResultCode = resultCode;
 		}

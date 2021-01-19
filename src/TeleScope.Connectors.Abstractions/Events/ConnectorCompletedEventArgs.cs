@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TeleScope.Connectors.Abstractions.Events
+﻿namespace TeleScope.Connectors.Abstractions.Events
 {
 	public delegate void ConnectorCompletedEventHandler(object sender, ConnectorCompletedEventArgs e);
 
@@ -14,12 +10,8 @@ namespace TeleScope.Connectors.Abstractions.Events
 
 		// -- constructors
 
-		public ConnectorCompletedEventArgs(object response) : base()
-		{
-			Response = response;
-		}
 
-		public ConnectorCompletedEventArgs(object response, string name) : base(name)
+		public ConnectorCompletedEventArgs(string name, object response) : base(name)
 		{
 			Response = response;
 		}

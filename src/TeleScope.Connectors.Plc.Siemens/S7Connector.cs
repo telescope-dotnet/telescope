@@ -1,15 +1,14 @@
 ﻿using System;
+using Microsoft.Extensions.Logging;
 using Sharp7;
 using TeleScope.Connectors.Abstractions;
 using TeleScope.Connectors.Abstractions.Extensions;
 using TeleScope.Connectors.Abstractions.Events;
 using TeleScope.Connectors.Plc.Abstractions;
-using TeleScope.Connectors.Plc.Siemens.Extensions;
 using TeleScope.Connectors.Plc.Siemens.Events;
 using Microsoft.Extensions.Logging;
 using TeleScope.Logging;
 using TeleScope.Logging.Extensions;
-
 namespace TeleScope.Connectors.Plc.Siemens
 {
 	public class S7Connector : IPlcConnectable
@@ -18,8 +17,8 @@ namespace TeleScope.Connectors.Plc.Siemens
 
 		private S7Client _client;
 		private S7Setup _setup;
-
 		private S7Selector _parameter;
+		private readonly ILogger _log;
 
 		private ILogger<S7Connector> _log;
 
@@ -35,7 +34,7 @@ namespace TeleScope.Connectors.Plc.Siemens
 		/// <summary>
 		/// Gets the information if the client is instanciated and connected or not.
 		/// </summary>
-		public bool IsConnected => (_client != null ? _client.Connected : false);
+		public bool IsConnected => _client?.Connected ?? false;
 
 		/// <summary>
 		/// Gets the last received result code from the connected PLC.
@@ -54,10 +53,12 @@ namespace TeleScope.Connectors.Plc.Siemens
 		/// <summary>
 		/// The default empty constructor instanciates the internal S7 client.
 		/// </summary>
-		public S7Connector()
+		public S7Connector(S7Setup s7Setup)
 		{
 			_log = LoggingProvider.CreateLogger<S7Connector>();
-			_client = new S7Client();
+			
+
+			Setup(s7Setup);
 		}
 
 		// -- methods
@@ -67,12 +68,13 @@ namespace TeleScope.Connectors.Plc.Siemens
 		/// </summary>
 		/// <param name="setup">The concrete setup for the connector.</param>
 		/// <returns>The calling instance.</returns>
-		public IConnectable Setup(SetupBase s7Setup)
+		private void Setup(S7Setup s7Setup)
 		{
 			try
 			{
-				_setup = this.ValidateSetupOrThrow<S7Setup>(s7Setup);
-				_log.Debug("Setup completed in {0}", this);
+				_setup = s7Setup;
+				_client = new S7Client();
+				_log.Trace("Setup completed in {0}", this);
 			}
 			catch (ArgumentNullException ex)
 			{
@@ -82,9 +84,6 @@ namespace TeleScope.Connectors.Plc.Siemens
 			{
 				_log.Error(ex, $"The setup was not successfull. The setup is of type {s7Setup.GetType()}.");
 			}
-
-			
-			return this;
 		}
 
 		/// <summary>
@@ -106,7 +105,7 @@ namespace TeleScope.Connectors.Plc.Siemens
 			catch (Exception ex)
 			{
 				Failed?.Invoke(this,
-					new SiemensConnectorFailedEventArgs(ex, result, S7Results.GetString(result), _setup.Name));
+					new SiemensConnectorFailedEventArgs(ex, _setup.Name, result, S7Results.GetString(result)));
 			}
 
 			return this;
@@ -156,7 +155,7 @@ namespace TeleScope.Connectors.Plc.Siemens
 					/*
 					 * Examples: 
 					 * "DB652.DBD82"
-					 * "DB652.DBX82.1"  // last values` is the number of the bit, range [0..7]
+					 * "DB652.DBX82.1"  // The last value is the number of the bit, range [0..7]
 					 * 
 					 * Meanings:
 					 * DBD = Double
@@ -200,7 +199,7 @@ namespace TeleScope.Connectors.Plc.Siemens
 			{
 				var result = S7Results.CliInvalidParams;
 				Failed?.Invoke(this,
-					   new SiemensConnectorFailedEventArgs(ex, result, S7Results.GetString(result), _setup.Name));
+					   new SiemensConnectorFailedEventArgs(ex, _setup.Name, result, S7Results.GetString(result)));
 			}
 		}
 
@@ -225,7 +224,7 @@ namespace TeleScope.Connectors.Plc.Siemens
 			catch (Exception ex)
 			{
 				Failed?.Invoke(this,
-				   new SiemensConnectorFailedEventArgs(ex, result, S7Results.GetString(result), _setup.Name));
+				   new SiemensConnectorFailedEventArgs(ex, _setup.Name, result, S7Results.GetString(result)));
 
 				return this;
 			}
@@ -262,7 +261,6 @@ namespace TeleScope.Connectors.Plc.Siemens
 		{
 			T obj = default(T);
 			Type type = typeof(T);
-			int size;
 			byte[] buffer;
 			int result = 0;
 
@@ -270,99 +268,86 @@ namespace TeleScope.Connectors.Plc.Siemens
 			{
 				if (type.IsAssignableFrom(typeof(bool)))
 				{
-					size = sizeof(bool).ToBits();
-					read();
+					read(sizeof(bool).ToBits());
 					obj = (T)Convert.ChangeType(S7.GetBitAt(buffer, 0, _parameter.Number), type);
 				}
 				else if (type.IsAssignableFrom(typeof(byte)))
 				{
-					size = sizeof(byte).ToBits();
-					read();
+					read(sizeof(byte).ToBits());
 					obj = (T)Convert.ChangeType(S7.GetByteAt(buffer, 0), type);
 				}
 				else if (type.IsAssignableFrom(typeof(sbyte)))
 				{
-					size = sizeof(sbyte).ToBits();
-					read();
+					read(sizeof(sbyte).ToBits());
 					obj = (T)Convert.ChangeType(S7.GetByteAt(buffer, 0), type);
 				}
 				else if (type.IsAssignableFrom(typeof(short)))
 				{
-					size = sizeof(short).ToBits();
-					read();
+					read(sizeof(short).ToBits());
 					obj = (T)Convert.ChangeType(S7.GetSIntAt(buffer, 0), type);
 				}
 				else if (type.IsAssignableFrom(typeof(ushort)))
 				{
-					size = sizeof(ushort).ToBits();
-					read();
+					read(sizeof(ushort).ToBits());
 					obj = (T)Convert.ChangeType(S7.GetUIntAt(buffer, 0), type);
 				}
 				else if (type.IsAssignableFrom(typeof(int)))
 				{
-					size = sizeof(int).ToBits();
-					read();
+					read(sizeof(int).ToBits());
 					obj = (T)Convert.ChangeType(S7.GetIntAt(buffer, 0), type);
 				}
 				else if (type.IsAssignableFrom(typeof(float)))
 				{
-					size = sizeof(float).ToBits();
-					read();
+					read(sizeof(float).ToBits());
 					obj = (T)Convert.ChangeType(S7.GetRealAt(buffer, 0), type);
 				}
 				else if (type.IsAssignableFrom(typeof(double)))
 				{
-					size = sizeof(double).ToBits();
-					read();
+					read(sizeof(double).ToBits());
 					obj = (T)Convert.ChangeType(S7.GetLRealAt(buffer, 0), type);
 				}
 				else if (type.IsAssignableFrom(typeof(long)))
 				{
-					size = sizeof(long).ToBits();
-					read();
+					read(sizeof(long).ToBits());
 					obj = (T)Convert.ChangeType(S7.GetLIntAt(buffer, 0), type);
 				}
 				else if (type.IsAssignableFrom(typeof(ulong)))
 				{
-					size = sizeof(ulong).ToBits();
-					read();
+					read(sizeof(ulong).ToBits());
 					obj = (T)Convert.ChangeType(S7.GetULIntAt(buffer, 0), type);
 				}
 				else if (type.IsAssignableFrom(typeof(DateTime)))
 				{
-					size = 8.ToBits();
-					read();
+					read(8.ToBits());
 					obj = (T)Convert.ChangeType(S7.GetDateTimeAt(buffer, 0), type);
 				}
 				else if (type.IsAssignableFrom(typeof(char)))
 				{
-					size = sizeof(char).ToBits();
-					read();
+					read(sizeof(char).ToBits());
 					obj = (T)Convert.ChangeType(S7.GetWordAt(buffer, 0), type);
 				}
 				else if (type.IsAssignableFrom(typeof(string)))
 				{
-					size = (sizeof(char) * _parameter.Number).ToBits();
-					read();
+					read((sizeof(char) * _parameter.Number).ToBits());
 					obj = (T)Convert.ChangeType(S7.GetStringAt(buffer, 0), type);
 				}
 			}
 			catch (Exception ex)
 			{
 				Failed?.Invoke(this,
-					new SiemensConnectorFailedEventArgs(ex, result, S7Results.GetString(result), _setup.Name));
+					new SiemensConnectorFailedEventArgs(ex, _setup.Name, result, S7Results.GetString(result)));
 			}
 			finally
 			{
 				Completed?.Invoke(this,
-					new ConnectorCompletedEventArgs(S7Results.GetString(result), _setup.Name));
+					new ConnectorCompletedEventArgs(_setup.Name, S7Results.GetString(result)));
 			}
 
 			return obj;
 
 			// -- local function
 
-			void read()
+			void read(int size)
 			{
 				buffer = new byte[size];
 				result = _client.DBRead(_parameter.Datablock, _parameter.BitOffset, size, buffer);

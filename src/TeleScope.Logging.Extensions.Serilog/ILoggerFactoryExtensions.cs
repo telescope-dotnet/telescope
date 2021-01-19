@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Formatting;
 using Serilog.Formatting.Compact;
@@ -52,17 +51,6 @@ namespace TeleScope.Logging.Extensions.Serilog
 			return factory;
 		}
 
-		/// <summary>
-		/// TODO: add implementation here
-		/// </summary>
-		/// <param name="factory"></param>
-		/// <param name="uri"></param>
-		/// <returns></returns>
-		//public static ILoggerFactory AddSerilogHttp(this ILoggerFactory factory, Uri uri)
-		//{
-		//	throw new NotImplementedException();
-		//}
-
 		// -- helper methods
 
 		private static LoggerConfiguration GetConfig()
@@ -89,7 +77,10 @@ namespace TeleScope.Logging.Extensions.Serilog
 				case LogLevel.Trace:
 					config.MinimumLevel.Verbose();
 					break;
-			};
+				default:
+					config.MinimumLevel.Information();
+					break;
+			}
 			return config;
 		}
 	}

@@ -10,7 +10,7 @@ namespace TeleScope.UI.Cli.Options
 	{
 		// --fields
 
-		private T _options;
+		private readonly T _options;
 
 		// -- properties
 
@@ -59,7 +59,7 @@ namespace TeleScope.UI.Cli.Options
 			{
 				var arg = args[i];
 
-				if (arg.StartsWith(Prefix) == false)
+				if (!arg.StartsWith(Prefix))
 				{
 					continue;
 				}

@@ -20,12 +20,12 @@ namespace TeleScope.Connectors.Mqtt
 	public class MqttConnector : IMqttConnectable
 	{
 
-		// -- fields 
+		// -- fields
 
+		private readonly ILogger<MqttConnector> _log;
 		private IMqttClient _client;
 		private IMqttClientOptions _options;
 		private MqttSetup _setup;
-		private readonly ILogger _log;
 
 		// -- events
 

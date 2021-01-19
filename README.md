@@ -42,6 +42,7 @@ The NuGet versions follow the [Semantic Versioning](https://semver.org/) pattern
 If a version is in state `0.x.x`, this indicates that the package is not used in productive environments so far and
 that feature updates also may cause breaking changes. 
 
+<!-- Connectors -->
 <table>
 <thead>
 <tr align="center"><th colspan="2">
@@ -86,6 +87,45 @@ that feature updates also may cause breaking changes.
 </tbody>
 </table>
 
+<!-- Persistence -->
+<table>
+<thead>
+<tr align="center"><th colspan="2">
+
+[TeleScope.Persistence.*](https://www.nuget.org/packages?q=TeleScope.Persistence)
+
+</th></tr>
+</thead>
+<tbody>
+<tr align="center">
+<td colspan="3">
+
+[![Nuget](https://img.shields.io/nuget/v/TeleScope.Persistence.Abstractions.svg?label=Abstractions)](https://www.nuget.org/packages/TeleScope.Persistence.Abstractions/)
+
+</td>
+</tr>
+
+<tr align="center">
+<td>
+
+[![Nuget](https://img.shields.io/nuget/v/TeleScope.Persistence.Json.svg?label=Json)](https://www.nuget.org/packages/TeleScope.Persistence.Json/)
+
+</td>
+<td>
+
+[![Nuget](https://img.shields.io/nuget/v/TeleScope.Persistence.Csv.svg?label=Csv)](https://www.nuget.org/packages/TeleScope.Persistence.Csv/)
+
+</td>
+<td>
+
+[![Nuget](https://img.shields.io/nuget/v/TeleScope.Persistence.Parquet.svg?label=Parquet)](https://www.nuget.org/packages/TeleScope.Persistence.Parquet/)
+
+</td>
+</tr>
+</tbody>
+</table>
+
+<!-- UI -->
 <table>
 <thead>
 <tr align="center"><th colspan="2">
@@ -105,6 +145,7 @@ that feature updates also may cause breaking changes.
 </tbody>
 </table>
 
+<!-- Logging -->
 <table>
 <thead>
 <tr align="center"><th colspan="2">

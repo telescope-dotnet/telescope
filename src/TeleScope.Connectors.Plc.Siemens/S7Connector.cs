@@ -15,10 +15,10 @@ namespace TeleScope.Connectors.Plc.Siemens
 	{
 		// -- fields
 
+		private readonly ILogger<S7Connector> _log;
 		private S7Client _client;
 		private S7Setup _setup;
 		private S7Selector _parameter;
-		private readonly ILogger _log;
 
 		// -- events
 
@@ -54,7 +54,7 @@ namespace TeleScope.Connectors.Plc.Siemens
 		public S7Connector(S7Setup s7Setup)
 		{
 			_log = LoggingProvider.CreateLogger<S7Connector>();
-			
+
 
 			Setup(s7Setup);
 		}

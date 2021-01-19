@@ -14,7 +14,7 @@ namespace TeleScope.Persistence.Csv
 
 		// -- fields
 
-		private readonly ILogger _log;
+		private readonly ILogger<CsvStorage<T>> _log;
 		private readonly CsvStorageSetup _setup;
 		private readonly IParsable<T> _incomingParser;
 		private readonly IParsable<string[]> _outgoingParser;

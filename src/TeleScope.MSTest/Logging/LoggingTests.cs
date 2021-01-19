@@ -13,12 +13,11 @@ namespace TeleScope.MSTest.Logging
 		[TestInitialize]
 		public override void Arrange()
 		{
+			base.Arrange();
 			LoggingProvider.Initialize(
 				new LoggerFactory()
-					.UseTemplate("{Timestamp: HH:mm:ss} [{Level}] - {Message}{NewLine}{Exception}")
 					.UseLevel(LogLevel.Trace)
 					.AddSerilogConsole());
-			base.Arrange();
 		}
 
 		[TestCleanup]
@@ -33,15 +32,20 @@ namespace TeleScope.MSTest.Logging
 		public void TestSerilog()
 		{
 			// arrange
-			var _log = LoggingProvider.CreateLogger<LoggingTests>();
+			var genericLog = LoggingProvider.CreateLogger<LoggingTests>();
+			var typedLog = LoggingProvider.CreateLogger(this.GetType());
+			var namedLog = LoggingProvider.CreateLogger("GivenSource");
+
 
 			// act
-			_log.Trace("Tracing log");
-			_log.Debug("Debug log with params: {0} {1} {2}", 1, 2, 3);
-			_log.Info("Info log with source: {0}", this);
-			_log.Warn(new Exception("I`m waring you"), "Warning log with additional exception.", this);
-			_log.Error("Error log");
-			_log.Critical(new Exception("Now a really critical thing happended."));
+			genericLog.Trace("Tracing log");
+			genericLog.Debug("Debug log with params: {0} {1} {2}", 1, 2, 3);
+
+			typedLog.Info("Info log with source: {0}", this);
+			typedLog.Warn(new Exception("I`m warning you"), "Warning log with additional exception.", this);
+			
+			namedLog.Error("Error log");
+			namedLog.Critical(new Exception("Now a really critical thing happended."));
 
 			// assert
 			Assert.IsTrue(_log != null, "The log was inactive");

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Company>TeleScope-dotnet</Company>
-    <Version>0.1.2</Version>
+    <Version>0.2.1</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/telescope-dotnet/telescope</PackageProjectUrl>
     <PackageIcon>logo-nuget.png</PackageIcon>

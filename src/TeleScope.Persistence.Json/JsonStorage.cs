@@ -11,7 +11,7 @@ namespace TeleScope.Persistence.Json
 {
 	public class JsonStorage<T> : IReadable<T>, IWritable<T>
 	{
-		private readonly ILogger _log;
+		private readonly ILogger<JsonStorage<T>> _log;
 		private readonly string _file;
 		private readonly JsonSerializerSettings _settings;
 

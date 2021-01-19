@@ -90,7 +90,7 @@ that feature updates also may cause breaking changes.
 <!-- Persistence -->
 <table>
 <thead>
-<tr align="center"><th colspan="2">
+<tr align="center"><th colspan="3">
 
 [TeleScope.Persistence.*](https://www.nuget.org/packages?q=TeleScope.Persistence)
 

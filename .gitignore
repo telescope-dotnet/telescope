@@ -348,3 +348,8 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+# ---------------
+# own ignore list
+# ---------------
+/src/TeleScope.MSTest/App_Data/s7setup.json

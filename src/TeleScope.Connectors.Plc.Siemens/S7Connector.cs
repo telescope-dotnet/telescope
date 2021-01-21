@@ -164,7 +164,7 @@ namespace TeleScope.Connectors.Plc.Siemens
 					var splits = (parameter as string).Split('.');
 					var datablock = int.Parse(splits[0].Remove(0, 2));
 					var offset = int.Parse(splits[1].Remove(0, 3));
-					var number = (splits.Length == 3 ? int.Parse(splits[3]) : 0);
+					var number = (splits.Length == 3 ? int.Parse(splits[2]) : 0);
 
 					return Select(new S7Selector(datablock, offset, number));
 				}
@@ -184,7 +184,7 @@ namespace TeleScope.Connectors.Plc.Siemens
 						$"The parameter could not be adapted into the internal representation of '{typeof(S7Selector)}'.");
 				}
 			}
-			catch (Exception ex)
+			catch (IndexOutOfRangeException ex)
 			{
 				fowardError(ex);
 			}

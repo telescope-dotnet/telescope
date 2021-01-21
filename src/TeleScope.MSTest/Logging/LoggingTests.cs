@@ -14,10 +14,6 @@ namespace TeleScope.MSTest.Logging
 		public override void Arrange()
 		{
 			base.Arrange();
-			LoggingProvider.Initialize(
-				new LoggerFactory()
-					.UseLevel(LogLevel.Trace)
-					.AddSerilogConsole());
 		}
 
 		[TestCleanup]

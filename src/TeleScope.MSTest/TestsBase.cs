@@ -23,7 +23,7 @@ namespace TeleScope.MSTest
 			_watch = new Stopwatch();
 			LoggingProvider.Initialize(
 				 new LoggerFactory()
-					 .UseTemplate("{Timestamp: HH:mm:ss} [{Level}] - {Message}{NewLine}{Exception}")
+					 .UseTemplate("{Timestamp: HH:mm:ss} [{Level} | {SourceContext:l}] - {Message}{NewLine}{Exception}")
 					 .UseLevel(LogLevel.Trace)
 					 .AddSerilogConsole());
 			_log = LoggingProvider.CreateLogger<TestsBase>();

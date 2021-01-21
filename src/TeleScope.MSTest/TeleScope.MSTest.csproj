@@ -28,7 +28,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Resource Include="App_Data\s7setup.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="App_Data\s7setup.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

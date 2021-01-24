@@ -25,26 +25,45 @@ namespace TeleScope.MSTest.Logging
 		// -- test method
 
 		[TestMethod]
-		public void TestSerilog()
+		public void TestStringSourceLog()
+		{
+			var log = LoggingProvider.CreateLogger("Log-Source-Name");
+
+			// assert & act 
+			AssertAndLog(log);
+		}
+
+		[TestMethod]
+		public void TestTypedLog()
 		{
 			// arrange
-			var genericLog = LoggingProvider.CreateLogger<LoggingTests>();
-			var typedLog = LoggingProvider.CreateLogger(this.GetType());
-			var namedLog = LoggingProvider.CreateLogger("GivenSource");
+			var log = LoggingProvider.CreateLogger(typeof(LoggingTests));
 
+			// assert & act 
+			AssertAndLog(log);
+		}
 
-			// act
-			genericLog.Trace("Tracing log");
-			genericLog.Debug("Debug log with params: {0} {1} {2}", 1, 2, 3);
+		[TestMethod]
+		public void TestGenericLog()
+		{
+			// arrange
+			var log = LoggingProvider.CreateLogger<LoggingTests>();
 
-			typedLog.Info("Info log with source: {0}", this);
-			typedLog.Warn(new Exception("I`m warning you"), "Warning log with additional exception.", this);
-			
-			namedLog.Error("Error log");
-			namedLog.Critical(new Exception("Now a really critical thing happended."));
+			// assert & act 
+			AssertAndLog(log);
+		}
 
+		private void AssertAndLog(ILogger log)
+		{
 			// assert
-			Assert.IsTrue(_log != null, "The log was inactive");
+			Assert.IsTrue(log != null, "The log was inactive");
+
+			log.Trace("Tracing log");
+			log.Debug("Debug log with params: {0} {1} {2}", 1, 2, 3);
+			log.Info("Info log with source: {0}", this);
+			log.Warn(new Exception("I`m warning you"), "Warning log with additional exception.", this);
+			log.Error("Error log");
+			log.Critical(new Exception("Now a really critical thing happended."));
 		}
 	}
 }

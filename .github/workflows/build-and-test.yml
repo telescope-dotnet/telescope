@@ -69,7 +69,7 @@ jobs:
         shell: powershell
         env:
           # Needed to get some information about the pull request, if any
-          GITHUB_TOKEN: ${{ secrets.GH_SONAR_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # The secret referenced in the command-line by SONAR_TOKEN should be generated
           # from https://sonarcloud.io/account/security/
           # The organization and project arguments (see /o and /k) are displayed

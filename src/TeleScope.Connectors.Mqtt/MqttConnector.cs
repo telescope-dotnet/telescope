@@ -20,12 +20,12 @@ namespace TeleScope.Connectors.Mqtt
 	public class MqttConnector : IMqttConnectable
 	{
 
-		// -- fields 
+		// -- fields
 
+		private readonly ILogger<MqttConnector> _log;
 		private IMqttClient _client;
 		private IMqttClientOptions _options;
 		private MqttSetup _setup;
-		private ILogger _log;
 
 		// -- events
 
@@ -70,8 +70,8 @@ namespace TeleScope.Connectors.Mqtt
 
 					if (e.AuthenticateResult.ResultCode != MqttClientConnectResultCode.Success)
 					{
-						Failed?.Invoke(this, new ConnectorFailedEventArgs(_setup.Name, e.AuthenticateResult.ResultCode.ToString()));
-						throw new Exception($"Connection error '{e.AuthenticateResult.ResultCode.ToString()}' in {this.GetType().Name}");
+						Failed?.Invoke(this,
+							new ConnectorFailedEventArgs(_setup.Name, e.AuthenticateResult.ResultCode.ToString()));
 					}
 
 					Connected?.Invoke(this, new ConnectorEventArgs(_setup.Name));

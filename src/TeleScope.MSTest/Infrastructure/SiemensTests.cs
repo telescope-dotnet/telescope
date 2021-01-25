@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TeleScope.Connectors.Abstractions.Events;
 using TeleScope.Connectors.Plc.Siemens;
 using TeleScope.Connectors.Plc.Siemens.Events;
+using TeleScope.Persistence.Json;
+using TeleScope.Logging.Extensions;
 
 namespace TeleScope.MSTest.Infrastructure
 {
@@ -35,14 +38,7 @@ namespace TeleScope.MSTest.Infrastructure
 		public override void Arrange()
 		{
 			base.Arrange();
-			_setup = new S7Setup
-			{
-
-				Name = "SIEMENS 08/15",
-				IPAddress = "0.0.0.0",
-				Rack = 0,
-				Slot = 2
-			};
+			_setup = GetS7Setup();
 			_s7 = new S7Connector(_setup);
 			_s7.Connected += Connected;
 			_s7.Disconnected += Disconnected;
@@ -78,15 +74,30 @@ namespace TeleScope.MSTest.Infrastructure
 			// act
 
 			/*
-			 * testing possible dummy selectors
+			 * testing possible selectors
 			 */
-			var real1 = _s7.Select("DB123.DBD4").Read<float>();
-			var real2 = _s7.Select(new S7Selector(567, 8)).Read<float>();
-			var real3 = _s7.Select(new object[] { 910, 11, 0 }).Read<float>();
-			var bit = _s7.Select(new int[] { 121, 31, 4 }).Read<bool>();
+
+			var xPos = _s7.Select("DB652.DBD82").Read<float>();
+			var zPos = _s7.Select(new S7Selector(652, 86)).Read<float>();
+			var cPos = _s7.Select(new object[] { 652, 90, 0 }).Read<float>();
+			var uPos = _s7.Select(new int[] { 652, 94, 0 }).Read<float>();
+			var mode1 = _s7.Select("DB652.DBX684.4").Read<bool>();
+			var mode2 = _s7.Select("DB652.DBX684.5").Read<bool>();
+			var mode3 = _s7.Select("DB652.DBX684.6").Read<bool>();
+
+			LogData(new object[] {
+				$"{nameof(xPos)} {xPos}",
+				$"{nameof(zPos)} {zPos}",
+				$"{nameof(cPos)} {cPos}",
+				$"{nameof(uPos)} {uPos}",
+				$"{nameof(mode1)} {mode1}",
+				$"{nameof(mode2)} {mode2}",
+				$"{nameof(mode3)} {mode3}"
+			});
 
 			// assert
 			Assert.IsTrue(_s7.ResultCode == 0, $"The connector returned with the Result '{_s7.Result}'.");
+
 		}
 
 		[TestMethod]
@@ -108,6 +119,36 @@ namespace TeleScope.MSTest.Infrastructure
 
 		// -- helper
 
+		private S7Setup GetS7Setup()
+		{
+			S7Setup setup;
+			try
+			{
+				setup = new JsonStorage<S7Setup>("App_Data/s7setup.json").Read().First();
+			}
+			catch (Exception ex)
+			{
+				_log.Error(ex);
+				setup = new S7Setup
+				{
+
+					Name = "SIEMENS 08/15",
+					IPAddress = "0.0.0.0",
+					Rack = 0,
+					Slot = 2
+				};
+			}
+			return setup;
+		}
+
+		private void LogData(object[] parameters)
+		{
+			_log.Info("Logging all data blocks...");
+			foreach (var d in parameters)
+			{
+				_log.Info(d);
+			}
+		}
 
 		private void Error(object sender, ConnectorFailedEventArgs e)
 		{

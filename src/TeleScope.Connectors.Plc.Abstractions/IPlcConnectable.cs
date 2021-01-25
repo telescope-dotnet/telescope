@@ -1,5 +1,4 @@
-﻿using System;
-using TeleScope.Connectors.Abstractions;
+﻿using TeleScope.Connectors.Abstractions;
 
 namespace TeleScope.Connectors.Plc.Abstractions
 {

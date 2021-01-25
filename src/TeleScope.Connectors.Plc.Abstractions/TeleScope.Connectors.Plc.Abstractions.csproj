@@ -1,8 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>0.3.0</Version>
+    <Version>0.3.2</Version>
     <PackageIcon>logo-nuget.png</PackageIcon>
     <PackageProjectUrl>https://github.com/telescope-dotnet/telescope</PackageProjectUrl>
     <RepositoryUrl>https://github.com/telescope-dotnet/telescope</RepositoryUrl>
@@ -10,7 +10,7 @@
     <Company>TeleScope-dotnet</Company>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <Description>Contains further specialized abstractions and interfaces to implement PLC connectors like for the S7 protocol. Depends on the assembly TeleScope.Connectors.Abstractions.</Description>
-    <AssemblyVersion>0.3.0.0</AssemblyVersion>
+    <AssemblyVersion>0.3.1.0</AssemblyVersion>
     <PackageTags>Abstractions, PLC</PackageTags>
     <Authors>TeleScope-dotnet members</Authors>
   </PropertyGroup>

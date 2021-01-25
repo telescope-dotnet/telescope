@@ -2,25 +2,25 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>0.1.1</Version>
     <Authors>TeleScope-dotnet members</Authors>
     <Company>TeleScope-dotnet</Company>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/telescope-dotnet/telescope</PackageProjectUrl>
     <RepositoryUrl>https://github.com/telescope-dotnet/telescope</RepositoryUrl>
-    <AssemblyVersion>0.3.1.0</AssemblyVersion>
-    <Version>0.3.2</Version>
-    <PackageTags>Mqtt, MQTTnet</PackageTags>
-    <Description>Contains an implementation of the IConnectable interface for Mqtt. Depends on the assemblies TeleScope.Connectors.Mqtt.Abstractions and MQTTnet.</Description>
     <PackageIcon>logo-nuget.png</PackageIcon>
+    <PackageTags>Persistence Parquet, Parquet.Net</PackageTags>
+    <PackageReleaseNotes>initial packaged version</PackageReleaseNotes>
+    <Description>Contains an implementation of the IReadable and IWritable interfaces to access parquet files. Depends on the assemblies TeleScope.Persistence.Abstractions and Parquet.Net.</Description>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MQTTnet" Version="3.0.13" />
+    <PackageReference Include="Parquet.Net" Version="3.8.4" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TeleScope.Connectors.Mqtt.Abstractions\TeleScope.Connectors.Mqtt.Abstractions.csproj" />
     <ProjectReference Include="..\TeleScope.Logging\TeleScope.Logging.csproj" />
+    <ProjectReference Include="..\TeleScope.Persistence.Abstractions\TeleScope.Persistence.Abstractions.csproj" />
   </ItemGroup>
 
   <ItemGroup>

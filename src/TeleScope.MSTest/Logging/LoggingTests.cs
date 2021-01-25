@@ -1,12 +1,9 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System;
+using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Serilog;
-using TeleScope.Connectors.Abstractions;
-using TeleScope.Connectors.Plc.Siemens;
 using TeleScope.Logging;
-using TeleScope.Logging.Extensions.Serilog;
 using TeleScope.Logging.Extensions;
-using System;
+using TeleScope.Logging.Extensions.Serilog;
 
 namespace TeleScope.MSTest.Logging
 {
@@ -16,25 +13,6 @@ namespace TeleScope.MSTest.Logging
 		[TestInitialize]
 		public override void Arrange()
 		{
-			// old version
-			/*
-			var loggerFactory = (ILoggerFactory)new LoggerFactory();
-			var serilogLogger =
-				new LoggerConfiguration()
-				.MinimumLevel.Debug()
-				.WriteTo.Console(outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss} [{Level}] [{SourceContext:l}] {Message}{NewLine}{Exception}")
-				.WriteTo.File(new CompactJsonFormatter(), "./App_Data//log.json")
-				.CreateLogger();
-			loggerFactory.AddSerilog(serilogLogger);
-			LoggingProvider.Initialize(loggerFactory);
-			*/
-
-			// new version: TeleScope.Logging.Extensions.Serilog;
-			LoggingProvider.Initialize(
-				new LoggerFactory()
-					.UseTemplate("{Timestamp: HH:mm:ss} [{Level}] - {Message}{NewLine}{Exception}")
-					.UseLevel(LogLevel.Trace)
-					.AddSerilogConsole());
 			base.Arrange();
 		}
 
@@ -47,21 +25,45 @@ namespace TeleScope.MSTest.Logging
 		// -- test method
 
 		[TestMethod]
-		public void TestSerilog()
+		public void TestStringSourceLog()
+		{
+			var log = LoggingProvider.CreateLogger("Log-Source-Name");
+
+			// assert & act 
+			AssertAndLog(log);
+		}
+
+		[TestMethod]
+		public void TestTypedLog()
 		{
 			// arrange
-			var _log = LoggingProvider.CreateLogger<LoggingTests>();
+			var log = LoggingProvider.CreateLogger(typeof(LoggingTests));
 
-			// act
-			_log.Trace("Tracing log");
-			_log.Debug("Debug log with params: {0} {1} {2}", 1, 2, 3);
-			_log.Info("Info log with source: {0}", this);
-			_log.Warn(new Exception("I`m waring you"), "Warning log with additional exception.", this);
-			_log.Error("Error log");
-			_log.Critical(new Exception("Now a really critical thing happended."));
+			// assert & act 
+			AssertAndLog(log);
+		}
 
+		[TestMethod]
+		public void TestGenericLog()
+		{
+			// arrange
+			var log = LoggingProvider.CreateLogger<LoggingTests>();
+
+			// assert & act 
+			AssertAndLog(log);
+		}
+
+		private void AssertAndLog(ILogger log)
+		{
 			// assert
-			Assert.IsTrue(_log != null, "The log was inactive");
+			Assert.IsTrue(log != null, "The log was inactive");
+
+			log.Trace("Tracing log");
+			log.Debug("Debug log with params: {0} {1} {2}", 1, 2, 3);
+			log.Info("Info log with source: {0}", this);
+			log.Warn(new Exception("I`m warning you"), "Warning log with additional exception.", this);
+			log.Error("Error log");
+			log.Critical(new Exception("Now a really critical thing happended."));
 		}
 	}
 }

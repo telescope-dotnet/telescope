@@ -15,10 +15,10 @@ namespace TeleScope.Connectors.Plc.Siemens
 	{
 		// -- fields
 
+		private readonly ILogger<S7Connector> _log;
 		private S7Client _client;
 		private S7Setup _setup;
 		private S7Selector _parameter;
-		private ILogger _log;
 
 		// -- events
 
@@ -54,7 +54,7 @@ namespace TeleScope.Connectors.Plc.Siemens
 		public S7Connector(S7Setup s7Setup)
 		{
 			_log = LoggingProvider.CreateLogger<S7Connector>();
-			
+
 
 			Setup(s7Setup);
 		}
@@ -164,7 +164,7 @@ namespace TeleScope.Connectors.Plc.Siemens
 					var splits = (parameter as string).Split('.');
 					var datablock = int.Parse(splits[0].Remove(0, 2));
 					var offset = int.Parse(splits[1].Remove(0, 3));
-					var number = (splits.Length == 3 ? int.Parse(splits[3]) : 0);
+					var number = (splits.Length == 3 ? int.Parse(splits[2]) : 0);
 
 					return Select(new S7Selector(datablock, offset, number));
 				}
@@ -184,7 +184,7 @@ namespace TeleScope.Connectors.Plc.Siemens
 						$"The parameter could not be adapted into the internal representation of '{typeof(S7Selector)}'.");
 				}
 			}
-			catch (Exception ex)
+			catch (IndexOutOfRangeException ex)
 			{
 				fowardError(ex);
 			}
@@ -259,7 +259,6 @@ namespace TeleScope.Connectors.Plc.Siemens
 		{
 			T obj = default(T);
 			Type type = typeof(T);
-			int size;
 			byte[] buffer;
 			int result = 0;
 
@@ -267,80 +266,67 @@ namespace TeleScope.Connectors.Plc.Siemens
 			{
 				if (type.IsAssignableFrom(typeof(bool)))
 				{
-					size = sizeof(bool).ToBits();
-					read();
+					read(sizeof(bool).ToBits());
 					obj = (T)Convert.ChangeType(S7.GetBitAt(buffer, 0, _parameter.Number), type);
 				}
 				else if (type.IsAssignableFrom(typeof(byte)))
 				{
-					size = sizeof(byte).ToBits();
-					read();
+					read(sizeof(byte).ToBits());
 					obj = (T)Convert.ChangeType(S7.GetByteAt(buffer, 0), type);
 				}
 				else if (type.IsAssignableFrom(typeof(sbyte)))
 				{
-					size = sizeof(sbyte).ToBits();
-					read();
+					read(sizeof(sbyte).ToBits());
 					obj = (T)Convert.ChangeType(S7.GetByteAt(buffer, 0), type);
 				}
 				else if (type.IsAssignableFrom(typeof(short)))
 				{
-					size = sizeof(short).ToBits();
-					read();
+					read(sizeof(short).ToBits());
 					obj = (T)Convert.ChangeType(S7.GetSIntAt(buffer, 0), type);
 				}
 				else if (type.IsAssignableFrom(typeof(ushort)))
 				{
-					size = sizeof(ushort).ToBits();
-					read();
+					read(sizeof(ushort).ToBits());
 					obj = (T)Convert.ChangeType(S7.GetUIntAt(buffer, 0), type);
 				}
 				else if (type.IsAssignableFrom(typeof(int)))
 				{
-					size = sizeof(int).ToBits();
-					read();
+					read(sizeof(int).ToBits());
 					obj = (T)Convert.ChangeType(S7.GetIntAt(buffer, 0), type);
 				}
 				else if (type.IsAssignableFrom(typeof(float)))
 				{
-					size = sizeof(float).ToBits();
-					read();
+					read(sizeof(float).ToBits());
 					obj = (T)Convert.ChangeType(S7.GetRealAt(buffer, 0), type);
 				}
 				else if (type.IsAssignableFrom(typeof(double)))
 				{
-					size = sizeof(double).ToBits();
-					read();
+					read(sizeof(double).ToBits());
 					obj = (T)Convert.ChangeType(S7.GetLRealAt(buffer, 0), type);
 				}
 				else if (type.IsAssignableFrom(typeof(long)))
 				{
-					size = sizeof(long).ToBits();
-					read();
+					read(sizeof(long).ToBits());
 					obj = (T)Convert.ChangeType(S7.GetLIntAt(buffer, 0), type);
 				}
 				else if (type.IsAssignableFrom(typeof(ulong)))
 				{
-					size = sizeof(ulong).ToBits();
-					read();
+					read(sizeof(ulong).ToBits());
 					obj = (T)Convert.ChangeType(S7.GetULIntAt(buffer, 0), type);
 				}
 				else if (type.IsAssignableFrom(typeof(DateTime)))
 				{
-					size = 8.ToBits();
-					read();
+					read(8.ToBits());
 					obj = (T)Convert.ChangeType(S7.GetDateTimeAt(buffer, 0), type);
 				}
 				else if (type.IsAssignableFrom(typeof(char)))
 				{
-					size = sizeof(char).ToBits();
-					read();
+					read(sizeof(char).ToBits());
 					obj = (T)Convert.ChangeType(S7.GetWordAt(buffer, 0), type);
 				}
 				else if (type.IsAssignableFrom(typeof(string)))
 				{
-					size = (sizeof(char) * _parameter.Number).ToBits();
-					read();
+					read((sizeof(char) * _parameter.Number).ToBits());
 					obj = (T)Convert.ChangeType(S7.GetStringAt(buffer, 0), type);
 				}
 			}
@@ -359,7 +345,7 @@ namespace TeleScope.Connectors.Plc.Siemens
 
 			// -- local function
 
-			void read()
+			void read(int size)
 			{
 				buffer = new byte[size];
 				result = _client.DBRead(_parameter.Datablock, _parameter.BitOffset, size, buffer);

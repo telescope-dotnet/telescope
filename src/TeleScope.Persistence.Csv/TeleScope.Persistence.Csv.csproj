@@ -2,19 +2,21 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>0.1.1</Version>
     <Authors>TeleScope-dotnet members</Authors>
     <Company>TeleScope-dotnet</Company>
-    <Version>0.3.2</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <PackageProjectUrl>https://github.com/telescope-dotnet/telescope</PackageProjectUrl>
-    <PackageTags>Abstractions, MQTT</PackageTags>
     <PackageIcon>logo-nuget.png</PackageIcon>
+    <PackageProjectUrl>https://github.com/telescope-dotnet/telescope</PackageProjectUrl>
     <RepositoryUrl>https://github.com/telescope-dotnet/telescope</RepositoryUrl>
-    <Description>Contains further abstractions and interfaces to implement MQTT connectors. Depends on the assembly TeleScope.Connectors.Abstractions.</Description>
+    <PackageReleaseNotes>initial packaged version</PackageReleaseNotes>
+    <PackageTags>Persistence, Csv</PackageTags>
+    <Description>Contains an implementation of the IReadable and IWritable interfaces to access Character Seperated Value files. Depends on the assemblies TeleScope.Persistence.Abstractions.</Description>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TeleScope.Connectors.Abstractions\TeleScope.Connectors.Abstractions.csproj" />
+    <ProjectReference Include="..\TeleScope.Logging\TeleScope.Logging.csproj" />
+    <ProjectReference Include="..\TeleScope.Persistence.Abstractions\TeleScope.Persistence.Abstractions.csproj" />
   </ItemGroup>
 
   <ItemGroup>

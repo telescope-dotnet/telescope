@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using TeleScope.Connectors.Abstractions;
 
 namespace TeleScope.Connectors.Mqtt
 {
-	public class MqttSetup 
+	public class MqttSetup
 	{
 		// fields
 

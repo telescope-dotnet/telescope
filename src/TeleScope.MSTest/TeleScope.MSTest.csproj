@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-
     <IsPackable>false</IsPackable>
+	<SonarQubeExclude>true</SonarQubeExclude>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,7 +21,21 @@
     <ProjectReference Include="..\TeleScope.Connectors.Plc.Abstractions\TeleScope.Connectors.Plc.Abstractions.csproj" />
     <ProjectReference Include="..\TeleScope.Connectors.Plc.Siemens\TeleScope.Connectors.Plc.Siemens.csproj" />
     <ProjectReference Include="..\TeleScope.Logging.Extensions.Serilog\TeleScope.Logging.Extensions.Serilog.csproj" />
+    <ProjectReference Include="..\TeleScope.Persistence.Abstractions\TeleScope.Persistence.Abstractions.csproj" />
+    <ProjectReference Include="..\TeleScope.Persistence.Csv\TeleScope.Persistence.Csv.csproj" />
+    <ProjectReference Include="..\TeleScope.Persistence.Json\TeleScope.Persistence.Json.csproj" />
+    <ProjectReference Include="..\TeleScope.Persistence.Parquet\TeleScope.Persistence.Parquet.csproj" />
     <ProjectReference Include="..\TeleScope.UI.Cli\TeleScope.UI.Cli.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="App_Data\s7setup.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="App_Data\s7setup.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

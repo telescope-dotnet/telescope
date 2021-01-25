@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>0.1.0</Version>
+    <Authors>TeleScope-dotnet members</Authors>
+    <Company>TeleScope-dotnet</Company>
+    <Description>Contains further abstractions and interfaces to implement HTTP connectors. Depends on the assembly TeleScope.Connectors.Abstractions.</Description>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/telescope-dotnet/telescope</PackageProjectUrl>
+    <PackageIcon>logo-nuget.png</PackageIcon>
+    <RepositoryUrl>https://github.com/telescope-dotnet/telescope</RepositoryUrl>
+    <PackageTags>Abstractions, HTTP</PackageTags>
+    <PackageReleaseNotes>initial testable edition</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TeleScope.Connectors.Abstractions\TeleScope.Connectors.Abstractions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\images\logo-nuget.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>

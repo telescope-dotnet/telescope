@@ -18,7 +18,7 @@ namespace TeleScope.Connectors.Http
 
 		public const int TIMEOUT = 10000;
 
-		private ILogger _log;
+		private readonly ILogger<HttpConnector> _log;
 		private HttpClient _client;
 		private HttpEndpoint _endpoint;
 		private StringContent _content;
@@ -29,7 +29,6 @@ namespace TeleScope.Connectors.Http
 		public event ConnectorEventHandler Disconnected;
 		public event ConnectorCompletedEventHandler Completed;
 		public event ConnectorFailedEventHandler Failed;
-
 
 		// -- properties
 
@@ -200,7 +199,5 @@ namespace TeleScope.Connectors.Http
 
 			return true;
 		}
-
-	
 	}
 }

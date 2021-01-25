@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TeleScope.Connectors.Http;
@@ -25,7 +24,7 @@ namespace TeleScope.MSTest.Infrastructure
 		}
 
 		// -- Test methods
-		
+
 		[TestMethod]
 		public async Task RequestResponse()
 		{
@@ -36,7 +35,7 @@ namespace TeleScope.MSTest.Infrastructure
 				MethodName = "get"
 			};
 			var http = GetHttpConnector(endpoint);
-			
+
 
 			// act
 			var result = await http.CallAsync();
@@ -53,7 +52,7 @@ namespace TeleScope.MSTest.Infrastructure
 			http.Connected += (o, e) =>
 			{
 				var message = e.Name;
-				_log.Info($"Http connection successful: {e.Name}");
+				_log.Info($"Http connection successful: {message}");
 				Assert.IsTrue(http.IsConnected, "The http connection should be okay");
 			};
 			http.Failed += (o, e) =>

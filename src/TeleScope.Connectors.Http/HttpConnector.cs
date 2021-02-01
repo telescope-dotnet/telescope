@@ -107,7 +107,7 @@ namespace TeleScope.Connectors.Http
 			}
 			catch (WebException wex)
 			{
-				_log.Trace(wex, $"Http connection failed '{_client.BaseAddress.AbsoluteUri}'.");
+				_log.Trace(wex, $"Http connection failed for {request.Method}: '{_client.BaseAddress.AbsoluteUri}'.");
 				Failed?.Invoke(this, new ConnectorFailedEventArgs(wex, _client.BaseAddress.AbsoluteUri));
 			}
 

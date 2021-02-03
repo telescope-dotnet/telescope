@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TeleScope.Logging;
 using TeleScope.Logging.Extensions;
 using TeleScope.Logging.Extensions.Serilog;
+using TeleScope.MSTest.Infrastructure;
 
 namespace TeleScope.MSTest.Logging
 {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using Microsoft.Extensions.Logging;
 using TeleScope.Logging;
@@ -48,7 +49,7 @@ namespace TeleScope.Persistence.Csv
 			for (uint i = _setup.StartRow; i < lines.Length; i++)
 			{
 				string[] fields = lines[i].Split(_setup.Separator);
-				result.Add(_incomingParser.Parse<string[]>(fields));
+				result.Add(_incomingParser.Parse<string[]>(fields, (int)i, lines.Length));
 			}
 
 			_log.Trace($"csv import successfull for '{_setup.Filename}'");
@@ -89,10 +90,12 @@ namespace TeleScope.Persistence.Csv
 			}
 
 			// append data
+			int i = 0;
 			foreach (T item in data)
 			{
-				var line = string.Join(seperator, _outgoingParser.Parse<T>(item));
+				var line = string.Join(seperator, _outgoingParser.Parse<T>(item, i, data.Count()));
 				csv.AppendLine(line);
+				i++;
 			}
 
 			// flush to file

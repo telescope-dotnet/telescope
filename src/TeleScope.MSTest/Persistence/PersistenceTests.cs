@@ -138,23 +138,24 @@ namespace TeleScope.MSTest.Persistence
 
 	class CsvToMockupParser : IParsable<Mockup>
 	{
-		public Mockup Parse<Tin>(Tin input)
+		public Mockup Parse<Tin>(Tin input, int total = 1)
 		{
 			string[] fields = input as string[];
 
-			return new Mockup {
+			return new Mockup
+			{
 				Id = int.Parse(fields[0]),
 				Name = fields[1],
 				Greetings = fields[2],
 				Number = double.Parse(fields[3]),
-				Timestamp = DateTime.Parse(fields[4])	
+				Timestamp = DateTime.Parse(fields[4])
 			};
 		}
 	}
 
 	class MockupToCsvParser : IParsable<string[]>
 	{
-		string[] IParsable<string[]>.Parse<Tin>(Tin input)
+		public string[] Parse<Tin>(Tin input, int total = 1)
 		{
 			var mockup = input as Mockup;
 

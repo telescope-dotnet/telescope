@@ -138,7 +138,7 @@ namespace TeleScope.MSTest.Persistence
 
 	class CsvToMockupParser : IParsable<Mockup>
 	{
-		public Mockup Parse<Tin>(Tin input, int total = 1)
+		public Mockup Parse<Tin>(Tin input, int index = 0, int length = 1)
 		{
 			string[] fields = input as string[];
 
@@ -155,7 +155,7 @@ namespace TeleScope.MSTest.Persistence
 
 	class MockupToCsvParser : IParsable<string[]>
 	{
-		public string[] Parse<Tin>(Tin input, int total = 1)
+		public string[] Parse<Tin>(Tin input, int index = 0, int length = 1)
 		{
 			var mockup = input as Mockup;
 

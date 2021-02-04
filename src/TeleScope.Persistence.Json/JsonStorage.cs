@@ -80,7 +80,7 @@ namespace TeleScope.Persistence.Json
 				}
 				else
 				{
-					_log.Trace($"The data parameter is null, but the storage is not set as deletable.");
+					_log.Trace($"The data parameter is null, but the storage has no delete permission.");
 				}
 			}
 

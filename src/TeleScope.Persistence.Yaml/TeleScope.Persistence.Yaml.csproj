@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="YamlDotNet" Version="9.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TeleScope.Logging\TeleScope.Logging.csproj" />
     <ProjectReference Include="..\TeleScope.Persistence.Abstractions\TeleScope.Persistence.Abstractions.csproj" />
   </ItemGroup>
 

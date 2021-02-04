@@ -1,15 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using Microsoft.Extensions.Logging;
 using Parquet;
+using TeleScope.Logging;
+using TeleScope.Logging.Extensions;
 using TeleScope.Persistence.Abstractions;
 
 namespace TeleScope.Persistence.Parquet
 {
 	public class ParquetStorage<T> : IReadable<T>, IWritable<T> where T : new()
 	{
-
 		// -- fields
 
+		private readonly ILogger<ParquetStorage<T>> _log;
 		private readonly string _file;
 
 		// -- properties
@@ -20,11 +23,12 @@ namespace TeleScope.Persistence.Parquet
 
 		// -- constructor
 
-		public ParquetStorage(string file)
+		public ParquetStorage(string file, bool canCreate = true, bool canDelete = false)
 		{
+			_log = LoggingProvider.CreateLogger<ParquetStorage<T>>();
 			_file = file;
-			CanCreate = true;
-			CanDelete = false;
+			CanCreate = canCreate;
+			CanDelete = canDelete;
 		}
 
 		// -- methods
@@ -42,9 +46,22 @@ namespace TeleScope.Persistence.Parquet
 
 		public void Write(IEnumerable<T> data)
 		{
-			if (data == null)
+			var info = new FileInfo(_file);
+			if (data == null && info.Exists)
 			{
+				if (CanDelete) info.Delete();
+				else _log.Trace($"Not allowed to delte file: {0}", _file);
 				return;
+			}
+			else if (!CanCreate && !info.Exists)
+			{
+				_log.Trace($"Not allowed to create file: {0}", _file);
+				return;
+			}
+			else if (CanCreate && !info.Directory.Exists)
+			{
+				info.Directory.Create();
+				_log.Trace("Directory created for file: {0}", _file);
 			}
 
 			ParquetConvert.Serialize(data, _file);

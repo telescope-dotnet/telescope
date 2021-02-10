@@ -16,7 +16,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TeleScope.Connectors.Abstractions\TeleScope.Connectors.Abstractions.csproj" />
+    <ProjectReference Include="..\TeleScope.Connectors.Http.Abstractions\TeleScope.Connectors.Http.Abstractions.csproj" />
     <ProjectReference Include="..\TeleScope.Connectors.Http\TeleScope.Connectors.Http.csproj" />
+    <ProjectReference Include="..\TeleScope.Connectors.Mqtt.Abstractions\TeleScope.Connectors.Mqtt.Abstractions.csproj" />
     <ProjectReference Include="..\TeleScope.Connectors.Mqtt\TeleScope.Connectors.Mqtt.csproj" />
     <ProjectReference Include="..\TeleScope.Connectors.Plc.Abstractions\TeleScope.Connectors.Plc.Abstractions.csproj" />
     <ProjectReference Include="..\TeleScope.Connectors.Plc.Siemens\TeleScope.Connectors.Plc.Siemens.csproj" />
@@ -25,6 +27,7 @@
     <ProjectReference Include="..\TeleScope.Persistence.Csv\TeleScope.Persistence.Csv.csproj" />
     <ProjectReference Include="..\TeleScope.Persistence.Json\TeleScope.Persistence.Json.csproj" />
     <ProjectReference Include="..\TeleScope.Persistence.Parquet\TeleScope.Persistence.Parquet.csproj" />
+    <ProjectReference Include="..\TeleScope.Persistence.Yaml\TeleScope.Persistence.Yaml.csproj" />
     <ProjectReference Include="..\TeleScope.UI.Cli\TeleScope.UI.Cli.csproj" />
   </ItemGroup>
 

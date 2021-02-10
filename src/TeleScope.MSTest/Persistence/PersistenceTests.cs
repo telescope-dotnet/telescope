@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TeleScope.Logging.Extensions;
 using TeleScope.MSTest.Mockups;
+using TeleScope.MSTest.Persistence.Attributes;
 using TeleScope.Persistence.Abstractions;
-using TeleScope.Persistence.Csv;
-using TeleScope.Persistence.Json;
-using TeleScope.Persistence.Parquet;
+using TeleScope.Persistence.Yaml;
 
 namespace TeleScope.MSTest.Persistence
 {
@@ -26,7 +25,6 @@ namespace TeleScope.MSTest.Persistence
 		public override void Arrange()
 		{
 			base.Arrange();
-			_file = string.Empty;
 			_length = 10000;
 		}
 
@@ -37,6 +35,7 @@ namespace TeleScope.MSTest.Persistence
 
 			if (!string.IsNullOrEmpty(_file) && File.Exists(_file))
 			{
+				_log.Trace($"Cleanup after test, deleting {_file}");
 				File.Delete(_file);
 			}
 		}
@@ -44,128 +43,105 @@ namespace TeleScope.MSTest.Persistence
 		// -- tests
 
 		[TestMethod]
-		public void TestCsv()
+		public void WriteComplexYaml()
 		{
 			// arrange
-			var setup = new CsvStorageSetup(
-				csvFileInfo: new FileInfo("App_Data/data.csv"),
-				startRow: 2,
-				header: "This is my awesome\r\nHEADER"
-			);
+			_file = "complex.yml";
+			var yaml = new YamlStorage<object>(_file);
 
-			var csv = new CsvStorage<Mockup>(setup, new CsvToMockupParser(), new MockupToCsvParser());
-
-			var data = Mockup.RandomArray(_length);
-
-			// act & assert: create
-			RunWithMetrics("create csv", () =>
+			var data = new
 			{
-				csv.Write(data);
-			});
+				Id = 47.11,
+				Name = "complex instance",
+				MyList = new string[] { "a", "b", "c" },
+				Child = new
+				{
+					Foo = false,
+					LogEnum = LogLevel.Information
+				}
+			};
 
-			Assert.IsTrue(File.Exists(setup.File), $"The file '{setup.File}' was not created.");
+			// act
+			yaml.Write(new object[] { data });
 
-			// act & assert: read
-			IEnumerable<Mockup> result = default;
-			RunWithMetrics("read csv", () =>
-			{
-				result = csv.Read();
-			});
-
-			Assert.IsNotNull(result);
-			Assert.IsTrue(result.Count() == _length);
-
-			// act & assert: delete
-			csv.Write(null);
-			Assert.IsFalse(File.Exists(setup.File), $"The file '{setup.File}' was not deleted.");
+			// assert
+			Assert.IsTrue(File.Exists(_file), "File creation failed.");
+			Assert.IsTrue(File.ReadAllBytes(_file).Length > 0, "File should not be empty.");
 		}
 
 		[TestMethod]
-		public void TestJson()
+		[Storages]
+		public void TestStorages(
+			string extension,
+			string source,
+			IReadable<Mockup> reader,
+			IWritable<Mockup> writer)
 		{
-			// arrange
-			_file = Path.Combine("App_Data", "data.json");
-			var id = 4711;
-			var data = Mockup.Random(id);
+			_log.Trace($"Tesing {extension} storage.");
+			_file = source;
 
-			var json = new JsonStorage<Mockup>(_file, true, true);
 
-			// act & assert - write (create) 
-			json.Write(new Mockup[] { data });
-			Assert.IsTrue(File.Exists(_file), $"The file '{_file}' was not created.");
-
-			// act & assert - read
-
-			var array = json.Read();
-			var result = array.First();
-			_log.Debug("{0} returned from read method", result);
-			Assert.IsNotNull(result, $"The object was not deserialized.");
-			Assert.IsTrue(result.Id == id, $"The object was not deserialized correctly.");
-
-			// act & assert - write (delete)
-			json.Write(null);
-			Assert.IsFalse(File.Exists(_file), $"The file '{_file}' was not deleted.");
-		}
-
-		[TestMethod]
-		public void TestParquet()
-		{
-			// arrange
-			_file = "App_Data/data.parquet";
-			var minNumber = 0.5;
-			var parquet = new ParquetStorage<Mockup>(_file);
-			var data = Mockup.RandomArray(_length);
-			Mockup[] result = default;
-
-			// act & assert: write (create)
-			base.RunWithMetrics("create parquet", () =>
+			if (extension.Equals("json") ||
+				extension.Equals("yml"))
 			{
-				parquet.Write(data);
-			});
-			Assert.IsTrue(File.Exists(_file), $"The parquet file '{_file}' was not created.");
+				_log.Trace($"Tesing as single.");
 
-			// act & assert: read			
-			base.RunWithMetrics("read parquet", () =>
+				// SINGLE object act & assert: Write (create), read, delete 
+				var id = 4711;
+				var single = Mockup.Random(id);
+
+				// write (create)
+				writer.Write(new Mockup[] { single });
+				Assert.IsTrue(File.Exists(source), $"The source '{source}' was not created.");
+
+				// read
+				var singleResult = reader.Read().First();
+				Assert.IsNotNull(singleResult, $"The object was not deserialized.");
+				Assert.IsTrue(singleResult.Id == id, $"The object was not deserialized correctly.");
+
+				// delete			
+				writer.Write(null);
+				if (writer.CanDelete)
+				{
+					Assert.IsFalse(File.Exists(source), $"The source '{source}' should have been deleted.");
+				}
+				else
+				{
+					Assert.IsTrue(File.Exists(source), $"The source '{source}' should NOT have been deleted.");
+				}
+			}
+			else
 			{
-				result = parquet.Read()
-					.Where(m => m.Number > minNumber)
-					.ToArray();
-			});
+				// ENUMERATION act & assert: Write (create), read, delete 
+				var data = Mockup.RandomArray(_length);
 
-			Assert.IsTrue(data.Length > result.Length, "Mockup array is not filtered");
-		}
-	}
+				// write (create)
+				RunWithMetrics($"Create {extension}", () =>
+				{
+					writer.Write(data);
+				});
+				Assert.IsTrue(File.Exists(source), $"The source '{source}' was not created.");
 
-	class CsvToMockupParser : IParsable<Mockup>
-	{
-		public Mockup Parse<Tin>(Tin input, int index = 0, int length = 1)
-		{
-			string[] fields = input as string[];
+				// read
+				IEnumerable<Mockup> result = default;
+				RunWithMetrics($"Read {extension}", () =>
+				{
+					result = reader.Read();
+				});
+				Assert.IsNotNull(result);
+				Assert.IsTrue(result.Count() == _length);
 
-			return new Mockup
-			{
-				Id = int.Parse(fields[0]),
-				Name = fields[1],
-				Greetings = fields[2],
-				Number = double.Parse(fields[3]),
-				Timestamp = DateTime.Parse(fields[4])
-			};
-		}
-	}
-
-	class MockupToCsvParser : IParsable<string[]>
-	{
-		public string[] Parse<Tin>(Tin input, int index = 0, int length = 1)
-		{
-			var mockup = input as Mockup;
-
-			return new string[] {
-				mockup.Id.ToString(),
-				mockup.Name,
-				mockup.Greetings,
-				mockup.Number.ToString(),
-				mockup.Timestamp.ToString(),
-			};
+				// delete
+				writer.Write(null);
+				if (writer.CanDelete)
+				{
+					Assert.IsFalse(File.Exists(source), $"The source '{source}' should have been deleted.");
+				}
+				else
+				{
+					Assert.IsTrue(File.Exists(source), $"The source '{source}' should NOT have been deleted.");
+				}
+			}
 		}
 	}
 }

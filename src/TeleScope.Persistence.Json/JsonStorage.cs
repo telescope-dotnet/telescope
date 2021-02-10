@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Microsoft.Extensions.Logging;
@@ -6,6 +7,7 @@ using Newtonsoft.Json;
 using TeleScope.Logging;
 using TeleScope.Logging.Extensions;
 using TeleScope.Persistence.Abstractions;
+using TeleScope.Persistence.Abstractions.Extensions;
 
 namespace TeleScope.Persistence.Json
 {
@@ -65,64 +67,34 @@ namespace TeleScope.Persistence.Json
 			}
 			
 			_log.Trace("Reading json successfull from {0}", _file);
-			return new List<T> { result };
+			return new T[] { result };
 		}
 
 
 		public void Write(IEnumerable<T> data)
 		{
-			if (data == null)
+			try
 			{
-				if (CanDelete)
+				if (!this.ValidateOrThrow(data, new FileInfo(_file)))
 				{
-					Delete();
 					return;
+				}
+
+				string json;
+				if (data.Count() == 1)
+				{
+					json = JsonConvert.SerializeObject(data.First(), Formatting.Indented, _settings);
 				}
 				else
 				{
-					_log.Trace($"The data parameter is null, but the storage is not set as deletable.");
+					json = JsonConvert.SerializeObject(data, Formatting.Indented, _settings);
 				}
-			}
 
-			var filename = Path.GetFileName(_file);
-			var location = Path.GetFullPath(_file).Replace(filename, "");
-
-			if (CanCreate &&
-				!string.IsNullOrEmpty(location) &&
-				!Directory.Exists(location))
-			{
-				Create(location);
+				File.WriteAllText(_file, json);
 			}
-
-			string json;
-			if (data.Count() == 1)
+			catch (InvalidOperationException ex)
 			{
-				json = JsonConvert.SerializeObject(data.First(), Formatting.Indented, _settings);
-			}
-			else
-			{
-				json = JsonConvert.SerializeObject(data, Formatting.Indented, _settings);
-			}
-			
-			File.WriteAllText(_file, json);
-		}
-
-		private void Create(string location)
-		{
-			Directory.CreateDirectory(location);
-			_log.Trace("Directory created for file: {0}", _file);
-		}
-
-		private void Delete()
-		{
-			if (File.Exists(_file))
-			{
-				File.Delete(_file);
-				_log.Trace("The file {0} was deleted.", _file);
-			}
-			else
-			{
-				_log.Trace("The file {0} was not found for deletion.", _file);
+				_log.Critical(ex);
 			}
 		}
 	}

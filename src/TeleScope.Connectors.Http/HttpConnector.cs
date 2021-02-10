@@ -117,7 +117,7 @@ namespace TeleScope.Connectors.Http
 
 		IConnectable IConnectable.Connect()
 		{
-			throw new NotImplementedException();
+			return this.Connect();
 		}
 
 		public IConnectable Disconnect()
@@ -130,6 +130,17 @@ namespace TeleScope.Connectors.Http
 			IsConnected = false;
 
 			Disconnected?.Invoke(this, new ConnectorEventArgs(address));
+			return this;
+		}
+
+		public IHttpConnectable SetRequest(string request, string method = HttpEndpoint.GET)
+		{
+			if (!Validate())
+			{
+				return this;
+			}
+
+			_endpoint.SetRequest(request, method);
 			return this;
 		}
 
@@ -199,5 +210,7 @@ namespace TeleScope.Connectors.Http
 
 			return true;
 		}
+
+
 	}
 }

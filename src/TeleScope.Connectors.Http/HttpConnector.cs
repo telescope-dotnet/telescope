@@ -117,7 +117,7 @@ namespace TeleScope.Connectors.Http
 
 		IConnectable IConnectable.Connect()
 		{
-			throw new NotImplementedException();
+			return this.Connect();
 		}
 
 		public IConnectable Disconnect()

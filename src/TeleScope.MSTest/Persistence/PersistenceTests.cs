@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TeleScope.Logging.Extensions;
 using TeleScope.MSTest.Mockups;
 using TeleScope.MSTest.Persistence.Attributes;
 using TeleScope.Persistence.Abstractions;
-using TeleScope.Persistence.Csv;
-using TeleScope.Persistence.Json;
-using TeleScope.Persistence.Parquet;
+using TeleScope.Persistence.Yaml;
 
 namespace TeleScope.MSTest.Persistence
 {
@@ -43,6 +41,33 @@ namespace TeleScope.MSTest.Persistence
 		}
 
 		// -- tests
+
+		[TestMethod]
+		public void WriteComplexYaml()
+		{
+			// arrange
+			_file = "complex.yml";
+			var yaml = new YamlStorage<object>(_file);
+
+			var data = new
+			{
+				Id = 47.11,
+				Name = "complex instance",
+				MyList = new string[] { "a", "b", "c" },
+				Child = new
+				{
+					Foo = false,
+					LogEnum = LogLevel.Information
+				}
+			};
+
+			// act
+			yaml.Write(new object[] { data });
+
+			// assert
+			Assert.IsTrue(File.Exists(_file), "File creation failed.");
+			Assert.IsTrue(File.ReadAllBytes(_file).Length > 0, "File should not be empty.");
+		}
 
 		[TestMethod]
 		[Storages]

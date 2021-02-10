@@ -61,6 +61,7 @@ that feature updates also may cause breaking changes.
 | ------------ | --- |
 | Abstractions | [![Nuget](https://img.shields.io/nuget/v/TeleScope.Persistence.Abstractions.svg?label=Persistence.Abstractions)](https://www.nuget.org/packages/TeleScope.Persistence.Abstractions/)
 | Json         | [![Nuget](https://img.shields.io/nuget/v/TeleScope.Persistence.Json.svg?label=Json)](https://www.nuget.org/packages/TeleScope.Persistence.Json/) 
+| Yaml         | [![Nuget](https://img.shields.io/nuget/v/TeleScope.Persistence.Yaml.svg?label=Yaml)](https://www.nuget.org/packages/TeleScope.Persistence.Yaml/) 
 | Csv          | [![Nuget](https://img.shields.io/nuget/v/TeleScope.Persistence.Csv.svg?label=Csv)](https://www.nuget.org/packages/TeleScope.Persistence.Csv/)
 | Parquet      | [![Nuget](https://img.shields.io/nuget/v/TeleScope.Persistence.Parquet.svg?label=Parquet)](https://www.nuget.org/packages/TeleScope.Persistence.Parquet/)
 

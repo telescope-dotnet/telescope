@@ -32,13 +32,19 @@ namespace TeleScope.MSTest.Infrastructure
 		public async Task HttpRequest()
 		{
 			// arrange
+			var request = "/api/users";
 			var endpoint = new HttpEndpoint
 			{
-				Address = new Uri(new Uri("https://reqres.in"), "/api/users"),
+				Address = new Uri(new Uri("https://reqres.in"), request),
 				MethodName = "get"
 			};
-			var http = GetHttpConnector(endpoint);
 
+			endpoint.SetRequest("");
+			Assert.IsFalse(endpoint.Address.AbsoluteUri.Contains(request));
+			endpoint.SetRequest(request);
+			Assert.IsTrue(endpoint.Address.AbsoluteUri.Contains(request));
+
+			var http = GetHttpConnector(endpoint);
 
 			// act
 			var result = await http.CallAsync();

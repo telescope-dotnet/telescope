@@ -65,6 +65,24 @@ namespace TeleScope.Connectors.Http.Abstractions
 
         // -- methods
 
+        public void SetRequest(string request)
+		{
+            var baseUri = RemoveRequest(Address.AbsoluteUri, Address.AbsolutePath);
+            Address = new Uri(new Uri(baseUri), request);
+        }
+
+        private string RemoveRequest(string uri, string suffix)
+        {
+            if (uri.EndsWith(suffix))
+            {
+                return uri.Substring(0, uri.Length - suffix.Length);
+            }
+            else
+            {
+                return uri;
+            }
+        }
+
         /// <summary>
         /// Returns the HttpMethod class based on the property MethodName
         /// </summary>

@@ -13,7 +13,7 @@ namespace TeleScope.Connectors.Http.Abstractions
 
 		IHttpConnectable Connect(HttpClient client, HttpEndpoint endpoint);
 
-		IHttpConnectable SetRequest(string request);
+		IHttpConnectable SetRequest(string request, string method = HttpEndpoint.GET);
 
 		IHttpConnectable AddHeader(string name, string value);
 

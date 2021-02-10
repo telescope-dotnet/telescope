@@ -133,14 +133,14 @@ namespace TeleScope.Connectors.Http
 			return this;
 		}
 
-		public IHttpConnectable SetRequest(string request)
+		public IHttpConnectable SetRequest(string request, string method = HttpEndpoint.GET)
 		{
 			if (!Validate())
 			{
 				return this;
 			}
 
-			_endpoint.SetRequest(request);
+			_endpoint.SetRequest(request, method);
 			return this;
 		}
 

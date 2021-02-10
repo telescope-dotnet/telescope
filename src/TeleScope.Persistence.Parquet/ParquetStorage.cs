@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Microsoft.Extensions.Logging;
 using Parquet;
 using TeleScope.Logging;
 using TeleScope.Logging.Extensions;
 using TeleScope.Persistence.Abstractions;
+using TeleScope.Persistence.Abstractions.Extensions;
 
 namespace TeleScope.Persistence.Parquet
 {
@@ -46,25 +48,19 @@ namespace TeleScope.Persistence.Parquet
 
 		public void Write(IEnumerable<T> data)
 		{
-			var info = new FileInfo(_file);
-			if (data == null && info.Exists)
+			try
 			{
-				if (CanDelete) info.Delete();
-				else _log.Trace($"Not allowed to delte file: {0}", _file);
-				return;
-			}
-			else if (!CanCreate && !info.Exists)
-			{
-				_log.Trace($"Not allowed to create file: {0}", _file);
-				return;
-			}
-			else if (CanCreate && !info.Directory.Exists)
-			{
-				info.Directory.Create();
-				_log.Trace("Directory created for file: {0}", _file);
-			}
+				if (!this.ValidateOrThrow(data, new FileInfo(_file)))
+				{
+					return;
+				}
 
-			ParquetConvert.Serialize(data, _file);
+				ParquetConvert.Serialize(data, _file);
+			}
+			catch (InvalidOperationException ex)
+			{
+				_log.Critical(ex);
+			}
 		}
 	}
 }

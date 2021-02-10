@@ -7,6 +7,8 @@ using TeleScope.Logging.Extensions;
 using TeleScope.Persistence.Abstractions;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
+using TeleScope.Persistence.Abstractions.Extensions;
+using System;
 
 namespace TeleScope.Persistence.Yaml
 {
@@ -51,38 +53,32 @@ namespace TeleScope.Persistence.Yaml
 
 		public void Write(IEnumerable<T> data)
 		{
-			var info = new FileInfo(_file);
-			if (data == null && info.Exists)
+			try
 			{
-				if (CanDelete) info.Delete();
-				else _log.Trace($"Not allowed to delte file: {0}", _file);
-				return;
-			}
-			else if (!CanCreate && !info.Exists)
-			{
-				_log.Trace($"Not allowed to create file: {0}", _file);
-				return;
-			}
-			else if (CanCreate && !info.Directory.Exists)
-			{
-				info.Directory.Create();
-				_log.Trace("Directory created for file: {0}", _file);
-			}
+				if (!this.ValidateOrThrow(data, new FileInfo(_file)))
+				{
+					return;
+				}
 
-			/*
-			 * see https://github.com/aaubry/YamlDotNet/wiki/Samples.SerializeObjectGraph
-			 */
-			var serializer = new SerializerBuilder().Build();
-			string yaml;
-			if (data.Count() == 1)
-			{
-				yaml = serializer.Serialize(data.First());
+				/*
+				 * see https://github.com/aaubry/YamlDotNet/wiki/Samples.SerializeObjectGraph
+				 */
+				var serializer = new SerializerBuilder().Build();
+				string yaml;
+				if (data.Count() == 1)
+				{
+					yaml = serializer.Serialize(data.First());
+				}
+				else
+				{
+					yaml = serializer.Serialize(data);
+				}
+				File.WriteAllText(_file, yaml);
 			}
-			else
+			catch (InvalidOperationException ex)
 			{
-				yaml = serializer.Serialize(data);
-			}
-			File.WriteAllText(_file, yaml);
+				_log.Critical(ex);
+			}			
 		}
 	}
 }

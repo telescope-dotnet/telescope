@@ -9,6 +9,9 @@
     <PackageProjectUrl>https://github.com/telescope-dotnet/telescope</PackageProjectUrl>
     <PackageTags>Persistence,Yaml, Yml, YamlDotNet</PackageTags>
     <Version>0.4.0</Version>
+    <PackageIcon>logo-nuget.png</PackageIcon>
+    <RepositoryUrl>https://github.com/telescope-dotnet/telescope</RepositoryUrl>
+    <PackageReleaseNotes>initial packaged version</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,6 +24,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="..\..\images\logo-nuget.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
     <None Include="..\..\LICENSE">
       <Pack>True</Pack>
       <PackagePath></PackagePath>

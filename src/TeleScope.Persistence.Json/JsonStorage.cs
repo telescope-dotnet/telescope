@@ -65,7 +65,7 @@ namespace TeleScope.Persistence.Json
 			}
 			
 			_log.Trace("Reading json successfull from {0}", _file);
-			return new List<T> { result };
+			return new T[] { result };
 		}
 
 

@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using Microsoft.Extensions.Logging;
 using TeleScope.Logging;
 using TeleScope.Logging.Extensions;
@@ -56,8 +54,8 @@ namespace TeleScope.Persistence.Yaml
 			var info = new FileInfo(_file);
 			if (data == null && info.Exists)
 			{
-				if (CanDelete)	info.Delete();
-				else			_log.Trace($"Not allowed to delte file: {0}", _file);
+				if (CanDelete) info.Delete();
+				else _log.Trace($"Not allowed to delte file: {0}", _file);
 				return;
 			}
 			else if (!CanCreate && !info.Exists)

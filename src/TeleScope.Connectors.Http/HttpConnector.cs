@@ -133,6 +133,17 @@ namespace TeleScope.Connectors.Http
 			return this;
 		}
 
+		public IHttpConnectable SetRequest(string request)
+		{
+			if (!Validate())
+			{
+				return this;
+			}
+
+			_endpoint.SetRequest(request);
+			return this;
+		}
+
 		public IHttpConnectable AddHeader(string name, string value)
 		{
 			if (_client == null)
@@ -199,5 +210,7 @@ namespace TeleScope.Connectors.Http
 
 			return true;
 		}
+
+
 	}
 }

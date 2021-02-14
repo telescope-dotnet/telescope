@@ -67,23 +67,12 @@ namespace TeleScope.Connectors.Http.Abstractions
 
 		public void SetRequest(string request, string method = GET)
 		{
-			var baseUri = RemoveRequest(Address.AbsoluteUri, Address.AbsolutePath);
+			var port = (!Address.IsDefaultPort ? $":{Address.Port}" : "");
+			var baseUri = $"{Address.Scheme}://{Address.Host}{port}";
 			Address = new Uri(new Uri(baseUri), request);
 			if (!string.IsNullOrEmpty(method))
 			{
 				MethodName = method;
-			}
-		}
-
-		private string RemoveRequest(string uri, string suffix)
-		{
-			if (uri.EndsWith(suffix))
-			{
-				return uri.Substring(0, uri.Length - suffix.Length);
-			}
-			else
-			{
-				return uri;
 			}
 		}
 

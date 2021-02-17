@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 
 namespace TeleScope.Persistence.Csv
 {
@@ -38,7 +39,10 @@ namespace TeleScope.Persistence.Csv
 
 		public string Location => _csvFileInfo.Directory.FullName;
 
+		public Encoding Encoder { get; set; }
+
 		public bool CanCreate { get; set; }
+
 		public bool CanDelete { get; set; }
 
 		// constructors
@@ -57,6 +61,7 @@ namespace TeleScope.Persistence.Csv
 			Header = header;
 			CanCreate = canCreate;
 			CanDelete = canDelete;
+			Encoder = Encoding.Unicode;
 		}
 	}
 }

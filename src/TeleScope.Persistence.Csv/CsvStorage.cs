@@ -86,7 +86,7 @@ namespace TeleScope.Persistence.Csv
 				}
 
 				// flush to file
-				File.WriteAllText(_setup.File, csv.ToString());
+				File.WriteAllText(_setup.File, csv.ToString(), _setup.Encoder);
 				_log.Trace($"csv export successfull for '{_setup.Filename}'");
 
 			}

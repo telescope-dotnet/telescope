@@ -61,7 +61,7 @@ namespace TeleScope.Persistence.Csv
 			Header = header;
 			CanCreate = canCreate;
 			CanDelete = canDelete;
-			Encoder = Encoding.Unicode;
+			Encoder = Encoding.UTF8;
 		}
 	}
 }

@@ -124,7 +124,9 @@ namespace TeleScope.MSTest.Infrastructure
 			S7Setup setup;
 			try
 			{
-				setup = new JsonStorage<S7Setup>("App_Data/s7setup.json").Read().First();
+				var json = new JsonStorage<S7Setup>(
+					new JsonStorageSetup("App_Data/s7setup.json"));
+				setup = json.Read().First();
 			}
 			catch (Exception ex)
 			{

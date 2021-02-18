@@ -39,7 +39,7 @@ namespace TeleScope.MSTest.Persistence.Attributes
 		{
             var ext = "json";
             var file = GetFile(ext);
-            var json = new JsonStorage<Mockup>(file, true, true);
+            var json = new JsonStorage<Mockup>(new JsonStorageSetup(file));
             return new object[] { 
                 ext,
                 file,
@@ -52,7 +52,7 @@ namespace TeleScope.MSTest.Persistence.Attributes
         {
             var ext = "yml";
             var file = GetFile(ext);
-            var yaml = new YamlStorage<Mockup>(file, true, true);
+            var yaml = new YamlStorage<Mockup>(new YamlStorageSetup(file, true, true));
             return new object[] {
                 ext,
                 file,
@@ -65,8 +65,7 @@ namespace TeleScope.MSTest.Persistence.Attributes
         {
             var ext = "csv";
             var file = GetFile(ext);
-            var setup = new CsvStorageSetup(
-                csvFileInfo: new FileInfo(file),
+            var setup = new CsvStorageSetup(file,
                 startRow: 2,
                 header: "This is my awesome\r\nHEADER"
             );

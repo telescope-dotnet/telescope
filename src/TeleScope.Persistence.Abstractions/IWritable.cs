@@ -10,7 +10,6 @@ namespace TeleScope.Persistence.Abstractions
 
 		bool CanDelete { get; }
 
-
 		// -- methods
 
 		void Write(IEnumerable<T> data);

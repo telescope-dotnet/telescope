@@ -47,7 +47,7 @@ namespace TeleScope.MSTest.Persistence
 		{
 			// arrange
 			_file = "complex.yml";
-			var yaml = new YamlStorage<object>(_file);
+			var yaml = new YamlStorage<object>(new YamlStorageSetup(_file));
 
 			var data = new
 			{

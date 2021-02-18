@@ -13,46 +13,29 @@ namespace TeleScope.Persistence.Json
 {
 	public class JsonStorage<T> : IReadable<T>, IWritable<T>
 	{
+		// -- fields
+
 		private readonly ILogger<JsonStorage<T>> _log;
-		private readonly string _file;
+		private readonly JsonStorageSetup _setup;
 		private readonly JsonSerializerSettings _settings;
 
-		public bool CanCreate { get; protected set; }
-		public bool CanDelete { get; protected set; }
+		// -- properties
+
+		public bool CanCreate => _setup.CanCreate;
+		public bool CanDelete => _setup.CanDelete;
 
 		// -- constructors
 
-		private JsonStorage()
+		public JsonStorage(JsonStorageSetup setup)
 		{
 			_log = LoggingProvider.CreateLogger<JsonStorage<T>>();
-
-			_file = "output.json";
+			_setup = setup ?? throw new ArgumentNullException(nameof(setup));
 			_settings = new JsonSerializerSettings();
-			CanCreate = true;
-			CanDelete = true;
 		}
 
-		public JsonStorage(string file) : this()
+		public JsonStorage(JsonStorageSetup setup, JsonSerializerSettings settings) : this(setup)
 		{
-			_file = file;
-		}
-
-		public JsonStorage(string file, JsonSerializerSettings settings) : this()
-		{
-			_file = file;
 			_settings = settings;
-		}
-
-		public JsonStorage(string file, bool canCreate, bool canDelete) : this(file)
-		{
-			CanCreate = canCreate;
-			CanDelete = canDelete;
-		}
-
-		public JsonStorage(string file, JsonSerializerSettings settings, bool canCreate, bool canDelete) : this(file, settings)
-		{
-			CanCreate = canCreate;
-			CanDelete = canDelete;
 		}
 
 		// -- methods
@@ -60,22 +43,21 @@ namespace TeleScope.Persistence.Json
 		public IEnumerable<T> Read()
 		{
 			T result;
-			using (StreamReader r = new StreamReader(_file))
+			using (StreamReader r = new StreamReader(_setup.File))
 			{
 				string input = r.ReadToEnd();
 				result = JsonConvert.DeserializeObject<T>(input);
 			}
 			
-			_log.Trace("Reading json successfull from {0}", _file);
+			_log.Trace("Reading json successfull from {0}", _setup.File);
 			return new T[] { result };
 		}
-
 
 		public void Write(IEnumerable<T> data)
 		{
 			try
 			{
-				if (!this.ValidateOrThrow(data, new FileInfo(_file)))
+				if (!this.ValidateOrThrow(data, _setup.GetFileInfo()))
 				{
 					return;
 				}
@@ -90,7 +72,7 @@ namespace TeleScope.Persistence.Json
 					json = JsonConvert.SerializeObject(data, Formatting.Indented, _settings);
 				}
 
-				File.WriteAllText(_file, json);
+				File.WriteAllText(_setup.File, json, _setup.Encoder);
 			}
 			catch (InvalidOperationException ex)
 			{

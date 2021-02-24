@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.IO;
+using System.Text;
 using TeleScope.Persistence.Abstractions;
 
 namespace TeleScope.Persistence.Json
@@ -8,9 +9,9 @@ namespace TeleScope.Persistence.Json
 		public Encoding Encoder { get; set; }
 
 		public JsonStorageSetup(
-			string file,
+			FileInfo fileInfo,
 			bool canCreate = true,
-			bool canDelete = true) : base(file, canCreate, canDelete)
+			bool canDelete = true) : base(fileInfo, canCreate, canDelete)
 		{
 			Encoder = Encoding.UTF8;
 		}

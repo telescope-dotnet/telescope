@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.IO;
+using System.Text;
 using TeleScope.Persistence.Abstractions;
 
 namespace TeleScope.Persistence.Csv
@@ -31,12 +32,12 @@ namespace TeleScope.Persistence.Csv
 		// constructors
 
 		public CsvStorageSetup(
-			string file,
+			FileInfo fileInfo,
 			bool canCreate = DEFAULT_CAN_CREATE,
 			bool canDelete = DEFAULT_CAN_DELETE,
 			char separator = DEFAULT_SEPERATOR,
 			uint startRow = DEFAULT_START_ROW,
-			string header = default) : base(file, canCreate, canDelete)
+			string header = default) : base(fileInfo, canCreate, canDelete)
 		{
 			Separator = separator;
 			StartRow = startRow;

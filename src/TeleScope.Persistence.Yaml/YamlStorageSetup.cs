@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.IO;
+using System.Text;
 using TeleScope.Persistence.Abstractions;
 
 namespace TeleScope.Persistence.Yaml
@@ -8,9 +9,9 @@ namespace TeleScope.Persistence.Yaml
 		public Encoding Encoder { get; set; }
 
 		public YamlStorageSetup(
-			string file, 
+			FileInfo fileInfo, 
 			bool canCreate = true,
-			bool canDelete = false) : base(file, canCreate, canDelete)
+			bool canDelete = false) : base(fileInfo, canCreate, canDelete)
 		{
 
 			Encoder = Encoding.UTF8;

@@ -6,6 +6,7 @@ using TeleScope.Connectors.Plc.Siemens;
 using TeleScope.Connectors.Plc.Siemens.Events;
 using TeleScope.Persistence.Json;
 using TeleScope.Logging.Extensions;
+using System.IO;
 
 namespace TeleScope.MSTest.Infrastructure
 {
@@ -124,8 +125,9 @@ namespace TeleScope.MSTest.Infrastructure
 			S7Setup setup;
 			try
 			{
+				var fileInfo = new FileInfo("App_Data/s7setup.json");
 				var json = new JsonStorage<S7Setup>(
-					new JsonStorageSetup("App_Data/s7setup.json"));
+					new JsonStorageSetup(fileInfo));
 				setup = json.Read().First();
 			}
 			catch (Exception ex)

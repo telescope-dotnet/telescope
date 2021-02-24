@@ -30,16 +30,11 @@ namespace TeleScope.Persistence.Abstractions
 		// -- constructors
 
 		protected FileSetupBase(
-			string file,
+			FileInfo fileInfo,
 			bool canCreate = DEFAULT_CAN_CREATE,
 			bool canDelete = DEFAULT_CAN_DELETE)
 		{
-			if (string.IsNullOrEmpty(file))
-			{
-				throw new ArgumentNullException(nameof(file));
-			}
-
-			_info = new FileInfo(file);
+			_info = fileInfo ?? throw new ArgumentNullException(nameof(fileInfo));
 			CanCreate = canCreate;
 			CanDelete = canDelete;
 		}

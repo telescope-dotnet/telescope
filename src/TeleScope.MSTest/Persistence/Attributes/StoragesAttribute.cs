@@ -30,9 +30,10 @@ namespace TeleScope.MSTest.Persistence.Attributes
 
         // -- helper 
 
-        private string GetFile(string extension)
+        private FileInfo GetFile(string extension)
 		{
-            return Path.Combine("App_Data", $"data.{extension}");
+            return new FileInfo(
+                Path.Combine("App_Data", $"data.{extension}"));
         }
 
         private object[] BuildJson()
@@ -42,7 +43,7 @@ namespace TeleScope.MSTest.Persistence.Attributes
             var json = new JsonStorage<Mockup>(new JsonStorageSetup(file));
             return new object[] { 
                 ext,
-                file,
+                file.FullName,
                 json as IReadable<Mockup>,
                 json as IWritable<Mockup>,
             };
@@ -55,7 +56,7 @@ namespace TeleScope.MSTest.Persistence.Attributes
             var yaml = new YamlStorage<Mockup>(new YamlStorageSetup(file, true, true));
             return new object[] {
                 ext,
-                file,
+                file.FullName,
                 yaml as IReadable<Mockup>,
                 yaml as IWritable<Mockup>,
             };
@@ -74,7 +75,7 @@ namespace TeleScope.MSTest.Persistence.Attributes
                 setup, new CsvToMockupParser(), new MockupToCsvParser());
             return new object[] {
                 ext,
-                file,
+                file.FullName,
                 csv as IReadable<Mockup>,
                 csv as IWritable<Mockup>,
             };
@@ -85,10 +86,10 @@ namespace TeleScope.MSTest.Persistence.Attributes
             var ext = "parquet";
             var file = GetFile(ext);
 
-            var parquet = new ParquetStorage<Mockup>(file, true, true);
+            var parquet = new ParquetStorage<Mockup>(file.FullName, true, true);
             return new object[] {
                 ext,
-                file,
+                file.FullName,
                 parquet as IReadable<Mockup>,
                 parquet as IWritable<Mockup>,
             };

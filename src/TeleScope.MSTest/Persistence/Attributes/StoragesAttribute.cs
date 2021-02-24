@@ -86,7 +86,7 @@ namespace TeleScope.MSTest.Persistence.Attributes
             var ext = "parquet";
             var file = GetFile(ext);
 
-            var parquet = new ParquetStorage<Mockup>(file.FullName, true, true);
+            var parquet = new ParquetStorage<Mockup>(file, true, true);
             return new object[] {
                 ext,
                 file.FullName,

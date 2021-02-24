@@ -25,6 +25,8 @@ namespace TeleScope.Persistence.Csv
 		public bool CanCreate { get; private set; }
 		public bool CanDelete { get; private set; }
 
+		public Encoding Encoder { get; set; }
+
 		// -- concstructor
 
 		public CsvStorage(CsvStorageSetup setup, IParsable<T> incomingParser, IParsable<string[]> outgoingParser)

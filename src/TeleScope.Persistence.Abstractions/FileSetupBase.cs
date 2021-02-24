@@ -23,8 +23,6 @@ namespace TeleScope.Persistence.Abstractions
 
 		public string Location => _info.Directory.FullName;
 
-		public Encoding Encoder { get; set; }
-
 		public bool CanCreate { get; private set; }
 
 		public bool CanDelete { get; private set; }
@@ -44,7 +42,6 @@ namespace TeleScope.Persistence.Abstractions
 			_info = new FileInfo(file);
 			CanCreate = canCreate;
 			CanDelete = canDelete;
-			Encoder = Encoding.UTF8;
 		}
 
 		// -- methods

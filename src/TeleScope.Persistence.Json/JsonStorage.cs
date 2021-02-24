@@ -24,6 +24,8 @@ namespace TeleScope.Persistence.Json
 		public bool CanCreate => _setup.CanCreate;
 		public bool CanDelete => _setup.CanDelete;
 
+
+
 		// -- constructors
 
 		public JsonStorage(JsonStorageSetup setup)
@@ -48,7 +50,7 @@ namespace TeleScope.Persistence.Json
 				string input = r.ReadToEnd();
 				result = JsonConvert.DeserializeObject<T>(input);
 			}
-			
+
 			_log.Trace("Reading json successfull from {0}", _setup.File);
 			return new T[] { result };
 		}

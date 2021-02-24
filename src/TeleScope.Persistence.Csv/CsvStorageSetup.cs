@@ -1,4 +1,5 @@
-﻿using TeleScope.Persistence.Abstractions;
+﻿using System.Text;
+using TeleScope.Persistence.Abstractions;
 
 namespace TeleScope.Persistence.Csv
 {
@@ -25,6 +26,8 @@ namespace TeleScope.Persistence.Csv
 
 		public bool HasHeader => !string.IsNullOrEmpty(Header);
 
+		public Encoding Encoder { get; set; }
+
 		// constructors
 
 		public CsvStorageSetup(
@@ -38,6 +41,7 @@ namespace TeleScope.Persistence.Csv
 			Separator = separator;
 			StartRow = startRow;
 			Header = header;
+			Encoder = Encoding.UTF8;
 		}
 	}
 }

@@ -2,14 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>0.4.1</Version>
+    <Version>0.6.0</Version>
     <Authors>TeleScope-dotnet members</Authors>
     <Company>TeleScope-dotnet</Company>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/telescope-dotnet/telescope</PackageProjectUrl>
     <RepositoryUrl>https://github.com/telescope-dotnet/telescope</RepositoryUrl>
     <PackageIcon>logo-nuget.png</PackageIcon>
-    <PackageReleaseNotes>initial packaged version</PackageReleaseNotes>
+    <PackageReleaseNotes></PackageReleaseNotes>
     <PackageTags>Persistence, Json, Newtonsoft.Json</PackageTags>
     <Description>Contains an implementation of the IReadable and IWritable interfaces to access Json files. Depends on the assemblies TeleScope.Persistence.Abstractions and Newtonsoft.Json.</Description>
   </PropertyGroup>

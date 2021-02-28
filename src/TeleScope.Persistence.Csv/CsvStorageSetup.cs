@@ -1,19 +1,15 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Text;
+using TeleScope.Persistence.Abstractions;
 
 namespace TeleScope.Persistence.Csv
 {
-	public class CsvStorageSetup
+	public class CsvStorageSetup : FileSetupBase
 	{
 		// --fields
 
 		private const char DEFAULT_SEPERATOR = ';';
 		private const uint DEFAULT_START_ROW = 0;
-		private const bool DEFAULT_CAN_CREATE = true;
-		private const bool DEFAULT_CAN_DELETE = true;
-
-		private readonly FileInfo _csvFileInfo;
 
 		// -- properties
 
@@ -31,36 +27,21 @@ namespace TeleScope.Persistence.Csv
 
 		public bool HasHeader => !string.IsNullOrEmpty(Header);
 
-		public string File => _csvFileInfo.FullName;
-
-		public string Filename => _csvFileInfo.Name;
-
-		public string Extension => _csvFileInfo.Extension;
-
-		public string Location => _csvFileInfo.Directory.FullName;
-
 		public Encoding Encoder { get; set; }
-
-		public bool CanCreate { get; set; }
-
-		public bool CanDelete { get; set; }
 
 		// constructors
 
 		public CsvStorageSetup(
-			FileInfo csvFileInfo,
-			uint startRow = DEFAULT_START_ROW,
-			char separator = DEFAULT_SEPERATOR,
-			string header = default,
+			FileInfo fileInfo,
 			bool canCreate = DEFAULT_CAN_CREATE,
-			bool canDelete = DEFAULT_CAN_DELETE)
+			bool canDelete = DEFAULT_CAN_DELETE,
+			char separator = DEFAULT_SEPERATOR,
+			uint startRow = DEFAULT_START_ROW,
+			string header = default) : base(fileInfo, canCreate, canDelete)
 		{
-			_csvFileInfo = csvFileInfo ?? throw new ArgumentNullException(nameof(csvFileInfo));
-			StartRow = startRow;
 			Separator = separator;
+			StartRow = startRow;
 			Header = header;
-			CanCreate = canCreate;
-			CanDelete = canDelete;
 			Encoder = Encoding.UTF8;
 		}
 	}

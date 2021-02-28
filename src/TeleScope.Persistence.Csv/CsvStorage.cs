@@ -13,7 +13,6 @@ namespace TeleScope.Persistence.Csv
 {
 	public class CsvStorage<T> : IReadable<T>, IWritable<T>
 	{
-
 		// -- fields
 
 		private readonly ILogger<CsvStorage<T>> _log;
@@ -25,6 +24,8 @@ namespace TeleScope.Persistence.Csv
 
 		public bool CanCreate { get; private set; }
 		public bool CanDelete { get; private set; }
+
+		public Encoding Encoder { get; set; }
 
 		// -- concstructor
 

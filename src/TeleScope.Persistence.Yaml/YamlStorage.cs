@@ -17,22 +17,20 @@ namespace TeleScope.Persistence.Yaml
 		// -- fields
 
 		private readonly ILogger<YamlStorage<T>> _log;
-		private readonly string _file;
+		private readonly YamlStorageSetup _setup;
 
 		// -- properties
 
-		public bool CanCreate { get; private set; }
+		public bool CanCreate => _setup.CanCreate;
 
-		public bool CanDelete { get; private set; }
+		public bool CanDelete => _setup.CanDelete;
 
 		// -- constructors
 
-		public YamlStorage(string file, bool canCreate = true, bool canDelete = false)
+		public YamlStorage(YamlStorageSetup setup)
 		{
 			_log = LoggingProvider.CreateLogger<YamlStorage<T>>();
-			_file = file;
-			CanCreate = canCreate;
-			CanDelete = canDelete;
+			_setup = setup ?? throw new ArgumentNullException(nameof(setup));
 		}
 
 		// -- methods
@@ -42,7 +40,7 @@ namespace TeleScope.Persistence.Yaml
 			/*
 			 * see https://github.com/aaubry/YamlDotNet/wiki/Samples.DeserializeObjectGraph
 			 */
-			var input = File.ReadAllText(_file);
+			var input = File.ReadAllText(_setup.File, _setup.Encoder);
 
 			var deserializer = new DeserializerBuilder()
 				.WithNamingConvention(PascalCaseNamingConvention.Instance)
@@ -55,7 +53,7 @@ namespace TeleScope.Persistence.Yaml
 		{
 			try
 			{
-				if (!this.ValidateOrThrow(data, new FileInfo(_file)))
+				if (!this.ValidateOrThrow(data, _setup.GetFileInfo()))
 				{
 					return;
 				}
@@ -73,7 +71,7 @@ namespace TeleScope.Persistence.Yaml
 				{
 					yaml = serializer.Serialize(data);
 				}
-				File.WriteAllText(_file, yaml);
+				File.WriteAllText(_setup.File, yaml, _setup.Encoder);
 			}
 			catch (InvalidOperationException ex)
 			{

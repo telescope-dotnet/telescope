@@ -33,15 +33,13 @@ namespace TeleScope.MSTest.Infrastructure
 		{
 			// arrange
 			var request = "/api/users";
-			var endpoint = new HttpEndpoint
-			{
-				Address = new Uri(new Uri("https://reqres.in"), request),
-				MethodName = "get"
-			};
+			var endpoint = new HttpEndpoint(
+				new Uri(new Uri("https://reqres.in"), request),
+				HttpMethod.Get);
 
-			endpoint.SetRequest("");
+			endpoint.Request("");
 			Assert.IsFalse(endpoint.Address.AbsoluteUri.Contains(request));
-			endpoint.SetRequest(request);
+			endpoint.Request(request);
 			Assert.IsTrue(endpoint.Address.AbsoluteUri.Contains(request));
 
 			var http = GetHttpConnector(endpoint);
@@ -64,11 +62,10 @@ namespace TeleScope.MSTest.Infrastructure
 			 * Found at https://github.com/APIs-guru/graphql-apis
 			 */
 			var query = "?query={continents{name%20countries{name}}}";
-			var endpoint = new HttpEndpoint
-			{
-				Address = new Uri(new Uri("https://countries.trevorblades.com/"), query),
-				MethodName = "get"
-			};
+			var endpoint = new HttpEndpoint(
+				new Uri(new Uri("https://countries.trevorblades.com/"), query),
+				HttpMethod.Get);
+
 			var http = GetHttpConnector(endpoint);
 
 			// act
@@ -86,11 +83,10 @@ namespace TeleScope.MSTest.Infrastructure
 		{
 			// arrange
 			var query = "{ \"query\": \"{ continents {name countries { name }}}\"}";
-			var endpoint = new HttpEndpoint
-			{
-				Address = new Uri("https://countries.trevorblades.com/"),
-				MethodName = "post"
-			};
+			var endpoint = new HttpEndpoint(
+				new Uri("https://countries.trevorblades.com/"),
+				HttpMethod.Post);
+
 			var http = GetHttpConnector(endpoint);
 
 			// act

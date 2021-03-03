@@ -3,7 +3,6 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using TeleScope.Connectors.Abstractions;
-using TeleScope.Connectors.Abstractions.Secrets;
 
 namespace TeleScope.Connectors.Http.Abstractions
 {
@@ -13,7 +12,7 @@ namespace TeleScope.Connectors.Http.Abstractions
 
 		IHttpConnectable Connect(HttpClient client, HttpEndpoint endpoint);
 
-		IHttpConnectable SetRequest(string request, string method = HttpEndpoint.GET);
+		IHttpConnectable SetRequest(string request, HttpMethod method = null);
 
 		IHttpConnectable AddHeader(string name, string value);
 

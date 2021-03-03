@@ -133,14 +133,14 @@ namespace TeleScope.Connectors.Http
 			return this;
 		}
 
-		public IHttpConnectable SetRequest(string request, string method = HttpEndpoint.GET)
+		public IHttpConnectable SetRequest(string request, HttpMethod method = null)
 		{
 			if (!Validate())
 			{
 				return this;
 			}
 
-			_endpoint.SetRequest(request, method);
+			_endpoint.Request(request).Method(method);
 			return this;
 		}
 
@@ -171,7 +171,7 @@ namespace TeleScope.Connectors.Http
 		{
 			var request = new HttpRequestMessage
 			{
-				Method = _endpoint.Method(),
+				Method = _endpoint.MethodType,
 				RequestUri = _endpoint.Address,
 				Content = _content
 			};

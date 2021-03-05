@@ -1,0 +1,219 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TeleScope.Connectors.Abstractions</name>
+    </assembly>
+    <members>
+        <member name="T:TeleScope.Connectors.Abstractions.Events.ConnectorCompletedEventHandler">
+            <summary>
+            This delegate is used as event, when a connector has completed a certain action.
+            </summary>
+            <param name="sender">The instance that invokes the delegate method.</param>
+            <param name="e">The resulting event arguments.</param>
+        </member>
+        <member name="T:TeleScope.Connectors.Abstractions.Events.ConnectorCompletedEventArgs">
+            <summary>
+            This argument is used for events, when a connector has completed a certain action.
+            </summary>
+        </member>
+        <member name="P:TeleScope.Connectors.Abstractions.Events.ConnectorCompletedEventArgs.Response">
+            <summary>
+            Gets the generic response data that should be converted on the client-side.
+            </summary>
+        </member>
+        <member name="M:TeleScope.Connectors.Abstractions.Events.ConnectorCompletedEventArgs.#ctor(System.String,System.Object)">
+            <summary>
+            The default constructor sets the name of the invoking connector (or sender) and the response data.
+            </summary>
+            <param name="name">The name of the sender.</param>
+            <param name="response">The generic response data of the sender, provided to the client-side.</param>
+        </member>
+        <member name="T:TeleScope.Connectors.Abstractions.Events.ConnectorEventHandler">
+            <summary>
+            This delegate is used as basic event, when a connector invokes an event.
+            </summary>
+            <param name="sender">The instance that invokes the delegate method.</param>
+            <param name="e">The resulting event arguments.</param>
+        </member>
+        <member name="T:TeleScope.Connectors.Abstractions.Events.ConnectorEventArgs">
+            <summary>
+            This argument is used for basic events, when a connector invokes an basic event.
+            </summary>
+        </member>
+        <member name="P:TeleScope.Connectors.Abstractions.Events.ConnectorEventArgs.Name">
+            <summary>
+            Gets the name of the connector or sender as a semantic description.
+            </summary>
+        </member>
+        <member name="M:TeleScope.Connectors.Abstractions.Events.ConnectorEventArgs.#ctor">
+            <summary>
+            The default empty constructor creates an emtpy name.
+            </summary>
+        </member>
+        <member name="M:TeleScope.Connectors.Abstractions.Events.ConnectorEventArgs.#ctor(System.String)">
+            <summary>
+            Sets the name of the invoking connector (or sender).
+            </summary>
+            <param name="name">The name of the sender.</param>
+        </member>
+        <member name="T:TeleScope.Connectors.Abstractions.Events.ConnectorFailedEventHandler">
+            <summary>
+            This delegate is used as event, when a connector has failed a certain action.
+            </summary>
+            <param name="sender">The instance that invokes the delegate method.</param>
+            <param name="e">The resulting event arguments.</param>
+        </member>
+        <member name="T:TeleScope.Connectors.Abstractions.Events.ConnectorFailedEventArgs">
+            <summary>
+            This argument is used for events, when a connector has failed a certain action.
+            </summary>
+        </member>
+        <member name="P:TeleScope.Connectors.Abstractions.Events.ConnectorFailedEventArgs.Exception">
+            <summary>
+            Gets the exception that may have caused an failure within an action of a connector.
+            </summary>
+        </member>
+        <member name="P:TeleScope.Connectors.Abstractions.Events.ConnectorFailedEventArgs.Message">
+            <summary>
+            Gets a detailled message that has caused an failure within an action of a connector.
+            </summary>
+        </member>
+        <member name="M:TeleScope.Connectors.Abstractions.Events.ConnectorFailedEventArgs.#ctor(System.Exception,System.String)">
+            <summary>
+            Sets name and the message of the exception as Message property.
+            </summary>
+            <param name="ex">The Exception that was catched within an action of a connector.</param>
+            <param name="name">The name of the sender.</param>
+        </member>
+        <member name="M:TeleScope.Connectors.Abstractions.Events.ConnectorFailedEventArgs.#ctor(System.String,System.String)">
+            <summary>
+            Sets name and the Message property.
+            </summary>
+            <param name="name">The name of the sender.</param>
+            <param name="message">The message that has caused the failure within an action of a connector.</param>
+        </member>
+        <member name="M:TeleScope.Connectors.Abstractions.Events.ConnectorFailedEventArgs.#ctor(System.Exception,System.String,System.String)">
+            <summary>
+            Sets name, the exception and a specific message as Message property.
+            </summary>
+            <param name="ex">The Exception that was catched within an action of a connector.</param>
+            <param name="name">The name of the sender.</param>
+            <param name="message">The message that has caused the failure within an action of a connector.</param>
+        </member>
+        <member name="T:TeleScope.Connectors.Abstractions.IAsyncConnectable">
+            <summary>
+            This interface extends the capabilities of connectors with async method calls.
+            </summary>
+        </member>
+        <member name="M:TeleScope.Connectors.Abstractions.IAsyncConnectable.ConnectAsync">
+            <summary>
+            Connects to an external service in an asynchronous task.
+            </summary>
+            <returns>The executing task.</returns>
+        </member>
+        <member name="M:TeleScope.Connectors.Abstractions.IAsyncConnectable.DisconnectAsync">
+            <summary>
+            Disconnects from an external service in an asynchronous task.
+            </summary>
+            <returns>The executing task.</returns>
+        </member>
+        <member name="T:TeleScope.Connectors.Abstractions.IConnectable">
+            <summary>
+            This interface provides basic methods, properties and events to build a connection with any external service.
+            </summary>
+        </member>
+        <member name="E:TeleScope.Connectors.Abstractions.IConnectable.Connected">
+            <summary>
+            The event is invoked when the `Connect` method has finished successfully.
+            </summary>
+        </member>
+        <member name="E:TeleScope.Connectors.Abstractions.IConnectable.Disconnected">
+            <summary>
+            The event is invoked when the `Disconnect` method has finished successfully.
+            </summary>
+        </member>
+        <member name="E:TeleScope.Connectors.Abstractions.IConnectable.Completed">
+            <summary>
+            The event is invoked when a type specific method or action has finished successfully.
+            </summary>
+        </member>
+        <member name="E:TeleScope.Connectors.Abstractions.IConnectable.Failed">
+            <summary>
+            The event is invoked when any method or action has finished with a failure.
+            </summary>
+        </member>
+        <member name="P:TeleScope.Connectors.Abstractions.IConnectable.IsConnected">
+            <summary>
+            Gets the state, if the connection is established or not.
+            </summary>
+        </member>
+        <member name="M:TeleScope.Connectors.Abstractions.IConnectable.Connect">
+            <summary>
+            Connects to an external service.
+            </summary>
+            <returns>The calling instance.</returns>
+        </member>
+        <member name="M:TeleScope.Connectors.Abstractions.IConnectable.Disconnect">
+            <summary>
+            Disconnects from an external service.
+            </summary>
+            <returns>The calling instance.</returns>
+        </member>
+        <member name="T:TeleScope.Connectors.Abstractions.Secrets.ISecret">
+            <summary>
+            This interface provides properties and metods to encapsulate a names and passwords.
+            The password is stored in a [SecureString](https://docs.microsoft.com/de-de/dotnet/api/system.security.securestring) to increase security of sensitive data.
+            </summary>
+        </member>
+        <member name="P:TeleScope.Connectors.Abstractions.Secrets.ISecret.Name">
+            <summary>
+            Gets or sets the name of the secret.
+            </summary>
+        </member>
+        <member name="P:TeleScope.Connectors.Abstractions.Secrets.ISecret.Password">
+            <summary>
+            Gets the password of the secret.
+            </summary>
+        </member>
+        <member name="M:TeleScope.Connectors.Abstractions.Secrets.ISecret.SetPassword(System.String@)">
+            <summary>
+            Sets the password property in a safe way.
+            </summary>
+            <param name="password">The password string should be disposed after calling this method.</param>
+        </member>
+        <member name="T:TeleScope.Connectors.Abstractions.Secrets.Secret">
+            <summary>
+            Implements the `ISecret` interface to encapsulate a names and passwords within this type.
+            </summary>
+        </member>
+        <member name="P:TeleScope.Connectors.Abstractions.Secrets.Secret.Name">
+            <summary>
+            Gets or sets the name of the secret.
+            </summary>
+        </member>
+        <member name="P:TeleScope.Connectors.Abstractions.Secrets.Secret.Password">
+            <summary>
+            Gets the password of the secret.
+            </summary>
+        </member>
+        <member name="M:TeleScope.Connectors.Abstractions.Secrets.Secret.#ctor">
+            <summary>
+            The default empty constructor initializes no properties.
+            </summary>
+        </member>
+        <member name="M:TeleScope.Connectors.Abstractions.Secrets.Secret.#ctor(System.String,System.String)">
+            <summary>
+            The onstructor initializes the name and password.
+            The password string should be disposed after calling this constructor.
+            </summary>
+            <param name="name">The name of the secret.</param>
+            <param name="password">The password of the secret.</param>
+        </member>
+        <member name="M:TeleScope.Connectors.Abstractions.Secrets.Secret.SetPassword(System.String@)">
+            <summary>
+            Sets the password property in a safe way.
+            </summary>
+            <param name="password">The password string should be disposed after calling this method.</param>
+        </member>
+    </members>
+</doc>

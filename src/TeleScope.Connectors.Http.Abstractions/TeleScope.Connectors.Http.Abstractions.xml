@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TeleScope.Connectors.Http.Abstractions</name>
+    </assembly>
+    <members>
+        <member name="T:TeleScope.Connectors.Http.Abstractions.HttpEndpoint">
+            <summary>
+            This class represents an editable http endpoint,
+            where updates on the request part may be made without changing the base URL.
+            </summary>
+        </member>
+        <member name="P:TeleScope.Connectors.Http.Abstractions.HttpEndpoint.Address">
+            <summary>
+            Gets the complete Url that has the base address and request part.
+            </summary>
+        </member>
+        <member name="P:TeleScope.Connectors.Http.Abstractions.HttpEndpoint.MethodType">
+            <summary>
+            Gets the http method is used by the endpoint.
+            </summary>
+        </member>
+        <member name="M:TeleScope.Connectors.Http.Abstractions.HttpEndpoint.#ctor(System.Uri)">
+            <summary>
+            The default constructor sets the property `Address` with the given parameter and 
+            uses the http method `GET` as `MethodType`.
+            </summary>
+            <param name="address">The full adress of the http endpoint.</param>
+        </member>
+        <member name="M:TeleScope.Connectors.Http.Abstractions.HttpEndpoint.#ctor(System.Uri,System.Net.Http.HttpMethod)">
+            <summary>
+            Sets the properties `Address` and `MethodType` with the given parameters.
+            </summary>
+            <param name="address">The full adress of the http endpoint.</param>
+            <param name="method">The http method.</param>
+        </member>
+        <member name="M:TeleScope.Connectors.Http.Abstractions.HttpEndpoint.#ctor(System.String,System.String,System.Net.Http.HttpMethod)">
+            <summary>
+            Sets the properties `Address` and `MethodType` with the given parameters.
+            The `Address` is separated by the two parameters `baseAddress` and `request`.
+            </summary>
+            <param name="baseAddress">The base adress of the http endpoint.</param>
+            <param name="request">The request part of the http endpoint.</param>
+            <param name="method">The http method.</param>
+        </member>
+        <member name="M:TeleScope.Connectors.Http.Abstractions.HttpEndpoint.Request(System.String)">
+            <summary>
+            This method may be overridden and updates the request part of the http endpoint. The base url will not change.
+            </summary>
+            <param name="request">The request part of the http endpoint.</param>
+            <returns>The calling instance.</returns>
+        </member>
+        <member name="M:TeleScope.Connectors.Http.Abstractions.HttpEndpoint.Method(System.Net.Http.HttpMethod)">
+            <summary>
+            This method may be overridden and updates the http method of the http endpoint. The `Address` property will not change.
+            </summary>
+            <param name="method">The http method.</param>
+            <returns></returns>
+        </member>
+        <member name="M:TeleScope.Connectors.Http.Abstractions.HttpEndpoint.ToString">
+            <summary>
+            Overrides the ToString method and returns the method type and the absolute url of the http endpoint.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:TeleScope.Connectors.Http.Abstractions.IHttpConnectable">
+            <summary>
+            This interface provides extended methods, based on the `IConnectable` interface to build http connections. 
+            </summary>
+        </member>
+        <member name="M:TeleScope.Connectors.Http.Abstractions.IHttpConnectable.Connect(TeleScope.Connectors.Http.Abstractions.HttpEndpoint)">
+            <summary>
+            Tests the connection to the given endpoint and stores the parameter internally. 
+            The http client must be ready-to-use before calling this method.
+            </summary>
+            <param name="endpoint">The endpoint configuration.</param>
+            <returns>The calling instance.</returns>
+        </member>
+        <member name="M:TeleScope.Connectors.Http.Abstractions.IHttpConnectable.Connect(System.Net.Http.HttpClient,TeleScope.Connectors.Http.Abstractions.HttpEndpoint)">
+            <summary>
+            Tests the connection with the given http client and endpoint and stores both parameters internally.
+            </summary>
+            <param name="client">The http client that will be used by the connector.</param>
+            <param name="endpoint">The endpoint configuration.</param>
+            <returns>The calling instance.</returns>
+        </member>
+        <member name="M:TeleScope.Connectors.Http.Abstractions.IHttpConnectable.SetRequest(System.String,System.Net.Http.HttpMethod)">
+            <summary>
+            Updates the request part of the http endpoint configuration.
+            </summary>
+            <param name="request">The request part of the url.</param>
+            <param name="method">Optional: The method type of the call.</param>
+            <returns>The calling instance.</returns>
+        </member>
+        <member name="M:TeleScope.Connectors.Http.Abstractions.IHttpConnectable.AddHeader(System.String,System.String)">
+            <summary>
+            Adds an http header to the next request as simple pair of name and value.
+            </summary>
+            <param name="name">The name of the header information.</param>
+            <param name="value">The value of the header information.</param>
+            <returns>The calling instance.</returns>
+        </member>
+        <member name="M:TeleScope.Connectors.Http.Abstractions.IHttpConnectable.SetContent(System.String)">
+            <summary>
+            Sets the payload of the http request which must be represented as json compliant string.
+            </summary>
+            <param name="jsonContent">The payload for the next http request.</param>
+            <returns>The calling instance.</returns>
+        </member>
+        <member name="M:TeleScope.Connectors.Http.Abstractions.IHttpConnectable.SetContent(System.String,System.Text.Encoding,System.String)">
+            <summary>
+            Sets the payload of the next http request.
+            </summary>
+            <param name="content">The payload as string.</param>
+            <param name="encoding">The encoding to format the string before serialization.</param>
+            <param name="mediatype">The media type of the payload.</param>
+            <returns>The calling instance.</returns>
+        </member>
+        <member name="M:TeleScope.Connectors.Http.Abstractions.IHttpConnectable.CallAsync">
+            <summary>
+            Performs the http request asynchronously that is defined by the http endpoint and optional parameters.
+            </summary>
+            <returns>The executing task whereby the result is the raw string of the response body.</returns>
+        </member>
+        <member name="M:TeleScope.Connectors.Http.Abstractions.IHttpConnectable.CallAsync``1(System.Func{System.String,``0})">
+            <summary>
+            Performs the http request asynchronously that is defined by the http endpoint and optional parameters.
+            </summary>
+            <typeparam name="T">The generic returned type T.</typeparam>
+            <param name="convert">The function converts the response body into the generic type T.</param>
+            <returns>The executing task whereby the result of the task is of type T.</returns>
+        </member>
+    </members>
+</doc>

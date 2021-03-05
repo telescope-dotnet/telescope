@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>0.3.0</Version>
+    <Version>0.3.1</Version>
     <Authors>TeleScope-dotnet members</Authors>
     <Company>TeleScope-dotnet</Company>
     <Description>Contains further abstractions and interfaces to implement HTTP connectors. Depends on the assembly TeleScope.Connectors.Abstractions.</Description>
@@ -15,7 +15,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>D:\Adrian_w7nb0422\_Projekte\github\telescope-dotnet\telescope\src\TeleScope.Connectors.Http.Abstractions\TeleScope.Connectors.Http.Abstractions.xml</DocumentationFile>
+    <DocumentationFile>TeleScope.Connectors.Http.Abstractions.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

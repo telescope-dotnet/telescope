@@ -32,7 +32,7 @@ namespace TeleScope.Connectors.Abstractions
 		// -- properties
 
 		/// <summary>
-		/// Gets the state if the connection is established or not.
+		/// Gets the state, if the connection is established or not.
 		/// </summary>
 		bool IsConnected { get; }
 

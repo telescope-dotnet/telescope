@@ -14,6 +14,10 @@
     <PackageReleaseNotes>initial testable edition</PackageReleaseNotes>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>D:\Adrian_w7nb0422\_Projekte\github\telescope-dotnet\telescope\src\TeleScope.Connectors.Http\TeleScope.Connectors.Http.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\TeleScope.Connectors.Http.Abstractions\TeleScope.Connectors.Http.Abstractions.csproj" />
     <ProjectReference Include="..\TeleScope.Logging\TeleScope.Logging.csproj" />

@@ -90,22 +90,19 @@ namespace TeleScope.Connectors.Plc.Siemens
 		/// <returns>The calling instance.</returns>
 		public IConnectable Connect()
 		{
-			// TODO: use a proper initial result code
-			var result = -1;
-
 			try
 			{
-				result = _client.ConnectTo(_setup.IPAddress, _setup.Rack, _setup.Slot);
+				var result = _client.ConnectTo(_setup.IPAddress, _setup.Rack, _setup.Slot);
 				ResultCode = result;
 				Connected?.Invoke(this,
 					new SiemensConnectorEventArgs(_setup.Name, result, S7Results.GetString(result)));
 			}
 			catch (Exception ex)
 			{
+				var result = S7Results.TCPConnectionFailed;
 				Failed?.Invoke(this,
 					new SiemensConnectorFailedEventArgs(ex, _setup.Name, result, S7Results.GetString(result)));
 			}
-
 			return this;
 		}
 

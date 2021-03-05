@@ -12,10 +12,16 @@ using TeleScope.Logging.Extensions;
 
 namespace TeleScope.Connectors.Http
 {
+	/// <summary>
+	/// This class implements the `IHttpConnectable` interface and uses the standard microsoft http client.
+	/// </summary>
 	public class HttpConnector : IHttpConnectable
 	{
 		// -- fields
 
+		/// <summary>
+		/// The constant timeout defines how long the http client will wait after a request until a response needs to arrive. 
+		/// </summary>
 		public const int TIMEOUT = 10000;
 
 		private readonly ILogger<HttpConnector> _log;
@@ -25,22 +31,45 @@ namespace TeleScope.Connectors.Http
 
 		// -- events
 
+		/// <summary>
+		/// The event is invoked when the `Connect` method has finished successfully.
+		/// </summary>
 		public event ConnectorEventHandler Connected;
+		/// <summary>
+		/// The event is invoked when the `Disconnect` method has finished successfully.
+		/// </summary>
 		public event ConnectorEventHandler Disconnected;
+		/// <summary>
+		/// The event is invoked when a type specific method or action has finished successfully.
+		/// </summary>
 		public event ConnectorCompletedEventHandler Completed;
+		/// <summary>
+		/// The event is invoked when any method or action has finished with a failure.
+		/// </summary>
 		public event ConnectorFailedEventHandler Failed;
 
 		// -- properties
 
+		/// <summary>
+		/// Gets the state, if the connection is established or not.
+		/// </summary>
 		public bool IsConnected { get; private set; }
 
 		// -- constructurs
 
+		/// <summary>
+		/// The default empty constructor binds a logger for internal usage.
+		/// </summary>
 		public HttpConnector()
 		{
 			_log = LoggingProvider.CreateLogger<HttpConnector>();
 		}
 
+		/// <summary>
+		/// Saves the properties and calls the empty default constructor.
+		/// </summary>
+		/// <param name="client">The http client to perform requests.</param>
+		/// <param name="endpoint">The endpoint configuration executed by the client.</param>
 		public HttpConnector(HttpClient client, HttpEndpoint endpoint) : this()
 		{
 			_client = client;
@@ -50,10 +79,10 @@ namespace TeleScope.Connectors.Http
 		// -- methods
 
 		/// <summary>
-		/// Tests the connectivity to the configured http endpoint and
-		/// sets the endpoint configuration.
+		/// Tests the connection to the given endpoint and stores the parameter internally. 
+		/// The http client must be ready-to-use before calling this method.
 		/// </summary>
-		/// <param name="endpoint"></param>
+		/// <param name="endpoint">The endpoint configuration.</param>
 		/// <returns>The calling instance.</returns>
 		public IHttpConnectable Connect(HttpEndpoint endpoint)
 		{
@@ -61,11 +90,10 @@ namespace TeleScope.Connectors.Http
 		}
 
 		/// <summary>
-		/// Tests the connectivity to the configured http endpoint and
-		/// sets the client and endpoint configuration.
+		/// Tests the connection with the given http client and endpoint and stores both parameters internally.
 		/// </summary>
-		/// <param name="client"></param>
-		/// <param name="endpoint"></param>
+		/// <param name="client">The http client that will be used by the connector.</param>
+		/// <param name="endpoint">The endpoint configuration.</param>
 		/// <returns>The calling instance.</returns>
 		public IHttpConnectable Connect(HttpClient client, HttpEndpoint endpoint)
 		{
@@ -75,7 +103,7 @@ namespace TeleScope.Connectors.Http
 		}
 
 		/// <summary>
-		/// Tests the connectivity to the configured http endpoint.
+		/// Tests the connection with the internal http client and endpoint.
 		/// </summary>
 		/// <returns>The calling instance.</returns>
 		public IHttpConnectable Connect()
@@ -120,6 +148,10 @@ namespace TeleScope.Connectors.Http
 			return this.Connect();
 		}
 
+		/// <summary>
+		/// Disposes the http client and deletes the internal fields.
+		/// </summary>
+		/// <returns>The calling instance.</returns>
 		public IConnectable Disconnect()
 		{
 			var address = _endpoint.Address.AbsoluteUri;
@@ -133,17 +165,29 @@ namespace TeleScope.Connectors.Http
 			return this;
 		}
 
-		public IHttpConnectable SetRequest(string request, string method = HttpEndpoint.GET)
+		/// <summary>
+		/// Updates the request part of the http endpoint configuration.
+		/// </summary>
+		/// <param name="request">The request part of the url.</param>
+		/// <param name="method">Optional: The method type of the call.</param>
+		/// <returns>The calling instance.</returns>
+		public IHttpConnectable SetRequest(string request, HttpMethod method = null)
 		{
 			if (!Validate())
 			{
 				return this;
 			}
 
-			_endpoint.SetRequest(request, method);
+			_endpoint.Request(request).Method(method);
 			return this;
 		}
 
+		/// <summary>
+		/// Adds an http header to the next request as simple pair of name and value.
+		/// </summary>
+		/// <param name="name">The name of the header information.</param>
+		/// <param name="value">The value of the header information.</param>
+		/// <returns>The calling instance.</returns>
 		public IHttpConnectable AddHeader(string name, string value)
 		{
 			if (_client == null)
@@ -156,22 +200,38 @@ namespace TeleScope.Connectors.Http
 			return this;
 		}
 
+		/// <summary>
+		/// Sets the payload of the http request which must be represented as json compliant string.
+		/// </summary>
+		/// <param name="jsonContent">The payload for the next http request.</param>
+		/// <returns>The calling instance.</returns>
 		public IHttpConnectable SetContent(string jsonContent)
 		{
 			return SetContent(jsonContent, Encoding.UTF8, "application/json");
 		}
 
+		/// <summary>
+		/// Sets the payload of the next http request.
+		/// </summary>
+		/// <param name="content">The payload as string.</param>
+		/// <param name="encoding">The encoding to format the string before serialization.</param>
+		/// <param name="mediatype">The media type of the payload.</param>
+		/// <returns>The calling instance.</returns>
 		public IHttpConnectable SetContent(string content, Encoding encoding, string mediatype)
 		{
 			_content = new StringContent(content, encoding, mediatype);
 			return this;
 		}
 
+		/// <summary>
+		/// Performs the http request asynchronously that is defined by the http endpoint and optional parameters.
+		/// </summary>
+		/// <returns>The executing task whereby the result is the raw string of the response body.</returns>
 		public async Task<string> CallAsync()
 		{
 			var request = new HttpRequestMessage
 			{
-				Method = _endpoint.Method(),
+				Method = _endpoint.MethodType,
 				RequestUri = _endpoint.Address,
 				Content = _content
 			};
@@ -185,6 +245,13 @@ namespace TeleScope.Connectors.Http
 			return result;
 		}
 
+
+		/// <summary>
+		/// Performs the http request asynchronously that is defined by the http endpoint and optional parameters.
+		/// </summary>
+		/// <typeparam name="T">The generic returned type T.</typeparam>
+		/// <param name="convert">The function converts the response body into the generic type T.</param>
+		/// <returns>The executing task whereby the result of the task is of type T.</returns>
 		public async Task<T> CallAsync<T>(Func<string, T> convert)
 		{
 			string response = await CallAsync();
@@ -210,7 +277,5 @@ namespace TeleScope.Connectors.Http
 
 			return true;
 		}
-
-
 	}
 }

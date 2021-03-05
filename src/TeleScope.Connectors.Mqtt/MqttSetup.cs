@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace TeleScope.Connectors.Mqtt
 {
+	/// <summary>
+	/// This is a helper class to encapsulate the needed properties for a proper mqtt setup.
+	/// </summary>
 	public class MqttSetup
 	{
 		// fields
@@ -37,10 +40,8 @@ namespace TeleScope.Connectors.Mqtt
 		public string LastWill { get; set; }
 
 		/// <summary>
-		/// Gets or sets the quality of service value [0..2].
-		/// 0..at most once
-		/// 1..at least once
-		/// 2..exactly once
+		/// Gets or sets the quality of service (QOS). The QOS can have the values `0: AtMostOnce`, `1: AtLeastOnce` and `2: ExactlyOnce`.
+		/// Given values above or below the boundaries will be set to valid limits.
 		/// </summary>
 		public int QoS
 		{
@@ -86,6 +87,5 @@ namespace TeleScope.Connectors.Mqtt
 		/// </summary>
 		/// <returns>A fotmatted string.</returns>
 		public override string ToString() => $"{ClientID} @ {Broker}:{Port} with {Topics.Count} topics";
-
 	}
 }

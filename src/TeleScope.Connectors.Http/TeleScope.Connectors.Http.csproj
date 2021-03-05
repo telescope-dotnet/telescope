@@ -38,10 +38,4 @@
     </None>
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="TeleScope.Connectors.Http.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>

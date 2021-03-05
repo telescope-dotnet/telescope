@@ -49,7 +49,9 @@ namespace TeleScope.MSTest.Infrastructure
 			var received = false;
 			var transmitted = false;
 
-			var receiver = new MqttConnector(new MqttSetup
+			var receiver = new MqttConnector(null);
+
+			receiver = new MqttConnector(new MqttSetup
 			{
 				ClientID = $"telescope-receiver-{ts}",
 				Topics = new List<string>

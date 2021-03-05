@@ -36,10 +36,4 @@
     </None>
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="TeleScope.Connectors.Abstractions.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>

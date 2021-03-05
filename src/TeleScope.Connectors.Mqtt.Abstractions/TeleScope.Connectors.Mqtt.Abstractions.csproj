@@ -13,6 +13,14 @@
     <Description>Contains further abstractions and interfaces to implement MQTT connectors. Depends on the assembly TeleScope.Connectors.Abstractions.</Description>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>TeleScope.Connectors.Mqtt.Abstractions.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>TeleScope.Connectors.Mqtt.Abstractions.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\TeleScope.Connectors.Abstractions\TeleScope.Connectors.Abstractions.csproj" />
   </ItemGroup>

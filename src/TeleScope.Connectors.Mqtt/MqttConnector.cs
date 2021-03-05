@@ -17,6 +17,9 @@ using TeleScope.Logging.Extensions;
 
 namespace TeleScope.Connectors.Mqtt
 {
+	/// <summary>
+	/// This class implements the `IMqttConnectable` interface and uses the The library [MQTTnet](https://github.com/chkr1011/MQTTnet) internally.
+	/// </summary>
 	public class MqttConnector : IMqttConnectable
 	{
 
@@ -29,22 +32,44 @@ namespace TeleScope.Connectors.Mqtt
 
 		// -- events
 
+		/// <summary>
+		/// The event is invoked when the `Connect` method has finished successfully.
+		/// </summary>
 		public event ConnectorEventHandler Connected;
+		/// <summary>
+		/// The event is invoked when the `Disconnect` method has finished successfully.
+		/// </summary>
 		public event ConnectorEventHandler Disconnected;
+		/// <summary>
+		/// The event is invoked when the `PublishAsync` methods have finished successfully.
+		/// </summary>
 		public event ConnectorCompletedEventHandler Completed;
+		/// <summary>
+		/// The event is invoked when any method or action has finished with a failure.
+		/// </summary>
 		public event ConnectorFailedEventHandler Failed;
+		/// <summary>
+		/// The event is invoked when the subscription to a topic has received a message.
+		/// </summary>
 		public event MqttConnectorEventHandler MessageReceived;
 
 		// -- properties
 
+		/// <summary>
+		/// Gets the state, if the connection is established or not.
+		/// </summary>
 		public bool IsConnected => _client?.IsConnected ?? false;
 
 		// -- constructors
 
+		/// <summary>
+		/// The constructor instanciates the internal logging, 
+		/// stores the setup configuration and prepares the internal mqtt client.
+		/// </summary>
+		/// <param name="setup">The setup for the mqtt client.</param>
 		public MqttConnector(MqttSetup setup)
 		{
 			_log = LoggingProvider.CreateLogger<MqttConnector>();
-
 			Setup(setup);
 		}
 
@@ -54,7 +79,7 @@ namespace TeleScope.Connectors.Mqtt
 		{
 			try
 			{
-				_setup = setup;
+				_setup = setup ?? throw new ArgumentNullException(nameof(setup));
 
 				_options = new MqttClientOptionsBuilder()
 				   .WithTcpServer(_setup.Broker, _setup.Port)
@@ -116,10 +141,6 @@ namespace TeleScope.Connectors.Mqtt
 			catch (ArgumentNullException ex)
 			{
 				_log.Error(ex, "The setup was not successfull. The setup parameter was null.");
-			}
-			catch (Exception ex)
-			{
-				_log.Error(ex, $"The setup was not successfull. The setup is of type {setup.GetType()}.");
 			}
 		}
 

@@ -1,103 +1,93 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 
 namespace TeleScope.Connectors.Http.Abstractions
 {
 	/// <summary>
-	/// Simple Data model class to represent a http endpoint.
+	/// This class represents an editable http endpoint,
+	/// where updates on the request part may be made without changing the base URL.
 	/// </summary>
 	public class HttpEndpoint
 	{
-
-		// -- fields
-
-		public const string GET = "get";
-		public const string POST = "post";
-		public const string PUT = "put";
-		public const string DELETE = "delete";
-
 		// -- properties
 
 		/// <summary>
-		/// Gets or sets the name of the method. Allowed names are Get, Post, Put or Delete.
-		/// Case sensitivity is ignored. The property will be used in lower case.
+		/// Gets the complete Url that has the base address and request part.
 		/// </summary>
-		public string MethodName { get; set; }
+		public Uri Address { get; private set; }
 
 		/// <summary>
-		/// Gets the complete Url out of base address and request
+		/// Gets the http method is used by the endpoint.
 		/// </summary>
-		public Uri Address { get; set; }
+		public HttpMethod MethodType { get; private set; }
 
-		// --constructor
+		// -- constructor
 
 		/// <summary>
-		/// The default constructor sets the method type to a GET-Method
+		/// The default constructor sets the property `Address` with the given parameter and 
+		/// uses the http method `GET` as `MethodType`.
 		/// </summary>
-		public HttpEndpoint()
-		{
-			MethodName = GET;
-		}
-
-		public HttpEndpoint(Uri address) : this()
+		/// <param name="address">The full adress of the http endpoint.</param>
+		public HttpEndpoint(Uri address)
 		{
 			Address = address;
+			MethodType = HttpMethod.Get;
 		}
 
-		public HttpEndpoint(Uri address, string method) : this()
+		/// <summary>
+		/// Sets the properties `Address` and `MethodType` with the given parameters.
+		/// </summary>
+		/// <param name="address">The full adress of the http endpoint.</param>
+		/// <param name="method">The http method.</param>
+		public HttpEndpoint(Uri address, HttpMethod method) : this(address)
 		{
-			Address = address;
-			MethodName = method;
+			MethodType = method;
 		}
 
-		public HttpEndpoint(string baseAddress, string request) : this()
+		/// <summary>
+		/// Sets the properties `Address` and `MethodType` with the given parameters.
+		/// The `Address` is separated by the two parameters `baseAddress` and `request`.
+		/// </summary>
+		/// <param name="baseAddress">The base adress of the http endpoint.</param>
+		/// <param name="request">The request part of the http endpoint.</param>
+		/// <param name="method">The http method.</param>
+		public HttpEndpoint(string baseAddress, string request, HttpMethod method) : 
+			this(new Uri(new Uri(baseAddress), request), method)
 		{
-			Address = new Uri(new Uri(baseAddress), request);
-		}
 
-		public HttpEndpoint(string baseAddress, string request, string method) : this()
-		{
-			Address = new Uri(new Uri(baseAddress), request);
-			MethodName = method;
 		}
 
 		// -- methods
 
-		public void SetRequest(string request, string method = GET)
+		/// <summary>
+		/// This method may be overridden and updates the request part of the http endpoint. The base url will not change.
+		/// </summary>
+		/// <param name="request">The request part of the http endpoint.</param>
+		/// <returns>The calling instance.</returns>
+		public virtual HttpEndpoint Request(string request)
 		{
 			var port = (!Address.IsDefaultPort ? $":{Address.Port}" : "");
 			var baseUri = $"{Address.Scheme}://{Address.Host}{port}";
 			Address = new Uri(new Uri(baseUri), request);
-			if (!string.IsNullOrEmpty(method))
-			{
-				MethodName = method;
-			}
+			return this;
 		}
 
 		/// <summary>
-		/// Returns the HttpMethod class based on the property MethodName
+		/// This method may be overridden and updates the http method of the http endpoint. The `Address` property will not change.
 		/// </summary>
-		/// <returns>It`s wheater Get, Post, Put or Delete</returns>
-		public HttpMethod Method()
+		/// <param name="method">The http method.</param>
+		/// <returns></returns>
+		public virtual HttpEndpoint Method(HttpMethod method)
 		{
-			switch (MethodName.ToLower())
-			{
-				case GET:
-					return HttpMethod.Get;
-				case POST:
-					return HttpMethod.Post;
-				case PUT:
-					return HttpMethod.Put;
-				case DELETE:
-					return HttpMethod.Delete;
-				default:
-					return HttpMethod.Get;
-			}
+			MethodType = method ?? throw new ArgumentNullException(nameof(method));
+			return this;
 		}
 
-		public override string ToString() => $"{MethodName.ToUpper()}: {Address.AbsoluteUri}";
+		/// <summary>
+		/// Overrides the ToString method and returns the method type and the absolute url of the http endpoint.
+		/// </summary>
+		/// <returns></returns>
+		public override string ToString() => $"{MethodType.Method}: {Address.AbsoluteUri}";
 
 	}
 }

@@ -75,81 +75,22 @@ namespace TeleScope.Connectors.Mqtt
 
 		// -- methods
 
-		private void Setup(MqttSetup setup)
-		{
-			try
-			{
-				_setup = setup ?? throw new ArgumentNullException(nameof(setup));
-
-				_options = new MqttClientOptionsBuilder()
-				   .WithTcpServer(_setup.Broker, _setup.Port)
-				   .WithClientId(_setup.ClientID)
-				   .WithCleanSession(true)
-				   .Build();
-
-				var factory = new MqttFactory();
-				_client = factory.CreateMqttClient();
-
-				_client.UseConnectedHandler(async e => await Task.Run(() =>
-				{
-
-					if (e.AuthenticateResult.ResultCode != MqttClientConnectResultCode.Success)
-					{
-						Failed?.Invoke(this,
-							new ConnectorFailedEventArgs(_setup.Name, e.AuthenticateResult.ResultCode.ToString()));
-					}
-
-					Connected?.Invoke(this, new ConnectorEventArgs(_setup.Name));
-
-					foreach (string topic in _setup.Topics)
-					{
-						SubscribeOnClient(topic);
-					}
-				}));
-
-				_client.UseDisconnectedHandler(async e =>
-				{
-					var msg = $"Disconnected from mqtt broker '{_setup.Name}'.";
-					_log.Trace(msg, this);
-
-					Disconnected?.Invoke(this, new ConnectorFailedEventArgs(_setup.Name, msg));
-
-					if (_setup.Reconnection > 0)
-					{
-						await Task.Delay(TimeSpan.FromSeconds(_setup.Reconnection));
-						try
-						{
-							await ConnectAsync();
-						}
-						catch (Exception ex)
-						{
-							_log.Critical(ex, $"Could not reconnect to mqtt broker '{_setup.Broker}:{_setup.Port}'.", this);
-						}
-					}
-				});
-
-				_client.UseApplicationMessageReceivedHandler(e =>
-				{
-					_log.Trace($"Mqtt received topic: {e.ApplicationMessage.Topic}", e);
-					string topic = e.ApplicationMessage.Topic;
-					string msg = Encoding.UTF8.GetString(e.ApplicationMessage.Payload);
-					MessageReceived?.Invoke(this, new MqttConnectorEventArgs(topic, msg));
-				});
-
-				_log.Trace("Setup completed in {0} - {1}", _setup.ToString(), this);
-			}
-			catch (ArgumentNullException ex)
-			{
-				_log.Error(ex, "The setup was not successfull. The setup parameter was null.");
-			}
-		}
-
+		/// <summary>
+		/// Connects the internal Mqtt client with the prepared options and
+		/// invokes the Failed event if an error occures.
+		/// </summary>
+		/// <returns>The calling instance.</returns>
 		public IConnectable Connect()
 		{
 			Task.Run(ConnectAsync).Wait();
 			return this;
 		}
 
+		/// <summary>
+		/// Connects the internal Mqtt client asynchronously with the prepared options and
+		/// invokes the Failed event if an error occures.
+		/// </summary>
+		/// <returns>The executing task.</returns>
 		public async Task ConnectAsync()
 		{
 			await _client
@@ -177,22 +118,43 @@ namespace TeleScope.Connectors.Mqtt
 				});
 		}
 
+		/// <summary>
+		/// Disconnects the internal Mqtt client.
+		/// </summary>
+		/// <returns>The calling instance.</returns>
 		public IConnectable Disconnect()
 		{
 			Task.Run(DisconnectAsync).Wait();
 			return this;
 		}
 
+		/// <summary>
+		/// Disconnects the internal Mqtt client asynchronously.
+		/// </summary>
+		/// <returns>The executing task.</returns>
 		public async Task DisconnectAsync()
 		{
 			await _client.DisconnectAsync();
 		}
 
+		/// <summary>
+		/// Sends a message string asynchronously to a given broker.
+		/// </summary>
+		/// <param name="topic">The topic of the message.</param>
+		/// <param name="message">The message that will be sent.</param>
+		/// <returns>The executing task.</returns>
 		public Task PublishAsync(string topic, string message)
 		{
-			return PublishAsync(topic, message, _setup.QoS);
+			return PublishAsync(topic, message, _setup.QualityOfService);
 		}
 
+		/// <summary>
+		/// Sends a message string asynchronously to a given broker.
+		/// </summary>
+		/// <param name="topic">The topic of the message.</param>
+		/// <param name="message">The message that will be sent.</param>
+		/// <param name="qualityOfService">The level of quality that will be used for sending.</param>
+		/// <returns>The executing task.</returns>
 		public async Task PublishAsync(string topic, string message, int qualityOfService)
 		{
 			MqttApplicationMessage msg = new MqttApplicationMessageBuilder()
@@ -225,6 +187,11 @@ namespace TeleScope.Connectors.Mqtt
 			});
 		}
 
+		/// <summary>
+		/// Subscribes to a new topic that the client will listen to.
+		/// </summary>
+		/// <param name="topic">The topic of interest.</param>
+		/// <returns>The calling instance.</returns>
 		public IMqttConnectable Subscribe(string topic)
 		{
 			_setup.Topics.Add(topic);
@@ -237,6 +204,11 @@ namespace TeleScope.Connectors.Mqtt
 			return this;
 		}
 
+		/// <summary>
+		/// Unsubscribes from a topic that the client will no longer listen to.
+		/// </summary>
+		/// <param name="topic">The topic that will be removed.</param>
+		/// <returns>The calling instance.</returns>
 		public IMqttConnectable Unsubscribe(string topic)
 		{
 			_setup.Topics.Remove(topic);
@@ -246,11 +218,93 @@ namespace TeleScope.Connectors.Mqtt
 
 		// -- helper
 
+		private void Setup(MqttSetup setup)
+		{
+			try
+			{
+				_setup = setup ?? throw new ArgumentNullException(nameof(setup));
+
+				_options = new MqttClientOptionsBuilder()
+				   .WithTcpServer(_setup.Broker, _setup.Port)
+				   .WithClientId(_setup.ClientID)
+				   .WithCleanSession(true)
+				   .Build();
+
+				var factory = new MqttFactory();
+				_client = factory.CreateMqttClient();
+
+				AddConnectionHandler();
+				AddDisconnectionHandler();
+				AddMessageReceivedHandler();
+
+				_log.Trace("Setup completed in {0} - {1}", _setup.ToString(), this);
+			}
+			catch (ArgumentNullException ex)
+			{
+				_log.Error(ex, "The setup was not successfull. The setup parameter was null.");
+			}
+		}
+
+		private void AddConnectionHandler()
+		{
+			_client.UseConnectedHandler(async e => await Task.Run(() =>
+			{
+
+				if (e.AuthenticateResult.ResultCode != MqttClientConnectResultCode.Success)
+				{
+					Failed?.Invoke(this,
+						new ConnectorFailedEventArgs(_setup.Name, e.AuthenticateResult.ResultCode.ToString()));
+				}
+
+				Connected?.Invoke(this, new ConnectorEventArgs(_setup.Name));
+
+				foreach (string topic in _setup.Topics)
+				{
+					SubscribeOnClient(topic);
+				}
+			}));
+		}
+
+		private void AddDisconnectionHandler()
+		{
+			_client.UseDisconnectedHandler(async e =>
+			{
+				var msg = $"Disconnected from mqtt broker '{_setup.Name}'.";
+				_log.Trace(msg, this);
+
+				Disconnected?.Invoke(this, new ConnectorFailedEventArgs(_setup.Name, msg));
+
+				if (_setup.Reconnection > 0)
+				{
+					await Task.Delay(TimeSpan.FromSeconds(_setup.Reconnection));
+					try
+					{
+						await ConnectAsync();
+					}
+					catch (Exception ex)
+					{
+						_log.Critical(ex, $"Could not reconnect to mqtt broker '{_setup.Broker}:{_setup.Port}'.", this);
+					}
+				}
+			});
+		}
+
+		private void AddMessageReceivedHandler()
+		{
+			_client.UseApplicationMessageReceivedHandler(e =>
+			{
+				_log.Trace($"Mqtt received topic: {e.ApplicationMessage.Topic}", e);
+				string topic = e.ApplicationMessage.Topic;
+				string msg = Encoding.UTF8.GetString(e.ApplicationMessage.Payload);
+				MessageReceived?.Invoke(this, new MqttConnectorEventArgs(topic, msg));
+			});
+		}
+
 		private void SubscribeOnClient(string topic)
 		{
 			_client.SubscribeAsync(
 				new MqttTopicFilterBuilder()
-					.WithQualityOfServiceLevel(GetQoS(_setup.QoS))
+					.WithQualityOfServiceLevel(GetQoS(_setup.QualityOfService))
 					.WithTopic(topic)
 					.Build());
 		}

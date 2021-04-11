@@ -10,34 +10,34 @@ namespace TeleScope.Connectors.Mqtt.Abstractions
 	public interface IMqttConnectable : IConnectable, IAsyncConnectable
 	{
 		/// <summary>
-		/// Subscribes to a topic at a given mqtt connection.
+		/// Subscribes to a new topic that the client will listen to.
 		/// </summary>
-		/// <param name="topic">The topic that the mqtt connector will listen to.</param>
+		/// <param name="topic">The topic of interest.</param>
 		/// <returns>The calling instance.</returns>
 		IMqttConnectable Subscribe(string topic);
 
 		/// <summary>
-		/// Unsubscribes from a topic at a given mqtt connection.
+		/// Unsubscribes from a topic that the client will no longer listen to.
 		/// </summary>
-		/// <param name="topic">The topic that the mqtt connector will not listen to anymore.</param>
-		/// <returns></returns>
+		/// <param name="topic">The topic that will be removed.</param>
+		/// <returns>The calling instance.</returns>
 		IMqttConnectable Unsubscribe(string topic);
 
 		/// <summary>
 		/// Sends a message string asynchronously to a given broker.
 		/// </summary>
-		/// <param name="topic">The topic that is in use for the message.</param>
-		/// <param name="message">The message string that represents the complete payload.</param>
+		/// <param name="topic">The topic of the message.</param>
+		/// <param name="message">The message that will be sent.</param>
 		/// <returns>The executing task.</returns>
 		Task PublishAsync(string topic, string message);
 
 		/// <summary>
 		/// Sends a message string asynchronously to a given broker.
 		/// </summary>
-		/// <param name="topic">The topic that is in use for the message.</param>
-		/// <param name="message">The message string that represents the complete payload.</param>
-		/// <param name="qualityOfService">The QOS can have the values `0: AtMostOnce`, `1: AtLeastOnce` and `2: ExactlyOnce`.</param>
-		/// <returns>>The executing task.</returns>
+		/// <param name="topic">The topic of the message.</param>
+		/// <param name="message">The message that will be sent.</param>
+		/// <param name="qualityOfService">The level of quality that will be used for sending.</param>
+		/// <returns>The executing task.</returns>
 		Task PublishAsync(string topic, string message, int qualityOfService);
 	}
 }

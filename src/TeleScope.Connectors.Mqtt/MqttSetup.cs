@@ -10,7 +10,7 @@ namespace TeleScope.Connectors.Mqtt
 	{
 		// fields
 
-		private int _qos;
+		private int _quality;
 
 		// -- properties
 
@@ -40,17 +40,18 @@ namespace TeleScope.Connectors.Mqtt
 		public string LastWill { get; set; }
 
 		/// <summary>
-		/// Gets or sets the quality of service (QOS). The QOS can have the values `0: AtMostOnce`, `1: AtLeastOnce` and `2: ExactlyOnce`.
+		/// Gets or sets the quality of service (QOS).
+		/// The QOS can have the values `0: AtMostOnce`, `1: AtLeastOnce` and `2: ExactlyOnce`.
 		/// Given values above or below the boundaries will be set to valid limits.
 		/// </summary>
-		public int QoS
+		public int QualityOfService
 		{
-			get { return _qos; }
+			get { return _quality; }
 			set
 			{
-				if (value < 0) _qos = 0;
-				else if (value > 2) _qos = 2;
-				else _qos = value;
+				if (value < 0) _quality = 0;
+				else if (value > 2) _quality = 2;
+				else _quality = value;
 			}
 		}
 
@@ -74,7 +75,7 @@ namespace TeleScope.Connectors.Mqtt
 		{
 			Broker = "broker.hivemq.com";
 			Port = 1883;
-			QoS = 0;
+			QualityOfService = 0;
 			ClientID = $"TeleScope-Mqtt-Client_{DateTime.Now.ToUniversalTime().Ticks}";
 			Topics = new List<string>();
 			Reconnection = 0;

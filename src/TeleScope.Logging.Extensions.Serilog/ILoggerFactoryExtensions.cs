@@ -2,6 +2,7 @@
 using Serilog;
 using Serilog.Formatting;
 using Serilog.Formatting.Compact;
+using Serilog.Sinks.Loki;
 
 namespace TeleScope.Logging.Extensions.Serilog
 {
@@ -36,7 +37,7 @@ namespace TeleScope.Logging.Extensions.Serilog
 		public static ILoggerFactory AddSerilogConsole(this ILoggerFactory factory)
 		{
 			factory.AddSerilog(
-				GetConfig()
+				CreateConfig()
 					.WriteTo.Console(outputTemplate: _template)
 					.CreateLogger());
 			return factory;
@@ -45,15 +46,40 @@ namespace TeleScope.Logging.Extensions.Serilog
 		public static ILoggerFactory AddSerilogFile(this ILoggerFactory factory, string file)
 		{
 			factory.AddSerilog(
-				GetConfig()
+				CreateConfig()
 					.WriteTo.File(_formatter, file)
 					.CreateLogger());
 			return factory;
 		}
 
+		public static ILoggerFactory AddSerilogLoki(this ILoggerFactory factory, string host, string user = null, string secret = null, params (string Key, string Value)[] labels)
+		{
+			var credentials = CreateCredentials(host, user, secret);
+			var labelProvider = CreateLabels(labels);
+			factory.AddSerilog(
+				CreateConfig()
+				.WriteTo.LokiHttp(credentials, labelProvider)
+				.CreateLogger());
+
+			return factory;
+
+		}
+
 		// -- helper methods
 
-		private static LoggerConfiguration GetConfig()
+		private static LokiCredentials CreateCredentials(string host, string user = null, string secret = null)
+		{
+			if (string.IsNullOrEmpty(user) || string.IsNullOrEmpty(secret))
+			{
+				return new NoAuthCredentials(host);
+			}
+			else
+			{
+				return new BasicAuthCredentials(host, user, secret);
+			}
+		}
+
+		private static LoggerConfiguration CreateConfig()
 		{
 			var config = new LoggerConfiguration();
 
@@ -82,6 +108,11 @@ namespace TeleScope.Logging.Extensions.Serilog
 					break;
 			}
 			return config;
+		}
+
+		private static LogLabelProvider CreateLabels(params (string Key, string Value)[] labels)
+		{
+			return new LogLabelProvider(labels);
 		}
 	}
 }

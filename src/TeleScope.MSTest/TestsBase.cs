@@ -31,7 +31,7 @@ namespace TeleScope.MSTest
 
 		public virtual void Cleanup()
 		{
-			_watch.Stop();
+			_watch?.Stop();
 			_watch = null;
 		}
 

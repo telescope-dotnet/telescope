@@ -73,7 +73,7 @@ namespace TeleScope.MSTest.Infrastructure
 				.CallAsync();
 
 			// assert
-			_log.Trace(result);
+			log.Trace(result);
 			Assert.IsFalse(result.Contains("error"), "No error should be contained in the response message.");
 			Assert.IsTrue(result.Contains("continents"), "No continent data received.");
 		}
@@ -94,7 +94,7 @@ namespace TeleScope.MSTest.Infrastructure
 				.SetContent(query)
 				.CallAsync<Response<Data>>((s) =>
 				{
-					_log.Trace(s);
+					log.Trace(s);
 					return JsonConvert.DeserializeObject<Response<Data>>(s);
 				});
 
@@ -112,11 +112,11 @@ namespace TeleScope.MSTest.Infrastructure
 			http.Connected += (o, e) =>
 			{
 				var message = e.Name;
-				_log.Info($"Http connection successful: {message}");
+				log.Info($"Http connection successful: {message}");
 			};
 			http.Failed += (o, e) =>
 			{
-				_log.Error(e.Exception, $"Http failed: {e.Message}");
+				log.Error(e.Exception, $"Http failed: {e.Message}");
 			};
 
 			try
@@ -125,7 +125,7 @@ namespace TeleScope.MSTest.Infrastructure
 			}
 			catch (WebException wex)
 			{
-				_log.Critical(wex);
+				log.Critical(wex);
 			}
 
 			return http;

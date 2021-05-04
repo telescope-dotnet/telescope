@@ -15,10 +15,10 @@ namespace TeleScope.Persistence.Csv
 	{
 		// -- fields
 
-		private readonly ILogger<CsvStorage<T>> _log;
-		private readonly CsvStorageSetup _setup;
-		private readonly IParsable<T> _incomingParser;
-		private readonly IParsable<string[]> _outgoingParser;
+		private readonly ILogger<CsvStorage<T>> log;
+		private readonly CsvStorageSetup setup;
+		private readonly IParsable<T> incomingParser;
+		private readonly IParsable<string[]> outgoingParser;
 
 		// -- properties
 
@@ -31,30 +31,30 @@ namespace TeleScope.Persistence.Csv
 
 		public CsvStorage(CsvStorageSetup setup, IParsable<T> incomingParser, IParsable<string[]> outgoingParser)
 		{
-			_log = LoggingProvider.CreateLogger<CsvStorage<T>>();
+			log = LoggingProvider.CreateLogger<CsvStorage<T>>();
 
-			_setup = setup ?? throw new ArgumentNullException(nameof(setup));
-			_incomingParser = incomingParser ?? throw new ArgumentNullException(nameof(incomingParser));
-			_outgoingParser = outgoingParser ?? throw new ArgumentNullException(nameof(outgoingParser));
+			this.setup = setup ?? throw new ArgumentNullException(nameof(setup));
+			this.incomingParser = incomingParser ?? throw new ArgumentNullException(nameof(incomingParser));
+			this.outgoingParser = outgoingParser ?? throw new ArgumentNullException(nameof(outgoingParser));
 
-			CanCreate = _setup.CanCreate;
-			CanDelete = _setup.CanDelete;
+			CanCreate = setup.CanCreate;
+			CanDelete = setup.CanDelete;
 		}
 
 		public IEnumerable<T> Read()
 		{
 			List<T> result = new List<T>();
 
-			string[] lines = File.ReadAllLines(_setup.File);
+			string[] lines = File.ReadAllLines(setup.File);
 
 			// read all rows
-			for (uint i = _setup.StartRow; i < lines.Length; i++)
+			for (uint i = setup.StartRow; i < lines.Length; i++)
 			{
-				string[] fields = lines[i].Split(_setup.Separator);
-				result.Add(_incomingParser.Parse<string[]>(fields, (int)i, lines.Length));
+				string[] fields = lines[i].Split(setup.Separator);
+				result.Add(incomingParser.Parse<string[]>(fields, (int)i, lines.Length));
 			}
 
-			_log.Trace($"csv import successfull for '{_setup.Filename}'");
+			log.Trace($"csv import successfull for '{setup.Filename}'");
 
 			return result;
 		}
@@ -63,37 +63,37 @@ namespace TeleScope.Persistence.Csv
 		{
 			try
 			{
-				if (!this.ValidateOrThrow(data, new FileInfo(_setup.File)))
+				if (!this.ValidateOrThrow(data, new FileInfo(setup.File)))
 				{
 					return;
 				}
 
 				// prepare data
 				var csv = new StringBuilder();
-				var seperator = _setup.Separator.ToString();
+				var seperator = setup.Separator.ToString();
 
-				if (_setup.HasHeader)
+				if (setup.HasHeader)
 				{
-					csv.AppendLine(_setup.Header);
+					csv.AppendLine(setup.Header);
 				}
 
 				// append data
 				int i = 0;
 				foreach (T item in data)
 				{
-					var line = string.Join(seperator, _outgoingParser.Parse<T>(item, i, data.Count()));
+					var line = string.Join(seperator, outgoingParser.Parse<T>(item, i, data.Count()));
 					csv.AppendLine(line);
 					i++;
 				}
 
 				// flush to file
-				File.WriteAllText(_setup.File, csv.ToString(), _setup.Encoder);
-				_log.Trace($"csv export successfull for '{_setup.Filename}'");
+				File.WriteAllText(setup.File, csv.ToString(), setup.Encoder);
+				log.Trace($"csv export successfull for '{setup.Filename}'");
 
 			}
 			catch (InvalidOperationException ex)
 			{
-				_log.Critical(ex);
+				log.Critical(ex);
 			}
 		}
 	}

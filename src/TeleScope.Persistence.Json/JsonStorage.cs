@@ -15,14 +15,14 @@ namespace TeleScope.Persistence.Json
 	{
 		// -- fields
 
-		private readonly ILogger<JsonStorage<T>> _log;
-		private readonly JsonStorageSetup _setup;
-		private readonly JsonSerializerSettings _settings;
+		private readonly ILogger<JsonStorage<T>> log;
+		private readonly JsonStorageSetup setup;
+		private readonly JsonSerializerSettings settings;
 
 		// -- properties
 
-		public bool CanCreate => _setup.CanCreate;
-		public bool CanDelete => _setup.CanDelete;
+		public bool CanCreate => setup.CanCreate;
+		public bool CanDelete => setup.CanDelete;
 
 
 
@@ -30,14 +30,14 @@ namespace TeleScope.Persistence.Json
 
 		public JsonStorage(JsonStorageSetup setup)
 		{
-			_log = LoggingProvider.CreateLogger<JsonStorage<T>>();
-			_setup = setup ?? throw new ArgumentNullException(nameof(setup));
-			_settings = new JsonSerializerSettings();
+			this.setup = setup ?? throw new ArgumentNullException(nameof(setup));
+			log = LoggingProvider.CreateLogger<JsonStorage<T>>();
+			settings = new JsonSerializerSettings();
 		}
 
 		public JsonStorage(JsonStorageSetup setup, JsonSerializerSettings settings) : this(setup)
 		{
-			_settings = settings;
+			this.settings = settings;
 		}
 
 		// -- methods
@@ -45,13 +45,13 @@ namespace TeleScope.Persistence.Json
 		public IEnumerable<T> Read()
 		{
 			T result;
-			using (StreamReader r = new StreamReader(_setup.File))
+			using (StreamReader r = new StreamReader(setup.File))
 			{
 				string input = r.ReadToEnd();
 				result = JsonConvert.DeserializeObject<T>(input);
 			}
 
-			_log.Trace("Reading json successfull from {0}", _setup.File);
+			log.Trace("Reading json successfull from {0}", setup.File);
 			return new T[] { result };
 		}
 
@@ -59,7 +59,7 @@ namespace TeleScope.Persistence.Json
 		{
 			try
 			{
-				if (!this.ValidateOrThrow(data, _setup.GetFileInfo()))
+				if (!this.ValidateOrThrow(data, setup.GetFileInfo()))
 				{
 					return;
 				}
@@ -67,18 +67,18 @@ namespace TeleScope.Persistence.Json
 				string json;
 				if (data.Count() == 1)
 				{
-					json = JsonConvert.SerializeObject(data.First(), Formatting.Indented, _settings);
+					json = JsonConvert.SerializeObject(data.First(), Formatting.Indented, settings);
 				}
 				else
 				{
-					json = JsonConvert.SerializeObject(data, Formatting.Indented, _settings);
+					json = JsonConvert.SerializeObject(data, Formatting.Indented, settings);
 				}
 
-				File.WriteAllText(_setup.File, json, _setup.Encoder);
+				File.WriteAllText(setup.File, json, setup.Encoder);
 			}
 			catch (InvalidOperationException ex)
 			{
-				_log.Critical(ex);
+				log.Critical(ex);
 			}
 		}
 	}

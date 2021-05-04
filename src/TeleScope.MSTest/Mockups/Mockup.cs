@@ -7,17 +7,17 @@ namespace TeleScope.MSTest.Mockups
 	{
 		// -- static fields
 
-		private static Random _random;
+		private static Random random;
 
 		private static Random MockupRandom
 		{
 			get
 			{
-				if (_random == null)
+				if (random == null)
 				{
-					_random = new Random();
+					random = new Random();
 				}
-				return _random;
+				return random;
 			}
 		}
 

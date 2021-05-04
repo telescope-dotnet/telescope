@@ -15,10 +15,10 @@ namespace TeleScope.MSTest.Infrastructure
 	{
 		// -- fields
 
-		private static bool _skip;
+		private static bool skip;
 
-		private S7Connector _s7;
-		private S7Setup _setup;
+		private S7Connector s7;
+		private S7Setup setup;
 
 		// -- overrides
 
@@ -32,28 +32,28 @@ namespace TeleScope.MSTest.Infrastructure
 			/*
              * add the "local.runsettings" as global runsettings file, if context has no data.
              */
-			_skip = bool.Parse(GetProperty(context, SKIP_PLC_TESTS));
+			skip = bool.Parse(GetProperty(context, SKIP_PLC_TESTS));
 		}
 
 		[TestInitialize]
 		public override void Arrange()
 		{
 			base.Arrange();
-			_setup = GetS7Setup();
-			_s7 = new S7Connector(_setup);
-			_s7.Connected += Connected;
-			_s7.Disconnected += Disconnected;
-			_s7.Failed += Error;
+			setup = GetS7Setup();
+			s7 = new S7Connector(setup);
+			s7.Connected += Connected;
+			s7.Disconnected += Disconnected;
+			s7.Failed += Error;
 		}
 
 		[TestCleanup]
 		public override void Cleanup()
 		{
 			base.Cleanup();
-			_s7.Connected -= Connected;
-			_s7.Disconnected -= Disconnected;
-			_s7.Failed -= Error;
-			_s7 = null;
+			s7.Connected -= Connected;
+			s7.Disconnected -= Disconnected;
+			s7.Failed -= Error;
+			s7 = null;
 		}
 
 		// -- test methods
@@ -61,16 +61,16 @@ namespace TeleScope.MSTest.Infrastructure
 		[TestMethod]
 		public void ReadS7DataBlocks()
 		{
-			if (_skip)
+			if (skip)
 			{
 				Console.WriteLine($"Skipping ReadS7DataBlocks test...");
 				return;
 			}
 
 			// arrange
-			_s7.Connect();
-			Assert.IsTrue(_s7.IsConnected, $"The connector should be connected to {_setup.Name}: {_setup.IPAddress}");
-			Assert.IsTrue(_s7.ResultCode == 0, $"The connector returned with the Result '{_s7.Result}'.");
+			s7.Connect();
+			Assert.IsTrue(s7.IsConnected, $"The connector should be connected to {setup.Name}: {setup.IPAddress}");
+			Assert.IsTrue(s7.ResultCode == 0, $"The connector returned with the Result '{s7.Result}'.");
 
 			// act
 
@@ -78,13 +78,13 @@ namespace TeleScope.MSTest.Infrastructure
 			 * testing possible selectors
 			 */
 
-			var xPos = _s7.Select("DB652.DBD82").Read<float>();
-			var zPos = _s7.Select(new S7Selector(652, 86)).Read<float>();
-			var cPos = _s7.Select(new object[] { 652, 90, 0 }).Read<float>();
-			var uPos = _s7.Select(new int[] { 652, 94, 0 }).Read<float>();
-			var mode1 = _s7.Select("DB652.DBX684.4").Read<bool>();
-			var mode2 = _s7.Select("DB652.DBX684.5").Read<bool>();
-			var mode3 = _s7.Select("DB652.DBX684.6").Read<bool>();
+			var xPos = s7.Select("DB652.DBD82").Read<float>();
+			var zPos = s7.Select(new S7Selector(652, 86)).Read<float>();
+			var cPos = s7.Select(new object[] { 652, 90, 0 }).Read<float>();
+			var uPos = s7.Select(new int[] { 652, 94, 0 }).Read<float>();
+			var mode1 = s7.Select("DB652.DBX684.4").Read<bool>();
+			var mode2 = s7.Select("DB652.DBX684.5").Read<bool>();
+			var mode3 = s7.Select("DB652.DBX684.6").Read<bool>();
 
 			LogData(new object[] {
 				$"{nameof(xPos)} {xPos}",
@@ -97,43 +97,43 @@ namespace TeleScope.MSTest.Infrastructure
 			});
 
 			// assert
-			Assert.IsTrue(_s7.ResultCode == 0, $"The connector returned with the Result '{_s7.Result}'.");
+			Assert.IsTrue(s7.ResultCode == 0, $"The connector returned with the Result '{s7.Result}'.");
 
 		}
 
 		[TestMethod]
 		public void ConnectS7()
 		{
-			if (_skip)
+			if (skip)
 			{
 				Console.WriteLine($"Skipping ConnectS7 test...");
 				return;
 			}
 
 			// arrange & act
-			_s7.Connect();
+			s7.Connect();
 
 			// assert
-			Assert.IsTrue(_s7.IsConnected, $"The connector should be connected to {_setup.Name}: {_setup.IPAddress}");
-			Assert.IsTrue(_s7.ResultCode == 0, $"The connector returned with the Result '{_s7.Result}'.");
+			Assert.IsTrue(s7.IsConnected, $"The connector should be connected to {setup.Name}: {setup.IPAddress}");
+			Assert.IsTrue(s7.ResultCode == 0, $"The connector returned with the Result '{s7.Result}'.");
 		}
 
 		// -- helper
 
 		private S7Setup GetS7Setup()
 		{
-			S7Setup setup;
+			S7Setup s7Setup;
 			try
 			{
 				var fileInfo = new FileInfo("App_Data/s7setup.json");
 				var json = new JsonStorage<S7Setup>(
 					new JsonStorageSetup(fileInfo));
-				setup = json.Read().First();
+				s7Setup = json.Read().First();
 			}
 			catch (Exception ex)
 			{
-				_log.Error(ex);
-				setup = new S7Setup
+				log.Error(ex);
+				s7Setup = new S7Setup
 				{
 
 					Name = "SIEMENS 08/15",
@@ -142,15 +142,15 @@ namespace TeleScope.MSTest.Infrastructure
 					Slot = 2
 				};
 			}
-			return setup;
+			return s7Setup;
 		}
 
 		private void LogData(object[] parameters)
 		{
-			_log.Info("Logging all data blocks...");
+			log.Info("Logging all data blocks...");
 			foreach (var d in parameters)
 			{
-				_log.Info(d);
+				log.Info(d);
 			}
 		}
 

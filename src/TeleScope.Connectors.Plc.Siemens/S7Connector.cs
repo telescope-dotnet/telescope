@@ -15,10 +15,10 @@ namespace TeleScope.Connectors.Plc.Siemens
 	{
 		// -- fields
 
-		private readonly ILogger<S7Connector> _log;
-		private S7Client _client;
-		private S7Setup _setup;
-		private S7Selector _parameter;
+		private readonly ILogger<S7Connector> log;
+		private readonly S7Client client;
+		private readonly S7Setup setup;
+		private S7Selector parameter;
 
 		// -- events
 
@@ -32,7 +32,7 @@ namespace TeleScope.Connectors.Plc.Siemens
 		/// <summary>
 		/// Gets the information if the client is instanciated and connected or not.
 		/// </summary>
-		public bool IsConnected => _client?.Connected ?? false;
+		public bool IsConnected => client?.Connected ?? false;
 
 		/// <summary>
 		/// Gets the last received result code from the connected PLC.
@@ -53,36 +53,12 @@ namespace TeleScope.Connectors.Plc.Siemens
 		/// </summary>
 		public S7Connector(S7Setup s7Setup)
 		{
-			_log = LoggingProvider.CreateLogger<S7Connector>();
-
-
-			Setup(s7Setup);
+			log = LoggingProvider.CreateLogger<S7Connector>();
+			setup = s7Setup ?? throw new ArgumentNullException(nameof(s7Setup));
+			client = new S7Client();
 		}
 
 		// -- methods
-
-		/// <summary>
-		/// Takes the setup instance and casts it into the specific type of Sharp7Setup
-		/// </summary>
-		/// <param name="setup">The concrete setup for the connector.</param>
-		/// <returns>The calling instance.</returns>
-		private void Setup(S7Setup s7Setup)
-		{
-			try
-			{
-				_setup = s7Setup;
-				_client = new S7Client();
-				_log.Trace("Setup completed in {0}", this);
-			}
-			catch (ArgumentNullException ex)
-			{
-				_log.Error(ex, "The setup was not successfull. The setup parameter was null.");
-			}
-			catch (Exception ex)
-			{
-				_log.Error(ex, $"The setup was not successfull. The setup is of type {s7Setup.GetType()}.");
-			}
-		}
 
 		/// <summary>
 		/// Opens the connection to the PLC.
@@ -92,16 +68,16 @@ namespace TeleScope.Connectors.Plc.Siemens
 		{
 			try
 			{
-				var result = _client.ConnectTo(_setup.IPAddress, _setup.Rack, _setup.Slot);
+				var result = client.ConnectTo(setup.IPAddress, setup.Rack, setup.Slot);
 				ResultCode = result;
 				Connected?.Invoke(this,
-					new SiemensConnectorEventArgs(_setup.Name, result, S7Results.GetString(result)));
+					new SiemensConnectorEventArgs(setup.Name, result, S7Results.GetString(result)));
 			}
 			catch (Exception ex)
 			{
 				var result = S7Results.TCPConnectionFailed;
 				Failed?.Invoke(this,
-					new SiemensConnectorFailedEventArgs(ex, _setup.Name, result, S7Results.GetString(result)));
+					new SiemensConnectorFailedEventArgs(ex, setup.Name, result, S7Results.GetString(result)));
 			}
 			return this;
 		}
@@ -112,10 +88,10 @@ namespace TeleScope.Connectors.Plc.Siemens
 		/// <returns>The calling instance.</returns>
 		public IConnectable Disconnect()
 		{
-			var result = _client.Disconnect();
+			var result = client.Disconnect();
 			ResultCode = result;
 			Disconnected?.Invoke(this,
-				new SiemensConnectorEventArgs(_setup.Name, result, S7Results.GetString(result)));
+				new SiemensConnectorEventArgs(setup.Name, result, S7Results.GetString(result)));
 			return this;
 		}
 
@@ -126,7 +102,7 @@ namespace TeleScope.Connectors.Plc.Siemens
 		/// <returns>The calling instance.</returns>
 		public IPlcConnectable Select(S7Selector parameter)
 		{
-			_parameter = parameter;
+			this.parameter = parameter;
 			return this;
 		}
 
@@ -177,8 +153,9 @@ namespace TeleScope.Connectors.Plc.Siemens
 				}
 				else
 				{
-					throw new ArgumentException(
-						$"The parameter could not be adapted into the internal representation of '{typeof(S7Selector)}'.");
+					var msg = $"The parameter could not be adapted into the internal representation of '{typeof(S7Selector)}'.";
+					log.Error(msg);
+					throw new ArgumentException(msg);
 				}
 			}
 			catch (IndexOutOfRangeException ex)
@@ -192,9 +169,10 @@ namespace TeleScope.Connectors.Plc.Siemens
 
 			void fowardError(Exception ex)
 			{
+				log.Critical(ex);
 				var result = S7Results.CliInvalidParams;
 				Failed?.Invoke(this,
-					   new SiemensConnectorFailedEventArgs(ex, _setup.Name, result, S7Results.GetString(result)));
+					   new SiemensConnectorFailedEventArgs(ex, setup.Name, result, S7Results.GetString(result)));
 			}
 		}
 
@@ -219,7 +197,7 @@ namespace TeleScope.Connectors.Plc.Siemens
 			catch (Exception ex)
 			{
 				Failed?.Invoke(this,
-				   new SiemensConnectorFailedEventArgs(ex, _setup.Name, result, S7Results.GetString(result)));
+				   new SiemensConnectorFailedEventArgs(ex, setup.Name, result, S7Results.GetString(result)));
 
 				return this;
 			}
@@ -264,7 +242,7 @@ namespace TeleScope.Connectors.Plc.Siemens
 				if (type.IsAssignableFrom(typeof(bool)))
 				{
 					read(sizeof(bool).ToBits());
-					obj = (T)Convert.ChangeType(S7.GetBitAt(buffer, 0, _parameter.Number), type);
+					obj = (T)Convert.ChangeType(S7.GetBitAt(buffer, 0, parameter.Number), type);
 				}
 				else if (type.IsAssignableFrom(typeof(byte)))
 				{
@@ -323,19 +301,19 @@ namespace TeleScope.Connectors.Plc.Siemens
 				}
 				else if (type.IsAssignableFrom(typeof(string)))
 				{
-					read((sizeof(char) * _parameter.Number).ToBits());
+					read((sizeof(char) * parameter.Number).ToBits());
 					obj = (T)Convert.ChangeType(S7.GetStringAt(buffer, 0), type);
 				}
 			}
 			catch (Exception ex)
 			{
 				Failed?.Invoke(this,
-					new SiemensConnectorFailedEventArgs(ex, _setup.Name, result, S7Results.GetString(result)));
+					new SiemensConnectorFailedEventArgs(ex, setup.Name, result, S7Results.GetString(result)));
 			}
 			finally
 			{
 				Completed?.Invoke(this,
-					new ConnectorCompletedEventArgs(_setup.Name, S7Results.GetString(result)));
+					new ConnectorCompletedEventArgs(setup.Name, S7Results.GetString(result)));
 			}
 
 			return obj;
@@ -345,7 +323,7 @@ namespace TeleScope.Connectors.Plc.Siemens
 			void read(int size)
 			{
 				buffer = new byte[size];
-				result = _client.DBRead(_parameter.Datablock, _parameter.BitOffset, size, buffer);
+				result = client.DBRead(parameter.Datablock, parameter.BitOffset, size, buffer);
 				ResultCode = result;
 			}
 		}

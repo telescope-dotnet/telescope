@@ -4,6 +4,31 @@
         <name>TeleScope.Connectors.Mqtt</name>
     </assembly>
     <members>
+        <member name="T:TeleScope.Connectors.Mqtt.Events.MqttConnectorEventHandler">
+            <summary>
+            This delegate is used as event handler for mqtt conncetions.
+            </summary>
+            <param name="sender">The instance that invokes the delegate method.</param>
+            <param name="e">The resulting event arguments.</param>
+        </member>
+        <member name="T:TeleScope.Connectors.Mqtt.Events.MqttConnectorEventArgs">
+            <summary>
+            This argument class is used for mqtt related events, when the connector invokes an event.
+            </summary>
+        </member>
+        <member name="P:TeleScope.Connectors.Mqtt.Events.MqttConnectorEventArgs.Message">
+            <summary>
+            Gets the message string of the mqtt data.
+            </summary>
+        </member>
+        <member name="M:TeleScope.Connectors.Mqtt.Events.MqttConnectorEventArgs.#ctor(System.String,System.String)">
+            <summary>
+            The basic constructor takes the topic and the message strings and 
+            stores it in the properties.
+            </summary>
+            <param name="topic">The topic of the incoming mqtt data.</param>
+            <param name="message">The message of the incoming mqtt data.</param>
+        </member>
         <member name="T:TeleScope.Connectors.Mqtt.MqttConnector">
             <summary>
             This class implements the `IMqttConnectable` interface and uses the The library [MQTTnet](https://github.com/chkr1011/MQTTnet) internally.

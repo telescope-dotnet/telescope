@@ -16,8 +16,8 @@ namespace TeleScope.MSTest.Persistence
 	{
 		// fields
 
-		private string _file;
-		private int _length;
+		private string file;
+		private int length;
 
 		// -- overrides
 
@@ -25,7 +25,7 @@ namespace TeleScope.MSTest.Persistence
 		public override void Arrange()
 		{
 			base.Arrange();
-			_length = 10000;
+			length = 10000;
 		}
 
 		[TestCleanup]
@@ -33,10 +33,10 @@ namespace TeleScope.MSTest.Persistence
 		{
 			base.Cleanup();
 
-			if (!string.IsNullOrEmpty(_file) && File.Exists(_file))
+			if (!string.IsNullOrEmpty(file) && File.Exists(file))
 			{
-				_log.Trace($"Cleanup after test, deleting {_file}");
-				File.Delete(_file);
+				log.Trace($"Cleanup after test, deleting {file}");
+				File.Delete(file);
 			}
 		}
 
@@ -47,7 +47,7 @@ namespace TeleScope.MSTest.Persistence
 		{
 			// arrange
 			var fileInfo = new FileInfo("complex.yml");
-			_file = fileInfo.FullName;
+			file = fileInfo.FullName;
 			var yaml = new YamlStorage<object>(new YamlStorageSetup(fileInfo));
 
 			var data = new
@@ -66,8 +66,8 @@ namespace TeleScope.MSTest.Persistence
 			yaml.Write(new object[] { data });
 
 			// assert
-			Assert.IsTrue(File.Exists(_file), "File creation failed.");
-			Assert.IsTrue(File.ReadAllBytes(_file).Length > 0, "File should not be empty.");
+			Assert.IsTrue(File.Exists(file), "File creation failed.");
+			Assert.IsTrue(File.ReadAllBytes(file).Length > 0, "File should not be empty.");
 		}
 
 		[TestMethod]
@@ -78,14 +78,14 @@ namespace TeleScope.MSTest.Persistence
 			IReadable<Mockup> reader,
 			IWritable<Mockup> writer)
 		{
-			_log.Trace($"Tesing {extension} storage.");
-			_file = source;
+			log.Trace($"Tesing {extension} storage.");
+			file = source;
 
 
 			if (extension.Equals("json") ||
 				extension.Equals("yml"))
 			{
-				_log.Trace($"Tesing as single.");
+				log.Trace($"Tesing as single.");
 
 				// SINGLE object act & assert: Write (create), read, delete 
 				var id = 4711;
@@ -114,7 +114,7 @@ namespace TeleScope.MSTest.Persistence
 			else
 			{
 				// ENUMERATION act & assert: Write (create), read, delete 
-				var data = Mockup.RandomArray(_length);
+				var data = Mockup.RandomArray(length);
 
 				// write (create)
 				RunWithMetrics($"Create {extension}", () =>
@@ -130,7 +130,7 @@ namespace TeleScope.MSTest.Persistence
 					result = reader.Read();
 				});
 				Assert.IsNotNull(result);
-				Assert.IsTrue(result.Count() == _length);
+				Assert.IsTrue(result.Count() == length);
 
 				// delete
 				writer.Write(null);

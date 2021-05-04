@@ -10,7 +10,7 @@ namespace TeleScope.UI.Cli.Options
 	{
 		// --fields
 
-		private readonly T _options;
+		private readonly T options;
 
 		// -- properties
 
@@ -25,7 +25,7 @@ namespace TeleScope.UI.Cli.Options
 
 		public CliOptionParser()
 		{
-			_options = new T();
+			options = new T();
 			Prefix = "-";
 			Format = CultureInfo.InvariantCulture;
 		}
@@ -66,14 +66,14 @@ namespace TeleScope.UI.Cli.Options
 
 				SetOption(arg, i, args);
 			}
-			return _options;
+			return options;
 		}
 
 		private void SetOption(string arg, int index, string[] args)
 		{
 			arg = Regex.Replace(arg, @"[^0-9a-zA-Z]+", "");
 
-			foreach (var prop in _options.GetType().GetProperties())
+			foreach (var prop in options.GetType().GetProperties())
 			{
 				var attr = prop.GetCustomAttributes<CliAttribute>().First();
 
@@ -84,12 +84,12 @@ namespace TeleScope.UI.Cli.Options
 
 				if (prop.PropertyType == typeof(bool))
 				{
-					prop.SetValue(_options, true);
+					prop.SetValue(options, true);
 				}
 				else
 				{
 					var val = args.Length > index + 1 ? args[index + 1] : string.Empty;
-					prop.SetValue(_options, Convert.ChangeType(val, prop.PropertyType, Format));
+					prop.SetValue(options, Convert.ChangeType(val, prop.PropertyType, Format));
 				}
 			}
 		}

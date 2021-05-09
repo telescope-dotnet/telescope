@@ -25,10 +25,10 @@ namespace TeleScope.Connectors.Mqtt
 
 		// -- fields
 
-		private readonly ILogger<MqttConnector> _log;
-		private IMqttClient _client;
-		private IMqttClientOptions _options;
-		private MqttSetup _setup;
+		private readonly ILogger<MqttConnector> log;
+		private IMqttClient client;
+		private IMqttClientOptions options;
+		private readonly MqttSetup setup;
 
 		// -- events
 
@@ -58,7 +58,7 @@ namespace TeleScope.Connectors.Mqtt
 		/// <summary>
 		/// Gets the state, if the connection is established or not.
 		/// </summary>
-		public bool IsConnected => _client?.IsConnected ?? false;
+		public bool IsConnected => client?.IsConnected ?? false;
 
 		// -- constructors
 
@@ -69,8 +69,9 @@ namespace TeleScope.Connectors.Mqtt
 		/// <param name="setup">The setup for the mqtt client.</param>
 		public MqttConnector(MqttSetup setup)
 		{
-			_log = LoggingProvider.CreateLogger<MqttConnector>();
-			Setup(setup);
+			log = LoggingProvider.CreateLogger<MqttConnector>();
+			this.setup = setup ?? throw new ArgumentNullException(nameof(setup));
+			Setup();
 		}
 
 		// -- methods
@@ -93,8 +94,8 @@ namespace TeleScope.Connectors.Mqtt
 		/// <returns>The executing task.</returns>
 		public async Task ConnectAsync()
 		{
-			await _client
-				.ConnectAsync(_options)
+			await client
+				.ConnectAsync(options)
 				.ContinueWith(t =>
 				{
 					if (!t.IsFaulted)
@@ -107,11 +108,11 @@ namespace TeleScope.Connectors.Mqtt
 
 					if (t.Exception != null)
 					{
-						args = new ConnectorFailedEventArgs(t.Exception, _setup.Name, msg);
+						args = new ConnectorFailedEventArgs(t.Exception, setup.Name, msg);
 					}
 					else
 					{
-						args = new ConnectorFailedEventArgs(_setup.Name, msg);
+						args = new ConnectorFailedEventArgs(setup.Name, msg);
 					}
 
 					Failed?.Invoke(this, args);
@@ -134,7 +135,7 @@ namespace TeleScope.Connectors.Mqtt
 		/// <returns>The executing task.</returns>
 		public async Task DisconnectAsync()
 		{
-			await _client.DisconnectAsync();
+			await client.DisconnectAsync();
 		}
 
 		/// <summary>
@@ -145,7 +146,7 @@ namespace TeleScope.Connectors.Mqtt
 		/// <returns>The executing task.</returns>
 		public Task PublishAsync(string topic, string message)
 		{
-			return PublishAsync(topic, message, _setup.QualityOfService);
+			return PublishAsync(topic, message, setup.QualityOfService);
 		}
 
 		/// <summary>
@@ -173,16 +174,16 @@ namespace TeleScope.Connectors.Mqtt
 				msg.QualityOfServiceLevel = MqttQualityOfServiceLevel.AtMostOnce;
 			}
 
-			await _client.PublishAsync(msg).ContinueWith((t) =>
+			await client.PublishAsync(msg).ContinueWith((t) =>
 			{
-				_log.Trace($"Publish finished with status '{t.Status}'.", t);
+				log.Trace($"Publish finished with status '{t.Status}'.", t);
 				if (t.IsFaulted)
 				{
-					Failed?.Invoke(this, new ConnectorFailedEventArgs(t.Exception, _setup.Name));
+					Failed?.Invoke(this, new ConnectorFailedEventArgs(t.Exception, setup.Name));
 				}
 				else
 				{
-					Completed?.Invoke(this, new ConnectorCompletedEventArgs(_setup.Name, t.Result.ReasonString));
+					Completed?.Invoke(this, new ConnectorCompletedEventArgs(setup.Name, t.Result.ReasonString));
 				}
 			});
 		}
@@ -194,8 +195,8 @@ namespace TeleScope.Connectors.Mqtt
 		/// <returns>The calling instance.</returns>
 		public IMqttConnectable Subscribe(string topic)
 		{
-			_setup.Topics.Add(topic);
-			_setup.Topics = _setup.Topics.Distinct().ToList();
+			setup.Topics.Add(topic);
+			setup.Topics = setup.Topics.Distinct().ToList();
 
 			if (IsConnected)
 			{
@@ -211,54 +212,52 @@ namespace TeleScope.Connectors.Mqtt
 		/// <returns>The calling instance.</returns>
 		public IMqttConnectable Unsubscribe(string topic)
 		{
-			_setup.Topics.Remove(topic);
-			_client.UnsubscribeAsync(topic);
+			setup.Topics.Remove(topic);
+			client.UnsubscribeAsync(topic);
 			return this;
 		}
 
 		// -- helper
 
-		private void Setup(MqttSetup setup)
+		private void Setup()
 		{
 			try
 			{
-				_setup = setup ?? throw new ArgumentNullException(nameof(setup));
-
-				_options = new MqttClientOptionsBuilder()
-				   .WithTcpServer(_setup.Broker, _setup.Port)
-				   .WithClientId(_setup.ClientID)
+				options = new MqttClientOptionsBuilder()
+				   .WithTcpServer(setup.Broker, setup.Port)
+				   .WithClientId(setup.ClientID)
 				   .WithCleanSession(true)
 				   .Build();
 
 				var factory = new MqttFactory();
-				_client = factory.CreateMqttClient();
+				client = factory.CreateMqttClient();
 
 				AddConnectionHandler();
 				AddDisconnectionHandler();
 				AddMessageReceivedHandler();
 
-				_log.Trace("Setup completed in {0} - {1}", _setup.ToString(), this);
+				log.Trace("Setup completed in {0} - {1}", setup.ToString(), this);
 			}
 			catch (ArgumentNullException ex)
 			{
-				_log.Error(ex, "The setup was not successfull. The setup parameter was null.");
+				log.Error(ex, "The setup was not successfull. The setup parameter was null.");
 			}
 		}
 
 		private void AddConnectionHandler()
 		{
-			_client.UseConnectedHandler(async e => await Task.Run(() =>
+			client.UseConnectedHandler(async e => await Task.Run(() =>
 			{
 
 				if (e.AuthenticateResult.ResultCode != MqttClientConnectResultCode.Success)
 				{
 					Failed?.Invoke(this,
-						new ConnectorFailedEventArgs(_setup.Name, e.AuthenticateResult.ResultCode.ToString()));
+						new ConnectorFailedEventArgs(setup.Name, e.AuthenticateResult.ResultCode.ToString()));
 				}
 
-				Connected?.Invoke(this, new ConnectorEventArgs(_setup.Name));
+				Connected?.Invoke(this, new ConnectorEventArgs(setup.Name));
 
-				foreach (string topic in _setup.Topics)
+				foreach (string topic in setup.Topics)
 				{
 					SubscribeOnClient(topic);
 				}
@@ -267,23 +266,23 @@ namespace TeleScope.Connectors.Mqtt
 
 		private void AddDisconnectionHandler()
 		{
-			_client.UseDisconnectedHandler(async e =>
+			client.UseDisconnectedHandler(async e =>
 			{
-				var msg = $"Disconnected from mqtt broker '{_setup.Name}'.";
-				_log.Trace(msg, this);
+				var msg = $"Disconnected from mqtt broker '{setup.Name}'.";
+				log.Trace(msg, this);
 
-				Disconnected?.Invoke(this, new ConnectorFailedEventArgs(_setup.Name, msg));
+				Disconnected?.Invoke(this, new ConnectorFailedEventArgs(setup.Name, msg));
 
-				if (_setup.Reconnection > 0)
+				if (setup.Reconnection > 0)
 				{
-					await Task.Delay(TimeSpan.FromSeconds(_setup.Reconnection));
+					await Task.Delay(TimeSpan.FromSeconds(setup.Reconnection));
 					try
 					{
 						await ConnectAsync();
 					}
 					catch (Exception ex)
 					{
-						_log.Critical(ex, $"Could not reconnect to mqtt broker '{_setup.Broker}:{_setup.Port}'.", this);
+						log.Critical(ex, $"Could not reconnect to mqtt broker '{setup.Broker}:{setup.Port}'.", this);
 					}
 				}
 			});
@@ -291,9 +290,9 @@ namespace TeleScope.Connectors.Mqtt
 
 		private void AddMessageReceivedHandler()
 		{
-			_client.UseApplicationMessageReceivedHandler(e =>
+			client.UseApplicationMessageReceivedHandler(e =>
 			{
-				_log.Trace($"Mqtt received topic: {e.ApplicationMessage.Topic}", e);
+				log.Trace($"Mqtt received topic: {e.ApplicationMessage.Topic}", e);
 				string topic = e.ApplicationMessage.Topic;
 				string msg = Encoding.UTF8.GetString(e.ApplicationMessage.Payload);
 				MessageReceived?.Invoke(this, new MqttConnectorEventArgs(topic, msg));
@@ -302,9 +301,9 @@ namespace TeleScope.Connectors.Mqtt
 
 		private void SubscribeOnClient(string topic)
 		{
-			_client.SubscribeAsync(
+			client.SubscribeAsync(
 				new MqttTopicFilterBuilder()
-					.WithQualityOfServiceLevel(GetQoS(_setup.QualityOfService))
+					.WithQualityOfServiceLevel(GetQoS(setup.QualityOfService))
 					.WithTopic(topic)
 					.Build());
 		}

@@ -11,17 +11,17 @@ namespace TeleScope.Persistence.Abstractions
 		protected const bool DEFAULT_CAN_CREATE = true;
 		protected const bool DEFAULT_CAN_DELETE = true;
 
-		private readonly FileInfo _info;
+		private readonly FileInfo info;
 
 		// -- properties
 
-		public string File => _info.FullName;
+		public string File => info.FullName;
 
-		public string Filename => _info.Name;
+		public string Filename => info.Name;
 
-		public string Extension => _info.Extension;
+		public string Extension => info.Extension;
 
-		public string Location => _info.Directory.FullName;
+		public string Location => info.Directory.FullName;
 
 		public bool CanCreate { get; private set; }
 
@@ -34,7 +34,7 @@ namespace TeleScope.Persistence.Abstractions
 			bool canCreate = DEFAULT_CAN_CREATE,
 			bool canDelete = DEFAULT_CAN_DELETE)
 		{
-			_info = fileInfo ?? throw new ArgumentNullException(nameof(fileInfo));
+			info = fileInfo ?? throw new ArgumentNullException(nameof(fileInfo));
 			CanCreate = canCreate;
 			CanDelete = canDelete;
 		}
@@ -43,7 +43,7 @@ namespace TeleScope.Persistence.Abstractions
 
 		public FileInfo GetFileInfo()
 		{
-			return _info;
+			return info;
 		}
 	}
 }

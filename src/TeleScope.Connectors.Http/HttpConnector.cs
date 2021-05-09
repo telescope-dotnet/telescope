@@ -24,10 +24,11 @@ namespace TeleScope.Connectors.Http
 		/// </summary>
 		public const int TIMEOUT = 10000;
 
-		private readonly ILogger<HttpConnector> _log;
-		private HttpClient _client;
-		private HttpEndpoint _endpoint;
-		private StringContent _content;
+		private readonly ILogger<HttpConnector> log;
+
+		private HttpClient client;
+		private HttpEndpoint endpoint;
+		private StringContent content;
 
 		// -- events
 
@@ -62,7 +63,7 @@ namespace TeleScope.Connectors.Http
 		/// </summary>
 		public HttpConnector()
 		{
-			_log = LoggingProvider.CreateLogger<HttpConnector>();
+			log = LoggingProvider.CreateLogger<HttpConnector>();
 		}
 
 		/// <summary>
@@ -72,8 +73,8 @@ namespace TeleScope.Connectors.Http
 		/// <param name="endpoint">The endpoint configuration executed by the client.</param>
 		public HttpConnector(HttpClient client, HttpEndpoint endpoint) : this()
 		{
-			_client = client;
-			_endpoint = endpoint;
+			this.client = client;
+			this.endpoint = endpoint;
 		}
 
 		// -- methods
@@ -86,7 +87,7 @@ namespace TeleScope.Connectors.Http
 		/// <returns>The calling instance.</returns>
 		public IHttpConnectable Connect(HttpEndpoint endpoint)
 		{
-			return Connect(_client, endpoint);
+			return Connect(client, endpoint);
 		}
 
 		/// <summary>
@@ -97,8 +98,8 @@ namespace TeleScope.Connectors.Http
 		/// <returns>The calling instance.</returns>
 		public IHttpConnectable Connect(HttpClient client, HttpEndpoint endpoint)
 		{
-			_client = client;
-			_endpoint = endpoint;
+			this.client = client;
+			this.endpoint = endpoint;
 			return Connect();
 		}
 
@@ -113,9 +114,9 @@ namespace TeleScope.Connectors.Http
 				return this;
 			}
 
-			_client.BaseAddress = _endpoint.Address;
+			client.BaseAddress = endpoint.Address;
 
-			HttpWebRequest request = (HttpWebRequest)WebRequest.Create(_client.BaseAddress);
+			HttpWebRequest request = (HttpWebRequest)WebRequest.Create(client.BaseAddress);
 			request.Timeout = TIMEOUT;
 			request.Method = "HEAD";
 
@@ -135,11 +136,11 @@ namespace TeleScope.Connectors.Http
 			}
 			catch (WebException wex)
 			{
-				_log.Trace(wex, $"Http connection failed for {request.Method}: '{_client.BaseAddress.AbsoluteUri}'.");
-				Failed?.Invoke(this, new ConnectorFailedEventArgs(wex, _client.BaseAddress.AbsoluteUri));
+				log.Trace(wex, $"Http connection failed for {request.Method}: '{client.BaseAddress.AbsoluteUri}'.");
+				Failed?.Invoke(this, new ConnectorFailedEventArgs(wex, client.BaseAddress.AbsoluteUri));
 			}
 
-			Connected?.Invoke(this, new ConnectorEventArgs(_endpoint.Address.AbsoluteUri));
+			Connected?.Invoke(this, new ConnectorEventArgs(endpoint.Address.AbsoluteUri));
 			return this;
 		}
 
@@ -154,11 +155,11 @@ namespace TeleScope.Connectors.Http
 		/// <returns>The calling instance.</returns>
 		public IConnectable Disconnect()
 		{
-			var address = _endpoint.Address.AbsoluteUri;
+			var address = endpoint.Address.AbsoluteUri;
 
-			_client.Dispose();
-			_endpoint = null;
-			_content = null;
+			client.Dispose();
+			endpoint = null;
+			content = null;
 			IsConnected = false;
 
 			Disconnected?.Invoke(this, new ConnectorEventArgs(address));
@@ -178,7 +179,7 @@ namespace TeleScope.Connectors.Http
 				return this;
 			}
 
-			_endpoint.Request(request).Method(method);
+			endpoint.Request(request).Method(method);
 			return this;
 		}
 
@@ -190,12 +191,12 @@ namespace TeleScope.Connectors.Http
 		/// <returns>The calling instance.</returns>
 		public IHttpConnectable AddHeader(string name, string value)
 		{
-			if (_client == null)
+			if (client == null)
 			{
 				return this;
 			}
 
-			_client.DefaultRequestHeaders.Add(name, value);
+			client.DefaultRequestHeaders.Add(name, value);
 
 			return this;
 		}
@@ -219,7 +220,7 @@ namespace TeleScope.Connectors.Http
 		/// <returns>The calling instance.</returns>
 		public IHttpConnectable SetContent(string content, Encoding encoding, string mediatype)
 		{
-			_content = new StringContent(content, encoding, mediatype);
+			this.content = new StringContent(content, encoding, mediatype);
 			return this;
 		}
 
@@ -231,14 +232,14 @@ namespace TeleScope.Connectors.Http
 		{
 			var request = new HttpRequestMessage
 			{
-				Method = _endpoint.MethodType,
-				RequestUri = _endpoint.Address,
-				Content = _content
+				Method = endpoint.MethodType,
+				RequestUri = endpoint.Address,
+				Content = content
 			};
 
-			_log.Trace($"Calling via http '{_endpoint}'.");
+			log.Trace($"Calling via http '{endpoint}'.");
 
-			var response = await _client.SendAsync(request);
+			var response = await client.SendAsync(request);
 			var result = await response.Content.ReadAsStringAsync();
 
 			Completed?.Invoke(this, new ConnectorCompletedEventArgs(response.ReasonPhrase, response));
@@ -263,15 +264,15 @@ namespace TeleScope.Connectors.Http
 		private bool Validate()
 		{
 			var err = "The http conncetor is not ready.";
-			if (_client == null)
+			if (client == null)
 			{
-				_log.Error($"{err} The client is null.");
+				log.Error($"{err} The client is null.");
 				return false;
 			}
 
-			if (_endpoint == null)
+			if (endpoint == null)
 			{
-				_log.Error($"{err} The endpoint configuration is null.");
+				log.Error($"{err} The endpoint configuration is null.");
 				return false;
 			}
 

@@ -12,38 +12,38 @@ namespace TeleScope.MSTest
 	{
 
 		// -- fields
-		private Stopwatch _watch;
-		protected ILogger _log;
+		private Stopwatch watch;
+		protected ILogger log;
 		protected const string SKIP_PLC_TESTS = "SkipPlcTests";
 
 		// -- base methods
 
 		public virtual void Arrange()
 		{
-			_watch = new Stopwatch();
+			watch = new Stopwatch();
 			LoggingProvider.Initialize(
 				 new LoggerFactory()
 					 .UseTemplate("{Timestamp: HH:mm:ss} [{Level} | {SourceContext:l}] - {Message}{NewLine}{Exception}")
 					 .UseLevel(LogLevel.Trace)
 					 .AddSerilogConsole());
-			_log = LoggingProvider.CreateLogger<TestsBase>();
+			log = LoggingProvider.CreateLogger<TestsBase>();
 		}
 
 		public virtual void Cleanup()
 		{
-			_watch.Stop();
-			_watch = null;
+			watch.Stop();
+			watch = null;
 		}
 
 		protected long RunWithMetrics(string name, Action action)
 		{
-			_watch.Restart();
+			watch.Restart();
 			action();
-			_watch.Stop();
-			var ms = _watch.ElapsedMilliseconds;
-			_log.Trace($"'{name}' executed in {ms} ms.");
+			watch.Stop();
+			var ms = watch.ElapsedMilliseconds;
+			log.Trace($"'{name}' executed in {ms} ms.");
 
-			return _watch.ElapsedMilliseconds;
+			return watch.ElapsedMilliseconds;
 		}
 
 		/// <summary>

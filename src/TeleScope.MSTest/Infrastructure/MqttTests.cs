@@ -14,9 +14,9 @@ namespace TeleScope.MSTest.Infrastructure
 	[TestClass]
 	public class MqttTests : TestsBase
 	{
-		IMqttConnectable _mqtt;
-		private bool _isConnected;
-		private MqttSetup _setup;
+		IMqttConnectable mqtt;
+		private bool isConnected;
+		private MqttSetup setup;
 
 		[TestInitialize]
 		public override void Arrange()
@@ -29,10 +29,10 @@ namespace TeleScope.MSTest.Infrastructure
 		{
 			base.Cleanup();
 
-			if (_mqtt != null)
+			if (mqtt != null)
 			{
-				_mqtt.DisconnectAsync();
-				_mqtt = null;
+				mqtt.DisconnectAsync();
+				mqtt = null;
 			}
 		}
 
@@ -49,24 +49,22 @@ namespace TeleScope.MSTest.Infrastructure
 			var received = false;
 			var transmitted = false;
 
-			var receiver = new MqttConnector(null);
-
-			receiver = new MqttConnector(new MqttSetup
+			var receiver = new MqttConnector(new MqttSetup
 			{
 				ClientID = $"telescope-receiver-{ts}",
 				Topics = new List<string>
-					{
-						topic
-					}
+				{
+					topic
+				}
 			});
 			receiver.MessageReceived += (o, e) =>
 			{
-				_log.Info($"Message received from '{e.Name}': '{e.Message}'");
+				log.Info($"Message received from '{e.Name}': '{e.Message}'");
 				received = true;
 			};
 			receiver.Failed += (o, e) =>
 			{
-				_log.Critical(e.Exception, e.Message, e);
+				log.Critical(e.Exception, e.Message, e);
 				Assert.Fail(e.Message);
 			};
 
@@ -80,12 +78,12 @@ namespace TeleScope.MSTest.Infrastructure
 			});
 			transmitter.Completed += (o, e) =>
 			{
-				_log.Info("Transmission completed");
+				log.Info("Transmission completed");
 				transmitted = true;
 			};
 			transmitter.Failed += (o, e) =>
 			{
-				_log.Critical(e.Exception, e.Message, e);
+				log.Critical(e.Exception, e.Message, e);
 				Assert.Fail(e.Message);
 			};
 
@@ -114,7 +112,7 @@ namespace TeleScope.MSTest.Infrastructure
 			while (!received && !expired);
 
 			watch.Stop();
-			_log.Trace($"Stopwatch: {watch.ElapsedMilliseconds}");
+			log.Trace($"Stopwatch: {watch.ElapsedMilliseconds}");
 
 			// assert
 
@@ -129,12 +127,12 @@ namespace TeleScope.MSTest.Infrastructure
 			SetupClient();
 
 			// connect: act & assert
-			_mqtt.Connect();
-			Assert.IsTrue(_mqtt.IsConnected, $"mqtt {_mqtt} should be connected");
+			mqtt.Connect();
+			Assert.IsTrue(mqtt.IsConnected, $"mqtt {mqtt} should be connected");
 
 			// disconnect: act & assert
-			_mqtt.Disconnect();
-			Assert.IsFalse(_mqtt.IsConnected, $"mqtt {_mqtt} should be disconnected");
+			mqtt.Disconnect();
+			Assert.IsFalse(mqtt.IsConnected, $"mqtt {mqtt} should be disconnected");
 		}
 
 		[TestMethod]
@@ -145,39 +143,39 @@ namespace TeleScope.MSTest.Infrastructure
 
 			// connect: act & assert
 			await ConnectAsync();
-			Assert.IsTrue(_isConnected, $"mqtt {_mqtt} is not connected");
+			Assert.IsTrue(isConnected, $"mqtt {mqtt} is not connected");
 
 			// disconnect: act & assert
 			await DisconnectAsync();
-			Assert.IsFalse(_isConnected);
+			Assert.IsFalse(isConnected);
 		}
 
 		// -- private methods
 
 		private void SetupClient()
-		{		
-			_setup = new MqttSetup
+		{
+			setup = new MqttSetup
 			{
 				Broker = "broker.hivemq.com",
 				Port = 1883,
 				ClientID = "TeleScope.MSTest"
 			};
-			_mqtt = new MqttConnector(_setup);
-			_mqtt.Connected += OnConnected;
+			mqtt = new MqttConnector(setup);
+			mqtt.Connected += OnConnected;
 		}
 
 		private async Task ConnectAsync()
 		{
-			_log.Info($"Connecting with {_setup}", this);
-			await _mqtt.ConnectAsync();
+			log.Info($"Connecting with {setup}", this);
+			await mqtt.ConnectAsync();
 		}
 
 		private async Task DisconnectAsync()
 		{
-			_log.Info($"Disconnecting from {_setup}", this);
-			await _mqtt.DisconnectAsync().ContinueWith((task) =>
+			log.Info($"Disconnecting from {setup}", this);
+			await mqtt.DisconnectAsync().ContinueWith((task) =>
 			{
-				_isConnected = false;
+				isConnected = false;
 			});
 		}
 
@@ -185,9 +183,9 @@ namespace TeleScope.MSTest.Infrastructure
 
 		private void OnConnected(object sender, ConnectorEventArgs e)
 		{
-			var mqtt = sender as MqttConnector;
-			_log.Info($"Connected to '{e.Name}' with '{mqtt.GetType()}'.", this);
-			_isConnected = true;
+			var mqttSender = sender as MqttConnector;
+			log.Info($"Connected to '{e.Name}' with '{mqttSender.GetType()}'.", this);
+			isConnected = true;
 		}
 	}
 }

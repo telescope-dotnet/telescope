@@ -9,27 +9,27 @@ namespace TeleScope.Logging.Extensions.Serilog
 	{
 		// -- fields
 
-		private static string _template = "{Timestamp:yyyy-MM-dd HH:mm:ss} [{Level}] [{SourceContext:l}] {Message}{NewLine}{Exception}";
-		private static LogLevel _level = LogLevel.Information;
-		private static ITextFormatter _formatter = new CompactJsonFormatter();
+		private static string template = "{Timestamp:yyyy-MM-dd HH:mm:ss} [{Level}] [{SourceContext:l}] {Message}{NewLine}{Exception}";
+		private static LogLevel level = LogLevel.Information;
+		private static ITextFormatter textFormatter = new CompactJsonFormatter();
 
 		// -- extension methods
 
 		public static ILoggerFactory UseTemplate(this ILoggerFactory factory, string newTemplate)
 		{
-			_template = newTemplate;
+			template = newTemplate;
 			return factory;
 		}
 
 		public static ILoggerFactory UseLevel(this ILoggerFactory factory, LogLevel minimumLevel)
 		{
-			_level = minimumLevel;
+			level = minimumLevel;
 			return factory;
 		}
 
 		public static ILoggerFactory UseFormatter(this ILoggerFactory factory, ITextFormatter formatter)
 		{
-			_formatter = formatter;
+			textFormatter = formatter;
 			return factory;
 		}
 
@@ -37,7 +37,7 @@ namespace TeleScope.Logging.Extensions.Serilog
 		{
 			factory.AddSerilog(
 				GetConfig()
-					.WriteTo.Console(outputTemplate: _template)
+					.WriteTo.Console(outputTemplate: template)
 					.CreateLogger());
 			return factory;
 		}
@@ -46,7 +46,7 @@ namespace TeleScope.Logging.Extensions.Serilog
 		{
 			factory.AddSerilog(
 				GetConfig()
-					.WriteTo.File(_formatter, file)
+					.WriteTo.File(textFormatter, file)
 					.CreateLogger());
 			return factory;
 		}
@@ -57,7 +57,7 @@ namespace TeleScope.Logging.Extensions.Serilog
 		{
 			var config = new LoggerConfiguration();
 
-			switch (_level)
+			switch (level)
 			{
 				case LogLevel.Critical:
 					config.MinimumLevel.Fatal();

@@ -66,7 +66,7 @@ namespace TeleScope.Connectors.Plc.Siemens
 		public const int CliCannotChangeParam = 0x02600000;
 		public const int CliFunctionNotImplemented = 0x02700000;
 
-		private static List<FieldInfo> _fields;
+		private static List<FieldInfo> fields;
 
 		// -- methods
 
@@ -80,14 +80,14 @@ namespace TeleScope.Connectors.Plc.Siemens
 
 		private static List<FieldInfo> ReflectConstants()
 		{
-			if (_fields == null)
+			if (fields == null)
 			{
 				var type = typeof(S7Results);
-				_fields = type.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy)
+				fields = type.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy)
 					.Where(fi => fi.IsLiteral && !fi.IsInitOnly).ToList();
 			}
 
-			return _fields;
+			return fields;
 		}
 	}
 }

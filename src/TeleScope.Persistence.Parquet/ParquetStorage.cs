@@ -14,8 +14,8 @@ namespace TeleScope.Persistence.Parquet
 	{
 		// -- fields
 
-		private readonly ILogger<ParquetStorage<T>> _log;
-		private readonly FileInfo _info;
+		private readonly ILogger<ParquetStorage<T>> log;
+		private readonly FileInfo info;
 
 		// -- properties
 
@@ -27,8 +27,8 @@ namespace TeleScope.Persistence.Parquet
 
 		public ParquetStorage(FileInfo fileInfo, bool canCreate = true, bool canDelete = false)
 		{
-			_log = LoggingProvider.CreateLogger<ParquetStorage<T>>();
-			_info = fileInfo;
+			log = LoggingProvider.CreateLogger<ParquetStorage<T>>();
+			info = fileInfo;
 			CanCreate = canCreate;
 			CanDelete = canDelete;
 		}
@@ -38,7 +38,7 @@ namespace TeleScope.Persistence.Parquet
 		public IEnumerable<T> Read()
 		{
 			T[] data;
-			using (var stream = new FileStream(_info.FullName, FileMode.Open))
+			using (var stream = new FileStream(info.FullName, FileMode.Open))
 			{
 				data = ParquetConvert.Deserialize<T>(stream);
 			}
@@ -50,16 +50,16 @@ namespace TeleScope.Persistence.Parquet
 		{
 			try
 			{
-				if (!this.ValidateOrThrow(data, _info))
+				if (!this.ValidateOrThrow(data, info))
 				{
 					return;
 				}
 
-				ParquetConvert.Serialize(data, _info.FullName);
+				ParquetConvert.Serialize(data, info.FullName);
 			}
 			catch (InvalidOperationException ex)
 			{
-				_log.Critical(ex);
+				log.Critical(ex);
 			}
 		}
 	}

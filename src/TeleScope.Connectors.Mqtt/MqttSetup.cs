@@ -10,7 +10,7 @@ namespace TeleScope.Connectors.Mqtt
 	{
 		// fields
 
-		private int _quality;
+		private int quality;
 
 		// -- properties
 
@@ -46,12 +46,12 @@ namespace TeleScope.Connectors.Mqtt
 		/// </summary>
 		public int QualityOfService
 		{
-			get { return _quality; }
+			get { return quality; }
 			set
 			{
-				if (value < 0) _quality = 0;
-				else if (value > 2) _quality = 2;
-				else _quality = value;
+				if (value < 0) quality = 0;
+				else if (value > 2) quality = 2;
+				else quality = value;
 			}
 		}
 

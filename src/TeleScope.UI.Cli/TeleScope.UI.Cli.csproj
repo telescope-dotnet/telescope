@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>0.1.3</Version>
+    <Version>1.0.0</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <Company>TeleScope-dotnet</Company>
     <Description>Provides common logic to simplify command line applications e.g. reading the start arguments.</Description>
@@ -11,6 +11,10 @@
     <PackageProjectUrl>https://github.com/telescope-dotnet/telescope</PackageProjectUrl>
     <PackageIcon>logo-nuget.png</PackageIcon>
     <Authors>TeleScope-dotnet members</Authors>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>TeleScope.UI.Cli.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

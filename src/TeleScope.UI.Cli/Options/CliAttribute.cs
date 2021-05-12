@@ -8,18 +8,6 @@ namespace TeleScope.UI.Cli.Options
 	[AttributeUsage(AttributeTargets.Property)]
 	public class CliAttribute : Attribute
 	{
-		public CliAttribute()
-		{
-
-		}
-
-		public CliAttribute(string shortTerm, string longTerm) : this()
-		{
-			Short = shortTerm;
-			Long = longTerm;
-		}
-
-
 		// -- properties
 
 		/// <summary>
@@ -33,5 +21,26 @@ namespace TeleScope.UI.Cli.Options
 		/// Do not use any special characters, pre- or suffixes.
 		/// </summary>
 		public string Long { get; set; }
+
+		// -- constructors
+
+		/// <summary>
+		/// The default empty constructor.
+		/// </summary>
+		public CliAttribute()
+		{
+
+		}
+
+		/// <summary>
+		/// The constructor sets the properties Short and Long of the attribute. 
+		/// </summary>
+		/// <param name="shortTerm"></param>
+		/// <param name="longTerm"></param>
+		public CliAttribute(string shortTerm, string longTerm) : this()
+		{
+			Short = shortTerm;
+			Long = longTerm;
+		}		
 	}
 }

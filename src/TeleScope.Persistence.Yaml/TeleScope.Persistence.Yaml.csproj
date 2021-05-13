@@ -8,10 +8,18 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/telescope-dotnet/telescope</PackageProjectUrl>
     <PackageTags>Persistence,Yaml, Yml, YamlDotNet</PackageTags>
-    <Version>0.6.0</Version>
+    <Version>1.0.0</Version>
     <PackageIcon>logo-nuget.png</PackageIcon>
     <RepositoryUrl>https://github.com/telescope-dotnet/telescope</RepositoryUrl>
     <PackageReleaseNotes></PackageReleaseNotes>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>TeleScope.Persistence.Yaml.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>TeleScope.Persistence.Yaml.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

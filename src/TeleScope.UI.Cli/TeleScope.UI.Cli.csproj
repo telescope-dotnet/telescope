@@ -17,6 +17,10 @@
     <DocumentationFile>TeleScope.UI.Cli.xml</DocumentationFile>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>TeleScope.UI.Cli.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Include="..\..\images\logo-nuget.png">
       <Pack>True</Pack>

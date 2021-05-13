@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>0.3.3</Version>
+    <Version>1.0.0</Version>
     <Authors>TeleScope-dotnet members</Authors>
     <Company>TeleScope-dotnet</Company>
     <Description>Contains an implementation of the IHttpConnectable interface for HTTP connections. Depends only on the assembly TeleScope.Connectors.Http.Abstractions and uses the .NET library System.Net.Http internally.</Description>

@@ -246,7 +246,6 @@ namespace TeleScope.Connectors.Http
 			return result;
 		}
 
-
 		/// <summary>
 		/// Performs the http request asynchronously that is defined by the http endpoint and optional parameters.
 		/// </summary>

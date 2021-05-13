@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TeleScope.UI.Cli</name>
+    </assembly>
+    <members>
+        <member name="T:TeleScope.UI.Cli.Options.CliAttribute">
+            <summary>
+            Attribute class to add names for command line options.
+            </summary>
+        </member>
+        <member name="P:TeleScope.UI.Cli.Options.CliAttribute.Short">
+            <summary>
+            Gets or sets the short term of the command line option.
+            Do not use any special characters, pre- or suffixes.
+            </summary>
+        </member>
+        <member name="P:TeleScope.UI.Cli.Options.CliAttribute.Long">
+            <summary>
+            Gets or sets the long term of the command line option.
+            Do not use any special characters, pre- or suffixes.
+            </summary>
+        </member>
+        <member name="M:TeleScope.UI.Cli.Options.CliAttribute.#ctor">
+            <summary>
+            The default empty constructor.
+            </summary>
+        </member>
+        <member name="M:TeleScope.UI.Cli.Options.CliAttribute.#ctor(System.String,System.String)">
+            <summary>
+            The constructor sets the properties Short and Long of the attribute. 
+            </summary>
+            <param name="shortTerm"></param>
+            <param name="longTerm"></param>
+        </member>
+        <member name="T:TeleScope.UI.Cli.Options.CliOptionParser`1">
+            <summary>
+            This class provides a routine to put application arguments into properties of an object of type T,
+            where matching <seealso cref="T:TeleScope.UI.Cli.Options.CliAttribute"/> are applied to the properties.
+            </summary>
+            <typeparam name="T">The type of the arguments class.</typeparam>
+        </member>
+        <member name="P:TeleScope.UI.Cli.Options.CliOptionParser`1.Prefix">
+            <summary>
+            Gets or sets the Prefix that is used to identify options.
+            </summary>
+        </member>
+        <member name="P:TeleScope.UI.Cli.Options.CliOptionParser`1.Format">
+            <summary>
+            Gets or sets the format how the strings are parsed into types of the target properties.
+            </summary>
+        </member>
+        <member name="M:TeleScope.UI.Cli.Options.CliOptionParser`1.#ctor">
+            <summary>
+            The default constructor creates a new instance of the options and sets the prefix to `-`.
+            The format is set to `InvariantCulture`.
+            </summary>
+        </member>
+        <member name="M:TeleScope.UI.Cli.Options.CliOptionParser`1.#ctor(System.String)">
+            <summary>
+            The constructor calls the default constructor and overrides the <seealso cref="P:TeleScope.UI.Cli.Options.CliOptionParser`1.Prefix"/> property.
+            </summary>
+            <param name="prefix">The prefix that is used for identifying application arguments in the string array.</param>
+        </member>
+        <member name="M:TeleScope.UI.Cli.Options.CliOptionParser`1.#ctor(System.IFormatProvider)">
+            <summary>
+            The constructor calls the default constructor and overrides the <seealso cref="P:TeleScope.UI.Cli.Options.CliOptionParser`1.Format"/> property.
+            </summary>
+            <param name="format">The format specifies how the strings are parsed into types of the target properties.</param>
+        </member>
+        <member name="M:TeleScope.UI.Cli.Options.CliOptionParser`1.#ctor(System.String,System.IFormatProvider)">
+            <summary>
+            he constructor calls the default constructor and overrides the <seealso cref="P:TeleScope.UI.Cli.Options.CliOptionParser`1.Prefix"/> and <seealso cref="P:TeleScope.UI.Cli.Options.CliOptionParser`1.Format"/> properties.
+            </summary>
+            <param name="prefix">The prefix that is used for identifying application arguments in the string array.</param>
+            <param name="format">The format specifies how the strings are parsed into types of the target properties.</param>
+        </member>
+        <member name="M:TeleScope.UI.Cli.Options.CliOptionParser`1.ReadArguments(System.String[])">
+            <summary>
+            Reads the command line arguments and places them into the properties of the according instance of type T.
+            </summary>
+            <param name="args">The cli options of the main method.</param>
+            <returns>The resulting instance of type T.</returns>
+        </member>
+    </members>
+</doc>

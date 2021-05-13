@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TeleScope.Logging.Extensions.Serilog</name>
+    </assembly>
+    <members>
+        <member name="T:TeleScope.Logging.Extensions.Serilog.ILoggerFactoryExtensions">
+            <summary>
+            This extension class provides methods simplify the configuration of Microsofts
+            <see href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.logging.iloggerfactory">ILoggerFactory</see>.
+            </summary>
+        </member>
+        <member name="M:TeleScope.Logging.Extensions.Serilog.ILoggerFactoryExtensions.UseTemplate(Microsoft.Extensions.Logging.ILoggerFactory,System.String)">
+            <summary>
+            Applies a template string to structure log messages.
+            <example>
+            The following sample shows how the default template is structured.
+            <code>
+            {Timestamp:yyyy-MM-dd HH:mm:ss} [{Level}] [{SourceContext:l}] {Message}{NewLine}{Exception}
+            </code>
+            </example>
+            </summary>
+            <param name="factory">The calling instance.</param>
+            <param name="newTemplate">The new template string.</param>
+            <returns>The calling instance.</returns>
+        </member>
+        <member name="M:TeleScope.Logging.Extensions.Serilog.ILoggerFactoryExtensions.UseLevel(Microsoft.Extensions.Logging.ILoggerFactory,Microsoft.Extensions.Logging.LogLevel)">
+            <summary>
+            Applies a minimum log level.
+            </summary>
+            <param name="factory">The calling instance.</param>
+            <param name="minimumLevel">The minumum log level as enum LogLevel.</param>
+            <returns>The calling instance.</returns>
+        </member>
+        <member name="M:TeleScope.Logging.Extensions.Serilog.ILoggerFactoryExtensions.UseFormatter(Microsoft.Extensions.Logging.ILoggerFactory,Serilog.Formatting.ITextFormatter)">
+            <summary>
+            Applies a different text formatter for the logging of object data.
+            <example>
+            The following sample shows that the default formatter from Serilog is the `CompactJsonFormatter`.
+            <code>
+            private static ITextFormatter textFormatter = new CompactJsonFormatter();
+            </code>
+            </example>
+            </summary>
+            <param name="factory">The calling instance.</param>
+            <param name="formatter"></param>
+            <returns>The calling instance.</returns>
+        </member>
+        <member name="M:TeleScope.Logging.Extensions.Serilog.ILoggerFactoryExtensions.AddSerilogConsole(Microsoft.Extensions.Logging.ILoggerFactory)">
+            <summary>
+            Adds the console sink to the logger factory.
+            </summary>
+            <param name="factory">The calling instance.</param>
+            <returns>The calling instance.</returns>
+        </member>
+        <member name="M:TeleScope.Logging.Extensions.Serilog.ILoggerFactoryExtensions.AddSerilogFile(Microsoft.Extensions.Logging.ILoggerFactory,System.String)">
+            <summary>
+            Adds the file sink to the logger factory.
+            </summary>
+            <param name="factory">The calling instance.</param>
+            <param name="file">The file, where the log will be stored.</param>
+            <returns>The calling instance.</returns>
+        </member>
+    </members>
+</doc>

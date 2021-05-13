@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TeleScope.Logging</name>
+    </assembly>
+    <members>
+        <member name="T:TeleScope.Logging.LoggingProvider">
+            <summary>
+            The static class provides an easy-to-use API to inject the <seealso cref="T:Microsoft.Extensions.Logging.ILoggerFactory"/>
+            and to use provided loggers on client-side code.
+            </summary>
+        </member>
+        <member name="M:TeleScope.Logging.LoggingProvider.Initialize(Microsoft.Extensions.Logging.ILoggerFactory)">
+            <summary>
+            Stores the given logger factory that provides loggers via the provided `CreateLogger` methods.
+            If the parameter is null the <seealso cref="T:Microsoft.Extensions.Logging.Abstractions.NullLoggerFactory"/> is used internally.
+            </summary>
+            <param name="loggerFactory">The logger factory that will provide concrete loggers.</param>
+        </member>
+        <member name="M:TeleScope.Logging.LoggingProvider.CreateLogger(System.String)">
+            <summary>
+            Get a logger from the internal logger factory and use a name to tag the source.
+            </summary>
+            <param name="name">The name tags the source of the log messages.</param>
+            <returns>The concrete logger.</returns>
+        </member>
+        <member name="M:TeleScope.Logging.LoggingProvider.CreateLogger(System.Type)">
+            <summary>
+            Get a logger from the internal logger factory and use a <seealso cref="T:System.Type"/> instance to tag the source.
+            </summary>
+            <param name="type">The type tags the source of the log messages.</param>
+            <returns>The concrete logger.</returns>
+        </member>
+        <member name="M:TeleScope.Logging.LoggingProvider.CreateLogger``1">
+            <summary>
+            Get a logger from the internal logger factory and use a generic type to tag the source.
+            </summary>
+            <typeparam name="T">The generic type T tags the source of the log messages.</typeparam>
+            <returns>The concrete logger.</returns>
+        </member>
+    </members>
+</doc>

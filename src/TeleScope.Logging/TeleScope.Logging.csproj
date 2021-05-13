@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>TeleScope.Logging</AssemblyName>
-    <Version>0.2.0</Version>
+    <Version>1.0.0</Version>
     <Company>TeleScope-dotnet</Company>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/telescope-dotnet/telescope</PackageProjectUrl>
@@ -12,6 +12,14 @@
     <PackageTags>logging, extensions</PackageTags>
     <Description>Extends Microsofts ILogger interface and provides static access to bind logger factories and use them within the entire architecture. Depends on the assembly Microsoft.Extensions.Logging.Abstractions.</Description>
     <Authors>TeleScope-dotnet members</Authors>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>TeleScope.Logging.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>TeleScope.Logging.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>0.6.0</Version>
+    <Version>1.0.0</Version>
     <Authors>TeleScope-dotnet members</Authors>
     <Company>TeleScope-dotnet</Company>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -12,6 +12,14 @@
     <PackageReleaseNotes></PackageReleaseNotes>
     <PackageTags>Persistence, Csv</PackageTags>
     <Description>Contains an implementation of the IReadable and IWritable interfaces to access Character Seperated Value files. Depends on the assemblies TeleScope.Persistence.Abstractions.</Description>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>TeleScope.Persistence.Csv.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>TeleScope.Persistence.Csv.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

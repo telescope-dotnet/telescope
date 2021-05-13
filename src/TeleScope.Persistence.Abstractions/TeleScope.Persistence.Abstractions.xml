@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TeleScope.Persistence.Abstractions</name>
+    </assembly>
+    <members>
+        <member name="T:TeleScope.Persistence.Abstractions.Extensions.IWritableExtensions">
+            <summary>
+            This extension class extends the <seealso cref="T:TeleScope.Persistence.Abstractions.IWritable`1"/> interface with common functions.
+            It provides shared logic for implementations across the persistence layer. 
+            </summary>
+        </member>
+        <member name="M:TeleScope.Persistence.Abstractions.Extensions.IWritableExtensions.ValidateOrThrow``1(TeleScope.Persistence.Abstractions.IWritable{``0},System.Collections.Generic.IEnumerable{``0},System.IO.FileInfo)">
+            <summary>
+            Validates the permissions to create and delete of the calling instance and returns a true if the process should continue or false if not.
+            In case that the permissions were violated an InvalidOperationException is thrown.
+            </summary>
+            <typeparam name="T">The data type of the data.</typeparam>
+            <param name="writer">The calling instance.</param>
+            <param name="data">The data of the calling instance.</param>
+            <param name="info">The file informations that are used to delete or create files.</param>
+            <returns></returns>
+        </member>
+        <member name="T:TeleScope.Persistence.Abstractions.FileSetupBase">
+            <summary>
+            This abstract base class provides properties and 
+            a default constructor signature for concrete file setup classes.
+            </summary>
+        </member>
+        <member name="F:TeleScope.Persistence.Abstractions.FileSetupBase.DEFAULT_CAN_CREATE">
+            <summary>
+            The default behavior for file storage implementations, if it is allowed to create files or not.
+            </summary>
+        </member>
+        <member name="F:TeleScope.Persistence.Abstractions.FileSetupBase.DEFAULT_CAN_DELETE">
+            <summary>
+            The default behavior for file storage implementations, if it is allowed to delete files or not.
+            </summary>
+        </member>
+        <member name="P:TeleScope.Persistence.Abstractions.FileSetupBase.File">
+            <summary>
+            Gets the complete filenmane with path and the extension of the file. 
+            </summary>
+        </member>
+        <member name="P:TeleScope.Persistence.Abstractions.FileSetupBase.Filename">
+            <summary>
+            Gets the name of the file.
+            </summary>
+        </member>
+        <member name="P:TeleScope.Persistence.Abstractions.FileSetupBase.Extension">
+            <summary>
+            Gets the extension or type of the file.
+            </summary>
+        </member>
+        <member name="P:TeleScope.Persistence.Abstractions.FileSetupBase.Location">
+            <summary>
+            Gets the complete path, where the file is located. 
+            </summary>
+        </member>
+        <member name="P:TeleScope.Persistence.Abstractions.FileSetupBase.CanCreate">
+            <summary>
+            Gets the information, if the setup provides the ability to create files. 
+            </summary>
+        </member>
+        <member name="P:TeleScope.Persistence.Abstractions.FileSetupBase.CanDelete">
+            <summary>
+            Gets the information, if the setup provides the ability to delete files. 
+            </summary>
+        </member>
+        <member name="M:TeleScope.Persistence.Abstractions.FileSetupBase.#ctor(System.IO.FileInfo,System.Boolean,System.Boolean)">
+            <summary>
+            The default constructor sets the file info propterties and <seealso cref="P:TeleScope.Persistence.Abstractions.FileSetupBase.CanCreate"/> and <seealso cref="P:TeleScope.Persistence.Abstractions.FileSetupBase.CanDelete"/>. 
+            </summary>
+            <param name="fileInfo">The information about the file that will get accessed by a file storage.</param>
+            <param name="canCreate">Sets the information, if the setup provides the ability to create files.</param>
+            <param name="canDelete">Sets the information, if the setup provides the ability to delete files.</param>
+        </member>
+        <member name="M:TeleScope.Persistence.Abstractions.FileSetupBase.GetFileInfo">
+            <summary>
+            Gets the reference to the FileInfo object, that was given to the constructor. 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:TeleScope.Persistence.Abstractions.IParsable`1">
+            <summary>
+            This interface provides a generic approach to parse data structures for incoming or outgoing 
+            dataflows within the <seealso cref="T:TeleScope.Persistence.Abstractions.IReadable`1"/> and <seealso cref="T:TeleScope.Persistence.Abstractions.IWritable`1"/> implementations.
+            </summary>
+            <typeparam name="Tout">The resulting type after parsing process.</typeparam>
+        </member>
+        <member name="M:TeleScope.Persistence.Abstractions.IParsable`1.Parse``1(``0,System.Int32,System.Int32)">
+            <summary>
+            Parses the input data intor the output data with optional additional information if the data objects are stored in a collection.
+            </summary>
+            <typeparam name="Tin">The incoming type before the parsing process.</typeparam>
+            <param name="input">The input data.</param>
+            <param name="index">The index of the data instance. If the instance is part of a collection this value increases above zero.</param>
+            <param name="length">The length of the data collection. If the instance is part of a collection this value is greater than one.</param>
+            <returns>The output data.</returns>
+        </member>
+        <member name="T:TeleScope.Persistence.Abstractions.IReadable`1">
+            <summary>
+            This interface provides a minimalistic generic approach to read data from any kind of (persistent) data source.
+            </summary>
+            <typeparam name="T">The type that is desired on the application side.</typeparam>
+        </member>
+        <member name="M:TeleScope.Persistence.Abstractions.IReadable`1.Read">
+            <summary>
+            Reads a given data source and provides a collection of type T.
+            If there is only one data object a collection with the length one is returned.
+            </summary>
+            <returns>The resulting data objects of type T.</returns>
+        </member>
+        <member name="T:TeleScope.Persistence.Abstractions.IWritable`1">
+            <summary>
+            This interface provides a minimalistic generic approach to write generic data to any kind of (persistent) data sink.
+            </summary>
+            <typeparam name="T">The type that is given on the application side.</typeparam>
+        </member>
+        <member name="P:TeleScope.Persistence.Abstractions.IWritable`1.CanCreate">
+            <summary>
+            Gets the information, if the instance provides the ability to create files. 
+            </summary>
+        </member>
+        <member name="P:TeleScope.Persistence.Abstractions.IWritable`1.CanDelete">
+            <summary>
+            Gets the information, if the instance provides the ability to delete files. 
+            </summary>
+        </member>
+        <member name="M:TeleScope.Persistence.Abstractions.IWritable`1.Write(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Writes a collection of type T to a given data sink.
+            If there is only one data object there is the need to provide a collection with one element.
+            </summary>
+            <param name="data">The application-side data collection of type T.</param>
+        </member>
+    </members>
+</doc>

@@ -4,6 +4,10 @@ using System.IO;
 
 namespace TeleScope.Persistence.Abstractions.Extensions
 {
+	/// <summary>
+	/// This extension class extends the <seealso cref="IWritable{T}"/> interface with common functions.
+	/// It provides shared logic for implementations across the persistence layer. 
+	/// </summary>
 	public static class IWritableExtensions
 	{
 		// -- properties

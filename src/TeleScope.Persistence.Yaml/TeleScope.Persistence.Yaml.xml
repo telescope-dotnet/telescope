@@ -4,5 +4,65 @@
         <name>TeleScope.Persistence.Yaml</name>
     </assembly>
     <members>
+        <member name="T:TeleScope.Persistence.Yaml.YamlStorage`1">
+            <summary>
+            This class provides access to YAML files and parses the data into the application-side type T.
+            </summary>
+            <typeparam name="T">The type T is used application-side and can be read from the data source 
+            or be written to the data sink.</typeparam>
+        </member>
+        <member name="P:TeleScope.Persistence.Yaml.YamlStorage`1.CanCreate">
+            <summary>
+            The default behavior for file storage,
+            if it is allowed to create files or not.
+            </summary>
+        </member>
+        <member name="P:TeleScope.Persistence.Yaml.YamlStorage`1.CanDelete">
+            <summary>
+            The default behavior for file storage, 
+            if it is allowed to delete files or not.
+            </summary>
+        </member>
+        <member name="M:TeleScope.Persistence.Yaml.YamlStorage`1.#ctor(TeleScope.Persistence.Yaml.YamlStorageSetup)">
+            <summary>
+            The constructor takes the setup of type <seealso cref="T:TeleScope.Persistence.Yaml.YamlStorageSetup"/> as input parameter
+            and binds the logging mechanism.
+            </summary>
+            <param name="setup">The setup is needed to work with a specific YAML file.</param>
+        </member>
+        <member name="M:TeleScope.Persistence.Yaml.YamlStorage`1.Read">
+            <summary>
+            Reads a given YAML file as data source and provides a collection of type T.
+            If there is only one data object a collection with the length one is returned.
+            </summary>
+            <returns>The resulting data objects of type T.</returns>
+        </member>
+        <member name="M:TeleScope.Persistence.Yaml.YamlStorage`1.Write(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Writes a collection of type T to a YAML file as data sink.
+            If there is only one data object there is the need to provide a collection with one element.
+            </summary>
+            <param name="data">The application-side data collection of type T.</param>
+        </member>
+        <member name="T:TeleScope.Persistence.Yaml.YamlStorageSetup">
+            <summary>
+            This storage setup extends <seealso cref="T:TeleScope.Persistence.Abstractions.FileSetupBase"/> 
+            to specify parameters for an access to YAML files. 
+            </summary>
+        </member>
+        <member name="P:TeleScope.Persistence.Yaml.YamlStorageSetup.Encoder">
+            <summary>
+            Gets or sets the encoding of the file.
+            </summary>
+        </member>
+        <member name="M:TeleScope.Persistence.Yaml.YamlStorageSetup.#ctor(System.IO.FileInfo,System.Boolean,System.Boolean)">
+            <summary>
+            The default constructor calls the constructor of the base class and 
+            defines `UTF8` as default <seealso cref="P:TeleScope.Persistence.Yaml.YamlStorageSetup.Encoder"/> property.
+            </summary>
+            <param name="fileInfo">The information about the file that will get accessed by a file storage.</param>
+            <param name="canCreate">Sets the information, if the setup provides the ability to create files.</param>
+            <param name="canDelete">Sets the information, if the setup provides the ability to delete files.</param>
+        </member>
     </members>
 </doc>

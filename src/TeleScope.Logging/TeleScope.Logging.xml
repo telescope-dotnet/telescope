@@ -4,6 +4,162 @@
         <name>TeleScope.Logging</name>
     </assembly>
     <members>
+        <member name="T:TeleScope.Logging.Extensions.ILoggerExtensions">
+            <summary>
+            This extension class shortens log method calls.
+            </summary>
+        </member>
+        <member name="M:TeleScope.Logging.Extensions.ILoggerExtensions.Trace(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,System.Object[])">
+            <summary>
+            Writes a trace message.
+            </summary>
+            <param name="logger">The calling instance.</param>
+            <param name="ex">The exception that will to be logged.</param>
+            <param name="message">The client-side message.</param>
+            <param name="args">An array of objects that will to be logged.</param>
+        </member>
+        <member name="M:TeleScope.Logging.Extensions.ILoggerExtensions.Trace(Microsoft.Extensions.Logging.ILogger,System.String,System.Object[])">
+            <summary>
+            Writes a trace message.
+            </summary>
+            <param name="logger">The calling instance.</param>
+            <param name="message">The client-side message.</param>
+            <param name="args">An array of objects that will to be logged.</param>
+        </member>
+        <member name="M:TeleScope.Logging.Extensions.ILoggerExtensions.Trace(Microsoft.Extensions.Logging.ILogger,System.Object)">
+            <summary>
+            Writes a trace message.
+            </summary>
+            <param name="logger">The calling instance.</param>
+            <param name="data">A data object whose string representation will be logged.</param>
+        </member>
+        <member name="M:TeleScope.Logging.Extensions.ILoggerExtensions.Debug(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,System.Object[])">
+            <summary>
+            Writes a debug message.
+            </summary>
+            <param name="logger">The calling instance.</param>
+            <param name="ex">The exception that will to be logged.</param>
+            <param name="message">The client-side message.</param>
+            <param name="args">An array of objects that will to be logged.</param>
+        </member>
+        <member name="M:TeleScope.Logging.Extensions.ILoggerExtensions.Debug(Microsoft.Extensions.Logging.ILogger,System.String,System.Object[])">
+            <summary>
+            Writes a debug message.
+            </summary>
+            <param name="logger">The calling instance.</param>
+            <param name="message">The client-side message.</param>
+            <param name="args">An array of objects that will to be logged.</param>
+        </member>
+        <member name="M:TeleScope.Logging.Extensions.ILoggerExtensions.Debug(Microsoft.Extensions.Logging.ILogger,System.Object)">
+            <summary>
+            Writes a debug message.
+            </summary>
+            <param name="logger">The calling instance.</param>
+            <param name="data">A data object whose string representation will be logged.</param>
+        </member>
+        <member name="M:TeleScope.Logging.Extensions.ILoggerExtensions.Info(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,System.Object[])">
+            <summary>
+            Writes a info message.
+            </summary>
+            <param name="logger">The calling instance.</param>
+            <param name="ex">The exception that will to be logged.</param>
+            <param name="message">The client-side message.</param>
+            <param name="args">An array of objects that will to be logged.</param>
+        </member>
+        <member name="M:TeleScope.Logging.Extensions.ILoggerExtensions.Info(Microsoft.Extensions.Logging.ILogger,System.String,System.Object[])">
+            <summary>
+            Writes a info message.
+            </summary>
+            <param name="logger">The calling instance.</param>
+            <param name="message">The client-side message.</param>
+            <param name="args">An array of objects that will to be logged.</param>
+        </member>
+        <member name="M:TeleScope.Logging.Extensions.ILoggerExtensions.Info(Microsoft.Extensions.Logging.ILogger,System.Object)">
+            <summary>
+            Writes a info message.
+            </summary>
+            <param name="logger">The calling instance.</param>
+            <param name="data">A data object whose string representation will be logged.</param>
+        </member>
+        <member name="M:TeleScope.Logging.Extensions.ILoggerExtensions.Warn(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,System.Object[])">
+            <summary>
+            Writes a warning message.
+            </summary>
+            <param name="logger">The calling instance.</param>
+            <param name="ex">The exception that will to be logged.</param>
+            <param name="message">The client-side message.</param>
+            <param name="args">An array of objects that will to be logged.</param>
+        </member>
+        <member name="M:TeleScope.Logging.Extensions.ILoggerExtensions.Warn(Microsoft.Extensions.Logging.ILogger,System.String,System.Object[])">
+            <summary>
+            Writes a warning message.
+            </summary>
+            <param name="logger">The calling instance.</param>
+            <param name="message">The client-side message.</param>
+            <param name="args">An array of objects that will to be logged.</param>
+        </member>
+        <member name="M:TeleScope.Logging.Extensions.ILoggerExtensions.Warn(Microsoft.Extensions.Logging.ILogger,System.Object)">
+            <summary>
+            Writes a warning message.
+            </summary>
+            <param name="logger">The calling instance.</param>
+            <param name="data">A data object whose string representation will be logged.</param>
+        </member>
+        <member name="M:TeleScope.Logging.Extensions.ILoggerExtensions.Error(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,System.Object[])">
+            <summary>
+            Writes an error message.
+            </summary>
+            <param name="logger">The calling instance.</param>
+            <param name="ex">The exception that will to be logged.</param>
+            <param name="message">The client-side message.</param>
+            <param name="args">An array of objects that will to be logged.</param>
+        </member>
+        <member name="M:TeleScope.Logging.Extensions.ILoggerExtensions.Error(Microsoft.Extensions.Logging.ILogger,System.String,System.Object[])">
+            <summary>
+            Writes an error message.
+            </summary>
+            <param name="logger">The calling instance.</param>
+            <param name="message">The client-side message.</param>
+            <param name="args">An array of objects that will to be logged.</param>
+        </member>
+        <member name="M:TeleScope.Logging.Extensions.ILoggerExtensions.Error(Microsoft.Extensions.Logging.ILogger,System.Object)">
+            <summary>
+            Writes an error message.
+            </summary>
+            <param name="logger">The calling instance.</param>
+            <param name="data">A data object whose string representation will be logged.</param>
+        </member>
+        <member name="M:TeleScope.Logging.Extensions.ILoggerExtensions.Critical(Microsoft.Extensions.Logging.ILogger,System.Exception)">
+            <summary>
+            Writes a critical message.
+            </summary>
+            <param name="logger">The calling instance.</param>
+            <param name="ex">The exception that will to be logged.</param>
+        </member>
+        <member name="M:TeleScope.Logging.Extensions.ILoggerExtensions.Critical(Microsoft.Extensions.Logging.ILogger,System.Exception,System.String,System.Object[])">
+            <summary>
+            Writes a critical message.
+            </summary>
+            <param name="logger">The calling instance.</param>
+            <param name="ex">The exception that will to be logged.</param>
+            <param name="message">The client-side message.</param>
+            <param name="args">An array of objects that will to be logged.</param>
+        </member>
+        <member name="M:TeleScope.Logging.Extensions.ILoggerExtensions.Critical(Microsoft.Extensions.Logging.ILogger,System.String,System.Object[])">
+            <summary>
+            Writes a critical message.
+            </summary>
+            <param name="logger">The calling instance.</param>
+            <param name="message">The client-side message.</param>
+            <param name="args">An array of objects that will to be logged.</param>
+        </member>
+        <member name="M:TeleScope.Logging.Extensions.ILoggerExtensions.Critical(Microsoft.Extensions.Logging.ILogger,System.Object)">
+            <summary>
+            Writes a critical message.
+            </summary>
+            <param name="logger">The calling instance.</param>
+            <param name="data">A data object whose string representation will be logged.</param>
+        </member>
         <member name="T:TeleScope.Logging.LoggingProvider">
             <summary>
             The static class provides an easy-to-use API to inject the <seealso cref="T:Microsoft.Extensions.Logging.ILoggerFactory"/>

@@ -10,7 +10,10 @@
 
 #### Welcome
 
-The goal of the **TeleScope** project is to create reusable NuGet packages that are based strongly on clean architecture principles.
+* **TeleScope** is a framework written in C# that provides loosely coupled modules for several cross-cutting concerns.
+* The assemblies provide connections to external services, access to the persistence layer and helper for logging or user interactions.
+* The goal of the project is to create reusable NuGet packages that are based strongly on Clean Architecture Principles.
+
 
 #### Status
 
@@ -22,25 +25,20 @@ The goal of the **TeleScope** project is to create reusable NuGet packages that 
 | [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=telescope-dotnet_telescope&metric=alert_status)](https://sonarcloud.io/dashboard?id=telescope-dotnet_telescope)
 
 
-
 ## Usage
 
-The TeleScope repository contains one solution with lots of [NuGet](https://www.nuget.org/profiles/telescope-dotnet) packages.
-These packages may be used within your domain specific application in different layers depending on your architectural approach. 
+#### Documentation
 
-#### Clean Architecture
+* The public [Repository](https://github.com/telescope-dotnet/telescope).
+* The official [API Documentation and Reference manual](https://telescope-dotnet.github.io/telescope/).
 
-The intention of this project is to support applications that follow the clean architecture principles.
-There might be differences in naming the architectural layers, but the theory remains the same.
-> Keeping your business logic clean, which means free from breaking changes through external dependencies.
-
-Of course the TeleScope packages are external dependencies to other projects. Nevertheless,
-TeleScope provides reusable and extensible entities and their implementations within infrastructure and presentation layers,
-like shown below.
-
-![TeleScope](images/telescope-ca.svg)
 
 #### NuGet Packages
+
+The TeleScope repository contains one solution with lots of **[NuGet packages](https://www.nuget.org/profiles/telescope-dotnet)**.
+These packages may be used within your domain specific application in different layers depending on your architectural approach. 
+
+![TeleScope](images/telescope_ca.svg)
 
 ###### Versioning
 
@@ -65,7 +63,7 @@ that feature updates also may cause breaking changes.
 | Csv          | [![Nuget](https://img.shields.io/nuget/v/TeleScope.Persistence.Csv.svg?label=Csv)](https://www.nuget.org/packages/TeleScope.Persistence.Csv/)
 | Parquet      | [![Nuget](https://img.shields.io/nuget/v/TeleScope.Persistence.Parquet.svg?label=Parquet)](https://www.nuget.org/packages/TeleScope.Persistence.Parquet/)
 
-| [TeleScope.UI.*](https://www.nuget.org/packages?q=TeleScope.Persistence) | Packages |
+| [TeleScope.UI.*](https://www.nuget.org/packages?q=TeleScope.UI) | Packages |
 | ------------ | --- |
 | Cli          | [![Nuget](https://img.shields.io/nuget/v/TeleScope.UI.Cli.svg?label=Cli)](https://www.nuget.org/packages/TeleScope.UI.Cli/)
 
@@ -74,49 +72,7 @@ that feature updates also may cause breaking changes.
 | Logging      | [![Nuget](https://img.shields.io/nuget/v/TeleScope.Logging.svg?label=Logging)](https://www.nuget.org/packages/TeleScope.Logging/)
 | Serilog      | [![Nuget](https://img.shields.io/nuget/v/TeleScope.Logging.Extensions.Serilog.svg?label=Extensions.Serilog)](https://www.nuget.org/packages/TeleScope.Logging.Extensions.Serilog/)
 
-#### Documentation
-
-* The public [Repository](https://github.com/telescope-dotnet/telescope)
-* The official [API Documentation and Reference manual](https://telescope-dotnet.github.io/telescope/)
-
-```markdown
-* Mention supportes
-* Create a list with links, maybe to important resources,
-* to wiki pages or staging servers
-```
 
 ## Development
 
 `will come soon`
-
-~~~markdown
-Step by step explanation about how to get the project running, preferably with command line examples that can be copy-pasted by readers
-
-#### Prerequisites
-* Information about the recommended IDE
-* Runtime environment and frameworks that needs to be preinstalled
-* **These are just example requirements. Add, duplicate or remove as required**
-
-#### OS X & Linux
-```sh
-- get_command
-- install_command
-- configure_command
-- run_command
-```
-
-#### Windows
-```sh
-- get_command
-- install_command
-- configure_command
-- run_command
-```
-#### Goals or TODOs
-- [ ] Your major next steps and
-- [ ] planned long-term features
-
-#### Known Issues
-- [ ] known bugs or
-- [ ] limitations
-~~~

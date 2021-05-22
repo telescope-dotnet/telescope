@@ -15,6 +15,7 @@ namespace TeleScope.MSTest
 		private Stopwatch watch;
 		protected ILogger log;
 		protected const string SKIP_PLC_TESTS = "SkipPlcTests";
+		protected const string SKIP_SMTP_TESTS = "SkipSmtpTests";
 
 		// -- base methods
 

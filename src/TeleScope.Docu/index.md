@@ -1,20 +1,16 @@
 # TeleScope **DOCUMENTATION**
 
-
 > TeleScope is a framework written in C# that provides loosely coupled modules for several cross-cutting concerns.
 
 > The assemblies provide connections to external services, access to the persistence layer and helper for logging or user interactions.
 
 > The goal of the project is to create reusable NuGet packages that are based strongly on Clean Architecture Principles.
 
-
-
 ## Structure of this page
  
 | [Articles](articles)   | [API Documentation](api)   |
 | :--------------------: | :------------------------: | 
 | Provides explanations of major implementations and examples...<br>**in the near in the future**.  | Provides descriptions about the entire public API like classes, their methods, events, members and so on.
-
 
 ## Quick Start
 
@@ -58,7 +54,6 @@ These packages may be used within your domain specific application in different 
 ---
 
 ### Clean Architecture Principle
-
 
 The intention of this project is to support applications that follow any architectural approach.
 One best practice is the *Clean Architecture Principle*.

@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TeleScope.Connectors.Smtp</name>
+    </assembly>
+    <members>
+        <member name="T:TeleScope.Connectors.Smtp.SmtpConnector">
+            <summary>
+            This class implements the <seealso cref="T:TeleScope.Connectors.Smtp.Abstractions.ISmtpConnectable"/> interface and
+            uses only the `System.Net.Mail` namespace internally. 
+            </summary>
+        </member>
+        <member name="P:TeleScope.Connectors.Smtp.SmtpConnector.IsConnected">
+            <summary>
+            Gets the state, if the connection is established or not.
+            </summary>
+        </member>
+        <member name="E:TeleScope.Connectors.Smtp.SmtpConnector.Connected">
+            <summary>
+            The event is invoked when the <seealso cref="M:TeleScope.Connectors.Smtp.SmtpConnector.Connect"/> method has finished successfully.
+            </summary>
+        </member>
+        <member name="E:TeleScope.Connectors.Smtp.SmtpConnector.Disconnected">
+            <summary>
+            The event is invoked when the <seealso cref="M:TeleScope.Connectors.Smtp.SmtpConnector.Disconnect"/> method has finished successfully.
+            </summary>
+        </member>
+        <member name="E:TeleScope.Connectors.Smtp.SmtpConnector.Completed">
+            <summary>
+            The event is invoked when the <seealso cref="M:TeleScope.Connectors.Smtp.SmtpConnector.Send"/> method has finished successfully.
+            </summary>
+        </member>
+        <member name="E:TeleScope.Connectors.Smtp.SmtpConnector.Failed">
+            <summary>
+            The event is invoked when the <seealso cref="M:TeleScope.Connectors.Smtp.SmtpConnector.Send"/> method has finished with a failure.
+            </summary>
+        </member>
+        <member name="M:TeleScope.Connectors.Smtp.SmtpConnector.#ctor(System.String,System.Int32,TeleScope.Connectors.Abstractions.Secrets.ISecret,System.Int32)">
+            <summary>
+            The default constructor gets the SMTP host configuration injected.
+            </summary>
+            <param name="host">The name of the host or server.</param>
+            <param name="port">The port where the SMTP protocol is accessible at the host.</param>
+            <param name="secret">The user credentials to get access at the host.</param>
+            <param name="retry">The number of retries if sending returns an error. The default value is `3`.</param>
+        </member>
+        <member name="M:TeleScope.Connectors.Smtp.SmtpConnector.Connect">
+            <summary>
+            Clears the internal collection of emails and
+            invokes the <seealso cref="E:TeleScope.Connectors.Smtp.SmtpConnector.Connected"/> event.
+            </summary>
+            <returns>The calling instance.</returns>
+        </member>
+        <member name="M:TeleScope.Connectors.Smtp.SmtpConnector.Disconnect">
+            <summary>
+            Clears the internal collection of emails and
+            invokes the <seealso cref="E:TeleScope.Connectors.Smtp.SmtpConnector.Disconnected"/> event.
+            </summary>
+            <returns>The calling instance.</returns>
+        </member>
+        <member name="M:TeleScope.Connectors.Smtp.SmtpConnector.NewMessage(System.String,System.String,System.String,System.String)">
+            <summary>
+            Adds a new message to an internal collection of emails
+            with the essetial properties, needed to build a new email object.
+            </summary>
+            <param name="from">The email address of the sender.</param>
+            <param name="to">The email address of the receiver.</param>
+            <param name="subject">The subject of the email.</param>
+            <param name="body">The message of the email.</param>
+            <returns>Returns the calling instance to enable chaining method calls.</returns>
+        </member>
+        <member name="M:TeleScope.Connectors.Smtp.SmtpConnector.NewMessage(System.String,System.String[],System.String,System.String)">
+            <summary>
+            Adds a new message to an internal collection of emails
+            with the essetial properties, needed to build a new email object.
+            </summary>
+            <param name="from">The email address of the sender.</param>
+            <param name="to">The email addresses of the receivers.</param>
+            <param name="subject">The subject of the email.</param>
+            <param name="body">The message of the email.</param>
+            <returns>Returns the calling instance to enable chaining method calls.</returns>
+        </member>
+        <member name="M:TeleScope.Connectors.Smtp.SmtpConnector.CarbonCopy(System.String)">
+            <summary>
+            Adds a cc (carbon body) address to the last email 
+            that was created by the last call of `NewMessage`.
+            </summary>
+            <param name="to">The email address of the receiver.</param>
+            <returns>Returns the calling instance to enable chaining method calls.</returns>
+        </member>
+        <member name="M:TeleScope.Connectors.Smtp.SmtpConnector.CarbonCopy(System.String[])">
+            <summary>
+            Adds a cc (carbon body) address to the last email 
+            that was created by the last call of `NewMessage`.
+            </summary>
+            <param name="to">The email addresses of the receivers.</param>
+            <returns>Returns the calling instance to enable chaining method calls.</returns>
+        </member>
+        <member name="M:TeleScope.Connectors.Smtp.SmtpConnector.BlindCarbonCopy(System.String)">
+            <summary>
+            Adds a bcc (blind carbon body) address to the last email 
+            that was created by the last call of `NewMessage`.
+            </summary>
+            <param name="to">The email address of the receiver.</param>
+            <returns>Returns the calling instance to enable chaining method calls.</returns>
+        </member>
+        <member name="M:TeleScope.Connectors.Smtp.SmtpConnector.BlindCarbonCopy(System.String[])">
+            <summary>
+            Adds a bcc (blind carbon body) address to the last email 
+            that was created by the last call of `NewMessage`.
+            </summary>
+            <param name="to">The email addresses of the receivers.</param>
+            <returns>Returns the calling instance to enable chaining method calls.</returns>
+        </member>
+        <member name="M:TeleScope.Connectors.Smtp.SmtpConnector.HighPriority">
+            <summary>
+            Adds a high priority flag to the latest email.
+            </summary>
+            <returns>Returns the calling instance to enable chaining method calls.</returns>
+        </member>
+        <member name="M:TeleScope.Connectors.Smtp.SmtpConnector.LowPriority">
+            <summary>
+            Adds a low priority flag to the latest email.
+            </summary>
+            <returns>Returns the calling instance to enable chaining method calls.</returns>
+        </member>
+        <member name="M:TeleScope.Connectors.Smtp.SmtpConnector.Attach(System.IO.FileInfo,System.String)">
+            <summary>
+            This method should attach a file to the latest email.
+            </summary>
+            <param name="file">The file info object that will be attached.</param>
+            <param name="mimeType">The mime type of the file.</param>
+            <returns>Returns the calling instance to enable chaining method calls.</returns>
+        </member>
+        <member name="M:TeleScope.Connectors.Smtp.SmtpConnector.Send">
+            <summary>
+            Sends all the created and configured emails at once and 
+            clears the inner stack.
+            </summary>
+            <returns>Returns a result triple that contains the total amount of sent emails, 
+            the sucessful and the failed ones.</returns>
+        </member>
+    </members>
+</doc>

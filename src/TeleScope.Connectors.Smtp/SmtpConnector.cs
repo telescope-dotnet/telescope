@@ -15,6 +15,10 @@ using TeleScope.Logging.Extensions;
 
 namespace TeleScope.Connectors.Smtp
 {
+	/// <summary>
+	/// This class implements the <seealso cref="ISmtpConnectable"/> interface and
+	/// uses only the `System.Net.Mail` namespace internally. 
+	/// </summary>
 	public class SmtpConnector : ISmtpConnectable
 	{
 		// -- fields
@@ -31,30 +35,61 @@ namespace TeleScope.Connectors.Smtp
 
 		// --properties
 
+		/// <summary>
+		/// Gets the state, if the connection is established or not.
+		/// </summary>
 		public bool IsConnected { get; private set; }
 
 		// -- events
 
+		/// <summary>
+		/// The event is invoked when the <seealso cref="Connect"/> method has finished successfully.
+		/// </summary>
 		public event ConnectorEventHandler Connected;
+		
+		/// <summary>
+		/// The event is invoked when the <seealso cref="Disconnect"/> method has finished successfully.
+		/// </summary>
 		public event ConnectorEventHandler Disconnected;
+
+		/// <summary>
+		/// The event is invoked when the <seealso cref="Send"/> method has finished successfully.
+		/// </summary>
 		public event ConnectorCompletedEventHandler Completed;
+
+		/// <summary>
+		/// The event is invoked when the <seealso cref="Send"/> method has finished with a failure.
+		/// </summary>
 		public event ConnectorFailedEventHandler Failed;
 
 		// -- constructors
 
+		/// <summary>
+		/// The default constructor gets the SMTP host configuration injected.
+		/// </summary>
+		/// <param name="host">The name of the host or server.</param>
+		/// <param name="port">The port where the SMTP protocol is accessible at the host.</param>
+		/// <param name="secret">The user credentials to get access at the host.</param>
+		/// <param name="retry">The number of retries if sending returns an error. The default value is `3`.</param>
 		public SmtpConnector(string host, int port, ISecret secret, int retry = RETRY_LIMIT)
 		{
+
 			log = LoggingProvider.CreateLogger<SmtpConnector>();
 			messages = new List<MailMessage>();
 
-			this.host = host;
+			this.host = host ?? throw new ArgumentNullException(nameof(host));
 			this.port = port;
-			this.secret = secret;
+			this.secret = secret ?? throw new ArgumentNullException(nameof(secret));
 			this.retry = retry;
 		}
 
 		// -- methods
 
+		/// <summary>
+		/// Clears the internal collection of emails and
+		/// invokes the <seealso cref="Connected"/> event.
+		/// </summary>
+		/// <returns>The calling instance.</returns>
 		public ISmtpConnectable Connect()
 		{
 			messages.Clear();
@@ -68,8 +103,14 @@ namespace TeleScope.Connectors.Smtp
 			return this.Connect();
 		}
 
+		/// <summary>
+		/// Clears the internal collection of emails and
+		/// invokes the <seealso cref="Disconnected"/> event.
+		/// </summary>
+		/// <returns>The calling instance.</returns>
 		public ISmtpConnectable Disconnect()
 		{
+			messages.Clear();
 			IsConnected = false;
 			Disconnected?.Invoke(this, new ConnectorEventArgs(host));
 			return this;
@@ -80,11 +121,29 @@ namespace TeleScope.Connectors.Smtp
 			return this.Disconnect();
 		}
 
+		/// <summary>
+		/// Adds a new message to an internal collection of emails
+		/// with the essetial properties, needed to build a new email object.
+		/// </summary>
+		/// <param name="from">The email address of the sender.</param>
+		/// <param name="to">The email address of the receiver.</param>
+		/// <param name="subject">The subject of the email.</param>
+		/// <param name="body">The message of the email.</param>
+		/// <returns>Returns the calling instance to enable chaining method calls.</returns>
 		public ISmtpConnectable NewMessage(string from, string to, string subject, string body)
 		{
 			return NewMessage(from, new string[] { to }, subject, body);
 		}
 
+		/// <summary>
+		/// Adds a new message to an internal collection of emails
+		/// with the essetial properties, needed to build a new email object.
+		/// </summary>
+		/// <param name="from">The email address of the sender.</param>
+		/// <param name="to">The email addresses of the receivers.</param>
+		/// <param name="subject">The subject of the email.</param>
+		/// <param name="body">The message of the email.</param>
+		/// <returns>Returns the calling instance to enable chaining method calls.</returns>
 		public ISmtpConnectable NewMessage(string from, string[] to, string subject, string body)
 		{
 			var msg = new MailMessage();
@@ -99,11 +158,23 @@ namespace TeleScope.Connectors.Smtp
 			return this;
 		}
 
+		/// <summary>
+		/// Adds a cc (carbon body) address to the last email 
+		/// that was created by the last call of `NewMessage`.
+		/// </summary>
+		/// <param name="to">The email address of the receiver.</param>
+		/// <returns>Returns the calling instance to enable chaining method calls.</returns>
 		public ISmtpConnectable CarbonCopy(string to)
 		{
 			return CarbonCopy(new string[] { to });
 		}
 
+		/// <summary>
+		/// Adds a cc (carbon body) address to the last email 
+		/// that was created by the last call of `NewMessage`.
+		/// </summary>
+		/// <param name="to">The email addresses of the receivers.</param>
+		/// <returns>Returns the calling instance to enable chaining method calls.</returns>
 		public ISmtpConnectable CarbonCopy(string[] to)
 		{
 			var addresses = JoinAddresses(to);
@@ -112,11 +183,23 @@ namespace TeleScope.Connectors.Smtp
 			return this;
 		}
 
+		/// <summary>
+		/// Adds a bcc (blind carbon body) address to the last email 
+		/// that was created by the last call of `NewMessage`.
+		/// </summary>
+		/// <param name="to">The email address of the receiver.</param>
+		/// <returns>Returns the calling instance to enable chaining method calls.</returns>
 		public ISmtpConnectable BlindCarbonCopy(string to)
 		{
 			return BlindCarbonCopy(new string[] { to });
 		}
 
+		/// <summary>
+		/// Adds a bcc (blind carbon body) address to the last email 
+		/// that was created by the last call of `NewMessage`.
+		/// </summary>
+		/// <param name="to">The email addresses of the receivers.</param>
+		/// <returns>Returns the calling instance to enable chaining method calls.</returns>
 		public ISmtpConnectable BlindCarbonCopy(string[] to)
 		{
 			var addresses = JoinAddresses(to);
@@ -125,18 +208,32 @@ namespace TeleScope.Connectors.Smtp
 			return this;
 		}
 
+		/// <summary>
+		/// Adds a high priority flag to the latest email.
+		/// </summary>
+		/// <returns>Returns the calling instance to enable chaining method calls.</returns>
 		public ISmtpConnectable HighPriority()
 		{
 			messages.Last().Priority = MailPriority.High;
 			return this;
 		}
 
+		/// <summary>
+		/// Adds a low priority flag to the latest email.
+		/// </summary>
+		/// <returns>Returns the calling instance to enable chaining method calls.</returns>
 		public ISmtpConnectable LowPriority()
 		{
 			messages.Last().Priority = MailPriority.Low;
 			return this;
 		}
 
+		/// <summary>
+		/// This method should attach a file to the latest email.
+		/// </summary>
+		/// <param name="file">The file info object that will be attached.</param>
+		/// <param name="mimeType">The mime type of the file.</param>
+		/// <returns>Returns the calling instance to enable chaining method calls.</returns>
 		public ISmtpConnectable Attach(FileInfo file, string mimeType = MediaTypeNames.Text.Plain)
 		{
 			if (file == null)
@@ -151,6 +248,12 @@ namespace TeleScope.Connectors.Smtp
 			return this;
 		}
 
+		/// <summary>
+		/// Sends all the created and configured emails at once and 
+		/// clears the inner stack.
+		/// </summary>
+		/// <returns>Returns a result triple that contains the total amount of sent emails, 
+		/// the sucessful and the failed ones.</returns>
 		public (int total, int success, int failed) Send()
 		{
 			var result = (0, 0, 0);
@@ -175,8 +278,8 @@ namespace TeleScope.Connectors.Smtp
 			}
 
 			return result;
-		}	
-		
+		}
+
 		// -- private helper 
 
 		private string JoinAddresses(string[] addresses)
@@ -200,13 +303,13 @@ namespace TeleScope.Connectors.Smtp
 				{
 					client.Send(mail);
 					messages.Remove(mail);
-					result.success ++;
+					result.success++;
 				}
 				catch (Exception ex) when (handled(ex))
 				{
 					log.Error(ex, $"Attempt #{attempt} failed sending an email via {client.Host}.");
 					Failed?.Invoke(this, new ConnectorFailedEventArgs(ex, host));
-					result.failed ++;
+					result.failed++;
 					limit--;
 					attempt++;
 				}

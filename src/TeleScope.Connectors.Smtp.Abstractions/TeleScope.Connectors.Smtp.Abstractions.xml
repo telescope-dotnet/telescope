@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TeleScope.Connectors.Smtp.Abstractions</name>
+    </assembly>
+    <members>
+        <member name="T:TeleScope.Connectors.Smtp.Abstractions.ISmtpConnectable">
+            <summary>
+            This interface provides extended methods in addition to the <seealso cref="T:TeleScope.Connectors.Abstractions.IConnectable"/> interface.
+            It supprots SMTP connections to send emails with a minimal interface. 
+            </summary>
+        </member>
+        <member name="M:TeleScope.Connectors.Smtp.Abstractions.ISmtpConnectable.NewMessage(System.String,System.String,System.String,System.String)">
+            <summary>
+            This method should add a new message to an internal collection with the essetial properties needed to build an email object.
+            </summary>
+            <param name="from">The email address of the sender.</param>
+            <param name="to">The email address of the receiver.</param>
+            <param name="subject">The subject of the email.</param>
+            <param name="body">The message of the email.</param>
+            <returns>Returns the calling instance to enable chaining method calls.</returns>
+        </member>
+        <member name="M:TeleScope.Connectors.Smtp.Abstractions.ISmtpConnectable.NewMessage(System.String,System.String[],System.String,System.String)">
+            <summary>
+            This method should add a new message to an internal collection with the essetial properties needed to build an email object.
+            </summary>
+            <param name="from">The email address of the sender.</param>
+            <param name="to">The email addresses of the receivers.</param>
+            <param name="subject">The subject of the email.</param>
+            <param name="body">The message of the email.</param>
+            <returns>Returns the calling instance to enable chaining method calls.</returns>
+        </member>
+        <member name="M:TeleScope.Connectors.Smtp.Abstractions.ISmtpConnectable.CarbonCopy(System.String)">
+            <summary>
+            This method should add a cc (carbon body) address to the last email that was created by the last call of <seealso cref="!:"/>
+            </summary>
+            <param name="to"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

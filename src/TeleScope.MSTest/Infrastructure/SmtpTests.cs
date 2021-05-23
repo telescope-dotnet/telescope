@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TeleScope.Connectors.Abstractions.Secrets;
 using TeleScope.Connectors.Smtp;

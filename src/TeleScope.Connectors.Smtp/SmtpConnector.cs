@@ -257,11 +257,11 @@ namespace TeleScope.Connectors.Smtp
 		public (int total, int success, int failed) Send()
 		{
 			var result = (0, 0, 0);
-			var client = default(SmtpClient);
+			var client = GetClient();
 
 			try
 			{
-				result = SendAllMessages(out client);
+				result = SendAllMessages(client);
 				Completed?.Invoke(this, new ConnectorCompletedEventArgs(host, result));
 			}
 			catch (ArgumentOutOfRangeException ex)
@@ -287,10 +287,9 @@ namespace TeleScope.Connectors.Smtp
 			return addresses.Length == 1 ? addresses[0] : string.Join(",", addresses);
 		}
 
-		private (int total, int success, int failed) SendAllMessages(out SmtpClient client)
+		private (int total, int success, int failed) SendAllMessages(SmtpClient client)
 		{
 			(int total, int success, int failed) result = (0, 0, 0);
-			client = GetClient();
 
 			result.total = messages.Count;
 			int limit = retry;

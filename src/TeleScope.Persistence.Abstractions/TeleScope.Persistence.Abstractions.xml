@@ -13,7 +13,7 @@
         <member name="M:TeleScope.Persistence.Abstractions.Extensions.IWritableExtensions.ValidateOrThrow``1(TeleScope.Persistence.Abstractions.IWritable{``0},System.Collections.Generic.IEnumerable{``0},System.IO.FileInfo)">
             <summary>
             Validates the permissions to create and delete of the calling instance and returns a true if the process should continue or false if not.
-            In case that the permissions were violated an InvalidOperationException is thrown.
+            In case that the permissions were violated an <seealso cref="T:System.InvalidOperationException"/> is thrown.
             </summary>
             <typeparam name="T">The data type of the data.</typeparam>
             <param name="writer">The calling instance.</param>

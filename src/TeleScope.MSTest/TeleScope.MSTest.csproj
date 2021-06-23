@@ -12,6 +12,7 @@
     <PackageReference Include="MSTest.TestAdapter" Version="2.1.0" />
     <PackageReference Include="MSTest.TestFramework" Version="2.1.0" />
     <PackageReference Include="coverlet.collector" Version="1.2.0" />
+    <PackageReference Include="System.Security.Permissions" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,6 +32,7 @@
     <ProjectReference Include="..\TeleScope.Persistence.Json\TeleScope.Persistence.Json.csproj" />
     <ProjectReference Include="..\TeleScope.Persistence.Parquet\TeleScope.Persistence.Parquet.csproj" />
     <ProjectReference Include="..\TeleScope.Persistence.Yaml\TeleScope.Persistence.Yaml.csproj" />
+    <ProjectReference Include="..\TeleScope.UI.Abstractions\TeleScope.UI.Abstractions.csproj" />
     <ProjectReference Include="..\TeleScope.UI.Cli\TeleScope.UI.Cli.csproj" />
   </ItemGroup>
 

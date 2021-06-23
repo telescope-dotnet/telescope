@@ -23,7 +23,7 @@ namespace TeleScope.Persistence.Abstractions.Extensions
 		/// <returns></returns>
 		public static bool ValidateOrThrow<T>(this IWritable<T> writer, IEnumerable<T> data, FileInfo info)
 		{
-			if (data == null && info.Exists)
+			if (data is null && info.Exists)
 			{
 				if (writer.CanDelete)
 				{

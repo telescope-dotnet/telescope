@@ -80,7 +80,7 @@ namespace TeleScope.Connectors.Plc.Siemens
 
 		private static List<FieldInfo> ReflectConstants()
 		{
-			if (fields == null)
+			if (fields is null)
 			{
 				var type = typeof(S7Results);
 				fields = type.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy)

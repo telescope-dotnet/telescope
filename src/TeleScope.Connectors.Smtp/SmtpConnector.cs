@@ -236,7 +236,7 @@ namespace TeleScope.Connectors.Smtp
 		/// <returns>Returns the calling instance to enable chaining method calls.</returns>
 		public ISmtpConnectable Attach(FileInfo file, string mimeType = MediaTypeNames.Text.Plain)
 		{
-			if (file == null)
+			if (file is null)
 			{
 				throw new ArgumentNullException(nameof(file));
 			}

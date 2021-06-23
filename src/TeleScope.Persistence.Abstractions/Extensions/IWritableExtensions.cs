@@ -14,7 +14,7 @@ namespace TeleScope.Persistence.Abstractions.Extensions
 
 		/// <summary>
 		/// Validates the permissions to create and delete of the calling instance and returns a true if the process should continue or false if not.
-		/// In case that the permissions were violated an InvalidOperationException is thrown.
+		/// In case that the permissions were violated an <seealso cref="InvalidOperationException"/> is thrown.
 		/// </summary>
 		/// <typeparam name="T">The data type of the data.</typeparam>
 		/// <param name="writer">The calling instance.</param>
@@ -25,6 +25,7 @@ namespace TeleScope.Persistence.Abstractions.Extensions
 		{
 			if (data is null && info.Exists)
 			{
+				// deleting data...
 				if (writer.CanDelete)
 				{
 					info.Delete();
@@ -37,10 +38,12 @@ namespace TeleScope.Persistence.Abstractions.Extensions
 			}
 			else if (!writer.CanCreate && !info.Exists)
 			{
+				// try to create a file...
 				throw new InvalidOperationException($"Not allowed to create file: {info.FullName}");
 			}
 			else if (writer.CanCreate && !info.Directory.Exists)
 			{
+				// creating folder...
 				info.Directory.Create();
 			}
 

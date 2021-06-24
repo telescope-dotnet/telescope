@@ -102,9 +102,8 @@ namespace TeleScope.UI.Cli.Options
 
 			foreach (var prop in options.GetType().GetProperties())
 			{
-				var attr = prop.GetCustomAttributes<CliAttribute>().First();
-
-				if (IsMismatch(attr, arg))
+				var attr = prop.GetCustomAttributes<CliAttribute>().FirstOrDefault();
+				if (attr is null || IsMismatch(attr, arg))
 				{
 					continue;
 				}

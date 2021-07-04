@@ -54,6 +54,8 @@ that feature updates also may cause breaking changes.
 | Mqtt         | [![Nuget](https://img.shields.io/nuget/v/TeleScope.Connectors.Mqtt.Abstractions.svg?label=Mqtt.Abstractions)](https://www.nuget.org/packages/TeleScope.Connectors.Mqtt.Abstractions/) [![Nuget](https://img.shields.io/nuget/v/TeleScope.Connectors.Mqtt.svg?label=Mqtt)](https://www.nuget.org/packages/TeleScope.Connectors.Mqtt/)
 | Http         | [![Nuget](https://img.shields.io/nuget/v/TeleScope.Connectors.Http.Abstractions.svg?label=Http.Abstractions)](https://www.nuget.org/packages/TeleScope.Connectors.Http.Abstractions/) [![Nuget](https://img.shields.io/nuget/v/TeleScope.Connectors.Http.svg?label=Http)](https://www.nuget.org/packages/TeleScope.Connectors.Http/)
 | Plc          | [![Nuget](https://img.shields.io/nuget/v/TeleScope.Connectors.Plc.Abstractions.svg?label=Plc.Abstractions)](https://www.nuget.org/packages/TeleScope.Connectors.Plc.Abstractions/) [![Nuget](https://img.shields.io/nuget/v/TeleScope.Connectors.Plc.Siemens.svg?label=Plc.Siemens)](https://www.nuget.org/packages/TeleScope.Connectors.Plc.Siemens/)
+| Smtp         | [![Nuget](https://img.shields.io/nuget/v/TeleScope.Connectors.Smtp.Abstractions.svg?label=Smtp.Abstractions)](https://www.nuget.org/packages/TeleScope.Connectors.Smtp.Abstractions/) [![Nuget](https://img.shields.io/nuget/v/TeleScope.Connectors.Smtp.svg?label=Smtp)](https://www.nuget.org/packages/TeleScope.Connectors.Smtp/)
+
 
 | [TeleScope.Persistence.*](https://www.nuget.org/packages?q=TeleScope.Persistence) | Packages |
 | ------------ | --- |

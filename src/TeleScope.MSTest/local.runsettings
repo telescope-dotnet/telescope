@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <RunSettings>
-  <TestRunParameters>
-    <Parameter name="SkipPlcTests" value="False" />
-  </TestRunParameters>
+	<TestRunParameters>
+		<Parameter name="SkipPlcTests" value="False" />
+		<Parameter name="SkipSmtpTests" value="False" />
+	</TestRunParameters>
 </RunSettings>

@@ -13,7 +13,7 @@ namespace TeleScope.MSTest.Mockups
 		{
 			get
 			{
-				if (random == null)
+				if (random is null)
 				{
 					random = new Random();
 				}

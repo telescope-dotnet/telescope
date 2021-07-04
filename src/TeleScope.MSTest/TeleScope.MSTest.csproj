@@ -22,7 +22,10 @@
     <ProjectReference Include="..\TeleScope.Connectors.Mqtt\TeleScope.Connectors.Mqtt.csproj" />
     <ProjectReference Include="..\TeleScope.Connectors.Plc.Abstractions\TeleScope.Connectors.Plc.Abstractions.csproj" />
     <ProjectReference Include="..\TeleScope.Connectors.Plc.Siemens\TeleScope.Connectors.Plc.Siemens.csproj" />
+    <ProjectReference Include="..\TeleScope.Connectors.Smtp.Abstractions\TeleScope.Connectors.Smtp.Abstractions.csproj" />
+    <ProjectReference Include="..\TeleScope.Connectors.Smtp\TeleScope.Connectors.Smtp.csproj" />
     <ProjectReference Include="..\TeleScope.Logging.Extensions.Serilog\TeleScope.Logging.Extensions.Serilog.csproj" />
+    <ProjectReference Include="..\TeleScope.Logging\TeleScope.Logging.csproj" />
     <ProjectReference Include="..\TeleScope.Persistence.Abstractions\TeleScope.Persistence.Abstractions.csproj" />
     <ProjectReference Include="..\TeleScope.Persistence.Csv\TeleScope.Persistence.Csv.csproj" />
     <ProjectReference Include="..\TeleScope.Persistence.Json\TeleScope.Persistence.Json.csproj" />
@@ -36,6 +39,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="App_Data\demo.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="App_Data\s7setup.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

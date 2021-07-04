@@ -20,7 +20,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2F1806C7-C1A8-4A27-9B64-6CD7B45D5516}"
 	ProjectSection(SolutionItems) = preProject
 		..\.gitignore = ..\.gitignore
-		..\.github\workflows\build-and-test.yml = ..\.github\workflows\build-and-test.yml
+		..\.github\workflows\build-test-scan.yml = ..\.github\workflows\build-test-scan.yml
+		..\.github\workflows\publish-docu.yml = ..\.github\workflows\publish-docu.yml
 		..\.github\workflows\publish-to-nuget.yml = ..\.github\workflows\publish-to-nuget.yml
 		..\README.md = ..\README.md
 	EndProjectSection
@@ -53,7 +54,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2_Persistence Layer", "2_Pe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeleScope.Persistence.Parquet", "TeleScope.Persistence.Parquet\TeleScope.Persistence.Parquet.csproj", "{98BE6AE9-A32D-4EA9-B717-F3930217FEC0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeleScope.Persistence.Yaml", "TeleScope.Persistence.Yaml\TeleScope.Persistence.Yaml.csproj", "{BC6911C3-55A4-4B81-B8B3-01B8C1E5B234}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeleScope.Persistence.Yaml", "TeleScope.Persistence.Yaml\TeleScope.Persistence.Yaml.csproj", "{BC6911C3-55A4-4B81-B8B3-01B8C1E5B234}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeleScope.Connectors.Smtp", "TeleScope.Connectors.Smtp\TeleScope.Connectors.Smtp.csproj", "{AE765138-04F1-4F3B-A42E-3A4F85E4067D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeleScope.Connectors.Smtp.Abstractions", "TeleScope.Connectors.Smtp.Abstractions\TeleScope.Connectors.Smtp.Abstractions.csproj", "{09FE597A-AC47-423C-A33A-F9CC360FF3FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -127,6 +132,14 @@ Global
 		{BC6911C3-55A4-4B81-B8B3-01B8C1E5B234}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC6911C3-55A4-4B81-B8B3-01B8C1E5B234}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC6911C3-55A4-4B81-B8B3-01B8C1E5B234}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE765138-04F1-4F3B-A42E-3A4F85E4067D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE765138-04F1-4F3B-A42E-3A4F85E4067D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE765138-04F1-4F3B-A42E-3A4F85E4067D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE765138-04F1-4F3B-A42E-3A4F85E4067D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09FE597A-AC47-423C-A33A-F9CC360FF3FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09FE597A-AC47-423C-A33A-F9CC360FF3FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09FE597A-AC47-423C-A33A-F9CC360FF3FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09FE597A-AC47-423C-A33A-F9CC360FF3FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -149,6 +162,8 @@ Global
 		{62EB7BB1-44BB-4670-A85C-B078D1ACC5BF} = {BD41575B-DF41-4D05-9A96-463960E55B89}
 		{98BE6AE9-A32D-4EA9-B717-F3930217FEC0} = {BD41575B-DF41-4D05-9A96-463960E55B89}
 		{BC6911C3-55A4-4B81-B8B3-01B8C1E5B234} = {BD41575B-DF41-4D05-9A96-463960E55B89}
+		{AE765138-04F1-4F3B-A42E-3A4F85E4067D} = {29C196D1-13DF-4C2C-A0E1-81D75B555731}
+		{09FE597A-AC47-423C-A33A-F9CC360FF3FB} = {99762FB4-DCB4-4175-A71A-2B65124F71DB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EE960345-7F7E-4A17-A2C4-F22378A1FDCA}

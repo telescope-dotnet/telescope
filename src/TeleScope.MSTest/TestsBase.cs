@@ -15,6 +15,7 @@ namespace TeleScope.MSTest
 		private Stopwatch watch;
 		protected ILogger log;
 		protected const string SKIP_PLC_TESTS = "SkipPlcTests";
+		protected const string SKIP_SMTP_TESTS = "SkipSmtpTests";
 
 		// -- base methods
 
@@ -54,7 +55,7 @@ namespace TeleScope.MSTest
 		/// <returns>The value of the property as a string.</returns>
 		protected static string GetProperty(TestContext context, string key)
 		{
-			if (context.Properties[key] == null)
+			if (context.Properties[key] is null)
 			{
 				throw new ArgumentException($"The test property {key} does not exist, does not have a value, or a test setting is not selected");
 			}

@@ -191,7 +191,7 @@ namespace TeleScope.Connectors.Http
 		/// <returns>The calling instance.</returns>
 		public IHttpConnectable AddHeader(string name, string value)
 		{
-			if (client == null)
+			if (client is null)
 			{
 				return this;
 			}
@@ -263,13 +263,13 @@ namespace TeleScope.Connectors.Http
 		private bool Validate()
 		{
 			var err = "The http conncetor is not ready.";
-			if (client == null)
+			if (client is null)
 			{
 				log.Error($"{err} The client is null.");
 				return false;
 			}
 
-			if (endpoint == null)
+			if (endpoint is null)
 			{
 				log.Error($"{err} The endpoint configuration is null.");
 				return false;

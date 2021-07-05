@@ -81,6 +81,25 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:TeleScope.Persistence.Abstractions.FileSetupBase.SetFileInfo(System.IO.FileInfo)">
+            <summary>
+            Sets or updates the reference to the FileInfo object. 
+            </summary>
+            <param name="fileInfo">The new FileInfo object.</param>
+        </member>
+        <member name="T:TeleScope.Persistence.Abstractions.IFileWritable`1">
+            <summary>
+            This interface provides a generic approach to write generic data to a file based data sink. The interface inherits from <seealso cref="T:TeleScope.Persistence.Abstractions.IWritable`1"/>
+            </summary>
+            <typeparam name="T">The type that is given on the application side.</typeparam>
+        </member>
+        <member name="M:TeleScope.Persistence.Abstractions.IFileWritable`1.Update(System.IO.FileInfo)">
+            <summary>
+            Updates the file information to change the file sink after instanciation process.
+            </summary>
+            <param name="fileInfo">The file information object.</param>
+            <returns>The calling instancec.</returns>
+        </member>
         <member name="T:TeleScope.Persistence.Abstractions.IParsable`1">
             <summary>
             This interface provides a generic approach to parse data structures for incoming or outgoing 

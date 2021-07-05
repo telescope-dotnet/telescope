@@ -68,7 +68,7 @@ namespace TeleScope.Persistence.Abstractions
 			bool canCreate = DEFAULT_CAN_CREATE,
 			bool canDelete = DEFAULT_CAN_DELETE)
 		{
-			SetFileInfo(info);
+			SetFileInfo(fileInfo);
 			CanCreate = canCreate;
 			CanDelete = canDelete;
 		}

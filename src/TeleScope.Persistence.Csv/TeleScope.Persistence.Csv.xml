@@ -47,6 +47,13 @@
             </summary>
             <param name="data">The application-side data collection of type T.</param>
         </member>
+        <member name="M:TeleScope.Persistence.Csv.CsvStorage`1.Update(System.IO.FileInfo)">
+            <summary>
+            Updates the reference to the FileInfo object so that the data sink can be updated. 
+            </summary>
+            <param name="fileInfo">The new FileInfo object.</param>
+            <returns>The calling instance.</returns>
+        </member>
         <member name="T:TeleScope.Persistence.Csv.CsvStorageSetup">
             <summary>
             This storage setup extends <seealso cref="T:TeleScope.Persistence.Abstractions.FileSetupBase"/> 

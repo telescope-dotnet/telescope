@@ -68,7 +68,7 @@ namespace TeleScope.Persistence.Abstractions
 			bool canCreate = DEFAULT_CAN_CREATE,
 			bool canDelete = DEFAULT_CAN_DELETE)
 		{
-			info = fileInfo ?? throw new ArgumentNullException(nameof(fileInfo));
+			SetFileInfo(info);
 			CanCreate = canCreate;
 			CanDelete = canDelete;
 		}
@@ -90,7 +90,7 @@ namespace TeleScope.Persistence.Abstractions
 		/// <param name="fileInfo">The new FileInfo object.</param>
 		public void SetFileInfo(FileInfo fileInfo)
 		{
-			info = fileInfo;
+			info = fileInfo ?? throw new ArgumentNullException(nameof(fileInfo));
 		}
 	}
 }

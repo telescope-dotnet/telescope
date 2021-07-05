@@ -21,7 +21,7 @@ namespace TeleScope.Persistence.Abstractions
 		/// </summary>
 		protected const bool DEFAULT_CAN_DELETE = true;
 
-		private readonly FileInfo info;
+		private FileInfo info;
 
 		// -- properties
 
@@ -82,6 +82,15 @@ namespace TeleScope.Persistence.Abstractions
 		public FileInfo GetFileInfo()
 		{
 			return info;
+		}
+
+		/// <summary>
+		/// Sets or updates the reference to the FileInfo object. 
+		/// </summary>
+		/// <param name="fileInfo">The new FileInfo object.</param>
+		public void SetFileInfo(FileInfo fileInfo)
+		{
+			info = fileInfo;
 		}
 	}
 }

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using TeleScope.Persistence.Abstractions;
 
 namespace TeleScope.MSTest.Mockups

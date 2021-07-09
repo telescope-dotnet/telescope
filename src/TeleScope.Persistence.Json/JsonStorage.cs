@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using TeleScope.Logging;
 using TeleScope.Logging.Extensions;
 using TeleScope.Persistence.Abstractions;

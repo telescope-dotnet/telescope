@@ -192,14 +192,4 @@ namespace TeleScope.MSTest.Persistence
 
 
 	}
-
-	class MockupRepository
-	{
-		public List<IMockable> Mockups { get; set; }
-
-		public MockupRepository()
-		{
-			Mockups = new List<IMockable>();
-		}
-	}
 }

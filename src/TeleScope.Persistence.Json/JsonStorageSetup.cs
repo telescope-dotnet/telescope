@@ -27,6 +27,7 @@ namespace TeleScope.Persistence.Json
 		/// <summary>
 		/// The default constructor calls the constructor of the base class and 
 		/// defines `UTF8` as default <seealso cref="Encoder"/> property.
+		/// </summary>
 		/// <param name="fileInfo">The information about the file that will get accessed by a file storage.</param>
 		/// <param name="canCreate">Sets the information, if the setup provides the ability to create files.</param>
 		/// <param name="canDelete">Sets the information, if the setup provides the ability to delete files.</param>

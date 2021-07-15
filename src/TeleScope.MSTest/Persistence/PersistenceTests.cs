@@ -1,12 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using TeleScope.Logging.Extensions;
 using TeleScope.MSTest.Mockups;
 using TeleScope.MSTest.Persistence.Attributes;
 using TeleScope.Persistence.Abstractions;
+using TeleScope.Persistence.Json;
+using TeleScope.Persistence.Json.Extensions;
 using TeleScope.Persistence.Yaml;
 
 namespace TeleScope.MSTest.Persistence
@@ -68,6 +73,45 @@ namespace TeleScope.MSTest.Persistence
 			// assert
 			Assert.IsTrue(File.Exists(file), "File creation failed.");
 			Assert.IsTrue(File.ReadAllBytes(file).Length > 0, "File should not be empty.");
+		}
+
+		[TestMethod]
+		public void WriteAndReadGenericTypes()
+		{
+			// -- arrange
+
+			var data = new MockupRepository();
+			data.Mockups.AddRange(Mockup.RandomArray(3));
+
+			var filename = "generic.json";
+			file = Path.Combine(APP_FOLDER, filename);
+			var fileinfo = new FileInfo(file);
+
+			var newtonsoftsettings = new JsonSerializerSettings();
+			newtonsoftsettings.Converters.Add(new StringEnumConverter());
+			newtonsoftsettings.KnownTypes(new List<Type>()
+			{
+				typeof(Mockup)
+			});
+
+			var json = new JsonStorage<MockupRepository>(
+				new JsonStorageSetup(fileinfo, true, true),
+				newtonsoftsettings);
+
+			// -- act & assert: write
+
+			json.Write(new MockupRepository[] { data });
+			Assert.IsTrue(fileinfo.Exists, $"The file '{filename}' should has been created.");
+
+			// -- act & assert: read
+
+			var import = json.Read().First();
+
+			Assert.IsNotNull(import, "The json import should not be null.");
+			import.Mockups.ForEach(m => {
+				Assert.IsNotNull(m, "The element should not be null");
+				Assert.IsFalse(string.IsNullOrEmpty(m.Name), "The name of the element should not be null or empty");
+			});
 		}
 
 		[TestMethod]
@@ -144,5 +188,8 @@ namespace TeleScope.MSTest.Persistence
 				}
 			}
 		}
+
+
+
 	}
 }

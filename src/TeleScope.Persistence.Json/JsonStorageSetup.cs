@@ -1,4 +1,7 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Text;
 using TeleScope.Persistence.Abstractions;
 
@@ -10,6 +13,8 @@ namespace TeleScope.Persistence.Json
 	/// </summary>
 	public class JsonStorageSetup : FileSetupBase
 	{
+		// -- fields
+
 		// -- properties
 
 		/// <summary>

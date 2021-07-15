@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using TeleScope.Logging;
 using TeleScope.Logging.Extensions;
 using TeleScope.Persistence.Abstractions;
@@ -50,6 +51,7 @@ namespace TeleScope.Persistence.Json
 			this.setup = setup ?? throw new ArgumentNullException(nameof(setup));
 			log = LoggingProvider.CreateLogger<JsonStorage<T>>();
 			settings = new JsonSerializerSettings();
+			settings.Converters.Add(new StringEnumConverter());
 		}
 
 		/// <summary>
@@ -77,7 +79,7 @@ namespace TeleScope.Persistence.Json
 			using (StreamReader r = new StreamReader(setup.File))
 			{
 				string input = r.ReadToEnd();
-				result = JsonConvert.DeserializeObject<T>(input);
+				result = JsonConvert.DeserializeObject<T>(input, settings);
 			}
 
 			log.Trace("Reading json successfull from {0}", setup.File);

@@ -4,6 +4,50 @@
         <name>TeleScope.Persistence.Json</name>
     </assembly>
     <members>
+        <member name="T:TeleScope.Persistence.Json.Binder.KnownTypesBinder">
+            <summary>
+            This class collects <seealso cref="T:System.Type"/> objects in order to include their names intor the 
+            de- and serialization process of Newtonsoft.Json.
+            For more information, see [custom SerializationBinder](https://www.newtonsoft.com/json/help/html/SerializeSerializationBinder.htm).
+            </summary>
+        </member>
+        <member name="M:TeleScope.Persistence.Json.Binder.KnownTypesBinder.#ctor(System.Collections.Generic.IEnumerable{System.Type})">
+            <summary>
+            The default constructor takes all known types as input parameter stores them internally.
+            </summary>
+            <param name="types">The enumeration of known types.</param>
+        </member>
+        <member name="M:TeleScope.Persistence.Json.Binder.KnownTypesBinder.BindToType(System.String,System.String)">
+            <summary>
+            Controls the binding of a serialized object to a type.
+            See [ISerializationBinder](https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_Serialization_ISerializationBinder.htm).
+            </summary>
+            <param name="assemblyName">Specifies the Assembly name of the serialized object.</param>
+            <param name="typeName">Specifies the Type name of the serialized object.</param>
+            <returns></returns>
+        </member>
+        <member name="M:TeleScope.Persistence.Json.Binder.KnownTypesBinder.BindToName(System.Type,System.String@,System.String@)">
+            <summary>
+            Controls the binding of a serialized object to a type.
+            See [ISerializationBinder](https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_Serialization_ISerializationBinder.htm).
+            </summary>
+            <param name="serializedType">The type of the object the formatter creates a new instance of.</param>
+            <param name="assemblyName">Specifies the Assembly name of the serialized object.</param>
+            <param name="typeName">Specifies the Type name of the serialized object.</param>
+        </member>
+        <member name="T:TeleScope.Persistence.Json.Extensions.JsonSerializerSettingExtensions">
+            <summary>
+            The extension class enables a simplified binding of concrete types 
+            to the `Newtonsoft.Json` de- and serialization process.
+            </summary>
+        </member>
+        <member name="M:TeleScope.Persistence.Json.Extensions.JsonSerializerSettingExtensions.KnownTypes(Newtonsoft.Json.JsonSerializerSettings,System.Collections.Generic.IEnumerable{System.Type})">
+            <summary>
+            Binds an enumerartion of `Type` to the calling instance of <seealso cref="T:Newtonsoft.Json.JsonSerializerSettings"/>.
+            </summary>
+            <param name="settings">The calling instance.</param>
+            <param name="types">The types that need to be known by the de- and serialization process.</param>
+        </member>
         <member name="T:TeleScope.Persistence.Json.JsonStorage`1">
             <summary>
             This class provides access to JSON files and parses the data into the application-side type T.

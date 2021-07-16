@@ -12,6 +12,9 @@ namespace TeleScope.MSTest
 	{
 
 		// -- fields
+
+		public const string APP_FOLDER = "App_Data";
+
 		private Stopwatch watch;
 		protected ILogger log;
 		protected const string SKIP_PLC_TESTS = "SkipPlcTests";

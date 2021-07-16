@@ -23,7 +23,7 @@ namespace TeleScope.Connectors.Smtp
 	public class SmtpConnector : ISmtpConnectable
 	{
 		// -- fields
-		
+
 		private readonly ILogger<SmtpConnector> log;
 		private readonly List<MailMessage> messages;
 
@@ -42,7 +42,7 @@ namespace TeleScope.Connectors.Smtp
 		/// The event is invoked when the <seealso cref="Connect"/> method has finished successfully.
 		/// </summary>
 		public event ConnectorEventHandler Connected;
-		
+
 		/// <summary>
 		/// The event is invoked when the <seealso cref="Disconnect"/> method has finished successfully.
 		/// </summary>
@@ -78,12 +78,11 @@ namespace TeleScope.Connectors.Smtp
 		/// <param name="host">The name of the host or server.</param>
 		/// <param name="port">The port where the SMTP protocol is accessible at the host.</param>
 		/// <param name="secret">The user credentials to get access at the host.</param>
-		/// <param name="retry">The number of retries if sending returns an error. The default value is `3`.</param>
 		[Obsolete("Use the default constructor SmtpConnector(SmtpSetup setup) instead.")]
-		public SmtpConnector(string host, int port, ISecret secret, int retry = SmtpSetup.RETRY_LIMIT) : 
-			this(new SmtpSetup { Host = host, Port = port, Credentials = secret, RetryLimit = retry })
+		public SmtpConnector(string host, int port, ISecret secret) :
+			this(new SmtpSetup { Host = host, Port = port, Credentials = secret })
 		{
-			
+
 		}
 
 		// -- methods
@@ -260,7 +259,7 @@ namespace TeleScope.Connectors.Smtp
 			{
 				throw new ArgumentException("The BCC contains an invalid address.", ex);
 			}
-						
+
 			return this;
 		}
 
@@ -306,8 +305,8 @@ namespace TeleScope.Connectors.Smtp
 		}
 
 		/// <summary>
-		/// Sends all the created and configured emails at once and 
-		/// clears the inner stack.
+		/// Sends all the created and configured emails at once and clears the inner stack.
+		/// If emails where not sent, those objects are removed internally anyways and the logging provides detailed information.
 		/// </summary>
 		/// <returns>Returns a result triple that contains the total amount of sent emails, 
 		/// the sucessful and the failed ones.</returns>
@@ -338,7 +337,7 @@ namespace TeleScope.Connectors.Smtp
 		}
 
 		// -- private helper 
-		
+
 		private void ValidateAddress(string address)
 		{
 			if (!new EmailAddressAttribute().IsValid(address))
@@ -349,11 +348,11 @@ namespace TeleScope.Connectors.Smtp
 
 		private string ValidateAndJoinAddresses(string[] addresses)
 		{
-			foreach(var a in addresses)
+			foreach (var a in addresses)
 			{
 				ValidateAddress(a);
 			}
-			
+
 			return addresses.Length == 1 ? addresses[0] : string.Join(",", addresses);
 		}
 
@@ -362,25 +361,23 @@ namespace TeleScope.Connectors.Smtp
 			(int total, int success, int failed) result = (0, 0, 0);
 
 			result.total = messages.Count;
-			int limit = setup.RetryLimit;
-			int attempt = 1;
 
-			while (messages.Count > 0 && limit > 0)
+			while (messages.Count > 0)
 			{
 				var mail = messages.First();
 				try
 				{
 					client.Send(mail);
+					log.Trace($"Sending the email was successfull. From '{mail.From}' to '{mail.To}' via hoast '{client.Host}'. The mail object will be removed.");
 					messages.Remove(mail);
 					result.success++;
 				}
 				catch (Exception ex) when (handled(ex))
 				{
-					log.Error(ex, $"Attempt #{attempt} failed sending an email via {client.Host}.");
+					log.Error(ex, $"Sending the email has failed. From '{mail.From}' to '{mail.To}' via host '{client.Host}'. The mail object will be removed.");
+					messages.Remove(mail);
 					Failed?.Invoke(this, new ConnectorFailedEventArgs(ex, setup.Host));
 					result.failed++;
-					limit--;
-					attempt++;
 				}
 			}
 

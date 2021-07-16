@@ -7,11 +7,6 @@ namespace TeleScope.Connectors.Smtp
 	/// </summary>
 	public class SmtpSetup
 	{
-		/// <summary>
-		/// The default retry limit is `3` for attempts to send messages via Smtp.
-		/// </summary>
-		public const int RETRY_LIMIT = 3;
-
 		// -- properties
 
 		/// <summary>
@@ -45,12 +40,6 @@ namespace TeleScope.Connectors.Smtp
 		/// </summary>
 		public ISecret Credentials { get; set; }
 
-		/// <summary>
-		/// Gets or sets the limit of retry attempts for sending an email.
-		/// The default retry limit is `3`.
-		/// </summary>
-		public int RetryLimit { get; set; }
-
 		// -- constructor
 
 		/// <summary>
@@ -58,7 +47,7 @@ namespace TeleScope.Connectors.Smtp
 		/// </summary>
 		public SmtpSetup()
 		{
-			RetryLimit = RETRY_LIMIT;
+
 		}
 	}
 }

@@ -41,14 +41,13 @@
             </summary>
             <param name="setup">The setup that is used for the smtp connections.</param>
         </member>
-        <member name="M:TeleScope.Connectors.Smtp.SmtpConnector.#ctor(System.String,System.Int32,TeleScope.Connectors.Abstractions.Secrets.ISecret,System.Int32)">
+        <member name="M:TeleScope.Connectors.Smtp.SmtpConnector.#ctor(System.String,System.Int32,TeleScope.Connectors.Abstractions.Secrets.ISecret)">
             <summary>
             The constructor gets the SMTP host configuration injected.
             </summary>
             <param name="host">The name of the host or server.</param>
             <param name="port">The port where the SMTP protocol is accessible at the host.</param>
             <param name="secret">The user credentials to get access at the host.</param>
-            <param name="retry">The number of retries if sending returns an error. The default value is `3`.</param>
         </member>
         <member name="M:TeleScope.Connectors.Smtp.SmtpConnector.Connect">
             <summary>
@@ -172,11 +171,6 @@
             This class encapsulates the settings for the <seealso cref="T:TeleScope.Connectors.Smtp.SmtpConnector"/> type.
             </summary>
         </member>
-        <member name="F:TeleScope.Connectors.Smtp.SmtpSetup.RETRY_LIMIT">
-            <summary>
-            The default retry limit is `3` for attempts to send messages via Smtp.
-            </summary>
-        </member>
         <member name="P:TeleScope.Connectors.Smtp.SmtpSetup.Host">
             <summary>
             Gets or sets the host for the smtp connection.
@@ -206,12 +200,6 @@
         <member name="P:TeleScope.Connectors.Smtp.SmtpSetup.Credentials">
             <summary>
             Gets or sets the connection information (e.g. name and passwort) of type <seealso cref="T:TeleScope.Connectors.Abstractions.Secrets.ISecret"/>.
-            </summary>
-        </member>
-        <member name="P:TeleScope.Connectors.Smtp.SmtpSetup.RetryLimit">
-            <summary>
-            Gets or sets the limit of retry attempts for sending an email.
-            The default retry limit is `3`.
             </summary>
         </member>
         <member name="M:TeleScope.Connectors.Smtp.SmtpSetup.#ctor">

@@ -183,7 +183,7 @@
         </member>
         <member name="T:TeleScope.Connectors.Abstractions.Secrets.Secret">
             <summary>
-            Implements the `ISecret` interface to encapsulate a names and passwords within this type.
+            Implements the <seealso cref="T:TeleScope.Connectors.Abstractions.Secrets.ISecret"/> interface to encapsulate a name and a password within this type.
             </summary>
         </member>
         <member name="P:TeleScope.Connectors.Abstractions.Secrets.Secret.Name">

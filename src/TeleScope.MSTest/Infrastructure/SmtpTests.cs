@@ -52,7 +52,7 @@ namespace TeleScope.MSTest.Infrastructure
 			}
 
 			// arrange
-			var address = "";
+			var address = "your.email@awesome.com";
 			var copy = "";
 			var password = "";
 			var credentials = new Secret(address, password);
@@ -64,12 +64,19 @@ namespace TeleScope.MSTest.Infrastructure
 			var subject = $"Greetings from {this.GetType().FullName}";
 			var body = "Hello world";
 
+			var setup = new SmtpSetup
+			{
+				Host = host,
+				Port = port,
+				Credentials = credentials
+			};
+
 			// act
-			var smtp = new SmtpConnector(host, port, credentials);
+			var smtp = new SmtpConnector(setup);
 			var (total, success, failed) = smtp
 				.NewMessage(sender, sender, subject, body)
-				.CarbonCopy(copy)
-				.BlindCarbonCopy(copy)
+				//.CarbonCopy(copy)
+				//.BlindCarbonCopy(copy)
 				.HighPriority()
 				.Attach(new FileInfo("App_Data/demo.csv"))
 				.Send();

@@ -3,7 +3,7 @@
 namespace TeleScope.Connectors.Abstractions.Secrets
 {
 	/// <summary>
-	/// Implements the `ISecret` interface to encapsulate a names and passwords within this type.
+	/// Implements the <seealso cref="ISecret"/> interface to encapsulate a name and a password within this type.
 	/// </summary>
 	public class Secret : ISecret
 	{

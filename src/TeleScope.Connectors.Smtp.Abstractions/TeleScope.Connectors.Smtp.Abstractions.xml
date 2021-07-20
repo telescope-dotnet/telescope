@@ -10,6 +10,16 @@
             It supprots SMTP connections to send emails with a minimal interface. 
             </summary>
         </member>
+        <member name="M:TeleScope.Connectors.Smtp.Abstractions.ISmtpConnectable.NewMessage(System.String,System.String)">
+            <summary>
+            This method should add a new message to an internal collection 
+            with only specific properties, needed to build a new email object. 
+            Sender and receivers should be known by the implementing instace beforehand.
+            </summary>
+            <param name="subject">The subject of the email.</param>
+            <param name="body">The message of the email.</param>
+            <returns>Returns the calling instance to enable chaining method calls.</returns>
+        </member>
         <member name="M:TeleScope.Connectors.Smtp.Abstractions.ISmtpConnectable.NewMessage(System.String,System.String,System.String,System.String)">
             <summary>
             This method should add a new message to an internal collection 

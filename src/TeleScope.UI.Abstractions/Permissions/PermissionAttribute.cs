@@ -27,21 +27,32 @@ namespace TeleScope.UI.Abstractions.Permissions
 
 		// -- constructors
 
+		/// <summary>
+		/// The default empty constructor instanciates the properties with default settings.
+		/// </summary>
 		public PermissionAttribute()
 		{
 			Level = 0;
 			Throw = true;
+			Message = "Permission denied";
 		}
 
+		/// <summary>
+		/// This constructor sets the minimum permission level.
+		/// It leaves the other properties at their default value.
+		/// </summary>
+		/// <param name="level">The minimum permission level that will pass the validation.</param>
 		public PermissionAttribute(int level) : this()
 		{
 			Level = level;
 		}
 
 		/// <summary>
-		/// Constructor with specific minimum security level
+		/// This constructor sets the minimum permission level and the response level.
+		/// It leaves the other properties at their default value.
 		/// </summary>
-		/// <param name="level"></param>
+		/// <param name="level">The minimum permission level that will pass the validation.</param>
+		/// <param name="message">The response message that will be contained in the logging and the exception, if thrown.</param>
 		public PermissionAttribute(int level, string message) : this(level)
 		{
 			Message = message;

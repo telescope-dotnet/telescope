@@ -5,29 +5,35 @@ using TeleScope.UI.Abstractions.Permissions;
 
 namespace TeleScope.MSTest.UI
 {
+	static class MyPermissions
+	{
+		public const int Guest = 0;
+		public const int User = 1;
+		public const int Maintainer = 2;
+		public const int Administrator = 3;
+	}
+
 	public class PermissionAccess : PermissionBase
 	{
 		// -- fields
 
 		private readonly ILogger log;
 
-		private readonly int userLevel;
 		private float someFloat;
 
 		// -- properties
 
-
-		[Permission(1, Message = "Not allowed to change SomeFloat", Throw = true)]
+		[Permission(MyPermissions.User, Message = "Not allowed to change SomeFloat", Throw = true)]
 		public float SomeFloat
 		{
 			get
 			{
-				IsPermitted(userLevel);
+				IsPermissionValid();
 				return someFloat;
 			}
 			set
 			{
-				IsPermitted(userLevel);
+				IsPermissionValid();
 				Passed = true;
 				someFloat = value;
 			}
@@ -39,16 +45,16 @@ namespace TeleScope.MSTest.UI
 		/// </summary>
 		public string SomeString
 		{
-			[Permission(1, Throw = true)]
+			[Permission(MyPermissions.User, Throw = true)]
 			get
 			{
-				IsPermitted(userLevel);
+				IsPermissionValid();
 				return "123";
 			}
-			[Permission(2, Message = "Not allowed to change SomeString", Throw = true)]
+			[Permission(MyPermissions.Administrator, Message = "Not allowed to change the property 'SomeString'", Throw = true)]
 			set
 			{
-				IsPermitted(userLevel);
+				IsPermissionValid();
 				Passed = true;
 				_ = value;
 			}
@@ -58,29 +64,34 @@ namespace TeleScope.MSTest.UI
 
 		// -- constructor
 
-		public PermissionAccess(int userSecurityLevel)
+		public PermissionAccess(int level)
 		{
 			log = LoggingProvider.CreateLogger<PermissionAccess>();
+			SetPermission(level);
+			log.Trace($"Permission level is {base.PermissionLevel}");
 
-			userLevel = userSecurityLevel;
 			Passed = false;
 		}
 
 		// -- methods
 
-		[Permission(Level = 1, Message = "You have not passed level one", Throw = true)]
+		[Foo(Bar = 1)]
+		[Permission(Level = MyPermissions.User, Message = "You have not passed level one", Throw = false)]
 		public void AccessLevelOne()
 		{
-			IsPermitted(userLevel);
+			if (!IsPermissionValid())
+			{
+				return;
+			}
 
 			log.Info("calling SecureLevelOne() passed");
 			Passed = true;
 		}
 
-		[Permission(Level = 2, Message = "You have not passed level two", Throw = true)]
+		[Permission(Level = MyPermissions.Maintainer, Message = "You have not passed level two", Throw = true)]
 		public void AccessLevelTwo()
 		{
-			IsPermitted(userLevel);
+			IsPermissionValid();
 
 			log.Info("calling SecureLevelTwo() passed");
 			Passed = true;

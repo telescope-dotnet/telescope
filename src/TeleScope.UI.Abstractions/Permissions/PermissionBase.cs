@@ -7,24 +7,38 @@ using TeleScope.Logging.Extensions;
 
 namespace TeleScope.UI.Abstractions.Permissions
 {
-	public abstract class PermissionBase : IPermissible
+	/// <summary>
+	/// The abstract base class provides logic to validate the permission calling an application layer method or property.
+	/// The base class needs a permission level that is given at runtime an can validate the <see cref="PermissionAttribute"/>
+	/// that was given at compile time.
+	/// </summary>
+	public abstract class PermissionBase
 	{
-		private ILogger log;
+		// -- fields
 
-		private void CreateLogger()
-		{
-			if (log is null)
-			{
-				log = LoggingProvider.CreateLogger(this.GetType());
-			}
+		private ILogger log;
+		private int level;
+
+		// -- properties
+
+		/// <summary>
+		///  
+		/// </summary>
+		protected int PermissionLevel => level;
+
+		// -- methods
+
+		protected void SetPermission(int level)
+		{		
+			this.level = level;
 		}
 
-		public bool IsPermitted(int level, [CallerMemberName] string memberName = "")
+		protected bool IsPermissionValid([CallerMemberName] string memberName = "")
 		{
 			CreateLogger();
 
-			MethodBase method = this.GetType().GetMethod(memberName);
-			PropertyInfo prop = this.GetType().GetProperty(memberName);
+			MethodBase method = GetType().GetMethod(memberName);
+			PropertyInfo prop = GetType().GetProperty(memberName);
 
 			object[] attributes;
 			if (method != null)
@@ -47,11 +61,18 @@ namespace TeleScope.UI.Abstractions.Permissions
 				return true;
 			}
 
-			// security check
 			return ValidateOrThrow(level, (PermissionAttribute)attributes[0], memberName);
 		}
 
 		// -- helper
+
+		private void CreateLogger()
+		{
+			if (log is null)
+			{
+				log = LoggingProvider.CreateLogger(this.GetType());
+			}
+		}
 
 		/// <summary>
 		/// Checks if the current level is at least the same level that was set up at the calling member

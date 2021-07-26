@@ -54,6 +54,7 @@ These packages may be used within your domain specific application in different 
 | [TeleScope.UI.*](https://www.nuget.org/packages?q=TeleScope.UI) | Packages |
 | ------------ | --- |
 | Cli          | [![Nuget](https://img.shields.io/nuget/v/TeleScope.UI.Cli.svg?label=Cli)](https://www.nuget.org/packages/TeleScope.UI.Cli/)
+| Permissions  | [![Nuget](https://img.shields.io/nuget/v/TeleScope.UI.Permissions.svg?label=Permissions)](https://www.nuget.org/packages/TeleScope.UI.Permissions/)
 
 ---
 

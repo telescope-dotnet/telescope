@@ -60,7 +60,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeleScope.Connectors.Smtp",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeleScope.Connectors.Smtp.Abstractions", "TeleScope.Connectors.Smtp.Abstractions\TeleScope.Connectors.Smtp.Abstractions.csproj", "{09FE597A-AC47-423C-A33A-F9CC360FF3FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeleScope.UI.Abstractions", "TeleScope.UI.Abstractions\TeleScope.UI.Abstractions.csproj", "{29974CD6-BF9E-4909-8067-46AC51298091}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeleScope.UI.Permissions", "TeleScope.UI.Permissions\TeleScope.UI.Permissions.csproj", "{29974CD6-BF9E-4909-8067-46AC51298091}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

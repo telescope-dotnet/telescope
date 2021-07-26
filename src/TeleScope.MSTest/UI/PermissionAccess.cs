@@ -1,7 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
 using TeleScope.Logging;
 using TeleScope.Logging.Extensions;
-using TeleScope.UI.Abstractions.Permissions;
+using TeleScope.UI.Permissions;
+using TeleScope.UI.Permissions.Abstractions;
 
 namespace TeleScope.MSTest.UI
 {
@@ -84,7 +85,7 @@ namespace TeleScope.MSTest.UI
 				return;
 			}
 
-			log.Info("calling SecureLevelOne() passed");
+			log.Info("calling AccessLevelOne() with other attributes has passed.");
 			Passed = true;
 		}
 
@@ -93,8 +94,13 @@ namespace TeleScope.MSTest.UI
 		{
 			IsPermissionValid();
 
-			log.Info("calling SecureLevelTwo() passed");
+			log.Info("calling AccessLevelTwo() passed");
 			Passed = true;
+		}
+
+		public bool AccessWithoutAttribute()
+		{
+			return IsPermissionValid();
 		}
 	}
 }

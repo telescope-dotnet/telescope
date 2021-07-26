@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TeleScope.UI.Abstractions.Permissions
+namespace TeleScope.UI.Permissions
 {
 	/// <summary>
 	/// Attribute class to describe the access for methods or properties.

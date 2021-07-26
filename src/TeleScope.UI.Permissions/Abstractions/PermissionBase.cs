@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 using TeleScope.Logging;
 using TeleScope.Logging.Extensions;
 
-namespace TeleScope.UI.Abstractions.Permissions
+namespace TeleScope.UI.Permissions.Abstractions
 {
 	/// <summary>
 	/// The abstract base class provides logic to validate the permission calling an application layer method or property.
@@ -78,17 +78,37 @@ namespace TeleScope.UI.Abstractions.Permissions
 		/// Checks if the current level is at least the same level that was set up at the calling member
 		/// </summary>
 		/// <param name="currentLevel">the current level of the application or user.</param>
-		/// <param name="permission">the security attributes form the calling member.</param>
+		/// <param name="permission">the permission attributes form the calling member.</param>
 		/// <param name="memberName">the calling member (method or property).</param>
 		/// <returns></returns>
 		private bool ValidateOrThrow(int currentLevel, PermissionAttribute permission, string memberName)
 		{
-			if (checkLevels())
+			if (permissionPassed())
 			{
-				log.Trace($"security check for {memberName} passed");
+				log.Trace($"Permission check for {memberName} passed.");
 				return true;
 			}
 			else
+			{
+				permissionFailed();
+				return false;
+			}
+
+			// -- local functions
+
+			bool permissionPassed()
+			{
+				if (permission.Level <= currentLevel)
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
+
+			void permissionFailed()
 			{
 				string msg;
 				if (string.IsNullOrEmpty(permission.Message))
@@ -106,22 +126,7 @@ namespace TeleScope.UI.Abstractions.Permissions
 				}
 				else
 				{
-					log.Critical(msg);
-				}
-				return false;
-			}
-
-			// -- local function
-
-			bool checkLevels()
-			{
-				if (permission.Level <= currentLevel)
-				{
-					return true;
-				}
-				else
-				{
-					return false;
+					log.Error(msg);
 				}
 			}
 		}

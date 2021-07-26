@@ -47,6 +47,19 @@ namespace TeleScope.MSTest.UI
 		}
 
 		[TestMethod]
+		public void AccessWithoutAttribute()
+		{
+			// arrange
+			tester = new PermissionAccess(1);
+
+			// act
+			var result = tester.AccessWithoutAttribute();
+
+			// assert
+			Assert.IsTrue(result, "Call should have returned 'true'.");
+		}
+
+		[TestMethod]
 		public void AccessLevelTwo()
 		{
 			// arrange

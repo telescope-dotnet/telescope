@@ -2,10 +2,31 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>0.1.0</Version>
+    <Authors>TeleScope-dotnet members</Authors>
+    <Company>TeleScope-dotnet</Company>
+    <Description>Provides a custom attribute and abstractions to enable a simple mechanism for permissions on methods during runtime.</Description>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/telescope-dotnet/telescope</PackageProjectUrl>
+    <PackageIcon>logo-nuget.png</PackageIcon>
+    <PackageIconUrl />
+    <RepositoryUrl>https://github.com/telescope-dotnet/telescope</RepositoryUrl>
+    <PackageTags>UI persmissions roles</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\TeleScope.Logging\TeleScope.Logging.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\images\logo-nuget.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

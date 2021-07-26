@@ -14,6 +14,16 @@ namespace TeleScope.Connectors.Smtp.Abstractions
 
 		/// <summary>
 		/// This method should add a new message to an internal collection 
+		/// with only specific properties, needed to build a new email object. 
+		/// Sender and receivers should be known by the implementing instace beforehand.
+		/// </summary>
+		/// <param name="subject">The subject of the email.</param>
+		/// <param name="body">The message of the email.</param>
+		/// <returns>Returns the calling instance to enable chaining method calls.</returns>
+		ISmtpConnectable NewMessage(string subject, string body);
+
+		/// <summary>
+		/// This method should add a new message to an internal collection 
 		/// with the essetial properties, needed to build a new email object.
 		/// </summary>
 		/// <param name="from">The email address of the sender.</param>

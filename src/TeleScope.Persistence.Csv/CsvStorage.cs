@@ -16,7 +16,7 @@ namespace TeleScope.Persistence.Csv
 	/// </summary>
 	/// <typeparam name="T">The type T is used application-side and can be read from the data source 
 	/// or be written to the data sink.</typeparam>
-	public class CsvStorage<T> : IReadable<T>, IWritable<T>
+	public class CsvStorage<T> : IReadable<T>, IFileWritable<T>
 	{
 		// -- fields
 
@@ -121,6 +121,17 @@ namespace TeleScope.Persistence.Csv
 			{
 				log.Critical(ex);
 			}
+		}
+
+		/// <summary>
+		/// Updates the reference to the FileInfo object so that the data sink can be updated. 
+		/// </summary>
+		/// <param name="fileInfo">The new FileInfo object.</param>
+		/// <returns>The calling instance.</returns>
+		public IFileWritable<T> Update(FileInfo fileInfo)
+		{
+			setup.SetFileInfo(fileInfo);
+			return this;
 		}
 	}
 }

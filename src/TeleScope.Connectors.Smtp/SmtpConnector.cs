@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -23,15 +24,10 @@ namespace TeleScope.Connectors.Smtp
 	{
 		// -- fields
 
-		private const int RETRY_LIMIT = 3;
-
 		private readonly ILogger<SmtpConnector> log;
 		private readonly List<MailMessage> messages;
 
-		private readonly string host;
-		private readonly int port;
-		private readonly ISecret secret;
-		private readonly int retry;
+		private readonly SmtpSetup setup;
 
 		// --properties
 
@@ -46,7 +42,7 @@ namespace TeleScope.Connectors.Smtp
 		/// The event is invoked when the <seealso cref="Connect"/> method has finished successfully.
 		/// </summary>
 		public event ConnectorEventHandler Connected;
-		
+
 		/// <summary>
 		/// The event is invoked when the <seealso cref="Disconnect"/> method has finished successfully.
 		/// </summary>
@@ -65,22 +61,28 @@ namespace TeleScope.Connectors.Smtp
 		// -- constructors
 
 		/// <summary>
-		/// The default constructor gets the SMTP host configuration injected.
+		/// The default constructor stores the setup and starts the internal logging mechanism. 
+		/// </summary>
+		/// <param name="setup">The setup that is used for the smtp connections.</param>
+		public SmtpConnector(SmtpSetup setup)
+		{
+			log = LoggingProvider.CreateLogger<SmtpConnector>();
+			messages = new List<MailMessage>();
+
+			this.setup = setup ?? throw new ArgumentNullException(nameof(setup));
+		}
+
+		/// <summary>
+		/// The constructor gets the SMTP host configuration injected.
 		/// </summary>
 		/// <param name="host">The name of the host or server.</param>
 		/// <param name="port">The port where the SMTP protocol is accessible at the host.</param>
 		/// <param name="secret">The user credentials to get access at the host.</param>
-		/// <param name="retry">The number of retries if sending returns an error. The default value is `3`.</param>
-		public SmtpConnector(string host, int port, ISecret secret, int retry = RETRY_LIMIT)
+		[Obsolete("Use the default constructor SmtpConnector(SmtpSetup setup) instead.")]
+		public SmtpConnector(string host, int port, ISecret secret) :
+			this(new SmtpSetup { Host = host, Port = port, Credentials = secret })
 		{
 
-			log = LoggingProvider.CreateLogger<SmtpConnector>();
-			messages = new List<MailMessage>();
-
-			this.host = host ?? throw new ArgumentNullException(nameof(host));
-			this.port = port;
-			this.secret = secret ?? throw new ArgumentNullException(nameof(secret));
-			this.retry = retry;
 		}
 
 		// -- methods
@@ -94,7 +96,7 @@ namespace TeleScope.Connectors.Smtp
 		{
 			messages.Clear();
 			IsConnected = true;
-			Connected?.Invoke(this, new ConnectorEventArgs(host));
+			Connected?.Invoke(this, new ConnectorEventArgs(setup.Host));
 			return this;
 		}
 
@@ -112,13 +114,28 @@ namespace TeleScope.Connectors.Smtp
 		{
 			messages.Clear();
 			IsConnected = false;
-			Disconnected?.Invoke(this, new ConnectorEventArgs(host));
+			Disconnected?.Invoke(this, new ConnectorEventArgs(setup.Host));
 			return this;
 		}
 
 		IConnectable IConnectable.Disconnect()
 		{
 			return this.Disconnect();
+		}
+
+		/// <summary>
+		/// Adds a new message to an internal collection of emails
+		/// with only specific properties, needed to build a new email object. 
+		/// Sender and receivers are known by the implementing instace beforehand.
+		/// </summary>
+		/// <param name="subject">The subject of the email.</param>
+		/// <param name="body">The message of the email.</param>
+		/// <returns>Returns the calling instance to enable chaining method calls.</returns>
+		/// <exception cref="ArgumentNullException">Is thrown when the body is null.</exception>
+		/// <exception cref="ArgumentException">Is thrown when any email address has an invalid format.</exception>
+		public ISmtpConnectable NewMessage(string subject, string body)
+		{
+			return NewMessage(setup.Sender, setup.Receivers, subject, body);
 		}
 
 		/// <summary>
@@ -130,6 +147,8 @@ namespace TeleScope.Connectors.Smtp
 		/// <param name="subject">The subject of the email.</param>
 		/// <param name="body">The message of the email.</param>
 		/// <returns>Returns the calling instance to enable chaining method calls.</returns>
+		/// <exception cref="ArgumentNullException">Is thrown when the body is null.</exception>
+		/// <exception cref="ArgumentException">Is thrown when any email address has an invalid format.</exception>
 		public ISmtpConnectable NewMessage(string from, string to, string subject, string body)
 		{
 			return NewMessage(from, new string[] { to }, subject, body);
@@ -144,16 +163,32 @@ namespace TeleScope.Connectors.Smtp
 		/// <param name="subject">The subject of the email.</param>
 		/// <param name="body">The message of the email.</param>
 		/// <returns>Returns the calling instance to enable chaining method calls.</returns>
+		/// <exception cref="ArgumentNullException">Is thrown when the body is null.</exception>
+		/// <exception cref="ArgumentException">Is thrown when any email address has an invalid format.</exception>
 		public ISmtpConnectable NewMessage(string from, string[] to, string subject, string body)
 		{
-			var msg = new MailMessage();
-			var adresses = JoinAddresses(to);
+			ValidateAddress(from);
+			_ = body ?? throw new ArgumentNullException(nameof(body));
 
-			msg.From = new MailAddress(from);
-			msg.To.Add(adresses);
-			msg.Subject = subject;
-			msg.Body = body;
-			messages.Add(msg);
+			if (string.IsNullOrEmpty(subject))
+			{
+				log.Warn("The subject of the email is empty");
+			}
+
+			try
+			{
+				var adresses = ValidateAndJoinAddresses(to);
+				var msg = new MailMessage();
+				msg.From = new MailAddress(from);
+				msg.To.Add(adresses);
+				msg.Subject = subject;
+				msg.Body = body;
+				messages.Add(msg);
+			}
+			catch (ArgumentException ex)
+			{
+				throw new ArgumentException("The receivers contain an invalid address.", ex);
+			}
 
 			return this;
 		}
@@ -164,6 +199,7 @@ namespace TeleScope.Connectors.Smtp
 		/// </summary>
 		/// <param name="to">The email address of the receiver.</param>
 		/// <returns>Returns the calling instance to enable chaining method calls.</returns>
+		/// <exception cref="ArgumentException">Is thrown when any email address has an invalid format.</exception>
 		public ISmtpConnectable CarbonCopy(string to)
 		{
 			return CarbonCopy(new string[] { to });
@@ -175,11 +211,20 @@ namespace TeleScope.Connectors.Smtp
 		/// </summary>
 		/// <param name="to">The email addresses of the receivers.</param>
 		/// <returns>Returns the calling instance to enable chaining method calls.</returns>
+		/// <exception cref="ArgumentException">Is thrown when any email address has an invalid format.</exception>
 		public ISmtpConnectable CarbonCopy(string[] to)
 		{
-			var addresses = JoinAddresses(to);
-			messages.Last()
-				.CC.Add(addresses);
+			try
+			{
+				var addresses = ValidateAndJoinAddresses(to);
+				messages.Last()
+					.CC.Add(addresses);
+			}
+			catch (ArgumentException ex)
+			{
+				throw new ArgumentException("The CC contains an invalid address.", ex);
+			}
+
 			return this;
 		}
 
@@ -189,6 +234,7 @@ namespace TeleScope.Connectors.Smtp
 		/// </summary>
 		/// <param name="to">The email address of the receiver.</param>
 		/// <returns>Returns the calling instance to enable chaining method calls.</returns>
+		/// <exception cref="ArgumentException">Is thrown when any email address has an invalid format.</exception>
 		public ISmtpConnectable BlindCarbonCopy(string to)
 		{
 			return BlindCarbonCopy(new string[] { to });
@@ -200,11 +246,20 @@ namespace TeleScope.Connectors.Smtp
 		/// </summary>
 		/// <param name="to">The email addresses of the receivers.</param>
 		/// <returns>Returns the calling instance to enable chaining method calls.</returns>
+		/// <exception cref="ArgumentException">Is thrown when any email address has an invalid format.</exception>
 		public ISmtpConnectable BlindCarbonCopy(string[] to)
 		{
-			var addresses = JoinAddresses(to);
-			messages.Last()
-				.Bcc.Add(addresses);
+			try
+			{
+				var addresses = ValidateAndJoinAddresses(to);
+				messages.Last()
+					.Bcc.Add(addresses);
+			}
+			catch (ArgumentException ex)
+			{
+				throw new ArgumentException("The BCC contains an invalid address.", ex);
+			}
+
 			return this;
 		}
 
@@ -234,9 +289,10 @@ namespace TeleScope.Connectors.Smtp
 		/// <param name="file">The file info object that will be attached.</param>
 		/// <param name="mimeType">The mime type of the file.</param>
 		/// <returns>Returns the calling instance to enable chaining method calls.</returns>
+		/// <exception cref="ArgumentNullException">Is thrown when the attachment is not found or valid.</exception>
 		public ISmtpConnectable Attach(FileInfo file, string mimeType = MediaTypeNames.Text.Plain)
 		{
-			if (file is null)
+			if (file is null || !file.Exists)
 			{
 				throw new ArgumentNullException(nameof(file));
 			}
@@ -249,8 +305,8 @@ namespace TeleScope.Connectors.Smtp
 		}
 
 		/// <summary>
-		/// Sends all the created and configured emails at once and 
-		/// clears the inner stack.
+		/// Sends all the created and configured emails at once and clears the inner stack.
+		/// If emails where not sent, those objects are removed internally anyways and the logging provides detailed information.
 		/// </summary>
 		/// <returns>Returns a result triple that contains the total amount of sent emails, 
 		/// the sucessful and the failed ones.</returns>
@@ -262,12 +318,12 @@ namespace TeleScope.Connectors.Smtp
 			try
 			{
 				result = SendAllMessages(client);
-				Completed?.Invoke(this, new ConnectorCompletedEventArgs(host, result));
+				Completed?.Invoke(this, new ConnectorCompletedEventArgs(setup.Host, result));
 			}
 			catch (ArgumentOutOfRangeException ex)
 			{
 				log.Critical(ex);
-				Failed?.Invoke(this, new ConnectorFailedEventArgs(ex, host));
+				Failed?.Invoke(this, new ConnectorFailedEventArgs(ex, setup.Host));
 			}
 			finally
 			{
@@ -282,8 +338,21 @@ namespace TeleScope.Connectors.Smtp
 
 		// -- private helper 
 
-		private string JoinAddresses(string[] addresses)
+		private void ValidateAddress(string address)
 		{
+			if (!new EmailAddressAttribute().IsValid(address))
+			{
+				throw new ArgumentException($"The address '{address}' has no valid format.");
+			}
+		}
+
+		private string ValidateAndJoinAddresses(string[] addresses)
+		{
+			foreach (var a in addresses)
+			{
+				ValidateAddress(a);
+			}
+
 			return addresses.Length == 1 ? addresses[0] : string.Join(",", addresses);
 		}
 
@@ -292,25 +361,23 @@ namespace TeleScope.Connectors.Smtp
 			(int total, int success, int failed) result = (0, 0, 0);
 
 			result.total = messages.Count;
-			int limit = retry;
-			int attempt = 1;
 
-			while (messages.Count > 0 && limit > 0)
+			while (messages.Count > 0)
 			{
 				var mail = messages.First();
 				try
 				{
 					client.Send(mail);
+					log.Trace($"Sending the email was successfull. From '{mail.From}' to '{mail.To}' via hoast '{client.Host}'. The mail object will be removed.");
 					messages.Remove(mail);
 					result.success++;
 				}
 				catch (Exception ex) when (handled(ex))
 				{
-					log.Error(ex, $"Attempt #{attempt} failed sending an email via {client.Host}.");
-					Failed?.Invoke(this, new ConnectorFailedEventArgs(ex, host));
+					log.Error(ex, $"Sending the email has failed. From '{mail.From}' to '{mail.To}' via host '{client.Host}'. The mail object will be removed.");
+					messages.Remove(mail);
+					Failed?.Invoke(this, new ConnectorFailedEventArgs(ex, setup.Host));
 					result.failed++;
-					limit--;
-					attempt++;
 				}
 			}
 
@@ -331,11 +398,11 @@ namespace TeleScope.Connectors.Smtp
 
 		private SmtpClient GetClient()
 		{
-			return new SmtpClient(host, port)
+			return new SmtpClient(setup.Host, setup.Port)
 			{
 				UseDefaultCredentials = false,
 				EnableSsl = true,
-				Credentials = new NetworkCredential(secret.Name, secret.Password)
+				Credentials = new NetworkCredential(setup.Credentials.Name, setup.Credentials.Password)
 			};
 		}
 	}

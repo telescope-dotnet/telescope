@@ -35,14 +35,19 @@
             The event is invoked when the <seealso cref="M:TeleScope.Connectors.Smtp.SmtpConnector.Send"/> method has finished with a failure.
             </summary>
         </member>
-        <member name="M:TeleScope.Connectors.Smtp.SmtpConnector.#ctor(System.String,System.Int32,TeleScope.Connectors.Abstractions.Secrets.ISecret,System.Int32)">
+        <member name="M:TeleScope.Connectors.Smtp.SmtpConnector.#ctor(TeleScope.Connectors.Smtp.SmtpSetup)">
             <summary>
-            The default constructor gets the SMTP host configuration injected.
+            The default constructor stores the setup and starts the internal logging mechanism. 
+            </summary>
+            <param name="setup">The setup that is used for the smtp connections.</param>
+        </member>
+        <member name="M:TeleScope.Connectors.Smtp.SmtpConnector.#ctor(System.String,System.Int32,TeleScope.Connectors.Abstractions.Secrets.ISecret)">
+            <summary>
+            The constructor gets the SMTP host configuration injected.
             </summary>
             <param name="host">The name of the host or server.</param>
             <param name="port">The port where the SMTP protocol is accessible at the host.</param>
             <param name="secret">The user credentials to get access at the host.</param>
-            <param name="retry">The number of retries if sending returns an error. The default value is `3`.</param>
         </member>
         <member name="M:TeleScope.Connectors.Smtp.SmtpConnector.Connect">
             <summary>
@@ -58,6 +63,18 @@
             </summary>
             <returns>The calling instance.</returns>
         </member>
+        <member name="M:TeleScope.Connectors.Smtp.SmtpConnector.NewMessage(System.String,System.String)">
+            <summary>
+            Adds a new message to an internal collection of emails
+            with only specific properties, needed to build a new email object. 
+            Sender and receivers are known by the implementing instace beforehand.
+            </summary>
+            <param name="subject">The subject of the email.</param>
+            <param name="body">The message of the email.</param>
+            <returns>Returns the calling instance to enable chaining method calls.</returns>
+            <exception cref="T:System.ArgumentNullException">Is thrown when the body is null.</exception>
+            <exception cref="T:System.ArgumentException">Is thrown when any email address has an invalid format.</exception>
+        </member>
         <member name="M:TeleScope.Connectors.Smtp.SmtpConnector.NewMessage(System.String,System.String,System.String,System.String)">
             <summary>
             Adds a new message to an internal collection of emails
@@ -68,6 +85,8 @@
             <param name="subject">The subject of the email.</param>
             <param name="body">The message of the email.</param>
             <returns>Returns the calling instance to enable chaining method calls.</returns>
+            <exception cref="T:System.ArgumentNullException">Is thrown when the body is null.</exception>
+            <exception cref="T:System.ArgumentException">Is thrown when any email address has an invalid format.</exception>
         </member>
         <member name="M:TeleScope.Connectors.Smtp.SmtpConnector.NewMessage(System.String,System.String[],System.String,System.String)">
             <summary>
@@ -79,6 +98,8 @@
             <param name="subject">The subject of the email.</param>
             <param name="body">The message of the email.</param>
             <returns>Returns the calling instance to enable chaining method calls.</returns>
+            <exception cref="T:System.ArgumentNullException">Is thrown when the body is null.</exception>
+            <exception cref="T:System.ArgumentException">Is thrown when any email address has an invalid format.</exception>
         </member>
         <member name="M:TeleScope.Connectors.Smtp.SmtpConnector.CarbonCopy(System.String)">
             <summary>
@@ -87,6 +108,7 @@
             </summary>
             <param name="to">The email address of the receiver.</param>
             <returns>Returns the calling instance to enable chaining method calls.</returns>
+            <exception cref="T:System.ArgumentException">Is thrown when any email address has an invalid format.</exception>
         </member>
         <member name="M:TeleScope.Connectors.Smtp.SmtpConnector.CarbonCopy(System.String[])">
             <summary>
@@ -95,6 +117,7 @@
             </summary>
             <param name="to">The email addresses of the receivers.</param>
             <returns>Returns the calling instance to enable chaining method calls.</returns>
+            <exception cref="T:System.ArgumentException">Is thrown when any email address has an invalid format.</exception>
         </member>
         <member name="M:TeleScope.Connectors.Smtp.SmtpConnector.BlindCarbonCopy(System.String)">
             <summary>
@@ -103,6 +126,7 @@
             </summary>
             <param name="to">The email address of the receiver.</param>
             <returns>Returns the calling instance to enable chaining method calls.</returns>
+            <exception cref="T:System.ArgumentException">Is thrown when any email address has an invalid format.</exception>
         </member>
         <member name="M:TeleScope.Connectors.Smtp.SmtpConnector.BlindCarbonCopy(System.String[])">
             <summary>
@@ -111,6 +135,7 @@
             </summary>
             <param name="to">The email addresses of the receivers.</param>
             <returns>Returns the calling instance to enable chaining method calls.</returns>
+            <exception cref="T:System.ArgumentException">Is thrown when any email address has an invalid format.</exception>
         </member>
         <member name="M:TeleScope.Connectors.Smtp.SmtpConnector.HighPriority">
             <summary>
@@ -131,14 +156,56 @@
             <param name="file">The file info object that will be attached.</param>
             <param name="mimeType">The mime type of the file.</param>
             <returns>Returns the calling instance to enable chaining method calls.</returns>
+            <exception cref="T:System.ArgumentNullException">Is thrown when the attachment is not found or valid.</exception>
         </member>
         <member name="M:TeleScope.Connectors.Smtp.SmtpConnector.Send">
             <summary>
-            Sends all the created and configured emails at once and 
-            clears the inner stack.
+            Sends all the created and configured emails at once and clears the inner stack.
+            If emails where not sent, those objects are removed internally anyways and the logging provides detailed information.
             </summary>
             <returns>Returns a result triple that contains the total amount of sent emails, 
             the sucessful and the failed ones.</returns>
+        </member>
+        <member name="T:TeleScope.Connectors.Smtp.SmtpSetup">
+            <summary>
+            This class encapsulates the settings for the <seealso cref="T:TeleScope.Connectors.Smtp.SmtpConnector"/> type.
+            </summary>
+        </member>
+        <member name="P:TeleScope.Connectors.Smtp.SmtpSetup.Host">
+            <summary>
+            Gets or sets the host for the smtp connection.
+            </summary>
+        </member>
+        <member name="P:TeleScope.Connectors.Smtp.SmtpSetup.Sender">
+            <summary>
+            Gets or set the sending email address.
+            </summary>
+        </member>
+        <member name="P:TeleScope.Connectors.Smtp.SmtpSetup.Port">
+            <summary>
+            Gets or sets the port for the smtp connection.
+            
+            **Please note the default ports:**
+            * Port 25 (non-secure) - this is the default port (often times blocked by your ISP - Internet Service Provider)
+            * Port 26 (non-secure) - use port 26 if port 25 is not working and is blocked by your ISP
+            * Port 465 (secure - SSL) - this is to be used to send email via SMTP securely over SSL
+            * Port 587 (secure - TLS) - this is to be used to send email via SMTP securely over TLS
+            </summary>
+        </member>
+        <member name="P:TeleScope.Connectors.Smtp.SmtpSetup.Receivers">
+            <summary>
+            Gets or sets all receivers that are addressed by sending an email.
+            </summary>
+        </member>
+        <member name="P:TeleScope.Connectors.Smtp.SmtpSetup.Credentials">
+            <summary>
+            Gets or sets the connection information (e.g. name and passwort) of type <seealso cref="T:TeleScope.Connectors.Abstractions.Secrets.ISecret"/>.
+            </summary>
+        </member>
+        <member name="M:TeleScope.Connectors.Smtp.SmtpSetup.#ctor">
+            <summary>
+            The default empty constructor sets the retry limit to its default value.
+            </summary>
         </member>
     </members>
 </doc>

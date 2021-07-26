@@ -2,13 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+	<Version>1.1.0</Version>
     <Authors>TeleScope-dotnet members</Authors>
     <Company>TeleScope-dotnet</Company>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/telescope-dotnet/telescope</PackageProjectUrl>
     <PackageIcon>logo-nuget.png</PackageIcon>
     <RepositoryUrl>https://github.com/telescope-dotnet/telescope</RepositoryUrl>
-    <PackageTags>Abstractions, SMTP</PackageTags>
+    <PackageTags>SMTP, System.Net</PackageTags>
     <Description>Contains an implementation of the ISmtpConnectable interface for SMTP connections. Depends only on the assembly TeleScope.Connectors.Smtp.Abstractions and uses the .NET library System.Net.Mail internally.</Description>
   </PropertyGroup>
 
@@ -30,6 +31,10 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
   </ItemGroup>
 
 </Project>

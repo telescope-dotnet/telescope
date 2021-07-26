@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace TeleScope.MSTest.Mockups
 {
-	public class Mockup
+	public class Mockup : IMockable
 	{
 		// -- static fields
 
@@ -36,6 +36,7 @@ namespace TeleScope.MSTest.Mockups
 
 		public Mockup()
 		{
+			Name = this.GetType().Name;
 			Greetings = "Hello Mockup";
 			Timestamp = DateTime.Now;
 		}

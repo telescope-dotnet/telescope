@@ -60,6 +60,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeleScope.Connectors.Smtp",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeleScope.Connectors.Smtp.Abstractions", "TeleScope.Connectors.Smtp.Abstractions\TeleScope.Connectors.Smtp.Abstractions.csproj", "{09FE597A-AC47-423C-A33A-F9CC360FF3FB}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeleScope.UI.Permissions", "TeleScope.UI.Permissions\TeleScope.UI.Permissions.csproj", "{29974CD6-BF9E-4909-8067-46AC51298091}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -140,6 +142,10 @@ Global
 		{09FE597A-AC47-423C-A33A-F9CC360FF3FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09FE597A-AC47-423C-A33A-F9CC360FF3FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09FE597A-AC47-423C-A33A-F9CC360FF3FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29974CD6-BF9E-4909-8067-46AC51298091}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29974CD6-BF9E-4909-8067-46AC51298091}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29974CD6-BF9E-4909-8067-46AC51298091}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29974CD6-BF9E-4909-8067-46AC51298091}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -164,6 +170,7 @@ Global
 		{BC6911C3-55A4-4B81-B8B3-01B8C1E5B234} = {BD41575B-DF41-4D05-9A96-463960E55B89}
 		{AE765138-04F1-4F3B-A42E-3A4F85E4067D} = {29C196D1-13DF-4C2C-A0E1-81D75B555731}
 		{09FE597A-AC47-423C-A33A-F9CC360FF3FB} = {99762FB4-DCB4-4175-A71A-2B65124F71DB}
+		{29974CD6-BF9E-4909-8067-46AC51298091} = {7C9EDD00-B039-428F-B898-1C2E02A11597}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EE960345-7F7E-4A17-A2C4-F22378A1FDCA}

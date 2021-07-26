@@ -8,7 +8,6 @@ namespace TeleScope.Connectors.Abstractions.Secrets
 	/// </summary>
 	public interface ISecret
 	{
-
 		// -- properties
 
 		/// <summary>

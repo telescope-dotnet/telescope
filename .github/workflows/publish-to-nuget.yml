@@ -10,7 +10,25 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix: 
-        Projects: [Connectors.Abstractions, Connectors.Plc.Abstractions, Connectors.Plc.Siemens, Connectors.Mqtt.Abstractions, Connectors.Mqtt, Connectors.Http.Abstractions, Connectors.Http, Connectors.Smtp.Abstractions, Connectors.Smtp, Persistence.Abstractions, Persistence.Csv, Persistence.Json, Persistence.Parquet, Persistence.Yaml, UI.Cli, Logging, Logging.Extensions.Serilog]
+        Projects:
+          - Connectors.Abstractions
+          - Connectors.Plc.Abstractions
+          - Connectors.Plc.Siemens
+          - Connectors.Mqtt.Abstractions
+          - Connectors.Mqtt
+          - Connectors.Http.Abstractions
+          - Connectors.Http
+          - Connectors.Smtp.Abstractions
+          - Connectors.Smtp
+          - Persistence.Abstractions
+          - Persistence.Csv
+          - Persistence.Json
+          - Persistence.Parquet
+          - Persistence.Yaml
+          - UI.Cli
+          - UI.Permissions
+          - Logging
+          - Logging.Extensions.Serilog
     steps:
       - uses: actions/checkout@v2
         

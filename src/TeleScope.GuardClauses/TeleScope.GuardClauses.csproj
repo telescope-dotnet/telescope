@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Description>Contains an implementation of guard clauses that allow to quick check fields or parameters against unwanted input.</Description>
+    <Version>0.1.0</Version>
+    <Authors>TeleScope-dotnet members</Authors>
+    <Company>TeleScope-dotnet</Company>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/telescope-dotnet/telescope</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/telescope-dotnet/telescope</RepositoryUrl>
+    <PackageIcon>logo-nuget.png</PackageIcon>
+    <PackageIconUrl />
+    <PackageTags>dotnet guard guard-clauses</PackageTags>
+    <PackageReleaseNotes>initial code base, code documentation incomplete</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>D:\Adrian_w7nb0422\_Projekte\github\telescope-dotnet\telescope\src\TeleScope.GuardClauses\TeleScope.GuardClauses.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>D:\Adrian_w7nb0422\_Projekte\github\telescope-dotnet\telescope\src\TeleScope.GuardClauses\TeleScope.GuardClauses.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\images\logo-nuget.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TeleScope.GuardClauses</name>
+    </assembly>
+    <members>
+        <member name="T:TeleScope.GuardClauses.Abstractions.GuardBase">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:TeleScope.GuardClauses.Abstractions.IDefensiveGuardable">
+            <summary>
+            This interface provides methods as contract for defensive guard clauses.
+            That means, the implemented methods should fail, if they approve the the statement of the method name.
+            </summary>
+        </member>
+        <member name="M:TeleScope.GuardClauses.Abstractions.IDefensiveGuardable.Null``1(``0,System.String,System.String)">
+            <summary>
+            The implementation must check the input against null and fail, if that is the case. 
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="input"></param>
+            <param name="paramName"></param>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TeleScope.GuardClauses.Abstractions.IDefensiveGuardable.False(System.Boolean,System.String,System.String)">
+            <summary>
+            The implementation must check the boolean input against `False` and fail, if that is the case. 
+            </summary>
+            <param name="input"></param>
+            <param name="paramName"></param>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TeleScope.GuardClauses.Abstractions.IDefensiveGuardable.True(System.Boolean,System.String,System.String)">
+            <summary>
+            The implementation must check the boolean input against `True` and fail, if that is the case. 
+            </summary>
+            <param name="input"></param>
+            <param name="paramName"></param>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TeleScope.GuardClauses.Abstractions.IDefensiveGuardable.Unequality``1(``0,``0,System.String,System.String)">
+            <summary>
+            The implementation must check the input against an unequal comparator
+            and fail, if both instances are unequal. 
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="input"></param>
+            <param name="comparator"></param>
+            <param name="paramName"></param>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TeleScope.GuardClauses.Abstractions.IDefensiveGuardable.Equality``1(``0,``0,System.String,System.String)">
+            <summary>
+            The implementation must check the input against an equal comparator
+            and fail, if both instances are equal. 
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="input"></param>
+            <param name="comparator"></param>
+            <param name="paramName"></param>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="T:TeleScope.GuardClauses.DefaultGuard">
+            <summary>
+            This partial class implements the interface <see cref="T:TeleScope.GuardClauses.Abstractions.ICollectionGuardable"/>.
+            </summary>
+            <summary>
+            This partial class implements the interface <see cref="T:TeleScope.GuardClauses.Abstractions.IDefensiveGuardable"/>
+            and is the first part of teh partial classes that holds the private properties.
+            </summary>
+            <summary>
+            This partial class implements the interface <see cref="T:TeleScope.GuardClauses.Abstractions.INumericGuardable"/>.
+            </summary>
+            <summary>
+            This partial class implements the interface <see cref="T:TeleScope.GuardClauses.Abstractions.IStringGuardable"/>.
+            </summary>
+        </member>
+        <member name="T:TeleScope.GuardClauses.Guard">
+            <summary>
+            The static class is the front door to all guard clauses that are provided via separate interfaces.
+            </summary>
+        </member>
+        <member name="T:TeleScope.GuardClauses.GuardProvider">
+            <summary>
+            This class collects all implementations of the different interfaces that provide guard clause functionalities.
+            The provider class is used by the static class <see cref="T:TeleScope.GuardClauses.Guard"/> that provides access to the implementations.
+            </summary>
+        </member>
+        <member name="M:TeleScope.GuardClauses.GuardProvider.#ctor">
+            <summary>
+            The default empty constructor implements the <see cref="T:TeleScope.GuardClauses.DefaultGuard"/> class.
+            </summary>
+        </member>
+        <member name="M:TeleScope.GuardClauses.GuardProvider.#ctor(TeleScope.GuardClauses.Abstractions.GuardBase)">
+            <summary>
+            This constructor takes an implemenation of type <see cref="T:TeleScope.GuardClauses.DefaultGuard"/> and stores it internally.
+            </summary>
+            <param name="guard">The user defined implementation of guard functions.</param>
+        </member>
+    </members>
+</doc>

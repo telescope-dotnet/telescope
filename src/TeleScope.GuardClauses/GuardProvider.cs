@@ -32,7 +32,7 @@ namespace TeleScope.GuardClauses
 		/// <summary>
 		/// This constructor takes an implemenation of type <see cref="DefaultGuard"/> and stores it internally.
 		/// </summary>
-		/// <param name="guard">The user defined implementation of guard functions.</param>
+		/// <param name="guard">The implementation of guard functions.</param>
 		public GuardProvider(GuardBase guard)
 		{
 			New(guard);
@@ -40,6 +40,10 @@ namespace TeleScope.GuardClauses
 
 		// -- setter methods per guard interface
 
+		/// <summary>
+		/// Adds a new instance that implements the full set of guard functionalities derived from <see cref="GuardBase"/>.
+		/// </summary>
+		/// <param name="guard">The implementation of guard functions.</param>
 		public void New(GuardBase guard)
 		{
 			var newGuard = guard ?? new DefaultGuard();
@@ -50,21 +54,37 @@ namespace TeleScope.GuardClauses
 			New(newGuard as ICollectionGuardable);
 		}
 
+		/// <summary>
+		/// Adds a new instance that implements a partial set of guard functionalities from <see cref="IDefensiveGuardable"/>.
+		/// </summary>
+		/// <param name="guard">The implementation of guard functions.</param>
 		public void New(IDefensiveGuardable guard)
 		{
 			Against = guard ?? throw new ArgumentNullException(nameof(guard));
 		}
 
+		/// <summary>
+		/// Adds a new instance that implements a partial set of guard functionalities from <see cref="INumericGuardable"/>.
+		/// </summary>
+		/// <param name="numericGuard">The implementation of guard functions.</param>
 		public void New(INumericGuardable numericGuard)
 		{
 			Numeric = numericGuard ?? throw new ArgumentNullException(nameof(numericGuard));
 		}
 
+		/// <summary>
+		/// Adds a new instance that implements a partial set of guard functionalities from <see cref="IStringGuardable"/>.
+		/// </summary>
+		/// <param name="stringGuard">The implementation of guard functions.</param>
 		public void New(IStringGuardable stringGuard)
 		{
 			String = stringGuard ?? throw new ArgumentNullException(nameof(stringGuard));
 		}
 
+		/// <summary>
+		/// Adds a new instance that implements a partial set of guard functionalities from <see cref="ICollectionGuardable"/>.
+		/// </summary>
+		/// <param name="collectionGuard">The implementation of guard functions.</param>
 		public void New(ICollectionGuardable collectionGuard)
 		{
 			Collection = collectionGuard ?? throw new ArgumentNullException(nameof(collectionGuard));

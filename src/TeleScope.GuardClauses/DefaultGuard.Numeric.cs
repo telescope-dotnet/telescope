@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using TeleScope.GuardClauses.Abstractions;
 
 namespace TeleScope.GuardClauses
@@ -24,12 +23,12 @@ namespace TeleScope.GuardClauses
 
 		public override T IsNot<T>(T input, string paramName = null, string message = null, params T[] comparators)
 		{
-			Null(input, paramName, message);		
+			Null(input, paramName, message);
 
-			foreach(var c in comparators)
+			foreach (var c in comparators)
 			{
 				compareOrThrow(c);
-			}	
+			}
 
 			return input;
 
@@ -88,7 +87,7 @@ namespace TeleScope.GuardClauses
 		{
 			Null(input, paramName, message);
 			Message = message ?? $"The `{Name}` must be larger than zero but is `{input}`.";
-		
+
 			if (input.CompareTo(Convert.ChangeType(0, input.GetType())) <= 0)
 			{
 				throw new ArgumentException(Message, Name);

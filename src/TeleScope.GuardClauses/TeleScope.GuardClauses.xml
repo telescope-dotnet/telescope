@@ -6,47 +6,119 @@
     <members>
         <member name="T:TeleScope.GuardClauses.Abstractions.GuardBase">
             <summary>
-            
+            This pure abstract base class implements all interfaces of guard functions
+            in order to provide a complete set of implementations for user-defined guard classes.
             </summary>
         </member>
         <member name="T:TeleScope.GuardClauses.Abstractions.IDefensiveGuardable">
             <summary>
-            This interface provides methods as contract for defensive guard clauses.
-            That means, the implemented methods should fail, if they approve the the statement of the method name.
+            This interface provides methods for defensive or basic guard clauses.
+            The implementation of these methods should fail, if they approve the statement of the method name.
             </summary>
         </member>
         <member name="M:TeleScope.GuardClauses.Abstractions.IDefensiveGuardable.Null``1(``0,System.String,System.String)">
             <summary>
-            The implementation must check the input against null and fail, if that is the case. 
+            The implementation shall check the input against null and fail, if that is the case. 
             </summary>
-            <typeparam name="T"></typeparam>
-            <param name="input"></param>
-            <param name="paramName"></param>
-            <param name="message"></param>
-            <returns></returns>
+            <typeparam name="T">The type param under test.</typeparam>
+            <param name="input">The instance under test.</param>
+            <param name="paramName">The optional parameter name under test.</param>
+            <param name="message">The optional exception message that wil be used, if the method implementation throws.</param>
+            <returns>The input data, if no exception will be thrown.</returns>
         </member>
         <member name="M:TeleScope.GuardClauses.Abstractions.IDefensiveGuardable.False(System.Boolean,System.String,System.String)">
             <summary>
-            The implementation must check the boolean input against `False` and fail, if that is the case. 
+            The implementation shall check the boolean input against `False` and fail, if that is the case. 
             </summary>
-            <param name="input"></param>
-            <param name="paramName"></param>
-            <param name="message"></param>
-            <returns></returns>
+            <param name="input">The instance under test.</param>
+            <param name="paramName">The optional parameter name under test.</param>
+            <param name="message">The optional exception message that wil be used, if the method implementation throws.</param>
+            <returns>The input data, if no exception will be thrown.</returns>
         </member>
         <member name="M:TeleScope.GuardClauses.Abstractions.IDefensiveGuardable.True(System.Boolean,System.String,System.String)">
             <summary>
-            The implementation must check the boolean input against `True` and fail, if that is the case. 
+            The implementation shall check the boolean input against `True` and fail, if that is the case. 
             </summary>
-            <param name="input"></param>
-            <param name="paramName"></param>
-            <param name="message"></param>
-            <returns></returns>
+            <param name="input">The instance under test.</param>
+            <param name="paramName">The optional parameter name under test.</param>
+            <param name="message">The optional exception message that wil be used, if the method implementation throws.</param>
+            <returns>The input data, if no exception will be thrown.</returns>
         </member>
         <member name="M:TeleScope.GuardClauses.Abstractions.IDefensiveGuardable.Unequality``1(``0,``0,System.String,System.String)">
             <summary>
-            The implementation must check the input against an unequal comparator
+            The implementation shall check the input against an unequal comparator
             and fail, if both instances are unequal. 
+            </summary>
+            <typeparam name="T">The type param under test.</typeparam>
+            <param name="input">The instance under test.</param>
+            <param name="comparator">The instance that shall be compared by an implementation of the method.</param>
+            <param name="paramName">The optional parameter name under test.</param>
+            <param name="message">The optional exception message that wil be used, if the method implementation throws.</param>
+            <returns>The input data, if no exception will be thrown.</returns>
+        </member>
+        <member name="M:TeleScope.GuardClauses.Abstractions.IDefensiveGuardable.Equality``1(``0,``0,System.String,System.String)">
+            <summary>
+            The implementation shall check the input against an equal comparator
+            and fail, if both instances are equal. 
+            </summary>
+            <typeparam name="T">The type param under test.</typeparam>
+            <param name="input">The instance under test.</param>
+            <param name="comparator">The instance that shall be compared by an implementation of the method.</param>
+            <param name="paramName">The optional parameter name under test.</param>
+            <param name="message">The optional exception message that wil be used, if the method implementation throws.</param>
+            <returns>The input data, if no exception will be thrown.</returns>
+        </member>
+        <member name="T:TeleScope.GuardClauses.Abstractions.INumericGuardable">
+            <summary>
+            This interface provides methods for numeric related guard clauses.
+            The implementation of these methods should succeed, if they approve the statement of the method name.
+            </summary>
+        </member>
+        <member name="M:TeleScope.GuardClauses.Abstractions.INumericGuardable.IsExact``1(``0,``0,System.String,System.String)">
+            <summary>
+            The implementation shall check, if the input number has exactly the same value of the comparator. 
+            </summary>
+            <typeparam name="T">The type param under test.</typeparam>
+            <param name="input">The instance under test.</param>
+            <param name="comparator">The instance that shall be compared by an implementation of the method.</param>
+            <param name="paramName">The optional parameter name under test.</param>
+            <param name="message">The optional exception message that wil be used, if the method implementation throws.</param>
+            <returns>The input data, if no exception will be thrown.</returns>
+        </member>
+        <member name="M:TeleScope.GuardClauses.Abstractions.INumericGuardable.IsNot``1(``0,System.String,System.String,``0[])">
+            <summary>
+            The implementation shall check, if the input number has exactly the same value of the comparator. 
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="input"></param>
+            <param name="paramName"></param>
+            <param name="message"></param>
+            <param name="comparators"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TeleScope.GuardClauses.Abstractions.INumericGuardable.IsNotZero``1(``0,System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="input"></param>
+            <param name="paramName"></param>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TeleScope.GuardClauses.Abstractions.INumericGuardable.IsLargerThanZero``1(``0,System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="input"></param>
+            <param name="paramName"></param>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TeleScope.GuardClauses.Abstractions.INumericGuardable.IsLarger``1(``0,``0,System.String,System.String)">
+            <summary>
+            
             </summary>
             <typeparam name="T"></typeparam>
             <param name="input"></param>
@@ -55,10 +127,9 @@
             <param name="message"></param>
             <returns></returns>
         </member>
-        <member name="M:TeleScope.GuardClauses.Abstractions.IDefensiveGuardable.Equality``1(``0,``0,System.String,System.String)">
+        <member name="M:TeleScope.GuardClauses.Abstractions.INumericGuardable.IsSmaller``1(``0,``0,System.String,System.String)">
             <summary>
-            The implementation must check the input against an equal comparator
-            and fail, if both instances are equal. 
+            
             </summary>
             <typeparam name="T"></typeparam>
             <param name="input"></param>
@@ -66,6 +137,30 @@
             <param name="paramName"></param>
             <param name="message"></param>
             <returns></returns>
+        </member>
+        <member name="T:TeleScope.GuardClauses.Abstractions.IStringGuardable">
+            <summary>
+            This interface provides methods for string related guard clauses.
+            The implementation of these methods should succeed, if they approve the statement of the method name.
+            </summary>
+        </member>
+        <member name="M:TeleScope.GuardClauses.Abstractions.IStringGuardable.IsNotNullOrEmpty(System.String,System.String,System.String)">
+            <summary>
+            The implementation shall check, if the input string is Null or an empty string. 
+            </summary>
+            <param name="input">The instance under test.</param>
+            <param name="paramName">The optional parameter name under test.</param>
+            <param name="message">The optional exception message that wil be used, if the method implementation throws.</param>
+            <returns>The input data, if no exception will be thrown.</returns>
+        </member>
+        <member name="M:TeleScope.GuardClauses.Abstractions.IStringGuardable.IsNotNullOrWhiteSpace(System.String,System.String,System.String)">
+            <summary>
+            The implementation shall check, if the input string is Null or a whitespace. 
+            </summary>
+            <param name="input">The instance under test.</param>
+            <param name="paramName">The optional parameter name under test.</param>
+            <param name="message">The optional exception message that wil be used, if the method implementation throws.</param>
+            <returns>The input data, if no exception will be thrown.</returns>
         </member>
         <member name="T:TeleScope.GuardClauses.DefaultGuard">
             <summary>
@@ -87,6 +182,32 @@
             The static class is the front door to all guard clauses that are provided via separate interfaces.
             </summary>
         </member>
+        <member name="P:TeleScope.GuardClauses.Guard.Against">
+            <summary>
+            Gets methods of guard clauses that are related to defensiv or basic statements.
+            </summary>
+        </member>
+        <member name="P:TeleScope.GuardClauses.Guard.Numeric">
+            <summary>
+            Gets methods of guard clauses that are related to numerics.
+            </summary>
+        </member>
+        <member name="P:TeleScope.GuardClauses.Guard.String">
+            <summary>
+            Gets methods of guard clauses that are related to strings.
+            </summary>
+        </member>
+        <member name="P:TeleScope.GuardClauses.Guard.Collection">
+            <summary>
+            Gets methods of guard clauses that are related to collections.
+            </summary>
+        </member>
+        <member name="M:TeleScope.GuardClauses.Guard.Provide">
+            <summary>
+            Calling this method will access the internal <see cref="T:TeleScope.GuardClauses.GuardProvider"/> that stores the implemented guard clauses. 
+            </summary>
+            <returns>The internal static instance of type <see cref="T:TeleScope.GuardClauses.GuardProvider"/>.</returns>
+        </member>
         <member name="T:TeleScope.GuardClauses.GuardProvider">
             <summary>
             This class collects all implementations of the different interfaces that provide guard clause functionalities.
@@ -102,7 +223,37 @@
             <summary>
             This constructor takes an implemenation of type <see cref="T:TeleScope.GuardClauses.DefaultGuard"/> and stores it internally.
             </summary>
-            <param name="guard">The user defined implementation of guard functions.</param>
+            <param name="guard">The implementation of guard functions.</param>
+        </member>
+        <member name="M:TeleScope.GuardClauses.GuardProvider.New(TeleScope.GuardClauses.Abstractions.GuardBase)">
+            <summary>
+            Adds a new instance that implements the full set of guard functionalities derived from <see cref="T:TeleScope.GuardClauses.Abstractions.GuardBase"/>.
+            </summary>
+            <param name="guard">The implementation of guard functions.</param>
+        </member>
+        <member name="M:TeleScope.GuardClauses.GuardProvider.New(TeleScope.GuardClauses.Abstractions.IDefensiveGuardable)">
+            <summary>
+            Adds a new instance that implements a partial set of guard functionalities from <see cref="T:TeleScope.GuardClauses.Abstractions.IDefensiveGuardable"/>.
+            </summary>
+            <param name="guard">The implementation of guard functions.</param>
+        </member>
+        <member name="M:TeleScope.GuardClauses.GuardProvider.New(TeleScope.GuardClauses.Abstractions.INumericGuardable)">
+            <summary>
+            Adds a new instance that implements a partial set of guard functionalities from <see cref="T:TeleScope.GuardClauses.Abstractions.INumericGuardable"/>.
+            </summary>
+            <param name="numericGuard">The implementation of guard functions.</param>
+        </member>
+        <member name="M:TeleScope.GuardClauses.GuardProvider.New(TeleScope.GuardClauses.Abstractions.IStringGuardable)">
+            <summary>
+            Adds a new instance that implements a partial set of guard functionalities from <see cref="T:TeleScope.GuardClauses.Abstractions.IStringGuardable"/>.
+            </summary>
+            <param name="stringGuard">The implementation of guard functions.</param>
+        </member>
+        <member name="M:TeleScope.GuardClauses.GuardProvider.New(TeleScope.GuardClauses.Abstractions.ICollectionGuardable)">
+            <summary>
+            Adds a new instance that implements a partial set of guard functionalities from <see cref="T:TeleScope.GuardClauses.Abstractions.ICollectionGuardable"/>.
+            </summary>
+            <param name="collectionGuard">The implementation of guard functions.</param>
         </member>
     </members>
 </doc>

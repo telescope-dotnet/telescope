@@ -10,6 +10,252 @@
             in order to provide a complete set of implementations for user-defined guard classes.
             </summary>
         </member>
+        <member name="M:TeleScope.GuardClauses.Abstractions.GuardBase.False(System.Boolean,System.String,System.String)">
+            <summary>
+            The implementation shall check the boolean input against `False` and fail, if that is the case. 
+            </summary>
+            <param name="input">The instance under test.</param>
+            <param name="paramName">The optional parameter name under test.</param>
+            <param name="message">The optional exception message that wil be used, if the method implementation throws.</param>
+            <returns>The input data, if no exception will be thrown.</returns>
+        </member>
+        <member name="M:TeleScope.GuardClauses.Abstractions.GuardBase.Null``1(``0,System.String,System.String)">
+            <summary>
+            The implementation shall check the input against null and fail, if that is the case. 
+            </summary>
+            <typeparam name="T">The type param under test.</typeparam>
+            <param name="input">The instance under test.</param>
+            <param name="paramName">The optional parameter name under test.</param>
+            <param name="message">The optional exception message that wil be used, if the method implementation throws.</param>
+            <returns>The input data, if no exception will be thrown.</returns>
+        </member>
+        <member name="M:TeleScope.GuardClauses.Abstractions.GuardBase.True(System.Boolean,System.String,System.String)">
+            <summary>
+            The implementation shall check the boolean input against `True` and fail, if that is the case. 
+            </summary>
+            <param name="input">The instance under test.</param>
+            <param name="paramName">The optional parameter name under test.</param>
+            <param name="message">The optional exception message that wil be used, if the method implementation throws.</param>
+            <returns>The input data, if no exception will be thrown.</returns>
+        </member>
+        <member name="M:TeleScope.GuardClauses.Abstractions.GuardBase.Equality``1(``0,``0,System.String,System.String)">
+            <summary>
+            The implementation shall check the input against an equal comparator
+            and fail, if both instances are equal. 
+            </summary>
+            <typeparam name="T">The type param under test.</typeparam>
+            <param name="input">The instance under test.</param>
+            <param name="comparator">The instance that shall be compared by an implementation of the method.</param>
+            <param name="paramName">The optional parameter name under test.</param>
+            <param name="message">The optional exception message that wil be used, if the method implementation throws.</param>
+            <returns>The input data, if no exception will be thrown.</returns>
+        </member>
+        <member name="M:TeleScope.GuardClauses.Abstractions.GuardBase.Unequality``1(``0,``0,System.String,System.String)">
+            <summary>
+            The implementation shall check the input against an unequal comparator
+            and fail, if both instances are unequal. 
+            </summary>
+            <typeparam name="T">The type param under test.</typeparam>
+            <param name="input">The instance under test.</param>
+            <param name="comparator">The instance that shall be compared by an implementation of the method.</param>
+            <param name="paramName">The optional parameter name under test.</param>
+            <param name="message">The optional exception message that wil be used, if the method implementation throws.</param>
+            <returns>The input data, if no exception will be thrown.</returns>
+        </member>
+        <member name="M:TeleScope.GuardClauses.Abstractions.GuardBase.IsExact``1(``0,``0,System.String,System.String)">
+            <summary>
+            The implementation shall check, if the input number has exactly the same value of the comparator. 
+            </summary>
+            <typeparam name="T">The type param under test.</typeparam>
+            <param name="input">The instance under test.</param>
+            <param name="comparator">The instance that shall be compared by an implementation of the method.</param>
+            <param name="paramName">The optional parameter name under test.</param>
+            <param name="message">The optional exception message that wil be used, if the method implementation throws.</param>
+            <returns>The input data, if no exception will be thrown.</returns>
+        </member>
+        <member name="M:TeleScope.GuardClauses.Abstractions.GuardBase.IsNot``1(``0,System.String,System.String,``0[])">
+            <summary>
+            The implementation shall check, if the input number has not the same value of the comparator. 
+            </summary>
+            <typeparam name="T">The type param under test.</typeparam>
+            <param name="input">The instance under test.</param>
+            <param name="paramName">The optional parameter name under test.</param>
+            <param name="message">The optional exception message that wil be used, if the method implementation throws.</param>
+            <param name="comparators">The potential multiple instance that shall be compared by an implementation of the method.</param>
+            <returns>The input data, if no exception will be thrown.</returns>
+        </member>
+        <member name="M:TeleScope.GuardClauses.Abstractions.GuardBase.IsLarger``1(``0,``0,System.String,System.String)">
+            <summary>
+            The implementation shall check, if the input number is larger than the comparator. 
+            </summary>
+            <typeparam name="T">The type param under test.</typeparam>
+            <param name="input">The instance under test.</param>
+            <param name="comparator">The instance that shall be compared by an implementation of the method.</param>
+            <param name="paramName">The optional parameter name under test.</param>
+            <param name="message">The optional exception message that wil be used, if the method implementation throws.</param>
+            <returns>The input data, if no exception will be thrown.</returns>
+        </member>
+        <member name="M:TeleScope.GuardClauses.Abstractions.GuardBase.IsLargerThanZero``1(``0,System.String,System.String)">
+            <summary>
+            The implementation shall check, if the input number is larger than zero. 
+            </summary>
+            <typeparam name="T">The type param under test.</typeparam>
+            <param name="input">The instance under test.</param>
+            <param name="paramName">The optional parameter name under test.</param>
+            <param name="message">The optional exception message that wil be used, if the method implementation throws.</param>
+            <returns>The input data, if no exception will be thrown.</returns>
+        </member>
+        <member name="M:TeleScope.GuardClauses.Abstractions.GuardBase.IsNotZero``1(``0,System.String,System.String)">
+            <summary>
+            The implementation shall check, if the input number is not zero. 
+            </summary>
+            <typeparam name="T">The type param under test.</typeparam>
+            <param name="input">The instance under test.</param>
+            <param name="paramName">The optional parameter name under test.</param>
+            <param name="message">The optional exception message that wil be used, if the method implementation throws.</param>
+            <returns>The input data, if no exception will be thrown.</returns>
+        </member>
+        <member name="M:TeleScope.GuardClauses.Abstractions.GuardBase.IsSmaller``1(``0,``0,System.String,System.String)">
+            <summary>
+            The implementation shall check, if the input number is smaller than the comparator. 
+            </summary>
+            <typeparam name="T">The type param under test.</typeparam>
+            <param name="input">The instance under test.</param>
+            <param name="comparator">The instance that shall be compared by an implementation of the method.</param>
+            <param name="paramName">The optional parameter name under test.</param>
+            <param name="message">The optional exception message that wil be used, if the method implementation throws.</param>
+            <returns>The input data, if no exception will be thrown.</returns>
+        </member>
+        <member name="M:TeleScope.GuardClauses.Abstractions.GuardBase.IsNotNullOrEmpty(System.String,System.String,System.String)">
+            <summary>
+            The implementation shall check, if the input string is Null or an empty string. 
+            </summary>
+            <param name="input">The instance under test.</param>
+            <param name="paramName">The optional parameter name under test.</param>
+            <param name="message">The optional exception message that wil be used, if the method implementation throws.</param>
+            <returns>The input data, if no exception will be thrown.</returns>
+        </member>
+        <member name="M:TeleScope.GuardClauses.Abstractions.GuardBase.IsNotNullOrWhiteSpace(System.String,System.String,System.String)">
+            <summary>
+            The implementation shall check, if the input string is Null or a whitespace. 
+            </summary>
+            <param name="input">The instance under test.</param>
+            <param name="paramName">The optional parameter name under test.</param>
+            <param name="message">The optional exception message that wil be used, if the method implementation throws.</param>
+            <returns>The input data, if no exception will be thrown.</returns>
+        </member>
+        <member name="M:TeleScope.GuardClauses.Abstractions.GuardBase.All``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Boolean},System.String,System.String)">
+            <summary>
+            The implementation shall check, if all elements of the input enumeration meet a predicate function. 
+            </summary>
+            <typeparam name="T">The type param under test.</typeparam>
+            <param name="input">The instance under test.</param>
+            <param name="predicate">The test function, every element must meet.</param>
+            <param name="paramName">The optional parameter name under test.</param>
+            <param name="message">The optional exception message that wil be used, if the method implementation throws.</param>
+            <returns>The input data, if no exception will be thrown.</returns>
+        </member>
+        <member name="M:TeleScope.GuardClauses.Abstractions.GuardBase.IsNotEmpty``1(System.Collections.Generic.IEnumerable{``0},System.String,System.String)">
+            <summary>
+            The implementation shall check, if the input enumeration is not empty. 
+            </summary>
+            <typeparam name="T">The type param under test.</typeparam>
+            <param name="input">The instance under test.</param>
+            <param name="paramName">The optional parameter name under test.</param>
+            <param name="message">The optional exception message that wil be used, if the method implementation throws.</param>
+            <returns>The input data, if no exception will be thrown.</returns>
+        </member>
+        <member name="M:TeleScope.GuardClauses.Abstractions.GuardBase.IsFilled``1(System.Collections.Generic.IEnumerable{``0},System.String,System.String)">
+            <summary>
+            The implementation shall check, if all elements of the input enumeration are not null. 
+            </summary>
+            <typeparam name="T">The type param under test.</typeparam>
+            <param name="input">The instance under test.</param>
+            <param name="paramName">The optional parameter name under test.</param>
+            <param name="message">The optional exception message that wil be used, if the method implementation throws.</param>
+            <returns>The input data, if no exception will be thrown.</returns>
+        </member>
+        <member name="M:TeleScope.GuardClauses.Abstractions.GuardBase.Contains``1(System.Collections.Generic.IEnumerable{``0},``0,System.String,System.String)">
+            <summary>
+            The implementation shall check, if the input enumeration contains a specific element. 
+            </summary>
+            <typeparam name="T">The type param under test.</typeparam>
+            <param name="input">The instance under test.</param>
+            <param name="item">The test item, used for compare opertations.</param>
+            <param name="paramName">The optional parameter name under test.</param>
+            <param name="message">The optional exception message that wil be used, if the method implementation throws.</param>
+            <returns>The input data, if no exception will be thrown.</returns>
+        </member>
+        <member name="M:TeleScope.GuardClauses.Abstractions.GuardBase.ContainsNot``1(System.Collections.Generic.IEnumerable{``0},``0,System.String,System.String)">
+            <summary>
+            The implementation shall check, if the input enumeration doesn't contain a specific element. 
+            </summary>
+            <typeparam name="T">The type param under test.</typeparam>
+            <param name="input">The instance under test.</param>
+            <param name="item">The test item, used for compare opertations.</param>
+            <param name="paramName">The optional parameter name under test.</param>
+            <param name="message">The optional exception message that wil be used, if the method implementation throws.</param>
+            <returns>The input data, if no exception will be thrown.</returns>
+        </member>
+        <member name="T:TeleScope.GuardClauses.Abstractions.ICollectionGuardable">
+            <summary>
+            This interface provides methods for <see cref="T:System.Collections.Generic.IEnumerable`1"/> related guard clauses.
+            The implementation of these methods should succeed, if they approve the statement of the method name.
+            </summary>
+        </member>
+        <member name="M:TeleScope.GuardClauses.Abstractions.ICollectionGuardable.All``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Boolean},System.String,System.String)">
+            <summary>
+            The implementation shall check, if all elements of the input enumeration meet a predicate function. 
+            </summary>
+            <typeparam name="T">The type param under test.</typeparam>
+            <param name="input">The instance under test.</param>
+            <param name="predicate">The test function, every element must meet.</param>
+            <param name="paramName">The optional parameter name under test.</param>
+            <param name="message">The optional exception message that wil be used, if the method implementation throws.</param>
+            <returns>The input data, if no exception will be thrown.</returns>
+        </member>
+        <member name="M:TeleScope.GuardClauses.Abstractions.ICollectionGuardable.IsNotEmpty``1(System.Collections.Generic.IEnumerable{``0},System.String,System.String)">
+            <summary>
+            The implementation shall check, if the input enumeration is not empty. 
+            </summary>
+            <typeparam name="T">The type param under test.</typeparam>
+            <param name="input">The instance under test.</param>
+            <param name="paramName">The optional parameter name under test.</param>
+            <param name="message">The optional exception message that wil be used, if the method implementation throws.</param>
+            <returns>The input data, if no exception will be thrown.</returns>
+        </member>
+        <member name="M:TeleScope.GuardClauses.Abstractions.ICollectionGuardable.IsFilled``1(System.Collections.Generic.IEnumerable{``0},System.String,System.String)">
+            <summary>
+            The implementation shall check, if all elements of the input enumeration are not null. 
+            </summary>
+            <typeparam name="T">The type param under test.</typeparam>
+            <param name="input">The instance under test.</param>
+            <param name="paramName">The optional parameter name under test.</param>
+            <param name="message">The optional exception message that wil be used, if the method implementation throws.</param>
+            <returns>The input data, if no exception will be thrown.</returns>
+        </member>
+        <member name="M:TeleScope.GuardClauses.Abstractions.ICollectionGuardable.Contains``1(System.Collections.Generic.IEnumerable{``0},``0,System.String,System.String)">
+            <summary>
+            The implementation shall check, if the input enumeration contains a specific element. 
+            </summary>
+            <typeparam name="T">The type param under test.</typeparam>
+            <param name="input">The instance under test.</param>
+            <param name="item">The test item, used for compare opertations.</param>
+            <param name="paramName">The optional parameter name under test.</param>
+            <param name="message">The optional exception message that wil be used, if the method implementation throws.</param>
+            <returns>The input data, if no exception will be thrown.</returns>
+        </member>
+        <member name="M:TeleScope.GuardClauses.Abstractions.ICollectionGuardable.ContainsNot``1(System.Collections.Generic.IEnumerable{``0},``0,System.String,System.String)">
+            <summary>
+            The implementation shall check, if the input enumeration doesn't contain a specific element. 
+            </summary>
+            <typeparam name="T">The type param under test.</typeparam>
+            <param name="input">The instance under test.</param>
+            <param name="item">The test item, used for compare opertations.</param>
+            <param name="paramName">The optional parameter name under test.</param>
+            <param name="message">The optional exception message that wil be used, if the method implementation throws.</param>
+            <returns>The input data, if no exception will be thrown.</returns>
+        </member>
         <member name="T:TeleScope.GuardClauses.Abstractions.IDefensiveGuardable">
             <summary>
             This interface provides methods for defensive or basic guard clauses.
@@ -87,56 +333,56 @@
         </member>
         <member name="M:TeleScope.GuardClauses.Abstractions.INumericGuardable.IsNot``1(``0,System.String,System.String,``0[])">
             <summary>
-            The implementation shall check, if the input number has exactly the same value of the comparator. 
+            The implementation shall check, if the input number has not the same value of the comparator. 
             </summary>
-            <typeparam name="T"></typeparam>
-            <param name="input"></param>
-            <param name="paramName"></param>
-            <param name="message"></param>
-            <param name="comparators"></param>
-            <returns></returns>
+            <typeparam name="T">The type param under test.</typeparam>
+            <param name="input">The instance under test.</param>
+            <param name="paramName">The optional parameter name under test.</param>
+            <param name="message">The optional exception message that wil be used, if the method implementation throws.</param>
+            <param name="comparators">The potential multiple instance that shall be compared by an implementation of the method.</param>
+            <returns>The input data, if no exception will be thrown.</returns>
         </member>
         <member name="M:TeleScope.GuardClauses.Abstractions.INumericGuardable.IsNotZero``1(``0,System.String,System.String)">
             <summary>
-            
+            The implementation shall check, if the input number is not zero. 
             </summary>
-            <typeparam name="T"></typeparam>
-            <param name="input"></param>
-            <param name="paramName"></param>
-            <param name="message"></param>
-            <returns></returns>
+            <typeparam name="T">The type param under test.</typeparam>
+            <param name="input">The instance under test.</param>
+            <param name="paramName">The optional parameter name under test.</param>
+            <param name="message">The optional exception message that wil be used, if the method implementation throws.</param>
+            <returns>The input data, if no exception will be thrown.</returns>
         </member>
         <member name="M:TeleScope.GuardClauses.Abstractions.INumericGuardable.IsLargerThanZero``1(``0,System.String,System.String)">
             <summary>
-            
+            The implementation shall check, if the input number is larger than zero. 
             </summary>
-            <typeparam name="T"></typeparam>
-            <param name="input"></param>
-            <param name="paramName"></param>
-            <param name="message"></param>
-            <returns></returns>
+            <typeparam name="T">The type param under test.</typeparam>
+            <param name="input">The instance under test.</param>
+            <param name="paramName">The optional parameter name under test.</param>
+            <param name="message">The optional exception message that wil be used, if the method implementation throws.</param>
+            <returns>The input data, if no exception will be thrown.</returns>
         </member>
         <member name="M:TeleScope.GuardClauses.Abstractions.INumericGuardable.IsLarger``1(``0,``0,System.String,System.String)">
             <summary>
-            
+            The implementation shall check, if the input number is larger than the comparator. 
             </summary>
-            <typeparam name="T"></typeparam>
-            <param name="input"></param>
-            <param name="comparator"></param>
-            <param name="paramName"></param>
-            <param name="message"></param>
-            <returns></returns>
+            <typeparam name="T">The type param under test.</typeparam>
+            <param name="input">The instance under test.</param>
+            <param name="comparator">The instance that shall be compared by an implementation of the method.</param>
+            <param name="paramName">The optional parameter name under test.</param>
+            <param name="message">The optional exception message that wil be used, if the method implementation throws.</param>
+            <returns>The input data, if no exception will be thrown.</returns>
         </member>
         <member name="M:TeleScope.GuardClauses.Abstractions.INumericGuardable.IsSmaller``1(``0,``0,System.String,System.String)">
             <summary>
-            
+            The implementation shall check, if the input number is smaller than the comparator. 
             </summary>
-            <typeparam name="T"></typeparam>
-            <param name="input"></param>
-            <param name="comparator"></param>
-            <param name="paramName"></param>
-            <param name="message"></param>
-            <returns></returns>
+            <typeparam name="T">The type param under test.</typeparam>
+            <param name="input">The instance under test.</param>
+            <param name="comparator">The instance that shall be compared by an implementation of the method.</param>
+            <param name="paramName">The optional parameter name under test.</param>
+            <param name="message">The optional exception message that wil be used, if the method implementation throws.</param>
+            <returns>The input data, if no exception will be thrown.</returns>
         </member>
         <member name="T:TeleScope.GuardClauses.Abstractions.IStringGuardable">
             <summary>

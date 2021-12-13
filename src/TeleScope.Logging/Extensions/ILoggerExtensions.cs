@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using Microsoft.Extensions.Logging;
 
 namespace TeleScope.Logging.Extensions
@@ -9,6 +10,16 @@ namespace TeleScope.Logging.Extensions
 	public static class ILoggerExtensions
 	{
 		// -- TRACE
+
+		/// <summary>
+		/// Writes a trace message with the calling member.
+		/// </summary>
+		/// <param name="logger">The calling instance.</param>
+		/// <param name="memberName">The client-side message that contains the calling member name.</param>
+		public static void Trace(this ILogger logger, [CallerMemberName] string memberName = "")
+		{
+			logger.LogTrace(memberName);
+		}
 
 		/// <summary>
 		/// Writes a trace message.

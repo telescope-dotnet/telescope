@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <Authors>TeleScope-dotnet members</Authors>
     <Company>TeleScope-dotnet</Company>
     <Description>Contains an implementation of the IReadable and IWritable interfaces to access yml files. Depends on the assemblies TeleScope.Persistence.Abstractions and YamlDotNet.</Description>

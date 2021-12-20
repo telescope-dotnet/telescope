@@ -11,7 +11,7 @@
         </member>
         <member name="M:TeleScope.Logging.Extensions.ILoggerExtensions.Trace(Microsoft.Extensions.Logging.ILogger,System.String)">
             <summary>
-             Writes a trace message with the calling member.
+            Writes a trace message with the calling member.
             </summary>
             <param name="logger">The calling instance.</param>
             <param name="memberName">The client-side message that contains the calling member name.</param>

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <Company>TeleScope-dotnet</Company>
     <Version>1.0.0</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>

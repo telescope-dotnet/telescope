@@ -7,8 +7,8 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/telescope-dotnet/telescope</PackageProjectUrl>
     <RepositoryUrl>https://github.com/telescope-dotnet/telescope</RepositoryUrl>
-    <AssemblyVersion>0.3.3.0</AssemblyVersion>
-    <Version>0.3.3</Version>
+    <AssemblyVersion></AssemblyVersion>
+    <Version>0.3.4</Version>
     <PackageTags>Mqtt, MQTTnet</PackageTags>
     <Description>Contains an implementation of the IConnectable interface for Mqtt. Depends on the assemblies TeleScope.Connectors.Mqtt.Abstractions and MQTTnet.</Description>
     <PackageIcon>logo-nuget.png</PackageIcon>
@@ -23,7 +23,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MQTTnet" Version="3.0.13" />
+    <PackageReference Include="MQTTnet" Version="3.1.1" />
   </ItemGroup>
 
   <ItemGroup>

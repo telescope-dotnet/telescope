@@ -13,10 +13,10 @@ jobs:
     
     steps:
     - uses: actions/checkout@v2
-    - name: Setup .NET Core
+    - name: Setup .NET 6 for publish docu
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.1.301
+        dotnet-version: '6.0.x'
     - uses: nikeee/docfx-action@v1.0.0
       name: Build Documentation
       with:

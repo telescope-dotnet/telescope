@@ -13,12 +13,12 @@ jobs:
         Projects: [Connectors.Abstractions, Connectors.Plc.Abstractions, Connectors.Plc.Siemens, Connectors.Mqtt.Abstractions, Connectors.Mqtt, Connectors.Http.Abstractions, Connectors.Http, Connectors.Smtp.Abstractions, Connectors.Smtp, Persistence.Abstractions, Persistence.Csv, Persistence.Json, Persistence.Parquet, Persistence.Yaml, UI.Cli, GuardClauses, Logging, Logging.Extensions.Serilog]
     steps:
       - uses: actions/checkout@v2
-        
+      - name: publish on version change        
       # Publish
-      - name: publish on version change
         id: publish_nuget
         uses: rohith/publish-nuget@v2
         with:
+          dotnet-version: '6.0.x'  
           # Filepath of the project to be packaged, relative to root of repository
           PROJECT_FILE_PATH: src/TeleScope.${{matrix.projects}}/TeleScope.${{matrix.projects}}.csproj
           

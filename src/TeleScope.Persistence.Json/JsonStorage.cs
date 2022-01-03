@@ -76,7 +76,7 @@ namespace TeleScope.Persistence.Json
 		public IEnumerable<T> Read()
 		{
 			T result;
-			using (StreamReader r = new StreamReader(setup.File))
+			using (StreamReader r = new(setup.File))
 			{
 				string input = r.ReadToEnd();
 				result = JsonConvert.DeserializeObject<T>(input, settings);

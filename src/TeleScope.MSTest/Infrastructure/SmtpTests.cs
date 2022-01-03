@@ -23,8 +23,8 @@ namespace TeleScope.MSTest.Infrastructure
 		public static void ClassInitialize(TestContext context)
 		{
 			/*
-             * add the "local.runsettings" as global runsettings file, if context has no data.
-             */
+			 * add the "local.runsettings" as global runsettings file, if context has no data.
+			 */
 			skip = bool.Parse(GetProperty(context, SKIP_SMTP_TESTS));
 		}
 
@@ -53,7 +53,6 @@ namespace TeleScope.MSTest.Infrastructure
 
 			// arrange
 			var address = "your.email@awesome.com";
-			var copy = "";
 			var password = "";
 			var credentials = new Secret(address, password);
 

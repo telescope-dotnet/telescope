@@ -232,7 +232,7 @@ namespace TeleScope.Connectors.Plc.Siemens
 		/// <returns>The result value of type T.</returns>
 		public T Read<T>()
 		{
-			T obj = default(T);
+			T obj = default;
 			Type type = typeof(T);
 			byte[] buffer;
 			int result = 0;

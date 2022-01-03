@@ -178,8 +178,10 @@ namespace TeleScope.Connectors.Smtp
 			try
 			{
 				var adresses = ValidateAndJoinAddresses(to);
-				var msg = new MailMessage();
-				msg.From = new MailAddress(from);
+				var msg = new MailMessage
+				{
+					From = new MailAddress(from)
+				};
 				msg.To.Add(adresses);
 				msg.Subject = subject;
 				msg.Body = body;
@@ -338,7 +340,7 @@ namespace TeleScope.Connectors.Smtp
 
 		// -- private helper 
 
-		private void ValidateAddress(string address)
+		private static void ValidateAddress(string address)
 		{
 			if (!new EmailAddressAttribute().IsValid(address))
 			{
@@ -346,7 +348,7 @@ namespace TeleScope.Connectors.Smtp
 			}
 		}
 
-		private string ValidateAndJoinAddresses(string[] addresses)
+		private static string ValidateAndJoinAddresses(string[] addresses)
 		{
 			foreach (var a in addresses)
 			{
@@ -385,7 +387,7 @@ namespace TeleScope.Connectors.Smtp
 
 			// local function
 
-			bool handled(Exception e)
+			static bool handled(Exception e)
 			{
 				return
 					e is ArgumentNullException ||

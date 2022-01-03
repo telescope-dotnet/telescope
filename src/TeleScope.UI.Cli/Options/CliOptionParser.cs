@@ -112,7 +112,7 @@ namespace TeleScope.UI.Cli.Options
 			}
 		}
 
-		private bool IsMismatch(CliAttribute attr, string arg)
+		private static bool IsMismatch(CliAttribute attr, string arg)
 		{
 			return !attr.Short.Equals(arg) && !attr.Long.Equals(arg);
 		}

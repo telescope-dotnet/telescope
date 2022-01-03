@@ -9,7 +9,7 @@
             This extension class shortens log method calls.
             </summary>
         </member>
-        <member name="M:TeleScope.Logging.Extensions.ILoggerExtensions.Trace(Microsoft.Extensions.Logging.ILogger,System.String)">
+        <member name="M:TeleScope.Logging.Extensions.ILoggerExtensions.TraceMemberName(Microsoft.Extensions.Logging.ILogger,System.String)">
             <summary>
             Writes a trace message with the calling member.
             </summary>

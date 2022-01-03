@@ -9,7 +9,7 @@ namespace TeleScope.GuardClauses
 	{
 		// -- fields
 
-		private static readonly GuardProvider provider = new GuardProvider();
+		private static readonly GuardProvider provider = new();
 
 		// -- properties
 

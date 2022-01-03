@@ -64,7 +64,7 @@ namespace TeleScope.Persistence.Csv
 		/// <returns>The resulting data objects of type T.</returns>
 		public IEnumerable<T> Read()
 		{
-			List<T> result = new List<T>();
+			List<T> result = new();
 
 			string[] lines = File.ReadAllLines(setup.File);
 

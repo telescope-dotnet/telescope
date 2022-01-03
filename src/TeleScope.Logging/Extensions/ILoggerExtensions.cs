@@ -16,7 +16,7 @@ namespace TeleScope.Logging.Extensions
 		/// </summary>
 		/// <param name="logger">The calling instance.</param>
 		/// <param name="memberName">The client-side message that contains the calling member name.</param>
-		public static void Trace(this ILogger logger, [CallerMemberName] string memberName = "")
+		public static void TraceMember(this ILogger logger, [CallerMemberName] string memberName = "")
 		{
 			logger.LogTrace(memberName);
 		}

@@ -59,7 +59,7 @@ namespace TeleScope.MSTest.Logging
 			// assert
 			Assert.IsTrue(log != null, "The log was inactive");
 
-			log.Trace();
+			log.TraceMember();
 			log.Trace("Tracing log");
 			log.Debug("Debug log with params: {0} {1} {2}", 1, 2, 3);
 			log.Info("Info log with source: {0}", this);

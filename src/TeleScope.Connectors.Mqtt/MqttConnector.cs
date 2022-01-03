@@ -308,18 +308,14 @@ namespace TeleScope.Connectors.Mqtt
 					.Build());
 		}
 
-		private MqttQualityOfServiceLevel GetQoS(int qos)
+		private static MqttQualityOfServiceLevel GetQoS(int qos)
 		{
-			switch (qos)
+			return qos switch
 			{
-				case 2:
-					return MqttQualityOfServiceLevel.ExactlyOnce;
-				case 1:
-					return MqttQualityOfServiceLevel.AtLeastOnce;
-				case 0:
-				default:
-					return MqttQualityOfServiceLevel.AtMostOnce;
-			}
+				2 => MqttQualityOfServiceLevel.ExactlyOnce,
+				1 => MqttQualityOfServiceLevel.AtLeastOnce,
+				_ => MqttQualityOfServiceLevel.AtMostOnce,
+			};
 		}
 	}
 }

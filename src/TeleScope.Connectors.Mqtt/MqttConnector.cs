@@ -249,10 +249,10 @@ namespace TeleScope.Connectors.Mqtt
 			client.UseConnectedHandler(async e => await Task.Run(() =>
 			{
 
-				if (e.AuthenticateResult.ResultCode != MqttClientConnectResultCode.Success)
+				if (e.ConnectResult.ResultCode != MqttClientConnectResultCode.Success)
 				{
 					Failed?.Invoke(this,
-						new ConnectorFailedEventArgs(setup.Name, e.AuthenticateResult.ResultCode.ToString()));
+						new ConnectorFailedEventArgs(setup.Name, e.ConnectResult.ResultCode.ToString()));
 				}
 
 				Connected?.Invoke(this, new ConnectorEventArgs(setup.Name));

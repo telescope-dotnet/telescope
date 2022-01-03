@@ -1,14 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <Authors>TeleScope-dotnet members</Authors>
     <Company>TeleScope-dotnet</Company>
     <Description>Contains an implementation of the IReadable and IWritable interfaces to access yml files. Depends on the assemblies TeleScope.Persistence.Abstractions and YamlDotNet.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/telescope-dotnet/telescope</PackageProjectUrl>
     <PackageTags>Persistence,Yaml, Yml, YamlDotNet</PackageTags>
-    <Version>1.0.0</Version>
+    <Version>2.0.0</Version>
     <PackageIcon>logo-nuget.png</PackageIcon>
     <RepositoryUrl>https://github.com/telescope-dotnet/telescope</RepositoryUrl>
     <PackageReleaseNotes></PackageReleaseNotes>
@@ -23,7 +23,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="YamlDotNet" Version="9.1.4" />
+    <PackageReference Include="YamlDotNet" Version="11.2.1" />
   </ItemGroup>
 
   <ItemGroup>

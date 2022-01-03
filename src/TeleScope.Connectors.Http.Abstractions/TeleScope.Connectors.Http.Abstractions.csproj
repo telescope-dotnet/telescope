@@ -1,8 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>1.0.0</Version>
+    <TargetFramework>net6.0</TargetFramework>
+    <Version>2.0.0</Version>
     <Authors>TeleScope-dotnet members</Authors>
     <Company>TeleScope-dotnet</Company>
     <Description>Contains further abstractions and interfaces to implement HTTP connectors. Depends on the assembly TeleScope.Connectors.Abstractions.</Description>

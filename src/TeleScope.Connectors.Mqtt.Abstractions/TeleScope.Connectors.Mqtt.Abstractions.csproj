@@ -1,16 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <Authors>TeleScope-dotnet members</Authors>
     <Company>TeleScope-dotnet</Company>
-    <Version>0.3.3</Version>
+    <Version>2.0.0</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/telescope-dotnet/telescope</PackageProjectUrl>
     <PackageTags>Abstractions, MQTT</PackageTags>
     <PackageIcon>logo-nuget.png</PackageIcon>
     <RepositoryUrl>https://github.com/telescope-dotnet/telescope</RepositoryUrl>
     <Description>Contains further abstractions and interfaces to implement MQTT connectors. Depends on the assembly TeleScope.Connectors.Abstractions.</Description>
+    <PackageReleaseNotes>beta version</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

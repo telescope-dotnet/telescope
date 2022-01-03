@@ -32,6 +32,9 @@ jobs:
     - name: Test
       run: dotnet test --configuration Release --no-restore --settings ${{env.test-settings}} --verbosity normal
   
+  
+
+  
   scan:
     name: Scan    
     runs-on: windows-latest

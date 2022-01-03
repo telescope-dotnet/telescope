@@ -116,13 +116,10 @@ namespace TeleScope.Connectors.Http
 
 			client.BaseAddress = endpoint.Address;
 
-			HttpWebRequest request = (HttpWebRequest)WebRequest.Create(client.BaseAddress);
-			request.Timeout = TIMEOUT;
-			request.Method = "HEAD";
-
 			try
 			{
-				using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+
+				using (HttpResponseMessage response = client.SendAsync(new HttpRequestMessage(HttpMethod.Head, client.BaseAddress)).Result)
 				{
 					if (response.StatusCode == HttpStatusCode.OK)
 					{
@@ -130,13 +127,13 @@ namespace TeleScope.Connectors.Http
 					}
 					else
 					{
-						throw new WebException(response.StatusDescription);
+						throw new WebException(response.ReasonPhrase);
 					}
 				}
 			}
 			catch (WebException wex)
 			{
-				log.Trace(wex, $"Http connection failed for {request.Method}: '{client.BaseAddress.AbsoluteUri}'.");
+				log.Trace(wex, $"Http connection failed for: '{client.BaseAddress.AbsoluteUri}'.");
 				Failed?.Invoke(this, new ConnectorFailedEventArgs(wex, client.BaseAddress.AbsoluteUri));
 			}
 

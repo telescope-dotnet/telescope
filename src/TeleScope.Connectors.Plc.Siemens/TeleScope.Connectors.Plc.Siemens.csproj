@@ -1,21 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>0.3.3</Version>
+    <TargetFramework>net6.0</TargetFramework>
+    <Version>2.0.0</Version>
     <PackageIcon>logo-nuget.png</PackageIcon>
     <Company>TeleScope-dotnet</Company>
     <RepositoryUrl>https://github.com/telescope-dotnet/telescope</RepositoryUrl>
     <PackageProjectUrl>https://github.com/telescope-dotnet/telescope</PackageProjectUrl>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <PackageReleaseNotes></PackageReleaseNotes>
+    <PackageReleaseNotes>beta version</PackageReleaseNotes>
     <PackageTags>Siemens, Sharp7</PackageTags>
     <Description>Contains an implementation of the IConnectable interface for the Siemens S7 protocol. Depends on the assembly TeleScope.Connectors.Plc.Abstractions and Sharp7.</Description>
     <Authors>TeleScope-dotnet members</Authors>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Sharp7" Version="1.1.75" />
+    <PackageReference Include="Sharp7" Version="1.1.79" />
   </ItemGroup>
 
   <ItemGroup>

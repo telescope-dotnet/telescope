@@ -9,6 +9,7 @@ namespace TeleScope.Logging.Extensions
 	/// </summary>
 	public static class ILoggerExtensions
 	{
+
 		// -- TRACE
 
 		/// <summary>
@@ -18,7 +19,8 @@ namespace TeleScope.Logging.Extensions
 		/// <param name="memberName">The client-side message that contains the calling member name.</param>
 		public static void TraceMember(this ILogger logger, [CallerMemberName] string memberName = "")
 		{
-			logger.LogTrace(memberName);
+			if (logger.IsEnabled(LogLevel.Trace))
+				logger.LogTrace(memberName);
 		}
 
 		/// <summary>
@@ -30,7 +32,8 @@ namespace TeleScope.Logging.Extensions
 		/// <param name="args">An array of objects that will to be logged.</param>
 		public static void Trace(this ILogger logger, Exception ex, string message, params object[] args)
 		{
-			logger.LogTrace(ex, message, args);
+			if (logger.IsEnabled(LogLevel.Trace))
+				logger.LogTrace(ex, message, args);
 		}
 		/// <summary>
 		/// Writes a trace message.
@@ -40,7 +43,8 @@ namespace TeleScope.Logging.Extensions
 		/// <param name="args">An array of objects that will to be logged.</param>
 		public static void Trace(this ILogger logger, string message, params object[] args)
 		{
-			logger.LogTrace(message, args);
+			if (logger.IsEnabled(LogLevel.Trace))
+				logger.LogTrace(message, args);
 		}
 
 		/// <summary>
@@ -50,7 +54,8 @@ namespace TeleScope.Logging.Extensions
 		/// <param name="data">A data object whose string representation will be logged.</param>
 		public static void Trace(this ILogger logger, object data)
 		{
-			logger.LogTrace(data.ToString());
+			if (logger.IsEnabled(LogLevel.Trace))
+				logger.LogTrace(data.ToString());
 		}
 
 		// -- DEBUG
@@ -64,7 +69,8 @@ namespace TeleScope.Logging.Extensions
 		/// <param name="args">An array of objects that will to be logged.</param>
 		public static void Debug(this ILogger logger, Exception ex, string message, params object[] args)
 		{
-			logger.LogDebug(ex, message, args);
+			if (logger.IsEnabled(LogLevel.Debug)) 
+				logger.LogDebug(ex, message, args);
 		}
 
 		/// <summary>
@@ -75,7 +81,8 @@ namespace TeleScope.Logging.Extensions
 		/// <param name="args">An array of objects that will to be logged.</param>
 		public static void Debug(this ILogger logger, string message, params object[] args)
 		{
-			logger.LogDebug(message, args);
+			if (logger.IsEnabled(LogLevel.Debug))
+				logger.LogDebug(message, args);
 		}
 
 		/// <summary>
@@ -85,7 +92,8 @@ namespace TeleScope.Logging.Extensions
 		/// <param name="data">A data object whose string representation will be logged.</param>
 		public static void Debug(this ILogger logger, object data)
 		{
-			logger.LogDebug(data.ToString());
+			if (logger.IsEnabled(LogLevel.Debug))
+				logger.LogDebug(data.ToString());
 		}
 
 		// -- INFO
@@ -99,7 +107,8 @@ namespace TeleScope.Logging.Extensions
 		/// <param name="args">An array of objects that will to be logged.</param>
 		public static void Info(this ILogger logger, Exception ex, string message, params object[] args)
 		{
-			logger.LogInformation(ex, message, args);
+			if (logger.IsEnabled(LogLevel.Information))
+				logger.LogInformation(ex, message, args);
 		}
 
 		/// <summary>
@@ -110,7 +119,8 @@ namespace TeleScope.Logging.Extensions
 		/// <param name="args">An array of objects that will to be logged.</param>
 		public static void Info(this ILogger logger, string message, params object[] args)
 		{
-			logger.LogInformation(message, args);
+			if (logger.IsEnabled(LogLevel.Information))
+				logger.LogInformation(message, args);
 		}
 
 		/// <summary>
@@ -120,7 +130,8 @@ namespace TeleScope.Logging.Extensions
 		/// <param name="data">A data object whose string representation will be logged.</param>
 		public static void Info(this ILogger logger, object data)
 		{
-			logger.LogInformation(data.ToString());
+			if (logger.IsEnabled(LogLevel.Information))
+				logger.LogInformation(data.ToString());
 		}
 
 		// -- WARN
@@ -134,7 +145,8 @@ namespace TeleScope.Logging.Extensions
 		/// <param name="args">An array of objects that will to be logged.</param>
 		public static void Warn(this ILogger logger, Exception ex, string message, params object[] args)
 		{
-			logger.LogWarning(ex, message, args);
+			if (logger.IsEnabled(LogLevel.Warning))
+				logger.LogWarning(ex, message, args);
 		}
 
 		/// <summary>
@@ -145,7 +157,8 @@ namespace TeleScope.Logging.Extensions
 		/// <param name="args">An array of objects that will to be logged.</param>
 		public static void Warn(this ILogger logger, string message, params object[] args)
 		{
-			logger.LogWarning(message, args);
+			if (logger.IsEnabled(LogLevel.Warning))
+				logger.LogWarning(message, args);
 		}
 
 		/// <summary>
@@ -155,7 +168,8 @@ namespace TeleScope.Logging.Extensions
 		/// <param name="data">A data object whose string representation will be logged.</param>
 		public static void Warn(this ILogger logger, object data)
 		{
-			logger.LogWarning(data.ToString());
+			if (logger.IsEnabled(LogLevel.Warning))
+				logger.LogWarning(data.ToString());
 		}
 
 		// -- ERROR
@@ -169,7 +183,8 @@ namespace TeleScope.Logging.Extensions
 		/// <param name="args">An array of objects that will to be logged.</param>
 		public static void Error(this ILogger logger, Exception ex, string message, params object[] args)
 		{
-			logger.LogError(ex, message, args);
+			if (logger.IsEnabled(LogLevel.Error))
+				logger.LogError(ex, message, args);
 		}
 
 		/// <summary>
@@ -180,7 +195,8 @@ namespace TeleScope.Logging.Extensions
 		/// <param name="args">An array of objects that will to be logged.</param>
 		public static void Error(this ILogger logger, string message, params object[] args)
 		{
-			logger.LogError(message, args);
+			if (logger.IsEnabled(LogLevel.Error))
+				logger.LogError(message, args);
 		}
 
 		/// <summary>
@@ -190,7 +206,8 @@ namespace TeleScope.Logging.Extensions
 		/// <param name="data">A data object whose string representation will be logged.</param>
 		public static void Error(this ILogger logger, object data)
 		{
-			logger.LogError(data.ToString());
+			if (logger.IsEnabled(LogLevel.Error))
+				logger.LogError(data.ToString());
 		}
 
 		// -- CRITICAL
@@ -202,7 +219,8 @@ namespace TeleScope.Logging.Extensions
 		/// <param name="ex">The exception that will to be logged.</param>
 		public static void Critical(this ILogger logger, Exception ex)
 		{
-			logger.LogCritical(ex, ex.Message);
+			if (logger.IsEnabled(LogLevel.Critical))
+				logger.LogCritical(ex, ex.Message);
 		}
 
 		/// <summary>
@@ -214,7 +232,8 @@ namespace TeleScope.Logging.Extensions
 		/// <param name="args">An array of objects that will to be logged.</param>
 		public static void Critical(this ILogger logger, Exception ex, string message, params object[] args)
 		{
-			logger.LogCritical(ex, message, args);
+			if (logger.IsEnabled(LogLevel.Critical))
+				logger.LogCritical(ex, message, args);
 		}
 
 		/// <summary>
@@ -225,7 +244,8 @@ namespace TeleScope.Logging.Extensions
 		/// <param name="args">An array of objects that will to be logged.</param>
 		public static void Critical(this ILogger logger, string message, params object[] args)
 		{
-			logger.LogCritical(message, args);
+			if (logger.IsEnabled(LogLevel.Critical))
+				logger.LogCritical(message, args);
 		}
 
 		/// <summary>
@@ -235,7 +255,8 @@ namespace TeleScope.Logging.Extensions
 		/// <param name="data">A data object whose string representation will be logged.</param>
 		public static void Critical(this ILogger logger, object data)
 		{
-			logger.LogCritical(data.ToString());
+			if (logger.IsEnabled(LogLevel.Critical))
+				logger.LogCritical(data.ToString());
 		}
 	}
 }

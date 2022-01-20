@@ -45,7 +45,7 @@ namespace TeleScope.MSTest.Logging
 		}
 
 		[TestMethod]
-		public void TestGenericLog()
+		public void TestGenericLog()	
 		{
 			// arrange
 			var log = LoggingProvider.CreateLogger<LoggingTests>();

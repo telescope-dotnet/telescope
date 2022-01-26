@@ -18,10 +18,10 @@ namespace TeleScope.GuardClauses
 
 			if (!input.All(predicate))
 			{
-				Message = message ?? $"The collection `{paramName}` does not satisfy the condition for all elements.";
-				throw new ArgumentException(Name, Message);
+				var name = paramName ?? nameof(input);
+				var msg = message ?? $"The collection `{paramName}` does not satisfy the condition for all elements.";
+				throw new ArgumentException(name, msg);
 			}
-
 			return input;
 		}
 
@@ -31,8 +31,9 @@ namespace TeleScope.GuardClauses
 
 			if (!input.Any())
 			{
-				Message = message ?? $"The collection `{paramName}` contains no elements.";
-				throw new ArgumentException(Name, Message);
+				var name = paramName ?? nameof(input);
+				var msg = message ?? $"The collection `{paramName}` contains no elements.";
+				throw new ArgumentException(name, msg);
 			}
 			return input;
 		}
@@ -44,45 +45,43 @@ namespace TeleScope.GuardClauses
 			int i = 0;
 			foreach (T item in input)
 			{
-				Message = message ?? $"The collection `{paramName}` has an empty item at index {i}.";
+				var name = paramName ?? nameof(input);
+				var msg = message ?? $"The collection `{paramName}` has an empty item at index {i}.";
 
 				if (item is null)
 				{
-					throw new ArgumentNullException(Name, Message);
+					throw new ArgumentNullException(name, msg);
 				}
 				else if (item is string)
 				{
-					_ = IsNotNullOrEmpty(item as string, Name, Message);
+					_ = IsNotNullOrEmpty(item as string, name, msg);
 				}
 				i++;
 			}
-
 			return input;
 		}	
 
 		public override IEnumerable<T> Contains<T>(IEnumerable<T> input, T item, string paramName = null, string message = null)
 		{
 			_ = Null(input, paramName, message);
-
 			if (!input.Contains(item))
 			{
-				Message = message ?? $"The collection `{paramName}` should have contained the element `{item}`.";
-				throw new ArgumentException(Name, Message);
+				var name = paramName ?? nameof(input);
+				var msg = message ?? $"The collection `{paramName}` should have contained the element `{item}`.";
+				throw new ArgumentException(name, msg);
 			}
-
 			return input;
 		}
 
 		public override IEnumerable<T> ContainsNot<T>(IEnumerable<T> input, T item, string paramName = null, string message = null)
 		{
 			_ = Null(input, paramName, message);
-
 			if (input.Contains(item))
 			{
-				Message = message ?? $"The collection `{paramName}` must not contain the element `{item}`.";
-				throw new ArgumentException(Name, Message);
+				var name = paramName ?? nameof(input);
+				var msg = message ?? $"The collection `{paramName}` must not contain the element `{item}`.";
+				throw new ArgumentException(name, msg);
 			}
-
 			return input;
 		}
 	}

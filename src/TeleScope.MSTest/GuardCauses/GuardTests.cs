@@ -54,7 +54,7 @@ namespace TeleScope.MSTest.Entities
 
 			// act & assert
 
-			TryAndCatch(() => Guard.Against.Null(myNull, nameof(myNull)));
+			TryAndCatch(() => Guard.Against.Null(myNull));
 			TryAndCatch(() => Guard.Against.False(myFalse, nameof(myFalse), "Hey the guard protected us against False."));
 			TryAndCatch(() => Guard.Against.True(myTrue, nameof(myTrue), "Hey the guard protected us against True."));
 			TryAndCatch(() => Guard.Against.Equality(myZeroSpan, TimeSpan.Zero, nameof(myTrue), "Hey the guard protected us against two equal time spans."));
@@ -80,6 +80,7 @@ namespace TeleScope.MSTest.Entities
 			try
 			{
 				action();
+				Assert.Fail("The action should have caused an exception");
 			}
 			catch (Exception ex)
 			{

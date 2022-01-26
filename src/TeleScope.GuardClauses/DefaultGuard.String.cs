@@ -10,27 +10,25 @@ namespace TeleScope.GuardClauses
 	{
 		public override string IsNotNullOrEmpty(string input, string paramName = null, string message = null)
 		{
-			Null(input, paramName, message);
-			Message = message ?? $"The `{paramName}` must not be empty.";
-
+			_ = Null(input, paramName, message);
 			if (string.IsNullOrEmpty(input))
 			{
-				throw new ArgumentException(Message, Name);
+				var name = paramName ?? nameof(input);
+				var msg = message ?? $"The `{paramName}` must not be empty.";
+				throw new ArgumentException(msg, name);
 			}
-
 			return input;
 		}
 
 		public override string IsNotNullOrWhiteSpace(string input, string paramName = null, string message = null)
 		{
-			Null(input, paramName, message);
-			Message = message ?? $"The `{paramName}` must not be a whitespace.";
-
+			_ = Null(input, paramName, message);
 			if (string.IsNullOrWhiteSpace(input))
 			{
-				throw new ArgumentException(Message, Name);
+				var name = paramName ?? nameof(input);
+				var msg = message ?? $"The `{paramName}` must not be a whitespace.";
+				throw new ArgumentException(msg, name);
 			}
-
 			return input;
 		}
 	}

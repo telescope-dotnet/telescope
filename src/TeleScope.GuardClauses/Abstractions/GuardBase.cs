@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Mail;
+using TeleScope.GuardClauses.Enumerations;
 
 namespace TeleScope.GuardClauses.Abstractions
 {
@@ -151,6 +153,68 @@ namespace TeleScope.GuardClauses.Abstractions
 		/// <param name="message">The optional exception message that wil be used, if the method implementation throws.</param>
 		/// <returns>The input data, if no exception will be thrown.</returns>
 		public abstract string IsNotNullOrWhiteSpace(string input, string paramName = null, string message = null);
+
+		/// <summary>
+		/// The implementation shall check, if the input string is a valid email address. 
+		/// </summary>
+		/// <param name="input">The instance under test.</param>
+		/// <param name="paramName">The optional parameter name under test.</param>
+		/// <param name="message">The optional exception message that wil be used, if the method implementation throws.</param>
+		/// <returns>The input data, if no exception will be thrown.</returns>
+		public abstract string IsMailAddress(string input, string paramName = null, string message = null);
+
+		/// <summary>
+		/// The implementation shall check, if the input string is a valid email address. 
+		/// </summary>
+		/// <param name="input">The instance under test.</param>
+		/// <param name="paramName">The optional parameter name under test.</param>
+		/// <param name="message">The optional exception message that wil be used, if the method implementation throws.</param>
+		/// <returns>The input data as <see cref="MailAddress"/>, if no exception will be thrown.</returns>
+		public abstract MailAddress ToMailAddress(string input, string paramName = null, string message = null);
+
+		/// <summary>
+		/// The implementation shall check, if the input string is a valid IP address. 
+		/// </summary>
+		/// <param name="input">The instance under test.</param>
+		/// <param name="protocol">The protocol version that needs to match during the guard precedure. 
+		/// The default value is <see cref="InternetProtocols.IPv4"/>.</param>
+		/// <param name="paramName">The optional parameter name under test.</param>
+		/// <param name="message">The optional exception message that wil be used, if the method implementation throws.</param>
+		/// <returns>The input data, if no exception will be thrown.</returns>
+		public abstract string IsIpAddress(
+			string input,
+			InternetProtocols protocol = InternetProtocols.IPv4,
+			string paramName = null,
+			string message = null);
+
+		/// <summary>
+		/// The implementation shall check, if the input string is a valid Uri.
+		/// </summary>
+		/// <param name="input">The instance under test.</param>
+		/// <param name="kind">The uri kind. The default value is <see cref="UriKind.RelativeOrAbsolute"/>.</param>
+		/// <param name="paramName">The optional parameter name under test.</param>
+		/// <param name="message">The optional exception message that wil be used, if the method implementation throws.</param>
+		/// <returns>The input data, if no exception will be thrown.</returns>
+		public abstract string IsUri(string input, UriKind kind = UriKind.RelativeOrAbsolute, string paramName = null, string message = null);
+
+		/// <summary>
+		/// The implementation shall check, if the input string is a valid Uri.
+		/// </summary>
+		/// <param name="input">The instance under test.</param>
+		/// <param name="paramName">The optional parameter name under test.</param>
+		/// <param name="message">The optional exception message that wil be used, if the method implementation throws.</param>
+		/// <returns>The input data, if no exception will be thrown.</returns>
+		public abstract string IsWebUri(string input, string paramName = null, string message = null);
+
+		/// <summary>
+		/// The implementation shall check, if the input string is a valid Uri and 
+		/// shall convert the value into an <see cref="Uri"/> in a successful case. 
+		/// </summary>
+		/// <param name="input">The instance under test.</param>
+		/// <param name="paramName">The optional parameter name under test.</param>
+		/// <param name="message">The optional exception message that wil be used, if the method implementation throws.</param>
+		/// <returns>The input data, if no exception will be thrown.</returns>
+		public abstract Uri ToUri(string input, string paramName = null, string message = null);
 
 		// -- collection clauses
 

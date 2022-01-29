@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Text;
 using TeleScope.Persistence.Abstractions;
+using YamlDotNet.Serialization;
 
 namespace TeleScope.Persistence.Yaml
 {
@@ -16,6 +17,12 @@ namespace TeleScope.Persistence.Yaml
 		/// Gets or sets the encoding of the file.
 		/// </summary>
 		public Encoding Encoder { get; set; }
+
+		/// <summary>
+		/// Gets or sets the value handing for default or null values.
+		/// The default value is <see cref="DefaultValuesHandling.OmitNull"/>.
+		/// </summary>
+		public DefaultValuesHandling ValueHandling { get; set; }
 
 		// -- constructor
 
@@ -33,6 +40,7 @@ namespace TeleScope.Persistence.Yaml
 		{
 
 			Encoder = Encoding.UTF8;
+			ValueHandling = DefaultValuesHandling.OmitNull;
 		}
 	}
 }

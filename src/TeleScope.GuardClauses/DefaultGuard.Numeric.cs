@@ -10,26 +10,23 @@ namespace TeleScope.GuardClauses
 	{
 		public override T IsExact<T>(T input, T comparator, string paramName = null, string message = null)
 		{
-			Null(input, paramName, message);
-			Message = message ?? $"The `{Name}` must have a value of `{comparator}` but  is `{input}`.";
-
+			_ = Null(input, paramName, message);
 			if (input.CompareTo(comparator) != 0)
 			{
-				throw new ArgumentException(Message, Name);
+				var name = paramName ?? nameof(input);
+				var msg = message ?? $"The `{name}` must have a value of `{comparator}` but  is `{input}`.";
+				throw new ArgumentException(msg, name);
 			}
-
 			return input;
 		}
 
 		public override T IsNot<T>(T input, string paramName = null, string message = null, params T[] comparators)
 		{
-			Null(input, paramName, message);
-
+			_ = Null(input, paramName, message);
 			foreach (var c in comparators)
 			{
 				compareOrThrow(c);
 			}
-
 			return input;
 
 			// -- local functions
@@ -38,61 +35,58 @@ namespace TeleScope.GuardClauses
 			{
 				if (input.CompareTo(comparator) == 0)
 				{
-					Message = message ?? $"The `{Name}` must NOT have a value of `{comparator}` but  is `{input}`.";
-					throw new ArgumentException(Message, Name);
+					var name = paramName ?? nameof(input);
+					var msg = message ?? $"The `{name}` must NOT have a value of `{comparator}` but  is `{input}`.";
+					throw new ArgumentException(msg, name);
 				}
 			}
 		}
 
 		public override T IsNotZero<T>(T input, string paramName = null, string message = null)
 		{
-			Null(input, paramName, message);
-			Message = message ?? $"The `{Name}` must not be zero.";
-
+			_ = Null(input, paramName, message);
 			if (input.CompareTo(Convert.ChangeType(0, input.GetType())) == 0)
 			{
-				throw new ArgumentException(Message, Name);
+				var name = paramName ?? nameof(input);
+				var msg = message ?? $"The `{name}` must not be zero.";
+				throw new ArgumentException(msg, name);
 			}
-
 			return input;
 		}
 
 		public override T IsSmaller<T>(T input, T comparator, string paramName = null, string message = null)
 		{
-			Null(input, paramName, message);
-			Message = message ?? $"The `{Name}` must be larger than {comparator}, but it was {input}.";
-
+			_ = Null(input, paramName, message);
 			if (input.CompareTo(comparator) > 0)
 			{
-				throw new ArgumentException(Message, Name);
+				var name = paramName ?? nameof(input);
+				var msg = message ?? $"The `{name}` must be larger than {comparator}, but it was {input}.";
+				throw new ArgumentException(msg, name);
 			}
-
 			return input;
 		}
 
 		public override T IsLarger<T>(T input, T comparator, string paramName = null, string message = null)
 		{
-			Null(input, paramName, message);
-			Message = message ?? $"The `{Name}` must be smaller than {comparator}, but it was {input}.";
-
+			_ = Null(input, paramName, message);	
 			if (input.CompareTo(comparator) < 0)
 			{
-				throw new ArgumentException(Message, Name);
+				var name = paramName ?? nameof(input);
+				var msg = message ?? $"The `{name}` must be smaller than {comparator}, but it was {input}.";
+				throw new ArgumentException(msg, name);
 			}
-
 			return input;
 		}
 
 		public override T IsLargerThanZero<T>(T input, string paramName = null, string message = null)
 		{
-			Null(input, paramName, message);
-			Message = message ?? $"The `{Name}` must be larger than zero but is `{input}`.";
-
+			_ = Null(input, paramName, message);
 			if (input.CompareTo(Convert.ChangeType(0, input.GetType())) <= 0)
 			{
-				throw new ArgumentException(Message, Name);
+				var name = paramName ?? nameof(input);
+				var msg = message ?? $"The `{name}` must be larger than zero but is `{input}`.";
+				throw new ArgumentException(msg, name);
 			}
-
 			return input;
 		}
 	}

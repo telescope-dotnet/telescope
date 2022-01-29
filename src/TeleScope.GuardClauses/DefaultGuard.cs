@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using TeleScope.GuardClauses.Abstractions;
 
 namespace TeleScope.GuardClauses
@@ -9,18 +10,18 @@ namespace TeleScope.GuardClauses
 	/// </summary>
 	internal partial class DefaultGuard : GuardBase
 	{
-		// -- properties
-
-		private string Name { get; set; }
-		private string Message { get; set; }
-
 		// -- methods
 
 		public override T Null<T>(T input, string paramName = null, string message = null)
 		{
-			Name = paramName ?? nameof(input);
-			var msg = message ?? $"The `{Name}` must not be Null.";
-			return input ?? throw new ArgumentNullException(Name, msg);
+			if (input is null) 
+			{
+				var name = paramName ?? nameof(input);
+				var msg = message ?? $"The `{name}` must not be Null.";
+				throw new ArgumentNullException(name, msg);
+			}
+
+			return input;
 		}
 
 		public override bool False(bool input, string paramName = null, string message = null)
@@ -47,27 +48,25 @@ namespace TeleScope.GuardClauses
 
 		public override T Equality<T>(T input, T comparator, string paramName = null, string message = null)
 		{
-			Null(input, paramName, message);
-			
+			_ = Null(input, paramName, message);		
 			if (input.Equals(comparator))
 			{
-				Message = message ?? $"The '{Name}' must not be equal to {comparator}.";
-				throw new ArgumentException(Message, Name);
+				var name = paramName ?? nameof(input);
+				var msg = message ?? $"The '{name}' must not be equal to {comparator}.";
+				throw new ArgumentException(msg, name);
 			}
-
 			return input;
 		}
 
 		public override T Unequality<T>(T input, T comparator, string paramName = null, string message = null)
 		{
-			Null(input, paramName, message);
-
+			_ = Null(input, paramName, message);
 			if (!input.Equals(comparator))
 			{
-				Message = message ?? $"The '{Name}' must be equal to {comparator}.";
-				throw new ArgumentException(Message, Name);
+				var name = paramName ?? nameof(input);
+				var msg = message ?? $"The '{name}' must be equal to {comparator}.";
+				throw new ArgumentException(msg, name);
 			}
-
 			return input;
 		}
 

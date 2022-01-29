@@ -89,7 +89,9 @@ namespace TeleScope.Persistence.Yaml
 				/*
 				 * see https://github.com/aaubry/YamlDotNet/wiki/Samples.SerializeObjectGraph
 				 */
-				var serializer = new SerializerBuilder().Build();
+				var serializer = new SerializerBuilder()
+					.ConfigureDefaultValuesHandling(setup.ValueHandling)
+					.Build();
 				string yaml;
 				if (data.Count() == 1)
 				{

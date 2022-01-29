@@ -46,7 +46,7 @@ namespace TeleScope.GuardClauses
 			foreach (T item in input)
 			{
 				var name = paramName ?? nameof(input);
-				var msg = message ?? $"The collection `{paramName}` has an empty item at index {i}.";
+				var msg = message ?? $"The collection `{name}` has an empty item at index {i}.";
 
 				if (item is null)
 				{
@@ -67,7 +67,7 @@ namespace TeleScope.GuardClauses
 			if (!input.Contains(item))
 			{
 				var name = paramName ?? nameof(input);
-				var msg = message ?? $"The collection `{paramName}` should have contained the element `{item}`.";
+				var msg = message ?? $"The collection `{name}` should have contained the element `{item}`.";
 				throw new ArgumentException(name, msg);
 			}
 			return input;
@@ -79,7 +79,7 @@ namespace TeleScope.GuardClauses
 			if (input.Contains(item))
 			{
 				var name = paramName ?? nameof(input);
-				var msg = message ?? $"The collection `{paramName}` must not contain the element `{item}`.";
+				var msg = message ?? $"The collection `{name}` must not contain the element `{item}`.";
 				throw new ArgumentException(name, msg);
 			}
 			return input;

@@ -55,6 +55,12 @@
             Gets or sets the encoding of the file.
             </summary>
         </member>
+        <member name="P:TeleScope.Persistence.Yaml.YamlStorageSetup.ValueHandling">
+            <summary>
+            Gets or sets the value handing for default or null values.
+            The default value is <see cref="F:YamlDotNet.Serialization.DefaultValuesHandling.OmitNull"/>.
+            </summary>
+        </member>
         <member name="M:TeleScope.Persistence.Yaml.YamlStorageSetup.#ctor(System.IO.FileInfo,System.Boolean,System.Boolean)">
             <summary>
             The default constructor calls the constructor of the base class and 

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <Description>Contains an implementation of guard clauses that allow to quick check fields or parameters against unwanted input.</Description>
-    <Version>2.1.0</Version>
+    <Version>2.1.1</Version>
     <Authors>TeleScope-dotnet members</Authors>
     <Company>TeleScope-dotnet</Company>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>

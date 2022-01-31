@@ -45,8 +45,8 @@ namespace TeleScope.MSTest.Entities
 
 			// basic units
 			TryAndCatch(() => Guard.Against.Null(myNull));
-			TryAndCatch(() => Guard.Against.False(myFalse, nameof(myFalse), "Hey the guard protected us against False."));
-			TryAndCatch(() => Guard.Against.True(myTrue, nameof(myTrue), "Hey the guard protected us against True."));
+			TryAndCatch(() => Guard.Against.False(myFalse));
+			TryAndCatch(() => Guard.Against.True(myTrue, "truely false value", "Hey the guard protected us against True."));
 			TryAndCatch(() => Guard.Against.Equality(myZeroSpan, TimeSpan.Zero, nameof(myTrue), "Hey the guard protected us against two equal time spans."));
 			TryAndCatch(() => Guard.Against.Unequality(myZeroSpan, new TimeSpan(1, 0, 0)));
 		}
@@ -124,11 +124,11 @@ namespace TeleScope.MSTest.Entities
 			var myBrockenList = new string[] { "apple", "orange", "melon" };
 
 			// act & assert
-			TryAndCatch(() => Guard.Collection.IsFilled(myEmptyList, nameof(myEmptyList)));
-			TryAndCatch(() => Guard.Collection.IsFilled(myList, nameof(myList)));
-			TryAndCatch(() => Guard.Collection.Contains(myBrockenList, "Apple", nameof(myBrockenList)));
-			TryAndCatch(() => Guard.Collection.ContainsNot(myBrockenList, "melon", nameof(myBrockenList)));
-			TryAndCatch(() => Guard.Collection.All(myBrockenList, i => i.Equals("apple") , nameof(myBrockenList)));
+			TryAndCatch(() => Guard.Collection.IsFilled(myEmptyList));
+			TryAndCatch(() => Guard.Collection.IsFilled(myList));
+			TryAndCatch(() => Guard.Collection.Contains(myBrockenList, "Apple"));
+			TryAndCatch(() => Guard.Collection.ContainsNot(myBrockenList, "melon"));
+			TryAndCatch(() => Guard.Collection.All(myBrockenList, i => i.Equals("apple")));
 		}
 
 		private void TryAndCatch(Action action)

@@ -12,60 +12,50 @@ namespace TeleScope.GuardClauses
 	{
 		// -- methods
 
-		public override T Null<T>(T input, string paramName = null, string message = null)
+		public override T Null<T>(T input, [CallerArgumentExpression("input")] string expression = null, string message = null)
 		{
 			if (input is null) 
 			{
-				var name = paramName ?? nameof(input);
-				var msg = message ?? $"The `{name}` must not be Null.";
-				throw new ArgumentNullException(name, msg);
+				throw new ArgumentNullException(expression, message ?? "The value must not be Null.");
 			}
 
 			return input;
 		}
 
-		public override bool False(bool input, string paramName = null, string message = null)
+		public override bool False(bool input, [CallerArgumentExpression("input")] string expression = null, string message = null)
 		{
 			if (!input)
 			{
-				var name = paramName ?? nameof(input);
-				var msg = message ?? $"The value of `{name}` must not be `False`.";
-				throw new ArgumentException(msg, name);
+				throw new ArgumentException(message ?? "The value must not be False.", expression);
 			}
 			return input;
 		}
 
-		public override bool True(bool input, string paramName = null, string message = null)
+		public override bool True(bool input, [CallerArgumentExpression("input")] string expression = null, string message = null)
 		{
 			if (input)
 			{
-				var name = paramName ?? nameof(input);
-				var msg = message ?? $"The value of `{name}` must not be `True`.";
-				throw new ArgumentException(msg, name);
+				throw new ArgumentException(message ?? "The value must not be True.", expression);
 			}
 			return input;
 		}
 
-		public override T Equality<T>(T input, T comparator, string paramName = null, string message = null)
+		public override T Equality<T>(T input, T comparator, [CallerArgumentExpression("input")] string expression = null, string message = null)
 		{
-			_ = Null(input, paramName, message);		
+			_ = Null(input, expression, message);		
 			if (input.Equals(comparator))
 			{
-				var name = paramName ?? nameof(input);
-				var msg = message ?? $"The '{name}' must not be equal to {comparator}.";
-				throw new ArgumentException(msg, name);
+				throw new ArgumentException(message ?? $"The value must not be equal to {comparator}, but was {input}.", expression);
 			}
 			return input;
 		}
 
-		public override T Unequality<T>(T input, T comparator, string paramName = null, string message = null)
+		public override T Unequality<T>(T input, T comparator, [CallerArgumentExpression("input")] string expression = null, string message = null)
 		{
-			_ = Null(input, paramName, message);
+			_ = Null(input, expression, message);
 			if (!input.Equals(comparator))
 			{
-				var name = paramName ?? nameof(input);
-				var msg = message ?? $"The '{name}' must be equal to {comparator}.";
-				throw new ArgumentException(msg, name);
+				throw new ArgumentException(message ?? $"The value must be equal to {comparator}, but was {input}.", expression);
 			}
 			return input;
 		}

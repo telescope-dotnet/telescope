@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Mail;
 using System.Net.Sockets;
+using System.Runtime.CompilerServices;
 using TeleScope.GuardClauses.Abstractions;
 using TeleScope.GuardClauses.Enumerations;
 
@@ -12,33 +13,29 @@ namespace TeleScope.GuardClauses
 	/// </summary>
 	internal partial class DefaultGuard : GuardBase
 	{
-		public override string IsNotNullOrEmpty(string input, string paramName = null, string message = null)
+		public override string IsNotNullOrEmpty(string input, [CallerArgumentExpression("input")] string expression = null, string message = null)
 		{
-			_ = Null(input, paramName, message);
+			_ = Null(input, expression, message);
 			if (string.IsNullOrEmpty(input))
 			{
-				var name = paramName ?? nameof(input);
-				var msg = message ?? $"The `{name}` must not be empty.";
-				throw new ArgumentException(msg, name);
+				throw new ArgumentException(message ?? $"The value must not be Null or empty.", expression);
 			}
 			return input;
 		}
 
-		public override string IsNotNullOrWhiteSpace(string input, string paramName = null, string message = null)
+		public override string IsNotNullOrWhiteSpace(string input, [CallerArgumentExpression("input")] string expression = null, string message = null)
 		{
-			_ = Null(input, paramName, message);
+			_ = Null(input, expression, message);
 			if (string.IsNullOrWhiteSpace(input))
 			{
-				var name = paramName ?? nameof(input);
-				var msg = message ?? $"The `{name}` must not be a whitespace.";
-				throw new ArgumentException(msg, name);
+				throw new ArgumentException(message ?? $"The value must not be Null or whitespace.", expression);
 			}
 			return input;
 		}
 
-		public override string IsMailAddress(string input, string paramName = null, string message = null)
+		public override string IsMailAddress(string input, [CallerArgumentExpression("input")] string expression = null, string message = null)
 		{
-			_ = Null(input, paramName, message);
+			_ = Null(input, expression, message);
 			var success = MailAddress.TryCreate(input, out MailAddress _);
 			if (success)
 			{
@@ -46,34 +43,30 @@ namespace TeleScope.GuardClauses
 			}
 			else
 			{
-				var name = paramName ?? nameof(input);
-				var msg = message ?? $"The `{name}` must be a valid mail address, but was `{input}`.";
-				throw new ArgumentException(msg, name);
+				throw new ArgumentException(message ?? $"The value must be a valid mail address, but was {input}.", expression);
 			}
 		}
 
-		public override MailAddress ToMailAddress(string input, string paramName = null, string message = null)
+		public override MailAddress ToMailAddress(string input, [CallerArgumentExpression("input")] string expression = null, string message = null)
 		{
-			_ = Null(input, paramName, message);
+			_ = Null(input, expression, message);
 			try
 			{
 				return new MailAddress(input);
 			}
 			catch (Exception ex)
 			{
-				var name = paramName ?? nameof(input);
-				var msg = message ?? $"The `{name}` must be a valid mail address, but was `{input}`.";
-				throw new ArgumentException(msg, name, ex);
+				throw new ArgumentException(message ?? $"The value must be a valid mail address, but was {input}.", expression, ex);
 			}
 		}
 
 		public override string IsIpAddress(
 				string input,
 				InternetProtocols protocol = InternetProtocols.IPv4,
-				string paramName = null,
+				[CallerArgumentExpression("input")] string expression = null,
 				string message = null)
 		{
-			_ = Null(input, paramName, message);
+			_ = Null(input, expression, message);
 
 			var success = IPAddress.TryParse(input, out IPAddress address);
 			if (success && 
@@ -83,9 +76,7 @@ namespace TeleScope.GuardClauses
 			}
 			else
 			{
-				var name = paramName ?? nameof(input);
-				var msg = message ?? $"The `{name}` must be a valid {protocol} address, but was `{input}`.";
-				throw new ArgumentException(msg, name);
+				throw new ArgumentException(message ?? $"The value must be a valid {protocol} address, but was {input}.", expression);
 			}
 
 			// -- local function
@@ -103,24 +94,26 @@ namespace TeleScope.GuardClauses
 			}
 		}
 
-		public override string IsUri(string input, UriKind kind = UriKind.RelativeOrAbsolute, string paramName = null, string message = null)
+		public override string IsUri(
+			string input, 
+			UriKind kind = UriKind.RelativeOrAbsolute, 
+			[CallerArgumentExpression("input")] string expression = null, 
+			string message = null)
 		{
-			_ = Null(input, paramName, message);
+			_ = Null(input, expression, message);
 
 			var success = Uri.IsWellFormedUriString(input, kind);
 			if (!success) 
 			{
-				var name = paramName ?? nameof(input);
-				var msg = message ?? $"The `{name}` must be a valid uri, but was `{input}`.";
-				throw new ArgumentException(msg, name);
+				throw new ArgumentException(message ?? $"The value must be a valid uri, but was {input}.", expression);
 			}
 
 			return input;
 		}
 
-		public override string IsWebUri(string input, string paramName = null, string message = null) 
+		public override string IsWebUri(string input, [CallerArgumentExpression("input")] string expression = null, string message = null) 
 		{
-			_ = Null(input, paramName, message);
+			_ = Null(input, expression, message);
 
 			var success = Uri.TryCreate(input, UriKind.Absolute, out Uri uri);
 			if (success && isWebUri(uri))
@@ -129,9 +122,7 @@ namespace TeleScope.GuardClauses
 			}
 			else 
 			{
-				var name = paramName ?? nameof(input);
-				var msg = message ?? $"The `{name}` must be a valid web uri, but was `{input}`.";
-				throw new ArgumentException(msg, name);
+				throw new ArgumentException(message ?? $"The value must be a valid web uri, but was {input}.", expression);
 			}
 
 			// -- local function
@@ -143,18 +134,16 @@ namespace TeleScope.GuardClauses
 			}
 		}
 
-		public override Uri ToUri(string input, string paramName = null, string message = null)
+		public override Uri ToUri(string input, [CallerArgumentExpression("input")] string expression = null, string message = null)
 		{
-			_ = Null(input, paramName, message);
+			_ = Null(input, expression, message);
 			try
 			{
 				return new Uri(input);
 			}
 			catch (Exception ex)
 			{
-				var name = paramName ?? nameof(input);
-				var msg = message ?? $"The `{name}` must be a valid uri, but was `{input}`.";
-				throw new ArgumentException(msg, name, ex);
+				throw new ArgumentException(message ?? $"The value must be a valid uri, but was {input}.", expression, ex);
 			}
 		}
 	}

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using TeleScope.GuardClauses.Abstractions;
 
 namespace TeleScope.GuardClauses
@@ -8,21 +9,19 @@ namespace TeleScope.GuardClauses
 	/// </summary>
 	internal partial class DefaultGuard : GuardBase
 	{
-		public override T IsExact<T>(T input, T comparator, string paramName = null, string message = null)
+		public override T IsExact<T>(T input, T comparator, [CallerArgumentExpression("input")] string expression = null, string message = null)
 		{
-			_ = Null(input, paramName, message);
+			_ = Null(input, expression, message);
 			if (input.CompareTo(comparator) != 0)
 			{
-				var name = paramName ?? nameof(input);
-				var msg = message ?? $"The `{name}` must have a value of `{comparator}` but  is `{input}`.";
-				throw new ArgumentException(msg, name);
+				throw new ArgumentException(message ?? $"The value must be exactly {comparator}, but was {input}.", expression);
 			}
 			return input;
 		}
 
-		public override T IsNot<T>(T input, string paramName = null, string message = null, params T[] comparators)
+		public override T IsNot<T>(T input, [CallerArgumentExpression("input")] string expression = null, string message = null, params T[] comparators)
 		{
-			_ = Null(input, paramName, message);
+			_ = Null(input, expression, message);
 			foreach (var c in comparators)
 			{
 				compareOrThrow(c);
@@ -35,57 +34,47 @@ namespace TeleScope.GuardClauses
 			{
 				if (input.CompareTo(comparator) == 0)
 				{
-					var name = paramName ?? nameof(input);
-					var msg = message ?? $"The `{name}` must NOT have a value of `{comparator}` but  is `{input}`.";
-					throw new ArgumentException(msg, name);
+					throw new ArgumentException(message ?? $"The value must not be {comparator}, but was {input}.", expression);
 				}
 			}
 		}
 
-		public override T IsNotZero<T>(T input, string paramName = null, string message = null)
+		public override T IsNotZero<T>(T input, [CallerArgumentExpression("input")] string expression = null, string message = null)
 		{
-			_ = Null(input, paramName, message);
+			_ = Null(input, expression, message);
 			if (input.CompareTo(Convert.ChangeType(0, input.GetType())) == 0)
 			{
-				var name = paramName ?? nameof(input);
-				var msg = message ?? $"The `{name}` must not be zero.";
-				throw new ArgumentException(msg, name);
+				throw new ArgumentException(message ?? $"The value must not be Zero.", expression);
 			}
 			return input;
 		}
 
-		public override T IsSmaller<T>(T input, T comparator, string paramName = null, string message = null)
+		public override T IsSmaller<T>(T input, T comparator, [CallerArgumentExpression("input")] string expression = null, string message = null)
 		{
-			_ = Null(input, paramName, message);
+			_ = Null(input, expression, message);
 			if (input.CompareTo(comparator) > 0)
 			{
-				var name = paramName ?? nameof(input);
-				var msg = message ?? $"The `{name}` must be larger than {comparator}, but it was {input}.";
-				throw new ArgumentException(msg, name);
+				throw new ArgumentException(message ?? $"The value must be larger than {comparator}, but was {input}.", expression);
 			}
 			return input;
 		}
 
-		public override T IsLarger<T>(T input, T comparator, string paramName = null, string message = null)
+		public override T IsLarger<T>(T input, T comparator, [CallerArgumentExpression("input")] string expression = null, string message = null)
 		{
-			_ = Null(input, paramName, message);	
+			_ = Null(input, expression, message);	
 			if (input.CompareTo(comparator) < 0)
 			{
-				var name = paramName ?? nameof(input);
-				var msg = message ?? $"The `{name}` must be smaller than {comparator}, but it was {input}.";
-				throw new ArgumentException(msg, name);
+				throw new ArgumentException(message ?? $"The value must be smaller than {comparator}, but it was {input}.", expression);
 			}
 			return input;
 		}
 
-		public override T IsLargerThanZero<T>(T input, string paramName = null, string message = null)
+		public override T IsLargerThanZero<T>(T input, [CallerArgumentExpression("input")] string expression = null, string message = null)
 		{
-			_ = Null(input, paramName, message);
+			_ = Null(input, expression, message);
 			if (input.CompareTo(Convert.ChangeType(0, input.GetType())) <= 0)
 			{
-				var name = paramName ?? nameof(input);
-				var msg = message ?? $"The `{name}` must be larger than zero but is `{input}`.";
-				throw new ArgumentException(msg, name);
+				throw new ArgumentException(message ?? $"The value must be larger than zero, but was {input}.", expression);
 			}
 			return input;
 		}

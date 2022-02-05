@@ -40,15 +40,25 @@ namespace TeleScope.Persistence.Yaml
 
 		// -- constructors
 
+		private YamlStorage() 
+		{
+			log = LoggingProvider.CreateLogger<YamlStorage<T>>();
+		}
+
 		/// <summary>
 		/// The constructor takes the setup of type <seealso cref="YamlStorageSetup"/> as input parameter
 		/// and binds the logging mechanism.
 		/// </summary>
 		/// <param name="setup">The setup is needed to work with a specific YAML file.</param>
-		public YamlStorage(YamlStorageSetup setup)
+		public YamlStorage(YamlStorageSetup setup) : this()
 		{
-			this.setup = setup ?? throw new ArgumentNullException(nameof(setup));
-			log = LoggingProvider.CreateLogger<YamlStorage<T>>();
+			this.setup = setup ?? throw new ArgumentNullException(nameof(setup));	
+		}
+
+		public YamlStorage(string file) : this()
+		{
+			setup = new YamlStorageSetup(file);
+
 		}
 
 		// -- methods

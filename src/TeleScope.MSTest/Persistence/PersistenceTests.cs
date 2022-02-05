@@ -48,6 +48,34 @@ namespace TeleScope.MSTest.Persistence
 		// -- tests
 
 		[TestMethod]
+		public void CreateYaml_2_2()
+		{
+			// arrange
+			var file = "awesome.yml";
+			var yaml = new YamlStorage<object>(file);
+
+			var data = new
+			{
+				Id = 47.11,
+				Name = "complex instance",
+				MyList = new string[] { "a", "b", "c" },
+				Child = new
+				{
+					Foo = false,
+					LogEnum = LogLevel.Information
+				}
+			};
+
+			// act
+			yaml.Write(new object[] { data });
+
+			// assert
+			Assert.IsTrue(File.Exists(file), "File creation failed.");
+			Assert.IsTrue(File.ReadAllBytes(file).Length > 0, "File should not be empty.");
+		}
+
+
+		[TestMethod]
 		public void WriteComplexYaml()
 		{
 			// arrange

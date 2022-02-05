@@ -27,7 +27,7 @@
             a default constructor signature for concrete file setup classes.
             </summary>
         </member>
-        <member name="F:TeleScope.Persistence.Abstractions.FileSetupBase.DEFAULT_CAN_CREATE">
+        <member name="F:TeleScope.Persistence.Abstractions.FileSetupBase.DEFAULT_ACCESS">
             <summary>
             The default behavior for file storage implementations, if it is allowed to create files or not.
             </summary>
@@ -57,19 +57,9 @@
             Gets the complete path, where the file is located. 
             </summary>
         </member>
-        <member name="P:TeleScope.Persistence.Abstractions.FileSetupBase.CanCreate">
+        <member name="M:TeleScope.Persistence.Abstractions.FileSetupBase.#ctor(System.IO.FileInfo,System.IO.FileAccess)">
             <summary>
-            Gets the information, if the setup provides the ability to create files. 
-            </summary>
-        </member>
-        <member name="P:TeleScope.Persistence.Abstractions.FileSetupBase.CanDelete">
-            <summary>
-            Gets the information, if the setup provides the ability to delete files. 
-            </summary>
-        </member>
-        <member name="M:TeleScope.Persistence.Abstractions.FileSetupBase.#ctor(System.IO.FileInfo,System.Boolean,System.Boolean)">
-            <summary>
-            The default constructor sets the file info propterties and <seealso cref="P:TeleScope.Persistence.Abstractions.FileSetupBase.CanCreate"/> and <seealso cref="P:TeleScope.Persistence.Abstractions.FileSetupBase.CanDelete"/>. 
+            The default constructor sets the file info propterties and <seealso cref="!:CanCreate"/> and <seealso cref="!:CanDelete"/>. 
             </summary>
             <param name="fileInfo">The information about the file that will get accessed by a file storage.</param>
             <param name="canCreate">Sets the information, if the setup provides the ability to create files.</param>

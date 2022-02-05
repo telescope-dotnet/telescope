@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using TeleScope.Persistence.Abstractions.Enumerations;
 
 namespace TeleScope.Persistence.Abstractions
 {
@@ -14,12 +15,12 @@ namespace TeleScope.Persistence.Abstractions
 		/// <summary>
 		/// The default behavior for file storage implementations, if it is allowed to create files or not.
 		/// </summary>
-		protected const bool DEFAULT_CAN_CREATE = true;
+		protected const WritePermissions DEFAULT_PERMISSIONS = WritePermissions.Create | WritePermissions.Delete;
 
 		/// <summary>
 		/// The default behavior for file storage implementations, if it is allowed to delete files or not.
 		/// </summary>
-		protected const bool DEFAULT_CAN_DELETE = true;
+		//protected const bool DEFAULT_CAN_DELETE = true;
 
 		private FileInfo info;
 
@@ -45,17 +46,30 @@ namespace TeleScope.Persistence.Abstractions
 		/// </summary>
 		public string Location => info.Directory.FullName;
 
+		public WritePermissions Permissions { get; private init; }
+
 		/// <summary>
 		/// Gets the information, if the setup provides the ability to create files. 
 		/// </summary>
-		public bool CanCreate { get; private set; }
+		public bool CanCreate => Permissions == WritePermissions.Create;
 
 		/// <summary>
 		/// Gets the information, if the setup provides the ability to delete files. 
 		/// </summary>
-		public bool CanDelete { get; private set; }
+		public bool CanDelete => Permissions == WritePermissions.Delete;
 
 		// -- constructors
+
+		private FileSetupBase(WritePermissions persmissions = DEFAULT_PERMISSIONS)
+		{
+			Permissions = persmissions;
+		}
+
+		protected FileSetupBase(string file, WritePermissions permissions = DEFAULT_PERMISSIONS) : this(permissions)
+		{
+			// TODO: safety checks
+			SetFileInfo(new FileInfo(file));
+		}
 
 		/// <summary>
 		/// The default constructor sets the file info propterties and <seealso cref="CanCreate"/> and <seealso cref="CanDelete"/>. 
@@ -63,14 +77,9 @@ namespace TeleScope.Persistence.Abstractions
 		/// <param name="fileInfo">The information about the file that will get accessed by a file storage.</param>
 		/// <param name="canCreate">Sets the information, if the setup provides the ability to create files.</param>
 		/// <param name="canDelete">Sets the information, if the setup provides the ability to delete files.</param>
-		protected FileSetupBase(
-			FileInfo fileInfo,
-			bool canCreate = DEFAULT_CAN_CREATE,
-			bool canDelete = DEFAULT_CAN_DELETE)
+		protected FileSetupBase(FileInfo fileInfo, WritePermissions permissions = DEFAULT_PERMISSIONS) : this(permissions)
 		{
 			SetFileInfo(fileInfo);
-			CanCreate = canCreate;
-			CanDelete = canDelete;
 		}
 
 		// -- methods

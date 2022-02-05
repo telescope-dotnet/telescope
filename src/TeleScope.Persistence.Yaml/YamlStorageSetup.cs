@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Text;
 using TeleScope.Persistence.Abstractions;
+using TeleScope.Persistence.Abstractions.Enumerations;
 using YamlDotNet.Serialization;
 
 namespace TeleScope.Persistence.Yaml
@@ -26,6 +27,11 @@ namespace TeleScope.Persistence.Yaml
 
 		// -- constructor
 
+		public YamlStorageSetup(string file, WritePermissions permissions = WritePermissions.Create) : base(file, permissions)
+		{
+			
+		}
+
 		/// <summary>
 		/// The default constructor calls the constructor of the base class and 
 		/// defines `UTF8` as default <seealso cref="Encoder"/> property.
@@ -33,14 +39,9 @@ namespace TeleScope.Persistence.Yaml
 		/// <param name="fileInfo">The information about the file that will get accessed by a file storage.</param>
 		/// <param name="canCreate">Sets the information, if the setup provides the ability to create files.</param>
 		/// <param name="canDelete">Sets the information, if the setup provides the ability to delete files.</param>
-		public YamlStorageSetup(
-			FileInfo fileInfo,
-			bool canCreate = true,
-			bool canDelete = false) : base(fileInfo, canCreate, canDelete)
+		public YamlStorageSetup(FileInfo fileInfo, WritePermissions permissions = WritePermissions.Create) : base(fileInfo, permissions)
 		{
-
-			Encoder = Encoding.UTF8;
-			ValueHandling = DefaultValuesHandling.OmitNull;
+			
 		}
 	}
 }

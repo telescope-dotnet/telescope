@@ -7,7 +7,9 @@ using Microsoft.Extensions.Logging;
 using TeleScope.Logging;
 using TeleScope.Logging.Extensions;
 using TeleScope.Persistence.Abstractions;
+using TeleScope.Persistence.Abstractions.Enumerations;
 using TeleScope.Persistence.Abstractions.Extensions;
+using TeleScope.Persistence.Abstractions.Handlers;
 
 namespace TeleScope.Persistence.Csv
 {
@@ -22,39 +24,58 @@ namespace TeleScope.Persistence.Csv
 
 		private readonly ILogger<CsvStorage<T>> log;
 		private readonly CsvStorageSetup setup;
-		private readonly IParsable<T> incomingParser;
-		private readonly IParsable<string[]> outgoingParser;
+
+		//private readonly IParsable<T> incomingParser;
+		//private readonly IParsable<string[]> outgoingParser;
+
+
+
+
+		//public Func<T, int 0, string[]> OnRead { private get; set; }
+		//public Func<string[], T> OnWrite { private get; set; }
 
 		// -- properties
 
-		/// <summary>
-		/// The default behavior for file storage,
-		/// if it is allowed to create files or not.
-		/// </summary>
-		public bool CanCreate => setup.CanCreate;
-		/// <summary>
-		/// The default behavior for file storage, 
-		/// if it is allowed to delete files or not.
-		/// </summary>
-		public bool CanDelete => setup.CanDelete;
+		public WritePermissions Permissions => setup.Permissions;
+
+		public PersistenceHandler<string[], T> OnRead { private get; set; }
+
+		public PersistenceHandler<T, string[]> OnWrite { private get; set; }
 
 		// -- concstructor
+		public CsvStorage(string file, Action<CsvStorageSetup> config = null) :	this(new CsvStorageSetup(file))
+		{
+			if (config is not null)
+			{
+				config(setup);
+			}
+		}
 
 		/// <summary>
-		/// The constructor takes the setup of type <seealso cref="CsvStorageSetup"/> as input parameter,
-		/// parsers of type <seealso cref="IParsable{Tout}"/> for incoming and outgoing data
+		/// The constructor takes the setup of type <see cref="CsvStorageSetup"/> as input parameter
 		/// and binds the logging mechanism. 
 		/// </summary>
-		/// <param name="setup">The setup is needed to work with a specific CSV file.</param>
-		/// <param name="incomingParser">The incoming parser matches one CSV line with a data object of type T.</param>
-		/// <param name="outgoingParser">The outgoing parser matches one data object of type T to a CSV line.</param>
-		public CsvStorage(CsvStorageSetup setup, IParsable<T> incomingParser, IParsable<string[]> outgoingParser)
+		/// <param name="csvSetup">The setup is needed to work with a specific CSV file.</param>
+		public CsvStorage(CsvStorageSetup csvSetup) : this()
+		{
+			setup = csvSetup ?? throw new ArgumentNullException(nameof(csvSetup));
+		}
+
+		private CsvStorage()
 		{
 			log = LoggingProvider.CreateLogger<CsvStorage<T>>();
+		}
 
-			this.setup = setup ?? throw new ArgumentNullException(nameof(setup));
-			this.incomingParser = incomingParser ?? throw new ArgumentNullException(nameof(incomingParser));
-			this.outgoingParser = outgoingParser ?? throw new ArgumentNullException(nameof(outgoingParser));
+		// -- methods
+
+		/// <summary>
+		/// Checks if the permission is a present flag or not. 
+		/// </summary>
+		/// <param name="permission">The enum that is checked.</param>
+		/// <returns>True if the value is a present flag, otherwise false.</returns>
+		public bool HasPermission(WritePermissions permission)
+		{
+			return setup.Permissions.HasFlag(permission);
 		}
 
 		/// <summary>
@@ -69,13 +90,14 @@ namespace TeleScope.Persistence.Csv
 			string[] lines = File.ReadAllLines(setup.File);
 
 			// read all rows
-			for (uint i = setup.StartRow; i < lines.Length; i++)
+			int start = (int)setup.StartRow;
+			for (int i = start; i < lines.Length; i++)
 			{
 				string[] fields = lines[i].Split(setup.Separator);
-				result.Add(incomingParser.Parse<string[]>(fields, (int)i, lines.Length));
+				result.Add(OnRead(fields, i, lines.Length));
 			}
 
-			log.Trace($"csv import successfull for '{setup.Filename}'");
+			log.Trace("CSV import successfull for {File}.", setup.Filename);
 
 			return result;
 		}
@@ -107,7 +129,7 @@ namespace TeleScope.Persistence.Csv
 				int i = 0;
 				foreach (T item in data)
 				{
-					var line = string.Join(seperator, outgoingParser.Parse<T>(item, i, data.Count()));
+					var line = string.Join(seperator, OnWrite(item, i, data.Count()));
 					csv.AppendLine(line);
 					i++;
 				}
@@ -130,7 +152,7 @@ namespace TeleScope.Persistence.Csv
 		/// <returns>The calling instance.</returns>
 		public IFileWritable<T> Update(FileInfo fileInfo)
 		{
-			setup.SetFileInfo(fileInfo);
+			setup.SetFile(fileInfo);
 			return this;
 		}
 	}

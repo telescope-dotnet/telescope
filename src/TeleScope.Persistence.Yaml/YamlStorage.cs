@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using TeleScope.Logging;
 using TeleScope.Logging.Extensions;
 using TeleScope.Persistence.Abstractions;
+using TeleScope.Persistence.Abstractions.Enumerations;
 using TeleScope.Persistence.Abstractions.Extensions;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
@@ -26,42 +27,44 @@ namespace TeleScope.Persistence.Yaml
 
 		// -- properties
 
-		/// <summary>
-		/// The default behavior for file storage,
-		/// if it is allowed to create files or not.
-		/// </summary>
-		public bool CanCreate => setup.CanCreate;
-
-		/// <summary>
-		/// The default behavior for file storage, 
-		/// if it is allowed to delete files or not.
-		/// </summary>
-		public bool CanDelete => setup.CanDelete;
+		public WritePermissions Permissions => setup.Permissions;
 
 		// -- constructors
 
-		private YamlStorage() 
+		public YamlStorage(string file, Action<YamlStorageSetup> config = null) : this(new YamlStorageSetup(file))
 		{
-			log = LoggingProvider.CreateLogger<YamlStorage<T>>();
+			if (config is not null)
+			{
+				config(setup);
+			}
 		}
 
 		/// <summary>
 		/// The constructor takes the setup of type <seealso cref="YamlStorageSetup"/> as input parameter
 		/// and binds the logging mechanism.
 		/// </summary>
-		/// <param name="setup">The setup is needed to work with a specific YAML file.</param>
-		public YamlStorage(YamlStorageSetup setup) : this()
+		/// <param name="yamlSetup">The setup is needed to work with a specific YAML file.</param>
+		public YamlStorage(YamlStorageSetup yamlSetup) : this()
 		{
-			this.setup = setup ?? throw new ArgumentNullException(nameof(setup));	
+			this.setup = yamlSetup ?? throw new ArgumentNullException(nameof(yamlSetup));
 		}
 
-		public YamlStorage(string file) : this()
+		private YamlStorage()
 		{
-			setup = new YamlStorageSetup(file);
-
+			log = LoggingProvider.CreateLogger<YamlStorage<T>>();
 		}
 
 		// -- methods
+
+		/// <summary>
+		/// Checks if the permission is a present flag or not. 
+		/// </summary>
+		/// <param name="permission">The enum that is checked.</param>
+		/// <returns>True if the value is a present flag, otherwise false.</returns>
+		public bool HasPermission(WritePermissions permission)
+		{
+			return setup.Permissions.HasFlag(permission);
+		}
 
 		/// <summary>
 		/// Reads a given YAML file as data source and provides a collection of type T.
@@ -91,7 +94,7 @@ namespace TeleScope.Persistence.Yaml
 		{
 			try
 			{
-				if (!this.ValidateOrThrow(data, setup.GetFileInfo()))
+				if (!this.ValidateOrThrow(data, setup.Info()))
 				{
 					return;
 				}

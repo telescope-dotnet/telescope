@@ -1,9 +1,12 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using TeleScope.Persistence.Abstractions;
+using TeleScope.Persistence.Abstractions.Enumerations;
 
 namespace TeleScope.Persistence.Json
 {
@@ -17,26 +20,30 @@ namespace TeleScope.Persistence.Json
 
 		// -- properties
 
+		public JsonSerializerSettings Settings { get; set; } = new JsonSerializerSettings();
+
+		public Formatting Format { get; set; } = Formatting.Indented;
+
 		/// <summary>
 		/// Gets or sets the encoding of the file.
 		/// </summary>
-		public Encoding Encoder { get; set; }
+		public Encoding Encoder { get; set; } = Encoding.UTF8;
 
 		// -- constructor
+
+		public JsonStorageSetup(string file) : base(file, WritePermissions.Create)
+		{
+
+		}
 
 		/// <summary>
 		/// The default constructor calls the constructor of the base class and 
 		/// defines `UTF8` as default <seealso cref="Encoder"/> property.
 		/// </summary>
 		/// <param name="fileInfo">The information about the file that will get accessed by a file storage.</param>
-		/// <param name="canCreate">Sets the information, if the setup provides the ability to create files.</param>
-		/// <param name="canDelete">Sets the information, if the setup provides the ability to delete files.</param>
-		public JsonStorageSetup(
-			FileInfo fileInfo,
-			bool canCreate = true,
-			bool canDelete = true) : base(fileInfo, canCreate, canDelete)
+		public JsonStorageSetup(FileInfo fileInfo) : base(fileInfo, WritePermissions.Create)
 		{
-			Encoder = Encoding.UTF8;
+
 		}
 	}
 }

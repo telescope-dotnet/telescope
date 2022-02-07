@@ -6,6 +6,7 @@ using Parquet;
 using TeleScope.Logging;
 using TeleScope.Logging.Extensions;
 using TeleScope.Persistence.Abstractions;
+using TeleScope.Persistence.Abstractions.Enumerations;
 using TeleScope.Persistence.Abstractions.Extensions;
 
 namespace TeleScope.Persistence.Parquet
@@ -15,30 +16,48 @@ namespace TeleScope.Persistence.Parquet
 		// -- fields
 
 		private readonly ILogger<ParquetStorage<T>> log;
-		private readonly FileInfo info;
+		private readonly ParquetStorageSetup setup;
 
 		// -- properties
 
-		public bool CanCreate { get; private set; }
-
-		public bool CanDelete { get; private set; }
+		public WritePermissions Permissions => setup.Permissions;
 
 		// -- constructor
 
-		public ParquetStorage(FileInfo fileInfo, bool canCreate = true, bool canDelete = false)
+		public ParquetStorage(string file, Action<ParquetStorageSetup> config = null) : this(new ParquetStorageSetup(file))
+		{
+			if (config is not null)
+			{
+				config(setup);
+			}
+		}
+
+		public ParquetStorage(ParquetStorageSetup parquetSetup) : this()
+		{
+			setup = parquetSetup ?? throw new ArgumentNullException(nameof(parquetSetup));
+		}
+
+		private ParquetStorage()
 		{
 			log = LoggingProvider.CreateLogger<ParquetStorage<T>>();
-			info = fileInfo;
-			CanCreate = canCreate;
-			CanDelete = canDelete;
 		}
 
 		// -- methods
 
+		/// <summary>
+		/// Checks if the permission is a present flag or not. 
+		/// </summary>
+		/// <param name="permission">The enum that is checked.</param>
+		/// <returns>True if the value is a present flag, otherwise false.</returns>
+		public bool HasPermission(WritePermissions permission)
+		{
+			return Permissions.HasFlag(permission);
+		}
+
 		public IEnumerable<T> Read()
 		{
 			T[] data;
-			using (var stream = new FileStream(info.FullName, FileMode.Open))
+			using (var stream = new FileStream(setup.File, FileMode.Open))
 			{
 				data = ParquetConvert.Deserialize<T>(stream);
 			}
@@ -50,12 +69,12 @@ namespace TeleScope.Persistence.Parquet
 		{
 			try
 			{
-				if (!this.ValidateOrThrow(data, info))
+				if (!this.ValidateOrThrow(data, setup.Info()))
 				{
 					return;
 				}
 
-				ParquetConvert.Serialize(data, info.FullName);
+				ParquetConvert.Serialize(data, setup.File);
 			}
 			catch (InvalidOperationException ex)
 			{

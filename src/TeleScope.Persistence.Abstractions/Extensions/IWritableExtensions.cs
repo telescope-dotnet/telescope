@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using TeleScope.Persistence.Abstractions.Enumerations;
 
 namespace TeleScope.Persistence.Abstractions.Extensions
 {
@@ -26,7 +27,7 @@ namespace TeleScope.Persistence.Abstractions.Extensions
 			if (data is null && info.Exists)
 			{
 				// deleting data...
-				if (writer.CanDelete)
+				if (writer.HasPermission(WritePermissions.Delete))
 				{
 					info.Delete();
 					return false;
@@ -36,12 +37,12 @@ namespace TeleScope.Persistence.Abstractions.Extensions
 					throw new InvalidOperationException($"Not allowed to delete file: {info.FullName}");
 				}
 			}
-			else if (!writer.CanCreate && !info.Exists)
+			else if (!writer.HasPermission(WritePermissions.Create) && !info.Exists)
 			{
-				// try to create a file...
+				// fail to create a file...
 				throw new InvalidOperationException($"Not allowed to create file: {info.FullName}");
 			}
-			else if (writer.CanCreate && !info.Directory.Exists)
+			else if (writer.HasPermission(WritePermissions.Create) && !info.Directory.Exists)
 			{
 				// creating folder...
 				info.Directory.Create();

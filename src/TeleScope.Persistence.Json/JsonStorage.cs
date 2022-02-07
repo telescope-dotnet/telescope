@@ -8,6 +8,7 @@ using Newtonsoft.Json.Converters;
 using TeleScope.Logging;
 using TeleScope.Logging.Extensions;
 using TeleScope.Persistence.Abstractions;
+using TeleScope.Persistence.Abstractions.Enumerations;
 using TeleScope.Persistence.Abstractions.Extensions;
 
 namespace TeleScope.Persistence.Json
@@ -23,50 +24,57 @@ namespace TeleScope.Persistence.Json
 
 		private readonly ILogger<JsonStorage<T>> log;
 		private readonly JsonStorageSetup setup;
-		private readonly JsonSerializerSettings settings;
 
 		// -- properties
 
-		/// <summary>
-		/// The default behavior for file storage,
-		/// if it is allowed to create files or not.
-		/// </summary>
-		public bool CanCreate => setup.CanCreate;
-
-		/// <summary>
-		/// The default behavior for file storage, 
-		/// if it is allowed to delete files or not.
-		/// </summary>
-		public bool CanDelete => setup.CanDelete;
+		public WritePermissions Permissions => setup.Permissions;
 
 		// -- constructors
+		
+		public JsonStorage(string file, Action<JsonStorageSetup> config = null) : this(new JsonStorageSetup(file))
+		{
+			if (config is not null)
+			{
+				config(setup);
+				ValidateSetup();
+			}
+		}
 
 		/// <summary>
 		/// The constructor takes the setup of type <seealso cref="JsonStorageSetup"/> as input parameter
 		/// and binds the logging mechanism.
 		/// </summary>
-		/// <param name="setup">The setup is needed to work with a specific JSON file.</param>
-		public JsonStorage(JsonStorageSetup setup)
+		/// <param name="jsonSetup">The setup is needed to work with a specific JSON file.</param>
+		public JsonStorage(JsonStorageSetup jsonSetup) : this()
 		{
-			this.setup = setup ?? throw new ArgumentNullException(nameof(setup));
-			log = LoggingProvider.CreateLogger<JsonStorage<T>>();
-			settings = new JsonSerializerSettings();
-			settings.Converters.Add(new StringEnumConverter());
+			setup = jsonSetup ?? throw new ArgumentNullException(nameof(jsonSetup));
+			ValidateSetup();
 		}
 
-		/// <summary>
-		/// The constructor takes the setup of type <seealso cref="JsonStorageSetup"/>
-		/// and the <seealso cref="JsonSerializerSettings"/> as input parameters
-		/// and binds the logging mechanism. 
-		/// </summary>
-		/// <param name="setup">The setup is needed to work with a specific JSON file.</param>
-		/// <param name="settings">The settings have an impact on JSOn result.</param>
-		public JsonStorage(JsonStorageSetup setup, JsonSerializerSettings settings) : this(setup)
+		private JsonStorage()
 		{
-			this.settings = settings;
+			log = LoggingProvider.CreateLogger<JsonStorage<T>>();
 		}
 
 		// -- methods
+
+		private void ValidateSetup() 
+		{
+			if (setup.Settings is null)
+			{
+				setup.Settings = new JsonSerializerSettings();
+			}
+		}
+
+		/// <summary>
+		/// Checks if the permission is a present flag or not. 
+		/// </summary>
+		/// <param name="permission">The enum that is checked.</param>
+		/// <returns>True if the value is a present flag, otherwise false.</returns>
+		public bool HasPermission(WritePermissions permission)
+		{
+			return setup.Permissions.HasFlag(permission);
+		}
 
 		/// <summary>
 		/// Reads a given JSON file as data source and provides a collection of type T.
@@ -79,10 +87,10 @@ namespace TeleScope.Persistence.Json
 			using (StreamReader r = new(setup.File))
 			{
 				string input = r.ReadToEnd();
-				result = JsonConvert.DeserializeObject<T>(input, settings);
+				result = JsonConvert.DeserializeObject<T>(input, setup.Settings);
 			}
 
-			log.Trace("Reading json successfull from {0}", setup.File);
+			log.Trace("Reading json successfull from {File}", setup.File);
 			return new T[] { result };
 		}
 
@@ -96,7 +104,7 @@ namespace TeleScope.Persistence.Json
 		{
 			try
 			{
-				if (!this.ValidateOrThrow(data, setup.GetFileInfo()))
+				if (!this.ValidateOrThrow(data, setup.Info()))
 				{
 					return;
 				}
@@ -104,11 +112,11 @@ namespace TeleScope.Persistence.Json
 				string json;
 				if (data.Count() == 1)
 				{
-					json = JsonConvert.SerializeObject(data.First(), Formatting.Indented, settings);
+					json = JsonConvert.SerializeObject(data.First(), setup.Format, setup.Settings);
 				}
 				else
 				{
-					json = JsonConvert.SerializeObject(data, Formatting.Indented, settings);
+					json = JsonConvert.SerializeObject(data, setup.Format, setup.Settings);
 				}
 
 				File.WriteAllText(setup.File, json, setup.Encoder);

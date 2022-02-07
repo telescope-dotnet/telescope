@@ -6,6 +6,7 @@ using System.IO;
 using System.Reflection;
 using TeleScope.MSTest.Mockups;
 using TeleScope.Persistence.Abstractions;
+using TeleScope.Persistence.Abstractions.Enumerations;
 using TeleScope.Persistence.Csv;
 using TeleScope.Persistence.Json;
 using TeleScope.Persistence.Parquet;
@@ -31,20 +32,19 @@ namespace TeleScope.MSTest.Persistence.Attributes
 
 		// -- helper 
 
-		private static FileInfo GetFile(string extension)
+		private static string GetFilename(string extension)
 		{
-			return new FileInfo(
-				Path.Combine("App_Data", $"data.{extension}"));
+			return Path.Combine("App_Data", $"data.{extension}");
 		}
 
 		private static object[] BuildJson()
 		{
 			var ext = "json";
-			var file = GetFile(ext);
-			var json = new JsonStorage<Mockup>(new JsonStorageSetup(file));
+			var file = GetFilename(ext);
+			var json = new JsonStorage<Mockup>(file);
 			return new object[] {
 				ext,
-				file.FullName,
+				file,
 				json as IReadable<Mockup>,
 				json as IWritable<Mockup>,
 			};
@@ -53,11 +53,11 @@ namespace TeleScope.MSTest.Persistence.Attributes
 		private static object[] BuildYaml()
 		{
 			var ext = "yml";
-			var file = GetFile(ext);
-			var yaml = new YamlStorage<Mockup>(new YamlStorageSetup(file, true, true));
+			var file = GetFilename(ext);
+			var yaml = new YamlStorage<Mockup>(new YamlStorageSetup(file));
 			return new object[] {
 				ext,
-				file.FullName,
+				file,
 				yaml as IReadable<Mockup>,
 				yaml as IWritable<Mockup>,
 			};
@@ -66,17 +66,36 @@ namespace TeleScope.MSTest.Persistence.Attributes
 		private static object[] BuildCsv()
 		{
 			var ext = "csv";
-			var file = GetFile(ext);
-			var setup = new CsvStorageSetup(file,
-				startRow: 2,
-				header: "This is my awesome\r\nHEADER"
-			);
+			var file = GetFilename(ext);
+			var csv = new CsvStorage<Mockup>(file, (setup) => {
+				setup.StartRow = 2;
+				setup.Header = "This is my awesome\r\nHEADER";
+			});
+			csv.OnRead = (item, index, length) =>
+			{
+				return new Mockup
+				{
+					Id = int.Parse(item[0]),
+					Name = item[1],
+					Greetings = item[2],
+					Number = double.Parse(item[3]),
+					Timestamp = DateTime.Parse(item[4])
+				};
+			};
+			csv.OnWrite = (item, index, length) =>
+			{
+				return new string[] {
+					item.Id.ToString(),
+					item.Name,
+					item.Greetings,
+					item.Number.ToString(),
+					item.Timestamp.ToString(),
+				};
+			};
 
-			var csv = new CsvStorage<Mockup>(
-				setup, new CsvToMockupParser(), new MockupToCsvParser());
 			return new object[] {
 				ext,
-				file.FullName,
+				file,
 				csv as IReadable<Mockup>,
 				csv as IWritable<Mockup>,
 			};
@@ -85,12 +104,15 @@ namespace TeleScope.MSTest.Persistence.Attributes
 		private static object[] BuildParquet()
 		{
 			var ext = "parquet";
-			var file = GetFile(ext);
+			var file = GetFilename(ext);
 
-			var parquet = new ParquetStorage<Mockup>(file, true, true);
+			var parquet = new ParquetStorage<Mockup>(file, (setup) => {
+				setup.Permissions = WritePermissions.Create | WritePermissions.Delete;
+			});
+
 			return new object[] {
 				ext,
-				file.FullName,
+				file,
 				parquet as IReadable<Mockup>,
 				parquet as IWritable<Mockup>,
 			};

@@ -27,16 +27,6 @@
             a default constructor signature for concrete file setup classes.
             </summary>
         </member>
-        <member name="F:TeleScope.Persistence.Abstractions.FileSetupBase.DEFAULT_ACCESS">
-            <summary>
-            The default behavior for file storage implementations, if it is allowed to create files or not.
-            </summary>
-        </member>
-        <member name="F:TeleScope.Persistence.Abstractions.FileSetupBase.DEFAULT_CAN_DELETE">
-            <summary>
-            The default behavior for file storage implementations, if it is allowed to delete files or not.
-            </summary>
-        </member>
         <member name="P:TeleScope.Persistence.Abstractions.FileSetupBase.File">
             <summary>
             Gets the complete filenmane with path and the extension of the file. 
@@ -57,21 +47,20 @@
             Gets the complete path, where the file is located. 
             </summary>
         </member>
-        <member name="M:TeleScope.Persistence.Abstractions.FileSetupBase.#ctor(System.IO.FileInfo,System.IO.FileAccess)">
+        <member name="M:TeleScope.Persistence.Abstractions.FileSetupBase.#ctor(System.IO.FileInfo,TeleScope.Persistence.Abstractions.Enumerations.WritePermissions)">
             <summary>
-            The default constructor sets the file info propterties and <seealso cref="!:CanCreate"/> and <seealso cref="!:CanDelete"/>. 
+            The default constructor sets the file info propterties and <see cref="T:TeleScope.Persistence.Abstractions.Enumerations.WritePermissions"/>. 
             </summary>
             <param name="fileInfo">The information about the file that will get accessed by a file storage.</param>
-            <param name="canCreate">Sets the information, if the setup provides the ability to create files.</param>
-            <param name="canDelete">Sets the information, if the setup provides the ability to delete files.</param>
+            <param name="permissions">The information about the write permissions.</param>
         </member>
-        <member name="M:TeleScope.Persistence.Abstractions.FileSetupBase.GetFileInfo">
+        <member name="M:TeleScope.Persistence.Abstractions.FileSetupBase.Info">
             <summary>
             Gets the reference to the FileInfo object, that was given to the constructor. 
             </summary>
             <returns></returns>
         </member>
-        <member name="M:TeleScope.Persistence.Abstractions.FileSetupBase.SetFileInfo(System.IO.FileInfo)">
+        <member name="M:TeleScope.Persistence.Abstractions.FileSetupBase.SetFile(System.IO.FileInfo)">
             <summary>
             Sets or updates the reference to the FileInfo object. 
             </summary>
@@ -125,16 +114,6 @@
             This interface provides a minimalistic generic approach to write generic data to any kind of (persistent) data sink.
             </summary>
             <typeparam name="T">The type that is given on the application side.</typeparam>
-        </member>
-        <member name="P:TeleScope.Persistence.Abstractions.IWritable`1.CanCreate">
-            <summary>
-            Gets the information, if the instance provides the ability to create files. 
-            </summary>
-        </member>
-        <member name="P:TeleScope.Persistence.Abstractions.IWritable`1.CanDelete">
-            <summary>
-            Gets the information, if the instance provides the ability to delete files. 
-            </summary>
         </member>
         <member name="M:TeleScope.Persistence.Abstractions.IWritable`1.Write(System.Collections.Generic.IEnumerable{`0})">
             <summary>

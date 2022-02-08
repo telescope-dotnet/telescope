@@ -71,6 +71,7 @@ namespace TeleScope.MSTest.Persistence.Attributes
 				setup.StartRow = 2;
 				setup.Header = "This is my awesome\r\nHEADER";
 			});
+
 			csv.OnRead = (item, index, length) =>
 			{
 				return new Mockup
@@ -82,6 +83,7 @@ namespace TeleScope.MSTest.Persistence.Attributes
 					Timestamp = DateTime.Parse(item[4])
 				};
 			};
+
 			csv.OnWrite = (item, index, length) =>
 			{
 				return new string[] {

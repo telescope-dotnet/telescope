@@ -103,6 +103,8 @@ namespace TeleScope.Persistence.Csv
 			for (int i = start; i < lines.Length; i++)
 			{
 				string[] fields = lines[i].Split(setup.Separator);
+
+				// TODO create useful exception handling and messaging
 				result.Add(OnRead(fields, i, lines.Length));
 			}
 
@@ -138,6 +140,7 @@ namespace TeleScope.Persistence.Csv
 				int i = 0;
 				foreach (T item in data)
 				{
+					// TODO create useful exception handling and messaging
 					var line = string.Join(seperator, OnWrite(item, i, data.Count()));
 					csv.AppendLine(line);
 					i++;

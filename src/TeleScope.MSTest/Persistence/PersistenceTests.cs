@@ -10,6 +10,7 @@ using TeleScope.MSTest.Mockups;
 using TeleScope.MSTest.Persistence.Attributes;
 using TeleScope.Persistence.Abstractions;
 using TeleScope.Persistence.Abstractions.Enumerations;
+using TeleScope.Persistence.Csv;
 using TeleScope.Persistence.Json;
 using TeleScope.Persistence.Json.Extensions;
 using TeleScope.Persistence.Yaml;
@@ -46,6 +47,26 @@ namespace TeleScope.MSTest.Persistence
 		}
 
 		// -- tests
+
+		[TestMethod]
+		public void CsvDelegatesShouldFail()
+		{
+			// arrange
+			file = Path.Combine("App_Data", "demo.csv");
+			var csv = new CsvStorage<Mockup>(file);
+			
+			// act
+			try
+			{
+				var mockup = csv.Read();
+			}
+			catch (Exception ex)
+			{
+				// assert
+				log.Error(ex);
+			}
+			
+		}
 
 		[TestMethod]
 		public void WriteComplexYaml()

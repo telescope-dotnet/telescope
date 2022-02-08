@@ -16,6 +16,14 @@
             Gets the flags of permissions how files may be treated. 
             </summary>
         </member>
+        <member name="M:TeleScope.Persistence.Yaml.YamlStorage`1.#ctor(System.String,System.Action{TeleScope.Persistence.Yaml.YamlStorageSetup})">
+            <summary>
+            The constructor takes the file string as input parameter, 
+            creates the <see cref="T:TeleScope.Persistence.Yaml.YamlStorageSetup"/> and allows to config the properties afterwards.
+            </summary>
+            <param name="file">The specific YAML file that the storage is related to.</param>
+            <param name="config">The optional action to configure the created setup.</param>
+        </member>
         <member name="M:TeleScope.Persistence.Yaml.YamlStorage`1.#ctor(TeleScope.Persistence.Yaml.YamlStorageSetup)">
             <summary>
             The constructor takes the setup of type <seealso cref="T:TeleScope.Persistence.Yaml.YamlStorageSetup"/> as input parameter
@@ -77,6 +85,22 @@
             Gets or sets the value handing for default or null values.
             The default value is <see cref="F:YamlDotNet.Serialization.DefaultValuesHandling.OmitNull"/>.
             </summary>
+        </member>
+        <member name="M:TeleScope.Persistence.Yaml.YamlStorageSetup.#ctor(System.String,TeleScope.Persistence.Abstractions.Enumerations.WritePermissions)">
+            <summary>
+            The constructor calls the according base class constructor and 
+            leaves the default settings of the property.
+            </summary>
+            <param name="file">The file represented as string, the storage is attached to.</param>
+            <param name="permissions">The permission flag to access the file.</param>
+        </member>
+        <member name="M:TeleScope.Persistence.Yaml.YamlStorageSetup.#ctor(System.IO.FileInfo,TeleScope.Persistence.Abstractions.Enumerations.WritePermissions)">
+            <summary>
+            The constructor calls the according base class constructor and 
+            leaves the default settings of the property. 
+            </summary>
+            <param name="fileInfo">The file information, the storage is attached to.</param>
+            <param name="permissions">The permission flag to access the file.</param>
         </member>
     </members>
 </doc>

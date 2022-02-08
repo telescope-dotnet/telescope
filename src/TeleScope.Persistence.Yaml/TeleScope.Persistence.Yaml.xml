@@ -11,6 +11,11 @@
             <typeparam name="T">The type T is used application-side and can be read from the data source 
             or be written to the data sink.</typeparam>
         </member>
+        <member name="P:TeleScope.Persistence.Yaml.YamlStorage`1.Permissions">
+            <summary>
+            Gets the flags of permissions how files may be treated. 
+            </summary>
+        </member>
         <member name="M:TeleScope.Persistence.Yaml.YamlStorage`1.#ctor(TeleScope.Persistence.Yaml.YamlStorageSetup)">
             <summary>
             The constructor takes the setup of type <seealso cref="T:TeleScope.Persistence.Yaml.YamlStorageSetup"/> as input parameter
@@ -38,6 +43,22 @@
             If there is only one data object there is the need to provide a collection with one element.
             </summary>
             <param name="data">The application-side data collection of type T.</param>
+        </member>
+        <member name="M:TeleScope.Persistence.Yaml.YamlStorage`1.Update(System.String)">
+            <summary>
+            Updates the reference to the internal <see cref="T:System.IO.FileInfo"/> instance 
+            so that the data sink can be updated. 
+            </summary>
+            <param name="file">The new string of the file.</param>
+            <returns>The calling instance.</returns>
+        </member>
+        <member name="M:TeleScope.Persistence.Yaml.YamlStorage`1.Update(System.IO.FileInfo)">
+            <summary>
+            Updates the reference to the internal <see cref="T:System.IO.FileInfo"/> instance 
+            so that the data sink can be updated. 
+            </summary>
+            <param name="fileInfo">The new FileInfo object.</param>
+            <returns>The calling instance.</returns>
         </member>
         <member name="T:TeleScope.Persistence.Yaml.YamlStorageSetup">
             <summary>

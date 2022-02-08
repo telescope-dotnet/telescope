@@ -1,10 +1,9 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using TeleScope.Logging;
 using TeleScope.Logging.Extensions;
 using TeleScope.Persistence.Abstractions;
@@ -18,7 +17,7 @@ namespace TeleScope.Persistence.Json
 	/// </summary>
 	/// <typeparam name="T">The type T is used application-side and can be read from the data source 
 	/// or be written to the data sink.</typeparam>
-	public class JsonStorage<T> : IReadable<T>, IWritable<T>
+	public class JsonStorage<T> : IReadable<T>, IFileWritable<T>
 	{
 		// -- fields
 
@@ -27,11 +26,21 @@ namespace TeleScope.Persistence.Json
 
 		// -- properties
 
+		/// <summary>
+		/// Gets the flags of permissions how files may be treated. 
+		/// </summary>
 		public WritePermissions Permissions => setup.Permissions;
 
 		// -- constructors
-		
-		public JsonStorage(string file, Action<JsonStorageSetup> config = null) : this(new JsonStorageSetup(file))
+
+		/// <summary>
+		/// The constructor takes the file string as input parameter, 
+		/// creates the <see cref="JsonStorageSetup"/> and allows to config the properties afterwards.
+		/// </summary>
+		/// <param name="file">The specific JSON file that the storage is related to.</param>
+		/// <param name="config">The optional action to configure the created setup.</param>
+		public JsonStorage(string file, Action<JsonStorageSetup> config = null) 
+			: this(new JsonStorageSetup(file))
 		{
 			if (config is not null)
 			{
@@ -41,10 +50,10 @@ namespace TeleScope.Persistence.Json
 		}
 
 		/// <summary>
-		/// The constructor takes the setup of type <seealso cref="JsonStorageSetup"/> as input parameter
+		/// The constructor takes the setup of type <see cref="JsonStorageSetup"/> as input parameter
 		/// and binds the logging mechanism.
 		/// </summary>
-		/// <param name="jsonSetup">The setup is needed to work with a specific JSON file.</param>
+		/// <param name="jsonSetup">The setup is needed to work with a specific CSV file.</param>
 		public JsonStorage(JsonStorageSetup jsonSetup) : this()
 		{
 			setup = jsonSetup ?? throw new ArgumentNullException(nameof(jsonSetup));
@@ -58,7 +67,7 @@ namespace TeleScope.Persistence.Json
 
 		// -- methods
 
-		private void ValidateSetup() 
+		private void ValidateSetup()
 		{
 			if (setup.Settings is null)
 			{
@@ -125,6 +134,29 @@ namespace TeleScope.Persistence.Json
 			{
 				log.Critical(ex);
 			}
+		}
+
+		/// <summary>
+		/// Updates the reference to the internal <see cref="FileInfo"/> instance 
+		/// so that the data sink can be updated. 
+		/// </summary>
+		/// <param name="file">The new string of the file.</param>
+		/// <returns>The calling instance.</returns>
+		public IFileWritable<T> Update(string file)
+		{
+			return Update(new FileInfo(file));
+		}
+
+		/// <summary>
+		/// Updates the reference to the internal <see cref="FileInfo"/> instance 
+		/// so that the data sink can be updated. 
+		/// </summary>
+		/// <param name="fileInfo">The new FileInfo object.</param>
+		/// <returns>The calling instance.</returns>
+		public IFileWritable<T> Update(FileInfo fileInfo)
+		{
+			setup.SetFile(fileInfo);
+			return this;
 		}
 	}
 }

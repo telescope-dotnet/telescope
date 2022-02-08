@@ -4,6 +4,26 @@
         <name>TeleScope.Persistence.Abstractions</name>
     </assembly>
     <members>
+        <member name="T:TeleScope.Persistence.Abstractions.Enumerations.WritePermissions">
+            <summary>
+            The enum contains the permissions to manipulate (file) storages in terms of writing operations.
+            </summary>
+        </member>
+        <member name="F:TeleScope.Persistence.Abstractions.Enumerations.WritePermissions.None">
+            <summary>
+            No permission to write at all.
+            </summary>
+        </member>
+        <member name="F:TeleScope.Persistence.Abstractions.Enumerations.WritePermissions.Create">
+            <summary>
+            Permission to write and create new storages.
+            </summary>
+        </member>
+        <member name="F:TeleScope.Persistence.Abstractions.Enumerations.WritePermissions.Delete">
+            <summary>
+            Permission to write and delete storages.
+            </summary>
+        </member>
         <member name="T:TeleScope.Persistence.Abstractions.Extensions.IWritableExtensions">
             <summary>
             This extension class extends the <seealso cref="T:TeleScope.Persistence.Abstractions.IWritable`1"/> interface with common functions.
@@ -47,9 +67,26 @@
             Gets the complete path, where the file is located. 
             </summary>
         </member>
+        <member name="P:TeleScope.Persistence.Abstractions.FileSetupBase.Exists">
+            <summary>
+            Gets the information if the file info instance exists or not.
+            </summary>
+        </member>
+        <member name="P:TeleScope.Persistence.Abstractions.FileSetupBase.Permissions">
+            <summary>
+            Gets the flags of permissions how files may be treated. 
+            </summary>
+        </member>
+        <member name="M:TeleScope.Persistence.Abstractions.FileSetupBase.#ctor(System.String,TeleScope.Persistence.Abstractions.Enumerations.WritePermissions)">
+            <summary>
+            The constructor sets the file propterties and the <see cref="T:TeleScope.Persistence.Abstractions.Enumerations.WritePermissions"/>. 
+            </summary>
+            <param name="file">The file that will get accessed by a file storage.</param>
+            <param name="permissions">The information about the write permissions.</param>
+        </member>
         <member name="M:TeleScope.Persistence.Abstractions.FileSetupBase.#ctor(System.IO.FileInfo,TeleScope.Persistence.Abstractions.Enumerations.WritePermissions)">
             <summary>
-            The default constructor sets the file info propterties and <see cref="T:TeleScope.Persistence.Abstractions.Enumerations.WritePermissions"/>. 
+            The constructor sets the file propterties and the <see cref="T:TeleScope.Persistence.Abstractions.Enumerations.WritePermissions"/>.
             </summary>
             <param name="fileInfo">The information about the file that will get accessed by a file storage.</param>
             <param name="permissions">The information about the write permissions.</param>
@@ -66,18 +103,38 @@
             </summary>
             <param name="fileInfo">The new FileInfo object.</param>
         </member>
+        <member name="T:TeleScope.Persistence.Abstractions.Handlers.PersistenceHandler`2">
+            <summary>
+            The delegate provides a generic approach to parse data structures for incoming or outgoing dataflows.
+            </summary>
+            <typeparam name="Tin">The incoming type.</typeparam>
+            <typeparam name="Tout">The outgoing type.</typeparam>
+            <param name="item">The current item.</param>
+            <param name="index">The index of the element.
+            If there is only a single instance the value is 0.</param>
+            <param name="length">The length of the collection.
+            If there is only a single instance the value is 1.</param>
+            <returns></returns>
+        </member>
         <member name="T:TeleScope.Persistence.Abstractions.IFileWritable`1">
             <summary>
             This interface provides a generic approach to write generic data to a file based data sink. The interface inherits from <seealso cref="T:TeleScope.Persistence.Abstractions.IWritable`1"/>
             </summary>
             <typeparam name="T">The type that is given on the application side.</typeparam>
         </member>
+        <member name="M:TeleScope.Persistence.Abstractions.IFileWritable`1.Update(System.String)">
+            <summary>
+            Updates the file information to change the file sink after instanciation process.
+            </summary>
+            <param name="file">The file information object.</param>
+            <returns>The calling instance.</returns>
+        </member>
         <member name="M:TeleScope.Persistence.Abstractions.IFileWritable`1.Update(System.IO.FileInfo)">
             <summary>
             Updates the file information to change the file sink after instanciation process.
             </summary>
             <param name="fileInfo">The file information object.</param>
-            <returns>The calling instancec.</returns>
+            <returns>The calling instance.</returns>
         </member>
         <member name="T:TeleScope.Persistence.Abstractions.IParsable`1">
             <summary>
@@ -115,12 +172,24 @@
             </summary>
             <typeparam name="T">The type that is given on the application side.</typeparam>
         </member>
+        <member name="P:TeleScope.Persistence.Abstractions.IWritable`1.Permissions">
+            <summary>
+            Gets the flags of permissions how files may be treated. 
+            </summary>
+        </member>
         <member name="M:TeleScope.Persistence.Abstractions.IWritable`1.Write(System.Collections.Generic.IEnumerable{`0})">
             <summary>
             Writes a collection of type T to a given data sink.
             If there is only one data object there is the need to provide a collection with one element.
             </summary>
             <param name="data">The application-side data collection of type T.</param>
+        </member>
+        <member name="M:TeleScope.Persistence.Abstractions.IWritable`1.HasPermission(TeleScope.Persistence.Abstractions.Enumerations.WritePermissions)">
+            <summary>
+            Shall check, if the implementation has the permission handed over as parameter. 
+            </summary>
+            <param name="permission">The permission that will be testet.</param>
+            <returns>True if the permission flags are present, otherwise false.</returns>
         </member>
     </members>
 </doc>

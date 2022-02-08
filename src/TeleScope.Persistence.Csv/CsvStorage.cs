@@ -25,25 +25,34 @@ namespace TeleScope.Persistence.Csv
 		private readonly ILogger<CsvStorage<T>> log;
 		private readonly CsvStorageSetup setup;
 
-		//private readonly IParsable<T> incomingParser;
-		//private readonly IParsable<string[]> outgoingParser;
-
-
-
-
-		//public Func<T, int 0, string[]> OnRead { private get; set; }
-		//public Func<string[], T> OnWrite { private get; set; }
-
 		// -- properties
 
+		/// <summary>
+		/// Gets the flags of permissions how files may be treated. 
+		/// </summary>
 		public WritePermissions Permissions => setup.Permissions;
 
+		/// <summary>
+		/// The delegate handles the read operation of a CSV line and returned the targeted internal type.
+		/// </summary>
 		public PersistenceHandler<string[], T> OnRead { private get; set; }
 
+		/// <summary>
+		/// The delegate handles the write operation to a CSV to a string array that represents a line.
+		/// The input data is the internal type of the storage.
+		/// </summary>
 		public PersistenceHandler<T, string[]> OnWrite { private get; set; }
 
 		// -- concstructor
-		public CsvStorage(string file, Action<CsvStorageSetup> config = null) :	this(new CsvStorageSetup(file))
+
+		/// <summary>
+		/// The constructor takes the file string as input parameter, 
+		/// creates the <see cref="CsvStorageSetup"/> and allows to config the properties afterwards.
+		/// </summary>
+		/// <param name="file">The specific CSV file that the storage is related to.</param>
+		/// <param name="config">The optional action to configure the created setup.</param>
+		public CsvStorage(string file, Action<CsvStorageSetup> config = null) 
+			: this(new CsvStorageSetup(file))
 		{
 			if (config is not null)
 			{
@@ -146,7 +155,19 @@ namespace TeleScope.Persistence.Csv
 		}
 
 		/// <summary>
-		/// Updates the reference to the FileInfo object so that the data sink can be updated. 
+		/// Updates the reference to the internal <see cref="FileInfo"/> instance 
+		/// so that the data sink can be updated. 
+		/// </summary>
+		/// <param name="file">The new string of the file.</param>
+		/// <returns>The calling instance.</returns>
+		public IFileWritable<T> Update(string file)
+		{
+			return Update(new FileInfo(file));
+		}
+
+		/// <summary>
+		/// Updates the reference to the internal <see cref="FileInfo"/> instance 
+		/// so that the data sink can be updated. 
 		/// </summary>
 		/// <param name="fileInfo">The new FileInfo object.</param>
 		/// <returns>The calling instance.</returns>

@@ -11,6 +11,9 @@ namespace TeleScope.Persistence.Abstractions
 	{
 		// -- properties
 
+		/// <summary>
+		/// Gets the flags of permissions how files may be treated. 
+		/// </summary>
 		WritePermissions Permissions { get; }
 
 		// -- methods
@@ -22,6 +25,11 @@ namespace TeleScope.Persistence.Abstractions
 		/// <param name="data">The application-side data collection of type T.</param>
 		void Write(IEnumerable<T> data);
 
+		/// <summary>
+		/// Shall check, if the implementation has the permission handed over as parameter. 
+		/// </summary>
+		/// <param name="permission">The permission that will be testet.</param>
+		/// <returns>True if the permission flags are present, otherwise false.</returns>
 		bool HasPermission(WritePermissions permission);
 	}
 }

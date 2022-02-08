@@ -12,6 +12,7 @@
     <PackageTags>Persistence Parquet, Parquet.Net</PackageTags>
     <PackageReleaseNotes>initial packaged version</PackageReleaseNotes>
     <Description>Contains an implementation of the IReadable and IWritable interfaces to access parquet files. Depends on the assemblies TeleScope.Persistence.Abstractions and Parquet.Net.</Description>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

@@ -16,12 +16,17 @@ namespace TeleScope.Persistence.Json
 	/// </summary>
 	public class JsonStorageSetup : FileSetupBase
 	{
-		// -- fields
-
 		// -- properties
 
+		/// <summary>
+		/// Gets or sets the Newtonsoft JSON setting.
+		/// </summary>
 		public JsonSerializerSettings Settings { get; set; } = new JsonSerializerSettings();
 
+		/// <summary>
+		/// Gets or sets the formatting of the JSON file.
+		/// The default value is <see cref="Formatting.Indented"/>.
+		/// </summary>
 		public Formatting Format { get; set; } = Formatting.Indented;
 
 		/// <summary>
@@ -31,6 +36,11 @@ namespace TeleScope.Persistence.Json
 
 		// -- constructor
 
+		/// <summary>
+		/// The constructor calls the according base class constructor and 
+		/// leaves the default settings of the property.
+		/// </summary>
+		/// <param name="file">The file represented as string, the storage is attached to.</param>
 		public JsonStorageSetup(string file) : base(file, WritePermissions.Create)
 		{
 

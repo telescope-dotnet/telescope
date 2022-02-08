@@ -55,12 +55,25 @@
             <typeparam name="T">The type T is used application-side and can be read from the data source 
             or be written to the data sink.</typeparam>
         </member>
+        <member name="P:TeleScope.Persistence.Json.JsonStorage`1.Permissions">
+            <summary>
+            Gets the flags of permissions how files may be treated. 
+            </summary>
+        </member>
+        <member name="M:TeleScope.Persistence.Json.JsonStorage`1.#ctor(System.String,System.Action{TeleScope.Persistence.Json.JsonStorageSetup})">
+            <summary>
+            The constructor takes the file string as input parameter, 
+            creates the <see cref="T:TeleScope.Persistence.Json.JsonStorageSetup"/> and allows to config the properties afterwards.
+            </summary>
+            <param name="file">The specific JSON file that the storage is related to.</param>
+            <param name="config">The optional action to configure the created setup.</param>
+        </member>
         <member name="M:TeleScope.Persistence.Json.JsonStorage`1.#ctor(TeleScope.Persistence.Json.JsonStorageSetup)">
             <summary>
-            The constructor takes the setup of type <seealso cref="T:TeleScope.Persistence.Json.JsonStorageSetup"/> as input parameter
+            The constructor takes the setup of type <see cref="T:TeleScope.Persistence.Json.JsonStorageSetup"/> as input parameter
             and binds the logging mechanism.
             </summary>
-            <param name="jsonSetup">The setup is needed to work with a specific JSON file.</param>
+            <param name="jsonSetup">The setup is needed to work with a specific CSV file.</param>
         </member>
         <member name="M:TeleScope.Persistence.Json.JsonStorage`1.HasPermission(TeleScope.Persistence.Abstractions.Enumerations.WritePermissions)">
             <summary>
@@ -84,16 +97,50 @@
             </summary>
             <param name="data">The application-side data collection of type T.</param>
         </member>
+        <member name="M:TeleScope.Persistence.Json.JsonStorage`1.Update(System.String)">
+            <summary>
+            Updates the reference to the internal <see cref="T:System.IO.FileInfo"/> instance 
+            so that the data sink can be updated. 
+            </summary>
+            <param name="file">The new string of the file.</param>
+            <returns>The calling instance.</returns>
+        </member>
+        <member name="M:TeleScope.Persistence.Json.JsonStorage`1.Update(System.IO.FileInfo)">
+            <summary>
+            Updates the reference to the internal <see cref="T:System.IO.FileInfo"/> instance 
+            so that the data sink can be updated. 
+            </summary>
+            <param name="fileInfo">The new FileInfo object.</param>
+            <returns>The calling instance.</returns>
+        </member>
         <member name="T:TeleScope.Persistence.Json.JsonStorageSetup">
             <summary>
             This storage setup extends <seealso cref="T:TeleScope.Persistence.Abstractions.FileSetupBase"/> 
             to specify parameters for an access to JSON files. 
             </summary>
         </member>
+        <member name="P:TeleScope.Persistence.Json.JsonStorageSetup.Settings">
+            <summary>
+            Gets or sets the Newtonsoft JSON setting.
+            </summary>
+        </member>
+        <member name="P:TeleScope.Persistence.Json.JsonStorageSetup.Format">
+            <summary>
+            Gets or sets the formatting of the JSON file.
+            The default value is <see cref="F:Newtonsoft.Json.Formatting.Indented"/>.
+            </summary>
+        </member>
         <member name="P:TeleScope.Persistence.Json.JsonStorageSetup.Encoder">
             <summary>
             Gets or sets the encoding of the file.
             </summary>
+        </member>
+        <member name="M:TeleScope.Persistence.Json.JsonStorageSetup.#ctor(System.String)">
+            <summary>
+            The constructor calls the according base class constructor and 
+            leaves the default settings of the property.
+            </summary>
+            <param name="file">The file represented as string, the storage is attached to.</param>
         </member>
         <member name="M:TeleScope.Persistence.Json.JsonStorageSetup.#ctor(System.IO.FileInfo)">
             <summary>

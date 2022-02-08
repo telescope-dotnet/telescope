@@ -18,7 +18,7 @@ namespace TeleScope.Persistence.Yaml
 	/// </summary>
 	/// <typeparam name="T">The type T is used application-side and can be read from the data source 
 	/// or be written to the data sink.</typeparam>
-	public class YamlStorage<T> : IReadable<T>, IWritable<T>
+	public class YamlStorage<T> : IReadable<T>, IFileWritable<T>
 	{
 		// -- fields
 
@@ -27,11 +27,21 @@ namespace TeleScope.Persistence.Yaml
 
 		// -- properties
 
+		/// <summary>
+		/// Gets the flags of permissions how files may be treated. 
+		/// </summary>
 		public WritePermissions Permissions => setup.Permissions;
 
 		// -- constructors
 
-		public YamlStorage(string file, Action<YamlStorageSetup> config = null) : this(new YamlStorageSetup(file))
+		/// <summary>
+		/// The constructor takes the file string as input parameter, 
+		/// creates the <see cref="YamlStorageSetup"/> and allows to config the properties afterwards.
+		/// </summary>
+		/// <param name="file">The specific YAML file that the storage is related to.</param>
+		/// <param name="config">The optional action to configure the created setup.</param>
+		public YamlStorage(string file, Action<YamlStorageSetup> config = null) 
+			: this(new YamlStorageSetup(file))
 		{
 			if (config is not null)
 			{
@@ -120,6 +130,29 @@ namespace TeleScope.Persistence.Yaml
 			{
 				log.Critical(ex);
 			}
+		}
+
+		/// <summary>
+		/// Updates the reference to the internal <see cref="FileInfo"/> instance 
+		/// so that the data sink can be updated. 
+		/// </summary>
+		/// <param name="file">The new string of the file.</param>
+		/// <returns>The calling instance.</returns>
+		public IFileWritable<T> Update(string file)
+		{
+			return Update(new FileInfo(file));
+		}
+
+		/// <summary>
+		/// Updates the reference to the internal <see cref="FileInfo"/> instance 
+		/// so that the data sink can be updated. 
+		/// </summary>
+		/// <param name="fileInfo">The new FileInfo object.</param>
+		/// <returns>The calling instance.</returns>
+		public IFileWritable<T> Update(FileInfo fileInfo)
+		{
+			setup.SetFile(fileInfo);
+			return this;
 		}
 	}
 }

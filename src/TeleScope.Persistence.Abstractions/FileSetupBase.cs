@@ -36,33 +36,46 @@ namespace TeleScope.Persistence.Abstractions
 		/// </summary>
 		public string Location => info.Directory.FullName;
 
+		/// <summary>
+		/// Gets the information if the file info instance exists or not.
+		/// </summary>
+		public bool Exists => info.Exists;
+
+		/// <summary>
+		/// Gets the flags of permissions how files may be treated. 
+		/// </summary>
 		public WritePermissions Permissions { get; set; }
 
 		// -- constructors
 
-		private FileSetupBase(WritePermissions permissions) 
-		{
-			Permissions = permissions;
-		}
-
-		protected FileSetupBase(
-			string file, 
-			WritePermissions permissions = WritePermissions.Create | WritePermissions.Delete) : this(permissions)
+		/// <summary>
+		/// The constructor sets the file propterties and the <see cref="WritePermissions"/>. 
+		/// </summary>
+		/// <param name="file">The file that will get accessed by a file storage.</param>
+		/// <param name="permissions">The information about the write permissions.</param>
+		protected FileSetupBase(string file, 
+			WritePermissions permissions = WritePermissions.Create | WritePermissions.Delete) 
+			: this(permissions)
 		{
 			_ = file ?? throw new ArgumentNullException(nameof(file));
 			SetFile(new FileInfo(file));
 		}
 
 		/// <summary>
-		/// The default constructor sets the file info propterties and <see cref="WritePermissions"/>. 
+		/// The constructor sets the file propterties and the <see cref="WritePermissions"/>.
 		/// </summary>
 		/// <param name="fileInfo">The information about the file that will get accessed by a file storage.</param>
 		/// <param name="permissions">The information about the write permissions.</param>
-		protected FileSetupBase(
-			FileInfo fileInfo, 
-			WritePermissions permissions = WritePermissions.Create | WritePermissions.Delete) : this(permissions)
+		protected FileSetupBase(FileInfo fileInfo, 
+			WritePermissions permissions = WritePermissions.Create | WritePermissions.Delete) 
+			: this(permissions)
 		{
 			SetFile(fileInfo);
+		}
+
+		private FileSetupBase(WritePermissions permissions)
+		{
+			Permissions = permissions;
 		}
 
 		// -- methods
@@ -82,7 +95,8 @@ namespace TeleScope.Persistence.Abstractions
 		/// <param name="fileInfo">The new FileInfo object.</param>
 		public void SetFile(FileInfo fileInfo)
 		{
-			info = fileInfo ?? throw new ArgumentNullException(nameof(fileInfo));
+			_ = fileInfo ?? throw new ArgumentNullException(nameof(fileInfo));
+			info = fileInfo;
 		}
 	}
 }

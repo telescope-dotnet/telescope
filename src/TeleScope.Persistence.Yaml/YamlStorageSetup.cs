@@ -30,12 +30,26 @@ namespace TeleScope.Persistence.Yaml
 
 		// -- constructors
 
-		public YamlStorageSetup(string file, WritePermissions permissions = WritePermissions.Create) : base(file, permissions)
+		/// <summary>
+		/// The constructor calls the according base class constructor and 
+		/// leaves the default settings of the property.
+		/// </summary>
+		/// <param name="file">The file represented as string, the storage is attached to.</param>
+		/// <param name="permissions">The permission flag to access the file.</param>
+		public YamlStorageSetup(string file, WritePermissions permissions = WritePermissions.Create) 
+			: base(file, permissions)
 		{
 
 		}
 
-		public YamlStorageSetup(FileInfo fileInfo, WritePermissions permissions = WritePermissions.Create) : base(fileInfo, permissions)
+		/// <summary>
+		/// The constructor calls the according base class constructor and 
+		/// leaves the default settings of the property. 
+		/// </summary>
+		/// <param name="fileInfo">The file information, the storage is attached to.</param>
+		/// <param name="permissions">The permission flag to access the file.</param>
+		public YamlStorageSetup(FileInfo fileInfo, WritePermissions permissions = WritePermissions.Create) 
+			: base(fileInfo, permissions)
 		{
 			
 		}

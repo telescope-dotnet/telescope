@@ -45,14 +45,20 @@ namespace TeleScope.Persistence.Csv
 
 		// constructors
 
+		/// <summary>
+		/// The constructor calls the according base class constructor and 
+		/// leaves the default settings of the property.
+		/// </summary>
+		/// <param name="file">The file represented as string, the storage is attached to.</param>
 		public CsvStorageSetup(string file) : base(file, WritePermissions.Create)
 		{
 		}
 
 		/// <summary>
-		/// The default constructor calls the constructor of the base class and 
-		/// defines `UTF8` as default <seealso cref="Encoder"/> property.
+		/// The constructor calls the according base class constructor and 
+		/// leaves the default settings of the property.
 		/// </summary>
+		/// <param name="fileInfo">The file information, the storage is attached to.</param>
 		public CsvStorageSetup(FileInfo fileInfo) : base(fileInfo, WritePermissions.Create)
 		{
 		}

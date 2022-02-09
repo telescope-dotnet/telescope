@@ -11,8 +11,15 @@ namespace TeleScope.Persistence.Abstractions
 		/// <summary>
 		/// Updates the file information to change the file sink after instanciation process.
 		/// </summary>
+		/// <param name="file">The file information object.</param>
+		/// <returns>The calling instance.</returns>
+		IFileWritable<T> Update(string file);
+
+		/// <summary>
+		/// Updates the file information to change the file sink after instanciation process.
+		/// </summary>
 		/// <param name="fileInfo">The file information object.</param>
-		/// <returns>The calling instancec.</returns>
+		/// <returns>The calling instance.</returns>
 		IFileWritable<T> Update(FileInfo fileInfo);
 	}
 }

@@ -11,24 +11,31 @@
             <typeparam name="T">The type T is used application-side and can be read from the data source 
             or be written to the data sink.</typeparam>
         </member>
-        <member name="P:TeleScope.Persistence.Yaml.YamlStorage`1.CanCreate">
+        <member name="P:TeleScope.Persistence.Yaml.YamlStorage`1.Permissions">
             <summary>
-            The default behavior for file storage,
-            if it is allowed to create files or not.
+            Gets the flags of permissions how files may be treated. 
             </summary>
         </member>
-        <member name="P:TeleScope.Persistence.Yaml.YamlStorage`1.CanDelete">
+        <member name="M:TeleScope.Persistence.Yaml.YamlStorage`1.#ctor(System.String)">
             <summary>
-            The default behavior for file storage, 
-            if it is allowed to delete files or not.
+            The constructor takes the file string as input parameter, 
+            creates the <see cref="T:TeleScope.Persistence.Yaml.YamlStorageSetup"/> and allows to config the properties afterwards.
             </summary>
+            <param name="file">The specific YAML file that the storage is related to.</param>
         </member>
         <member name="M:TeleScope.Persistence.Yaml.YamlStorage`1.#ctor(TeleScope.Persistence.Yaml.YamlStorageSetup)">
             <summary>
             The constructor takes the setup of type <seealso cref="T:TeleScope.Persistence.Yaml.YamlStorageSetup"/> as input parameter
             and binds the logging mechanism.
             </summary>
-            <param name="setup">The setup is needed to work with a specific YAML file.</param>
+            <param name="yamlSetup">The setup is needed to work with a specific YAML file.</param>
+        </member>
+        <member name="M:TeleScope.Persistence.Yaml.YamlStorage`1.HasPermission(TeleScope.Persistence.Abstractions.Enumerations.WritePermissions)">
+            <summary>
+            Checks if the permission is a present flag or not. 
+            </summary>
+            <param name="permission">The enum that is checked.</param>
+            <returns>True if the value is a present flag, otherwise false.</returns>
         </member>
         <member name="M:TeleScope.Persistence.Yaml.YamlStorage`1.Read">
             <summary>
@@ -44,6 +51,22 @@
             </summary>
             <param name="data">The application-side data collection of type T.</param>
         </member>
+        <member name="M:TeleScope.Persistence.Yaml.YamlStorage`1.Update(System.String)">
+            <summary>
+            Updates the reference to the internal <see cref="T:System.IO.FileInfo"/> instance 
+            so that the data sink can be updated. 
+            </summary>
+            <param name="file">The new string of the file.</param>
+            <returns>The calling instance.</returns>
+        </member>
+        <member name="M:TeleScope.Persistence.Yaml.YamlStorage`1.Update(System.IO.FileInfo)">
+            <summary>
+            Updates the reference to the internal <see cref="T:System.IO.FileInfo"/> instance 
+            so that the data sink can be updated. 
+            </summary>
+            <param name="fileInfo">The new FileInfo object.</param>
+            <returns>The calling instance.</returns>
+        </member>
         <member name="T:TeleScope.Persistence.Yaml.YamlStorageSetup">
             <summary>
             This storage setup extends <seealso cref="T:TeleScope.Persistence.Abstractions.FileSetupBase"/> 
@@ -53,6 +76,7 @@
         <member name="P:TeleScope.Persistence.Yaml.YamlStorageSetup.Encoder">
             <summary>
             Gets or sets the encoding of the file.
+            The default value is <see cref="P:System.Text.Encoding.UTF8"/>.
             </summary>
         </member>
         <member name="P:TeleScope.Persistence.Yaml.YamlStorageSetup.ValueHandling">
@@ -61,14 +85,21 @@
             The default value is <see cref="F:YamlDotNet.Serialization.DefaultValuesHandling.OmitNull"/>.
             </summary>
         </member>
-        <member name="M:TeleScope.Persistence.Yaml.YamlStorageSetup.#ctor(System.IO.FileInfo,System.Boolean,System.Boolean)">
+        <member name="M:TeleScope.Persistence.Yaml.YamlStorageSetup.#ctor(System.String,TeleScope.Persistence.Abstractions.Enumerations.WritePermissions)">
             <summary>
-            The default constructor calls the constructor of the base class and 
-            defines `UTF8` as default <seealso cref="P:TeleScope.Persistence.Yaml.YamlStorageSetup.Encoder"/> property.
+            The constructor calls the according base class constructor and 
+            leaves the default settings of the property.
             </summary>
-            <param name="fileInfo">The information about the file that will get accessed by a file storage.</param>
-            <param name="canCreate">Sets the information, if the setup provides the ability to create files.</param>
-            <param name="canDelete">Sets the information, if the setup provides the ability to delete files.</param>
+            <param name="file">The file represented as string, the storage is attached to.</param>
+            <param name="permissions">The permission flag to access the file.</param>
+        </member>
+        <member name="M:TeleScope.Persistence.Yaml.YamlStorageSetup.#ctor(System.IO.FileInfo,TeleScope.Persistence.Abstractions.Enumerations.WritePermissions)">
+            <summary>
+            The constructor calls the according base class constructor and 
+            leaves the default settings of the property. 
+            </summary>
+            <param name="fileInfo">The file information, the storage is attached to.</param>
+            <param name="permissions">The permission flag to access the file.</param>
         </member>
     </members>
 </doc>

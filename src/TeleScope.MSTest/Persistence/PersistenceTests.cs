@@ -1,15 +1,16 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json.Converters;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Microsoft.Extensions.Logging;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using TeleScope.Logging.Extensions;
 using TeleScope.MSTest.Mockups;
 using TeleScope.MSTest.Persistence.Attributes;
 using TeleScope.Persistence.Abstractions;
+using TeleScope.Persistence.Abstractions.Enumerations;
+using TeleScope.Persistence.Csv;
 using TeleScope.Persistence.Json;
 using TeleScope.Persistence.Json.Extensions;
 using TeleScope.Persistence.Yaml;
@@ -48,17 +49,51 @@ namespace TeleScope.MSTest.Persistence
 		// -- tests
 
 		[TestMethod]
+		public void CsvDelegatesShouldFail()
+		{
+			// arrange
+			file = Path.Combine("App_Data", "demo.csv");
+			var csv = new CsvStorage<Mockup>(file);
+
+			// act & assert
+			tryThrow(() => csv.Read());
+			tryThrow(() => csv.Write(default));
+
+			// -- local function
+
+			void tryThrow(Action call)
+			{
+				try
+				{
+					call();
+					// assert
+					Assert.Fail("The read operation should have feiled with a proper exception.");
+				}
+				catch (InvalidOperationException ex)
+				{
+					log.Info(ex, ex.Message);
+				}
+			}
+		}
+
+		[TestMethod]
 		public void WriteComplexYaml()
 		{
 			// arrange
-			var fileInfo = new FileInfo("complex.yml");
-			file = fileInfo.FullName;
-			var yaml = new YamlStorage<object>(new YamlStorageSetup(fileInfo));
+			file = "complex.yml";
+			var yaml = new YamlStorage<object>(new YamlStorageSetup(file) {
+				Permissions = WritePermissions.Delete | WritePermissions.Create,
+				ValueHandling = YamlDotNet.Serialization.DefaultValuesHandling.Preserve
+			});
+
+			Assert.IsTrue(yaml.HasPermission(WritePermissions.Create));
+			Assert.IsTrue(yaml.HasPermission(WritePermissions.Delete));
 
 			var data = new
 			{
 				Id = 47.11,
 				Name = "complex instance",
+				MyNull = default(object),
 				MyList = new string[] { "a", "b", "c" },
 				Child = new
 				{
@@ -79,36 +114,30 @@ namespace TeleScope.MSTest.Persistence
 		public void WriteAndReadGenericTypes()
 		{
 			// -- arrange
-
 			var data = new MockupRepository();
 			data.Mockups.AddRange(Mockup.RandomArray(3));
+			file = Path.Combine(APP_FOLDER, "generic.json");
 
-			var filename = "generic.json";
-			file = Path.Combine(APP_FOLDER, filename);
-			var fileinfo = new FileInfo(file);
-
-			var newtonsoftsettings = new JsonSerializerSettings();
-			newtonsoftsettings.Converters.Add(new StringEnumConverter());
-			newtonsoftsettings.KnownTypes(new List<Type>()
-			{
+			var setup = new JsonStorageSetup(file);
+			setup.Settings.Converters.Add(new StringEnumConverter());
+			setup.Settings.KnownTypes(new List<Type>() {
 				typeof(Mockup)
 			});
 
-			var json = new JsonStorage<MockupRepository>(
-				new JsonStorageSetup(fileinfo, true, true),
-				newtonsoftsettings);
+			var json = new JsonStorage<MockupRepository>(setup);
 
 			// -- act & assert: write
 
 			json.Write(new MockupRepository[] { data });
-			Assert.IsTrue(fileinfo.Exists, $"The file '{filename}' should has been created.");
+			Assert.IsTrue(File.Exists(file), $"The file '{file}' should has been created.");
 
 			// -- act & assert: read
 
 			var import = json.Read().First();
 
 			Assert.IsNotNull(import, "The json import should not be null.");
-			import.Mockups.ForEach(m => {
+			import.Mockups.ForEach(m =>
+			{
 				Assert.IsNotNull(m, "The element should not be null");
 				Assert.IsFalse(string.IsNullOrEmpty(m.Name), "The name of the element should not be null or empty");
 			});
@@ -146,7 +175,7 @@ namespace TeleScope.MSTest.Persistence
 
 				// delete			
 				writer.Write(null);
-				if (writer.CanDelete)
+				if (writer.HasPermission(WritePermissions.Delete))
 				{
 					Assert.IsFalse(File.Exists(source), $"The source '{source}' should have been deleted.");
 				}
@@ -178,7 +207,7 @@ namespace TeleScope.MSTest.Persistence
 
 				// delete
 				writer.Write(null);
-				if (writer.CanDelete)
+				if (writer.HasPermission(WritePermissions.Delete))
 				{
 					Assert.IsFalse(File.Exists(source), $"The source '{source}' should have been deleted.");
 				}

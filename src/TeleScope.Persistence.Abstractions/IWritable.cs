@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TeleScope.Persistence.Abstractions.Enumerations;
 
 namespace TeleScope.Persistence.Abstractions
 {
@@ -11,14 +12,9 @@ namespace TeleScope.Persistence.Abstractions
 		// -- properties
 
 		/// <summary>
-		/// Gets the information, if the instance provides the ability to create files. 
+		/// Gets the flags of permissions how files may be treated. 
 		/// </summary>
-		bool CanCreate { get; }
-
-		/// <summary>
-		/// Gets the information, if the instance provides the ability to delete files. 
-		/// </summary>
-		bool CanDelete { get; }
+		WritePermissions Permissions { get; }
 
 		// -- methods
 
@@ -28,5 +24,12 @@ namespace TeleScope.Persistence.Abstractions
 		/// </summary>
 		/// <param name="data">The application-side data collection of type T.</param>
 		void Write(IEnumerable<T> data);
+
+		/// <summary>
+		/// Shall check, if the implementation has the permission handed over as parameter. 
+		/// </summary>
+		/// <param name="permission">The permission that will be testet.</param>
+		/// <returns>True if the permission flags are present, otherwise false.</returns>
+		bool HasPermission(WritePermissions permission);
 	}
 }

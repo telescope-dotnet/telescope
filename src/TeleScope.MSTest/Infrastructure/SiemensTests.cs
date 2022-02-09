@@ -30,8 +30,8 @@ namespace TeleScope.MSTest.Infrastructure
 		public static void ClassInitialize(TestContext context)
 		{
 			/*
-             * add the "local.runsettings" as global runsettings file, if context has no data.
-             */
+			 * add the "local.runsettings" as global runsettings file, if context has no data.
+			 */
 			skip = bool.Parse(GetProperty(context, SKIP_PLC_TESTS));
 		}
 

@@ -11,27 +11,42 @@
             <typeparam name="T">The type T is used application-side and can be read from the data source 
             or be written to the data sink.</typeparam>
         </member>
-        <member name="P:TeleScope.Persistence.Csv.CsvStorage`1.CanCreate">
+        <member name="P:TeleScope.Persistence.Csv.CsvStorage`1.Permissions">
             <summary>
-            The default behavior for file storage,
-            if it is allowed to create files or not.
+            Gets the flags of permissions how files may be treated. 
             </summary>
         </member>
-        <member name="P:TeleScope.Persistence.Csv.CsvStorage`1.CanDelete">
+        <member name="P:TeleScope.Persistence.Csv.CsvStorage`1.OnItemRead">
             <summary>
-            The default behavior for file storage, 
-            if it is allowed to delete files or not.
+            The delegate handles the read operation of a CSV line and returned the targeted internal type.
             </summary>
         </member>
-        <member name="M:TeleScope.Persistence.Csv.CsvStorage`1.#ctor(TeleScope.Persistence.Csv.CsvStorageSetup,TeleScope.Persistence.Abstractions.IParsable{`0},TeleScope.Persistence.Abstractions.IParsable{System.String[]})">
+        <member name="P:TeleScope.Persistence.Csv.CsvStorage`1.OnItemWrite">
             <summary>
-            The constructor takes the setup of type <seealso cref="T:TeleScope.Persistence.Csv.CsvStorageSetup"/> as input parameter,
-            parsers of type <seealso cref="T:TeleScope.Persistence.Abstractions.IParsable`1"/> for incoming and outgoing data
+            The delegate handles the write operation to a CSV to a string array that represents a line.
+            The input data is the internal type of the storage.
+            </summary>
+        </member>
+        <member name="M:TeleScope.Persistence.Csv.CsvStorage`1.#ctor(System.String)">
+            <summary>
+            The constructor takes the file string as input parameter, 
+            creates the <see cref="T:TeleScope.Persistence.Csv.CsvStorageSetup"/> and allows to config the properties afterwards.
+            </summary>
+            <param name="file">The specific CSV file that the storage is related to.</param>
+        </member>
+        <member name="M:TeleScope.Persistence.Csv.CsvStorage`1.#ctor(TeleScope.Persistence.Csv.CsvStorageSetup)">
+            <summary>
+            The constructor takes the setup of type <see cref="T:TeleScope.Persistence.Csv.CsvStorageSetup"/> as input parameter
             and binds the logging mechanism. 
             </summary>
-            <param name="setup">The setup is needed to work with a specific CSV file.</param>
-            <param name="incomingParser">The incoming parser matches one CSV line with a data object of type T.</param>
-            <param name="outgoingParser">The outgoing parser matches one data object of type T to a CSV line.</param>
+            <param name="csvSetup">The setup is needed to work with a specific CSV file.</param>
+        </member>
+        <member name="M:TeleScope.Persistence.Csv.CsvStorage`1.HasPermission(TeleScope.Persistence.Abstractions.Enumerations.WritePermissions)">
+            <summary>
+            Checks if the permission is a present flag or not. 
+            </summary>
+            <param name="permission">The enum that is checked.</param>
+            <returns>True if the value is a present flag, otherwise false.</returns>
         </member>
         <member name="M:TeleScope.Persistence.Csv.CsvStorage`1.Read">
             <summary>
@@ -39,6 +54,7 @@
             If there is only one data object a collection with the length one is returned.
             </summary>
             <returns>The resulting data objects of type T.</returns>
+            <exception cref="T:System.InvalidOperationException">Throws an exception when the <see cref="P:TeleScope.Persistence.Csv.CsvStorage`1.OnItemRead"/> delegate is null.</exception>
         </member>
         <member name="M:TeleScope.Persistence.Csv.CsvStorage`1.Write(System.Collections.Generic.IEnumerable{`0})">
             <summary>
@@ -46,10 +62,21 @@
             If there is only one data object there is the need to provide a collection with one element.
             </summary>
             <param name="data">The application-side data collection of type T.</param>
+            <exception cref="T:System.InvalidOperationException">Throws an exception when the <see cref="P:TeleScope.Persistence.Csv.CsvStorage`1.OnItemWrite"/> delegate is null 
+            or the write operation is not allowed.</exception> 
+        </member>
+        <member name="M:TeleScope.Persistence.Csv.CsvStorage`1.Update(System.String)">
+            <summary>
+            Updates the reference to the internal <see cref="T:System.IO.FileInfo"/> instance 
+            so that the data sink can be updated. 
+            </summary>
+            <param name="file">The new string of the file.</param>
+            <returns>The calling instance.</returns>
         </member>
         <member name="M:TeleScope.Persistence.Csv.CsvStorage`1.Update(System.IO.FileInfo)">
             <summary>
-            Updates the reference to the FileInfo object so that the data sink can be updated. 
+            Updates the reference to the internal <see cref="T:System.IO.FileInfo"/> instance 
+            so that the data sink can be updated. 
             </summary>
             <param name="fileInfo">The new FileInfo object.</param>
             <returns>The calling instance.</returns>
@@ -85,17 +112,19 @@
             Gets or sets the encoding of the file.
             </summary>
         </member>
-        <member name="M:TeleScope.Persistence.Csv.CsvStorageSetup.#ctor(System.IO.FileInfo,System.Boolean,System.Boolean,System.Char,System.UInt32,System.String)">
+        <member name="M:TeleScope.Persistence.Csv.CsvStorageSetup.#ctor(System.String)">
             <summary>
-            The default constructor calls the constructor of the base class and 
-            defines `UTF8` as default <seealso cref="P:TeleScope.Persistence.Csv.CsvStorageSetup.Encoder"/> property.
+            The constructor calls the according base class constructor and 
+            leaves the default settings of the property.
             </summary>
-            <param name="fileInfo">The information about the file that will get accessed by a file storage.</param>
-            <param name="canCreate">Sets the information, if the setup provides the ability to create files.</param>
-            <param name="canDelete">Sets the information, if the setup provides the ability to delete files.</param>
-            <param name="separator">Sets the character to identify the separation between values.</param>
-            <param name="startRow">Sets the index of the first row where the CSV data starts.</param>
-            <param name="header">Sets a string that is used as heading line(s) before CSV data starts.</param>
+            <param name="file">The file represented as string, the storage is attached to.</param>
+        </member>
+        <member name="M:TeleScope.Persistence.Csv.CsvStorageSetup.#ctor(System.IO.FileInfo)">
+            <summary>
+            The constructor calls the according base class constructor and 
+            leaves the default settings of the property.
+            </summary>
+            <param name="fileInfo">The file information, the storage is attached to.</param>
         </member>
     </members>
 </doc>

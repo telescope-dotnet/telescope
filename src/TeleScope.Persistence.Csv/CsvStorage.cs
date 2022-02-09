@@ -51,14 +51,10 @@ namespace TeleScope.Persistence.Csv
 		/// creates the <see cref="CsvStorageSetup"/> and allows to config the properties afterwards.
 		/// </summary>
 		/// <param name="file">The specific CSV file that the storage is related to.</param>
-		/// <param name="config">The optional action to configure the created setup.</param>
-		public CsvStorage(string file, Action<CsvStorageSetup> config = null)
+		public CsvStorage(string file)
 			: this(new CsvStorageSetup(file))
 		{
-			if (config is not null)
-			{
-				config(setup);
-			}
+			
 		}
 
 		/// <summary>

@@ -12,6 +12,7 @@
     <PackageReleaseNotes></PackageReleaseNotes>
     <PackageTags>Persistence, Csv</PackageTags>
     <Description>Contains an implementation of the IReadable and IWritable interfaces to access Character Seperated Value files. Depends on the assemblies TeleScope.Persistence.Abstractions.</Description>
+    <Nullable>warnings</Nullable>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

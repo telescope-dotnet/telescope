@@ -57,7 +57,6 @@ namespace TeleScope.Persistence.Abstractions
 			WritePermissions permissions = WritePermissions.Create | WritePermissions.Delete) 
 			: this(permissions)
 		{
-			_ = file ?? throw new ArgumentNullException(nameof(file));
 			SetFile(new FileInfo(file));
 		}
 

@@ -38,15 +38,10 @@ namespace TeleScope.Persistence.Json
 		/// creates the <see cref="JsonStorageSetup"/> and allows to config the properties afterwards.
 		/// </summary>
 		/// <param name="file">The specific JSON file that the storage is related to.</param>
-		/// <param name="config">The optional action to configure the created setup.</param>
-		public JsonStorage(string file, Action<JsonStorageSetup> config = null) 
+		public JsonStorage(string file) 
 			: this(new JsonStorageSetup(file))
 		{
-			if (config is not null)
-			{
-				config(setup);
-				ValidateSetup();
-			}
+
 		}
 
 		/// <summary>
@@ -57,7 +52,10 @@ namespace TeleScope.Persistence.Json
 		public JsonStorage(JsonStorageSetup jsonSetup) : this()
 		{
 			setup = jsonSetup ?? throw new ArgumentNullException(nameof(jsonSetup));
-			ValidateSetup();
+			if (setup.Settings is null)
+			{
+				setup.Settings = new JsonSerializerSettings();
+			}
 		}
 
 		private JsonStorage()
@@ -66,14 +64,6 @@ namespace TeleScope.Persistence.Json
 		}
 
 		// -- methods
-
-		private void ValidateSetup()
-		{
-			if (setup.Settings is null)
-			{
-				setup.Settings = new JsonSerializerSettings();
-			}
-		}
 
 		/// <summary>
 		/// Checks if the permission is a present flag or not. 

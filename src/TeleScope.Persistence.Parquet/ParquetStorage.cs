@@ -37,14 +37,10 @@ namespace TeleScope.Persistence.Parquet
 		/// creates the <see cref="ParquetStorageSetup"/> and allows to config the properties afterwards.
 		/// </summary>
 		/// <param name="file">The specific Parquet file that the storage is related to.</param>
-		/// <param name="config">The optional action to configure the created setup.</param>
-		public ParquetStorage(string file, Action<ParquetStorageSetup> config = null)
+		public ParquetStorage(string file)
 			: this(new ParquetStorageSetup(file))
 		{
-			if (config is not null)
-			{
-				config(setup);
-			}
+			
 		}
 
 		/// <summary>

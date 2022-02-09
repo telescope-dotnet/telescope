@@ -43,7 +43,7 @@ namespace TeleScope.Persistence.Csv
 		/// </summary>
 		public Encoding Encoder { get; set; } = Encoding.UTF8;
 
-		// constructors
+		// -- constructors
 
 		/// <summary>
 		/// The constructor calls the according base class constructor and 

@@ -39,14 +39,10 @@ namespace TeleScope.Persistence.Yaml
 		/// creates the <see cref="YamlStorageSetup"/> and allows to config the properties afterwards.
 		/// </summary>
 		/// <param name="file">The specific YAML file that the storage is related to.</param>
-		/// <param name="config">The optional action to configure the created setup.</param>
-		public YamlStorage(string file, Action<YamlStorageSetup> config = null) 
+		public YamlStorage(string file) 
 			: this(new YamlStorageSetup(file))
 		{
-			if (config is not null)
-			{
-				config(setup);
-			}
+
 		}
 
 		/// <summary>

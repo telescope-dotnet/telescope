@@ -54,7 +54,14 @@ namespace TeleScope.MSTest.Persistence.Attributes
 		{
 			var ext = "yml";
 			var file = GetFilename(ext);
-			var yaml = new YamlStorage<Mockup>(new YamlStorageSetup(file));
+
+			var yaml = new YamlStorage<Mockup>(
+				new YamlStorageSetup(file)
+				{
+					Encoder = System.Text.Encoding.ASCII,
+					ValueHandling = YamlDotNet.Serialization.DefaultValuesHandling.Preserve
+				});
+
 			return new object[] {
 				ext,
 				file,
@@ -66,12 +73,8 @@ namespace TeleScope.MSTest.Persistence.Attributes
 		private static object[] BuildCsv()
 		{
 			var ext = "csv";
-			var file = GetFilename(ext);
-			var csv = new CsvStorage<Mockup>(file, (setup) => {
-				setup.StartRow = 2;
-				setup.Header = "This is my awesome\r\nHEADER";
-			});
-
+			var file = GetFilename(ext);			
+			var csv = new CsvStorage<Mockup>(file);
 			csv.OnItemRead = (item, index, length) =>
 			{
 				return new Mockup
@@ -83,7 +86,6 @@ namespace TeleScope.MSTest.Persistence.Attributes
 					Timestamp = DateTime.Parse(item[4])
 				};
 			};
-
 			csv.OnItemWrite = (item, index, length) =>
 			{
 				return new string[] {
@@ -108,9 +110,10 @@ namespace TeleScope.MSTest.Persistence.Attributes
 			var ext = "parquet";
 			var file = GetFilename(ext);
 
-			var parquet = new ParquetStorage<Mockup>(file, (setup) => {
-				setup.Permissions = WritePermissions.Create | WritePermissions.Delete;
-			});
+			var parquet = new ParquetStorage<Mockup>(
+				new ParquetStorageSetup(file) {
+					Permissions = WritePermissions.Create | WritePermissions.Delete
+				});
 
 			return new object[] {
 				ext,

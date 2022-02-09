@@ -81,10 +81,9 @@ namespace TeleScope.MSTest.Persistence
 		{
 			// arrange
 			file = "complex.yml";
-			var yaml = new YamlStorage<object>(file, (setup) =>
-			{
-				setup.Permissions = WritePermissions.Delete | WritePermissions.Create;
-				setup.ValueHandling = YamlDotNet.Serialization.DefaultValuesHandling.Preserve;
+			var yaml = new YamlStorage<object>(new YamlStorageSetup(file) {
+				Permissions = WritePermissions.Delete | WritePermissions.Create,
+				ValueHandling = YamlDotNet.Serialization.DefaultValuesHandling.Preserve
 			});
 
 			Assert.IsTrue(yaml.HasPermission(WritePermissions.Create));
@@ -119,14 +118,13 @@ namespace TeleScope.MSTest.Persistence
 			data.Mockups.AddRange(Mockup.RandomArray(3));
 			file = Path.Combine(APP_FOLDER, "generic.json");
 
-			var json = new JsonStorage<MockupRepository>(file, (setup) =>
-			{
-				setup.Settings.Converters.Add(new StringEnumConverter());
-				setup.Settings.KnownTypes(new List<Type>()
-				{
-					typeof(Mockup)
-				});
+			var setup = new JsonStorageSetup(file);
+			setup.Settings.Converters.Add(new StringEnumConverter());
+			setup.Settings.KnownTypes(new List<Type>() {
+				typeof(Mockup)
 			});
+
+			var json = new JsonStorage<MockupRepository>(setup);
 
 			// -- act & assert: write
 

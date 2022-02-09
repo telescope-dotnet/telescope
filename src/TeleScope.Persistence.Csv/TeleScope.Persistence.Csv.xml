@@ -27,13 +27,12 @@
             The input data is the internal type of the storage.
             </summary>
         </member>
-        <member name="M:TeleScope.Persistence.Csv.CsvStorage`1.#ctor(System.String,System.Action{TeleScope.Persistence.Csv.CsvStorageSetup})">
+        <member name="M:TeleScope.Persistence.Csv.CsvStorage`1.#ctor(System.String)">
             <summary>
             The constructor takes the file string as input parameter, 
             creates the <see cref="T:TeleScope.Persistence.Csv.CsvStorageSetup"/> and allows to config the properties afterwards.
             </summary>
             <param name="file">The specific CSV file that the storage is related to.</param>
-            <param name="config">The optional action to configure the created setup.</param>
         </member>
         <member name="M:TeleScope.Persistence.Csv.CsvStorage`1.#ctor(TeleScope.Persistence.Csv.CsvStorageSetup)">
             <summary>

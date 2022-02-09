@@ -74,7 +74,10 @@ namespace TeleScope.MSTest.Persistence.Attributes
 		{
 			var ext = "csv";
 			var file = GetFilename(ext);			
-			var csv = new CsvStorage<Mockup>(file);
+			var csv = new CsvStorage<Mockup>(new CsvStorageSetup(file) 
+			{ 
+				Permissions = WritePermissions.Create | WritePermissions.Delete
+			});
 			csv.OnItemRead = (item, index, length) =>
 			{
 				return new Mockup

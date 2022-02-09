@@ -60,13 +60,12 @@
             Gets the flags of permissions how files may be treated. 
             </summary>
         </member>
-        <member name="M:TeleScope.Persistence.Json.JsonStorage`1.#ctor(System.String,System.Action{TeleScope.Persistence.Json.JsonStorageSetup})">
+        <member name="M:TeleScope.Persistence.Json.JsonStorage`1.#ctor(System.String)">
             <summary>
             The constructor takes the file string as input parameter, 
             creates the <see cref="T:TeleScope.Persistence.Json.JsonStorageSetup"/> and allows to config the properties afterwards.
             </summary>
             <param name="file">The specific JSON file that the storage is related to.</param>
-            <param name="config">The optional action to configure the created setup.</param>
         </member>
         <member name="M:TeleScope.Persistence.Json.JsonStorage`1.#ctor(TeleScope.Persistence.Json.JsonStorageSetup)">
             <summary>

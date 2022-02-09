@@ -72,7 +72,7 @@ namespace TeleScope.MSTest.Persistence.Attributes
 				setup.Header = "This is my awesome\r\nHEADER";
 			});
 
-			csv.OnRead = (item, index, length) =>
+			csv.OnItemRead = (item, index, length) =>
 			{
 				return new Mockup
 				{
@@ -84,7 +84,7 @@ namespace TeleScope.MSTest.Persistence.Attributes
 				};
 			};
 
-			csv.OnWrite = (item, index, length) =>
+			csv.OnItemWrite = (item, index, length) =>
 			{
 				return new string[] {
 					item.Id.ToString(),

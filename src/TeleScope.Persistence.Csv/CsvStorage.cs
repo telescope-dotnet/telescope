@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using Microsoft.Extensions.Logging;
 using TeleScope.Logging;
@@ -35,13 +36,13 @@ namespace TeleScope.Persistence.Csv
 		/// <summary>
 		/// The delegate handles the read operation of a CSV line and returned the targeted internal type.
 		/// </summary>
-		public PersistenceHandler<string[], T> OnRead { private get; set; }
+		public PersistenceHandler<string[], T> OnItemRead { private get; set; }
 
 		/// <summary>
 		/// The delegate handles the write operation to a CSV to a string array that represents a line.
 		/// The input data is the internal type of the storage.
 		/// </summary>
-		public PersistenceHandler<T, string[]> OnWrite { private get; set; }
+		public PersistenceHandler<T, string[]> OnItemWrite { private get; set; }
 
 		// -- concstructor
 
@@ -51,7 +52,7 @@ namespace TeleScope.Persistence.Csv
 		/// </summary>
 		/// <param name="file">The specific CSV file that the storage is related to.</param>
 		/// <param name="config">The optional action to configure the created setup.</param>
-		public CsvStorage(string file, Action<CsvStorageSetup> config = null) 
+		public CsvStorage(string file, Action<CsvStorageSetup> config = null)
 			: this(new CsvStorageSetup(file))
 		{
 			if (config is not null)
@@ -92,25 +93,32 @@ namespace TeleScope.Persistence.Csv
 		/// If there is only one data object a collection with the length one is returned.
 		/// </summary>
 		/// <returns>The resulting data objects of type T.</returns>
+		/// <exception cref="InvalidOperationException">Throws an exception when the <see cref="OnItemRead"/> delegate is null.</exception>
 		public IEnumerable<T> Read()
 		{
-			List<T> result = new();
-
-			string[] lines = File.ReadAllLines(setup.File);
-
-			// read all rows
-			int start = (int)setup.StartRow;
-			for (int i = start; i < lines.Length; i++)
+			if (OnItemRead is null)
 			{
-				string[] fields = lines[i].Split(setup.Separator);
-
-				// TODO create useful exception handling and messaging
-				result.Add(OnRead(fields, i, lines.Length));
+				throw new InvalidOperationException($"The delegate {nameof(OnItemRead)} is null.");
 			}
 
+			string[] lines = File.ReadAllLines(setup.File);
+			IEnumerable<T> result = ReadLines(lines, (int)setup.StartRow);
 			log.Trace("CSV import successfull for {File}.", setup.Filename);
 
 			return result;
+
+			// -- local function
+
+			List<T> ReadLines(string[] lines, int start)
+			{
+				List<T> result = new();
+				for (int i = start; i < lines.Length; i++)
+				{
+					string[] fields = lines[i].Split(setup.Separator);
+					result.Add(OnItemRead(fields, i, lines.Length));
+				}
+				return result;
+			}
 		}
 
 		/// <summary>
@@ -118,42 +126,44 @@ namespace TeleScope.Persistence.Csv
 		/// If there is only one data object there is the need to provide a collection with one element.
 		/// </summary>
 		/// <param name="data">The application-side data collection of type T.</param>
+		/// <exception cref="InvalidOperationException">Throws an exception when the <see cref="OnItemWrite"/> delegate is null 
+		/// or the write operation is not allowed.</exception> 
 		public void Write(IEnumerable<T> data)
 		{
-			try
+			if (OnItemWrite is null)
 			{
-				if (!this.ValidateOrThrow(data, new FileInfo(setup.File)))
-				{
-					return;
-				}
+				throw new InvalidOperationException($"The delegate {nameof(OnItemWrite)} is null.");
+			}
 
-				// prepare data
+			if (!this.ValidateOrThrow(data, new FileInfo(setup.File)))
+			{
+				return;
+			}
+
+			StringBuilder csv = WriteData(data);
+			File.WriteAllText(setup.File, csv.ToString(), setup.Encoder);
+			log.Trace($"csv export successfull for '{setup.Filename}'");
+
+			// -- local function
+
+			StringBuilder WriteData(IEnumerable<T> data)
+			{
 				var csv = new StringBuilder();
 				var seperator = setup.Separator.ToString();
-
 				if (setup.HasHeader)
 				{
 					csv.AppendLine(setup.Header);
 				}
 
-				// append data
 				int i = 0;
 				foreach (T item in data)
 				{
-					// TODO create useful exception handling and messaging
-					var line = string.Join(seperator, OnWrite(item, i, data.Count()));
+					var line = string.Join(seperator, OnItemWrite(item, i, data.Count()));
 					csv.AppendLine(line);
 					i++;
 				}
 
-				// flush to file
-				File.WriteAllText(setup.File, csv.ToString(), setup.Encoder);
-				log.Trace($"csv export successfull for '{setup.Filename}'");
-
-			}
-			catch (InvalidOperationException ex)
-			{
-				log.Critical(ex);
+				return csv;
 			}
 		}
 

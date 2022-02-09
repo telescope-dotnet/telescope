@@ -54,18 +54,26 @@ namespace TeleScope.MSTest.Persistence
 			// arrange
 			file = Path.Combine("App_Data", "demo.csv");
 			var csv = new CsvStorage<Mockup>(file);
-			
-			// act
-			try
+
+			// act & assert
+			tryThrow(() => csv.Read());
+			tryThrow(() => csv.Write(default));
+
+			// -- local function
+
+			void tryThrow(Action call)
 			{
-				var mockup = csv.Read();
+				try
+				{
+					call();
+					// assert
+					Assert.Fail("The read operation should have feiled with a proper exception.");
+				}
+				catch (InvalidOperationException ex)
+				{
+					log.Info(ex, ex.Message);
+				}
 			}
-			catch (Exception ex)
-			{
-				// assert
-				log.Error(ex);
-			}
-			
 		}
 
 		[TestMethod]

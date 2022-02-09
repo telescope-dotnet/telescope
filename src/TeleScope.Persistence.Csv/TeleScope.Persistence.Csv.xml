@@ -16,12 +16,12 @@
             Gets the flags of permissions how files may be treated. 
             </summary>
         </member>
-        <member name="P:TeleScope.Persistence.Csv.CsvStorage`1.OnRead">
+        <member name="P:TeleScope.Persistence.Csv.CsvStorage`1.OnItemRead">
             <summary>
             The delegate handles the read operation of a CSV line and returned the targeted internal type.
             </summary>
         </member>
-        <member name="P:TeleScope.Persistence.Csv.CsvStorage`1.OnWrite">
+        <member name="P:TeleScope.Persistence.Csv.CsvStorage`1.OnItemWrite">
             <summary>
             The delegate handles the write operation to a CSV to a string array that represents a line.
             The input data is the internal type of the storage.
@@ -55,6 +55,7 @@
             If there is only one data object a collection with the length one is returned.
             </summary>
             <returns>The resulting data objects of type T.</returns>
+            <exception cref="T:System.InvalidOperationException">Throws an exception when the <see cref="P:TeleScope.Persistence.Csv.CsvStorage`1.OnItemRead"/> delegate is null.</exception>
         </member>
         <member name="M:TeleScope.Persistence.Csv.CsvStorage`1.Write(System.Collections.Generic.IEnumerable{`0})">
             <summary>
@@ -62,6 +63,8 @@
             If there is only one data object there is the need to provide a collection with one element.
             </summary>
             <param name="data">The application-side data collection of type T.</param>
+            <exception cref="T:System.InvalidOperationException">Throws an exception when the <see cref="P:TeleScope.Persistence.Csv.CsvStorage`1.OnItemWrite"/> delegate is null 
+            or the write operation is not allowed.</exception> 
         </member>
         <member name="M:TeleScope.Persistence.Csv.CsvStorage`1.Update(System.String)">
             <summary>

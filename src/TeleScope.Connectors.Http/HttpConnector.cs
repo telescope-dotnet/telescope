@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using TeleScope.Connectors.Abstractions;
@@ -75,6 +76,31 @@ namespace TeleScope.Connectors.Http
 		{
 			this.client = client;
 			this.endpoint = endpoint;
+		}
+
+		// -- Finalizer
+
+		~HttpConnector()
+		{
+			Dispose(false);
+		}
+
+		public void Dispose()
+		{
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+
+		protected virtual void Dispose(bool disposing)
+		{
+			// Cleanup
+			if (!disposing) 
+			{
+				return;
+			}
+
+			client.Dispose();
+
 		}
 
 		// -- methods
@@ -163,6 +189,16 @@ namespace TeleScope.Connectors.Http
 			return this;
 		}
 
+		public IHttpConnectable WithCaching()
+		{
+			throw new NotImplementedException();
+		}
+
+		public IHttpConnectable AddCancelToken(CancellationToken cancelToken)
+		{
+			throw new NotImplementedException();
+		}
+
 		/// <summary>
 		/// Updates the request part of the http endpoint configuration.
 		/// </summary>
@@ -221,6 +257,19 @@ namespace TeleScope.Connectors.Http
 			return this;
 		}
 
+
+		/// <summary>
+		/// Performs the http request asynchronously that is defined by the http endpoint and optional parameters.
+		/// </summary>
+		/// <typeparam name="T">The generic returned type T.</typeparam>
+		/// <param name="convert">The function converts the response body into the generic type T.</param>
+		/// <returns>The executing task whereby the result of the task is of type T.</returns>
+		public async Task<T> CallAsync<T>(Func<string, T> convert)
+		{
+			string response = await CallAsync();
+			return convert(response);
+		}
+
 		/// <summary>
 		/// Performs the http request asynchronously that is defined by the http endpoint and optional parameters.
 		/// </summary>
@@ -243,18 +292,6 @@ namespace TeleScope.Connectors.Http
 			return result;
 		}
 
-		/// <summary>
-		/// Performs the http request asynchronously that is defined by the http endpoint and optional parameters.
-		/// </summary>
-		/// <typeparam name="T">The generic returned type T.</typeparam>
-		/// <param name="convert">The function converts the response body into the generic type T.</param>
-		/// <returns>The executing task whereby the result of the task is of type T.</returns>
-		public async Task<T> CallAsync<T>(Func<string, T> convert)
-		{
-			string response = await CallAsync();
-			return convert(response);
-		}
-
 		// -- helper
 
 		private bool Validate()
@@ -273,6 +310,12 @@ namespace TeleScope.Connectors.Http
 			}
 
 			return true;
+		}
+
+		public IHttpConnectable CancelCall()
+		{
+			client?.CancelPendingRequests();
+			return this;
 		}
 	}
 }

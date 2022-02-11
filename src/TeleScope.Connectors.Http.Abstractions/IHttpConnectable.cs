@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using TeleScope.Connectors.Abstractions;
 
@@ -9,7 +10,7 @@ namespace TeleScope.Connectors.Http.Abstractions
 	/// <summary>
 	/// This interface provides extended methods, based on the `IConnectable` interface to build http connections. 
 	/// </summary>
-	public interface IHttpConnectable : IConnectable
+	public interface IHttpConnectable : IConnectable, IDisposable
 	{
 		/// <summary>
 		/// Tests the connection to the given endpoint and stores the parameter internally. 
@@ -26,6 +27,10 @@ namespace TeleScope.Connectors.Http.Abstractions
 		/// <param name="endpoint">The endpoint configuration.</param>
 		/// <returns>The calling instance.</returns>
 		IHttpConnectable Connect(HttpClient client, HttpEndpoint endpoint);
+
+		IHttpConnectable WithCaching();
+
+		IHttpConnectable AddCancelToken(CancellationToken cancelToken);
 
 		/// <summary>
 		/// Updates the request part of the http endpoint configuration.
@@ -62,15 +67,17 @@ namespace TeleScope.Connectors.Http.Abstractions
 		/// <summary>
 		/// Performs the http request asynchronously that is defined by the http endpoint and optional parameters.
 		/// </summary>
-		/// <returns>The executing task whereby the result is the raw string of the response body.</returns>
-		Task<string> CallAsync();
-
-		/// <summary>
-		/// Performs the http request asynchronously that is defined by the http endpoint and optional parameters.
-		/// </summary>
 		/// <typeparam name="T">The generic returned type T.</typeparam>
 		/// <param name="convert">The function converts the response body into the generic type T.</param>
 		/// <returns>The executing task whereby the result of the task is of type T.</returns>
 		Task<T> CallAsync<T>(Func<string, T> convert);
+
+		/// <summary>
+		/// Performs the http request asynchronously that is defined by the http endpoint and optional parameters.
+		/// </summary>
+		/// <returns>The executing task whereby the result is the raw string of the response body.</returns>
+		Task<string> CallAsync();
+
+		IHttpConnectable CancelCall();
 	}
 }

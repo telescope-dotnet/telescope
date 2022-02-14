@@ -21,11 +21,6 @@ namespace TeleScope.Connectors.Http
 	{
 		// -- fields
 
-		/// <summary>
-		/// The constant timeout defines how long the http client will wait after a request until a response needs to arrive. 
-		/// </summary>
-		public const int TIMEOUT = 10000;
-
 		private readonly ILogger<HttpConnector> log;
 
 		private bool isDisposed;
@@ -33,11 +28,12 @@ namespace TeleScope.Connectors.Http
 		private HttpClient client;
 		private HttpEndpoint endpoint;
 		private StringContent content;
+		private readonly ICacheable<string> cache;
+
+		private bool enableCaching;
+		private string key;
 
 		private CancellationToken cancelToken;
-
-		private ICacheable<string> cache;
-		private bool enableCaching;
 
 		// -- events
 
@@ -68,6 +64,17 @@ namespace TeleScope.Connectors.Http
 		// -- constructurs
 
 		/// <summary>
+		/// Saves the properties and calls the empty default constructor.
+		/// </summary>
+		/// <param name="client">The http client to perform requests.</param>
+		/// <param name="endpoint">The endpoint configuration executed by the client.</param>
+		public HttpConnector(HttpClient client, HttpEndpoint endpoint) : this()
+		{
+			this.client = client;
+			this.endpoint = endpoint;
+		}
+
+		/// <summary>
 		/// The default empty constructor binds a logger for internal usage.
 		/// </summary>
 		public HttpConnector()
@@ -77,18 +84,22 @@ namespace TeleScope.Connectors.Http
 
 			cache = new HttpEndpointCache();
 
-			Completed = OnCompleted;
-		}
-
-		/// <summary>
-		/// Saves the properties and calls the empty default constructor.
-		/// </summary>
-		/// <param name="client">The http client to perform requests.</param>
-		/// <param name="endpoint">The endpoint configuration executed by the client.</param>
-		public HttpConnector(HttpClient client, HttpEndpoint endpoint) : this()
-		{
-			this.client = client;
-			this.endpoint = endpoint;
+			Connected = (o, e) =>
+			{
+				ResetCacheSetting();
+			};
+			Completed = (o, e) =>
+			{
+				ResetCacheSetting();
+			};
+			Failed = (o, e) =>
+			{
+				ResetCacheSetting();
+			};
+			Disconnected = (o, e) =>
+			{
+				ResetCacheSetting();
+			};
 		}
 
 		// -- Finalizer
@@ -208,9 +219,10 @@ namespace TeleScope.Connectors.Http
 			return this;
 		}
 
-		public IHttpConnectable WithCaching()
+		public IHttpConnectable WithCaching(string key = null)
 		{
 			enableCaching = true;
+			this.key = key;
 			return this;
 		}
 
@@ -245,13 +257,7 @@ namespace TeleScope.Connectors.Http
 		/// <returns>The calling instance.</returns>
 		public IHttpConnectable AddHeader(string name, string value)
 		{
-			if (client is null)
-			{
-				return this;
-			}
-
-			client.DefaultRequestHeaders.Add(name, value);
-
+			client?.DefaultRequestHeaders.Add(name, value);
 			return this;
 		}
 
@@ -308,7 +314,8 @@ namespace TeleScope.Connectors.Http
 			{
 				return await Task.Run(() =>
 				{
-					return cache.GetOrInvoke(endpoint.ToString(), call);
+					var cachingKey = string.IsNullOrEmpty(key) ? endpoint.ToString() : key;
+					return cache.GetOrInvoke(cachingKey, call);
 				});
 			}
 			else
@@ -326,7 +333,7 @@ namespace TeleScope.Connectors.Http
 				log.Trace($"Calling via http '{endpoint}'.");
 
 				var response = client.Send(request, cancelToken);
-				var result = response.Content.ReadAsStringAsync().Result;
+				var result = response.Content.ReadAsStringAsync(cancelToken).Result;
 
 				Completed?.Invoke(this, new ConnectorCompletedEventArgs(response.ReasonPhrase, response));
 
@@ -334,19 +341,20 @@ namespace TeleScope.Connectors.Http
 			}
 		}
 
-		public IHttpConnectable CancelCall()
+		public IHttpConnectable Cancel()
 		{
 			client?.CancelPendingRequests();
+			Completed?.Invoke(this, new ConnectorCompletedEventArgs("Pending requests were canceled.", this));
 			return this;
 		}
 
 		// -- helper
 
-		private void OnCompleted(object sender, ConnectorCompletedEventArgs e)
+		private void ResetCacheSetting()
 		{
 			enableCaching = false;
+			key = null;
 		}
-
 		private bool Validate()
 		{
 			var err = "The http conncetor is not ready.";
@@ -364,7 +372,5 @@ namespace TeleScope.Connectors.Http
 
 			return true;
 		}
-
-
 	}
 }

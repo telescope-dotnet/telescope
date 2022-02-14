@@ -28,7 +28,7 @@ namespace TeleScope.Connectors.Http.Abstractions
 		/// <returns>The calling instance.</returns>
 		IHttpConnectable Connect(HttpClient client, HttpEndpoint endpoint);
 
-		IHttpConnectable WithCaching();
+		IHttpConnectable WithCaching(string key = null);
 
 		IHttpConnectable AddCancelToken(CancellationToken cancelToken);
 
@@ -78,6 +78,6 @@ namespace TeleScope.Connectors.Http.Abstractions
 		/// <returns>The executing task whereby the result is the raw string of the response body.</returns>
 		Task<string> CallAsync();
 
-		IHttpConnectable CancelCall();
+		IHttpConnectable Cancel();
 	}
 }

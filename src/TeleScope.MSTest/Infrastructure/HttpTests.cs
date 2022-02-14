@@ -29,6 +29,12 @@ namespace TeleScope.MSTest.Infrastructure
 		// -- Test methods
 
 		[TestMethod]
+		public void CancelHttpRequest() 
+		{
+			
+		}
+
+		[TestMethod]
 		public async Task HttpRequest()
 		{
 			// arrange

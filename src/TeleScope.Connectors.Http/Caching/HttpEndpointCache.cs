@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Threading.Tasks;
 using TeleScope.Connectors.Http.Abstractions;
 using TeleScope.Logging;
 using TeleScope.Logging.Extensions;

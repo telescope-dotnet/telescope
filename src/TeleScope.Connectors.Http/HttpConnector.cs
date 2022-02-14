@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using TeleScope.Connectors.Abstractions;
 using TeleScope.Connectors.Abstractions.Events;
 using TeleScope.Connectors.Http.Abstractions;
+using TeleScope.Connectors.Http.Caching;
 using TeleScope.Logging;
 using TeleScope.Logging.Extensions;
 
@@ -27,9 +28,16 @@ namespace TeleScope.Connectors.Http
 
 		private readonly ILogger<HttpConnector> log;
 
+		private bool isDisposed;
+
 		private HttpClient client;
 		private HttpEndpoint endpoint;
 		private StringContent content;
+
+		private CancellationToken cancelToken;
+
+		private ICacheable<string> cache;
+		private bool enableCaching;
 
 		// -- events
 
@@ -65,6 +73,11 @@ namespace TeleScope.Connectors.Http
 		public HttpConnector()
 		{
 			log = LoggingProvider.CreateLogger<HttpConnector>();
+			cancelToken = CancellationToken.None;
+
+			cache = new HttpEndpointCache();
+
+			Completed = OnCompleted;
 		}
 
 		/// <summary>
@@ -93,14 +106,20 @@ namespace TeleScope.Connectors.Http
 
 		protected virtual void Dispose(bool disposing)
 		{
-			// Cleanup
-			if (!disposing) 
+			if (isDisposed)
 			{
 				return;
+
+			}
+			if (disposing)
+			{
+				// dispose managed resources
+				client?.Dispose();
+				content?.Dispose();
 			}
 
-			client.Dispose();
-
+			// dispose unmanaged resources and finish
+			isDisposed = true;
 		}
 
 		// -- methods
@@ -191,12 +210,14 @@ namespace TeleScope.Connectors.Http
 
 		public IHttpConnectable WithCaching()
 		{
-			throw new NotImplementedException();
+			enableCaching = true;
+			return this;
 		}
 
-		public IHttpConnectable AddCancelToken(CancellationToken cancelToken)
+		public IHttpConnectable AddCancelToken(CancellationToken token)
 		{
-			throw new NotImplementedException();
+			cancelToken = token;
+			return this;
 		}
 
 		/// <summary>
@@ -283,16 +304,48 @@ namespace TeleScope.Connectors.Http
 				Content = content
 			};
 
-			log.Trace($"Calling via http '{endpoint}'.");
+			if (enableCaching)
+			{
+				return await Task.Run(() =>
+				{
+					return cache.GetOrInvoke(endpoint.ToString(), call);
+				});
+			}
+			else
+			{
+				return await Task.Run(() =>
+				{
+					return call();
+				});
+			}
 
-			var response = await client.SendAsync(request);
-			var result = await response.Content.ReadAsStringAsync();
+			// -- local function
 
-			Completed?.Invoke(this, new ConnectorCompletedEventArgs(response.ReasonPhrase, response));
-			return result;
+			string call()
+			{
+				log.Trace($"Calling via http '{endpoint}'.");
+
+				var response = client.Send(request, cancelToken);
+				var result = response.Content.ReadAsStringAsync().Result;
+
+				Completed?.Invoke(this, new ConnectorCompletedEventArgs(response.ReasonPhrase, response));
+
+				return result;
+			}
+		}
+
+		public IHttpConnectable CancelCall()
+		{
+			client?.CancelPendingRequests();
+			return this;
 		}
 
 		// -- helper
+
+		private void OnCompleted(object sender, ConnectorCompletedEventArgs e)
+		{
+			enableCaching = false;
+		}
 
 		private bool Validate()
 		{
@@ -312,10 +365,6 @@ namespace TeleScope.Connectors.Http
 			return true;
 		}
 
-		public IHttpConnectable CancelCall()
-		{
-			client?.CancelPendingRequests();
-			return this;
-		}
+
 	}
 }

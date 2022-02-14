@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace TeleScope.Connectors.Http.Abstractions
 {
-	internal class ICacheable
+	public interface ICacheable<T>
 	{
+		T GetOrInvoke(string key, Func<T> invoke);
 	}
 }

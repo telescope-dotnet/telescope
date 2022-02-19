@@ -59,6 +59,9 @@ namespace TeleScope.MSTest.Logging
 			// assert
 			Assert.IsTrue(log != null, "The log was inactive");
 
+			using var foo = log.Metrics();
+			using var bar = log.Metrics(LogLevel.Information, "Metrics from {instance}", this);
+
 			log.TraceMember();
 			log.Trace("Tracing log");
 			log.Debug("Debug log with params: {0} {1} {2}", 1, 2, 3);

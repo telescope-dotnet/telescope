@@ -9,6 +9,17 @@ namespace TeleScope.Logging.Extensions
 	/// </summary>
 	public static class ILoggerExtensions
 	{
+		// -- METRICS
+
+		public static IDisposable Metrics(this ILogger log, [CallerMemberName] string memberName = "")
+		{
+			return new LoggerMetrics(log, LogLevel.Trace, false, memberName);
+		}
+
+		public static IDisposable Metrics(this ILogger log, LogLevel level, bool forceGarbageCollection, string message, params object[] args) 
+		{
+			return new LoggerMetrics(log, level, forceGarbageCollection, message, args);
+		}
 
 		// -- TRACE
 

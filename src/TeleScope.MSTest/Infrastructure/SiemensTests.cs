@@ -38,7 +38,7 @@ namespace TeleScope.MSTest.Infrastructure
 		[TestInitialize]
 		public override void Arrange()
 		{
-			base.Arrange();
+			base.ArrangeLogging<SiemensTests>();
 			setup = GetS7Setup();
 			s7 = new S7Connector(setup);
 			s7.Connected += Connected;
@@ -49,7 +49,6 @@ namespace TeleScope.MSTest.Infrastructure
 		[TestCleanup]
 		public override void Cleanup()
 		{
-			base.Cleanup();
 			s7.Connected -= Connected;
 			s7.Disconnected -= Disconnected;
 			s7.Failed -= Error;

@@ -1,15 +1,15 @@
 ﻿using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TeleScope.Logging
 {
-	public class LoggerMetrics : IDisposable
+	/// <summary>
+	/// This class takes an <see cref="ILogger"/> in order to log performance metrics based on the scope where the instance exists.
+	/// When the <see cref="Dispose"/> method is called the metrics `execution time` and `total memory` are measured and logged. 
+	/// </summary>
+	internal sealed class LoggerMetrics : IDisposable
 	{
 		// -- fields
 
@@ -20,16 +20,21 @@ namespace TeleScope.Logging
 		private readonly string message;
 		private readonly object[] args;
 
-
-		//private bool isDisposed;
-
 		// -- constructor
 
-		public LoggerMetrics(ILogger logger, LogLevel logLevel, bool forceGarbageCollection, string message, params object[] args)
+		/// <summary>
+		/// The constructor takes all external objects to log client-side messages together with the metrics of its lifetime.
+		/// </summary>
+		/// <param name="logger">The logger instance that is used to log the metrics.</param>
+		/// <param name="logLevel">The target <see cref="LogLevel"/>.</param>
+		/// <param name="forceCollection">If true, the <see cref="GC"/> will be forced to perform a full collection.</param>
+		/// <param name="message">The log message that will be put in front of the metrics.</param>
+		/// <param name="args">The optional args that may be referenced in the log message.</param>
+		public LoggerMetrics(ILogger logger, LogLevel logLevel, bool forceCollection, string message, params object[] args)
 		{
 			log = logger;
 			this.logLevel = logLevel;
-			forceCollection = forceGarbageCollection;
+			this.forceCollection = forceCollection;
 			this.message = message;
 			this.args = args;
 			watch = Stopwatch.StartNew();
@@ -44,37 +49,20 @@ namespace TeleScope.Logging
 
 		public void Dispose()
 		{
-			watch.Stop();			
+			watch.Stop();
 			var millis = watch.ElapsedMilliseconds;
 			var memory = GC.GetTotalMemory(forceCollection) / 1024;
-			log.Log(logLevel, $"{message} completed in {format(millis)} ms and total {format(memory)} KB memory in use.",  args);
+			var gcState = $"GC collection {(forceCollection ? "was" : "was NOT")} enforced";
+			log.Log(logLevel, $"{message} - duration of scope: {format(millis)} ms - total memory: {format(memory)} KB ({gcState}).", args);
+
+			GC.SuppressFinalize(this);
 
 			// -- local function
 
-			static string format(Int64 number) 
+			static string format(long number)
 			{
 				return number.ToString("#,0.00", CultureInfo.CurrentCulture.NumberFormat);
 			}
 		}
-
-
-
-		//protected virtual void Dispose(bool disposing)
-		//{
-		//	if (isDisposed)
-		//	{
-		//		return;
-
-		//	}
-		//	if (disposing)
-		//	{
-		//		// dispose managed resources
-		//		watch?.Dispose();
-		//		log?.Dispose();
-		//	}
-
-		//	// dispose unmanaged resources and finish
-		//	isDisposed = true;
-		//}
 	}
 }

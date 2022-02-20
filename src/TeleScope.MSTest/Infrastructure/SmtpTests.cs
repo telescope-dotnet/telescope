@@ -31,13 +31,12 @@ namespace TeleScope.MSTest.Infrastructure
 		[TestInitialize]
 		public override void Arrange()
 		{
-			base.Arrange();
+			base.ArrangeLogging<SmtpTests>();
 		}
 
 		[TestCleanup]
 		public override void Cleanup()
 		{
-			base.Cleanup();
 		}
 
 		// -- test methods

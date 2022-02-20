@@ -21,15 +21,13 @@ namespace TeleScope.MSTest.Infrastructure
 		[TestInitialize]
 		public override void Arrange()
 		{
-			base.Arrange();
+			base.ArrangeLogging<MqttTests>();
 		}
 
 		[TestCleanup]
 		public override void Cleanup()
 		{
-			base.Cleanup();
-
-			if (mqtt != null)
+			if (mqtt is not null)
 			{
 				mqtt.DisconnectAsync();
 				mqtt = null;

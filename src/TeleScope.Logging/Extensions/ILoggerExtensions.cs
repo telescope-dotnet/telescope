@@ -11,14 +11,21 @@ namespace TeleScope.Logging.Extensions
 	{
 		// -- METRICS
 
-		public static IDisposable Metrics(this ILogger log, [CallerMemberName] string memberName = "")
+		public static IDisposable Metrics(this ILogger logger, [CallerMemberName] string memberName = "")
 		{
-			return new LoggerMetrics(log, LogLevel.Trace, false, memberName);
+			return Metrics(logger, LogLevel.Trace, false, memberName);
 		}
 
-		public static IDisposable Metrics(this ILogger log, LogLevel level, bool forceGarbageCollection, string message, params object[] args) 
+		public static IDisposable Metrics(this ILogger logger, LogLevel level, bool forceGarbageCollection, string message, params object[] args)
 		{
-			return new LoggerMetrics(log, level, forceGarbageCollection, message, args);
+			if (logger.IsEnabled(level))
+			{
+				return new LoggerMetrics(logger, level, forceGarbageCollection, message, args);
+			}
+			else
+			{
+				return null;
+			}
 		}
 
 		// -- TRACE
@@ -80,7 +87,7 @@ namespace TeleScope.Logging.Extensions
 		/// <param name="args">An array of objects that will to be logged.</param>
 		public static void Debug(this ILogger logger, Exception ex, string message, params object[] args)
 		{
-			if (logger.IsEnabled(LogLevel.Debug)) 
+			if (logger.IsEnabled(LogLevel.Debug))
 				logger.LogDebug(ex, message, args);
 		}
 

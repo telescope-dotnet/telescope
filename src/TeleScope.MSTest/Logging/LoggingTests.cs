@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Threading;
 using TeleScope.Logging;
 using TeleScope.Logging.Extensions;
 
@@ -68,13 +69,27 @@ namespace TeleScope.MSTest.Logging
 			Assert.IsNull(metric, "Metric should be null, but wasn`t.");
 		}
 
+		[TestMethod]
+		public void LogMetrics_With_ThreeScopes()
+		{
+			// arrange
+			var log = LoggingProvider.CreateLogger<LoggingTests>();
+
+			// act & assert
+			using var fullMetric = log.Metrics("Full scope metrics");
+			Thread.Sleep(100);
+
+			using (var innerMetric = log.Metrics(LogLevel.Trace, true, "Logging Metrics in definded scope in method {Method}", "LogMetrics")) 
+			{
+				using var _ = log.Metrics();		
+				AssertAndLog(log);
+			}
+		}
+
 		private void AssertAndLog(ILogger log)
 		{
 			// assert
 			Assert.IsTrue(log != null, "The log was inactive");
-
-			using var foo = log.Metrics();
-			using var bar = log.Metrics(LogLevel.Information, true, "Metrics from {instance}", this);
 
 			log.TraceMember();
 			log.Trace("Tracing log");

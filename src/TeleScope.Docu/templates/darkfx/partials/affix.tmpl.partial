@@ -5,6 +5,9 @@
     {{^_disableContribution}}
     <div class="contribution">
       <ul class="nav">
+        <li>
+          <a href="{{_githubPath}}" target="_blank" class="contribution-link"><span class="mdi mdi-github" style="margin-right:0.5em"></span> GITHUB</a>
+        </li>
         {{#docurl}}
         <li>
           <a href="{{docurl}}" class="contribution-link">{{__global.improveThisDoc}}</a>

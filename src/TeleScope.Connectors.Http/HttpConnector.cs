@@ -104,17 +104,27 @@ namespace TeleScope.Connectors.Http
 
 		// -- Finalizer
 
+		/// <summary>
+		/// The finalizer disposes the unmanged resources. 
+		/// </summary>
 		~HttpConnector()
 		{
 			Dispose(false);
 		}
 
+		/// <summary>
+		/// Disposes all managed resources and supresses the <see cref="GC"/> to call the finalizer.
+		/// </summary>
 		public void Dispose()
 		{
 			Dispose(true);
 			GC.SuppressFinalize(this);
 		}
 
+		/// <summary>
+		/// Implements the Dispose function. 
+		/// </summary>
+		/// <param name="disposing">If True, the internal managed resouces will be disposed.</param>
 		protected virtual void Dispose(bool disposing)
 		{
 			if (isDisposed)
@@ -219,6 +229,12 @@ namespace TeleScope.Connectors.Http
 			return this;
 		}
 
+		/// <summary>
+		/// Adds a caching mechanism for the upcoming http request.
+		/// </summary>
+		/// <param name="key">The optional key to store response data within a cache. 
+		/// If no key is provided the full string of the http request will be used.</param>
+		/// <returns>The calling instance.</returns>
 		public IHttpConnectable WithCaching(string key = null)
 		{
 			enableCaching = true;
@@ -226,6 +242,11 @@ namespace TeleScope.Connectors.Http
 			return this;
 		}
 
+		/// <summary>
+		/// Adds the <see cref="CancellationToken"/> to the internal connector in order to enable an cancellation of the pending http requests.
+		/// </summary>
+		/// <param name="token">The token that is provided by the host system.</param>
+		/// <returns>The calling instance.</returns>
 		public IHttpConnectable AddCancelToken(CancellationToken token)
 		{
 			cancelToken = token;
@@ -341,6 +362,10 @@ namespace TeleScope.Connectors.Http
 			}
 		}
 
+		/// <summary>
+		/// Implements a synchronous cancellation of all pending http requests.
+		/// </summary>
+		/// <returns>The calling instance.</returns>
 		public IHttpConnectable Cancel()
 		{
 			client?.CancelPendingRequests();

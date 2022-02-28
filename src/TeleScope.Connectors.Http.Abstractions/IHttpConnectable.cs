@@ -28,9 +28,19 @@ namespace TeleScope.Connectors.Http.Abstractions
 		/// <returns>The calling instance.</returns>
 		IHttpConnectable Connect(HttpClient client, HttpEndpoint endpoint);
 
+		/// <summary>
+		/// The implementation shall add a caching mechanism for the upcoming http request.
+		/// </summary>
+		/// <param name="key">The optional key to store response data within a cache.</param>
+		/// <returns>The calling instance.</returns>
 		IHttpConnectable WithCaching(string key = null);
 
-		IHttpConnectable AddCancelToken(CancellationToken cancelToken);
+		/// <summary>
+		/// The implementation shall add the <see cref="CancellationToken"/> to the internal connector in order to enable an cancellation of the pending http requests.
+		/// </summary>
+		/// <param name="token">The token that is provided by the host system.</param>
+		/// <returns>The calling instance.</returns>
+		IHttpConnectable AddCancelToken(CancellationToken token);
 
 		/// <summary>
 		/// Updates the request part of the http endpoint configuration.
@@ -78,6 +88,10 @@ namespace TeleScope.Connectors.Http.Abstractions
 		/// <returns>The executing task whereby the result is the raw string of the response body.</returns>
 		Task<string> CallAsync();
 
+		/// <summary>
+		/// The implementation shall implement a synchronous cancellation of pending http requests.
+		/// </summary>
+		/// <returns>The calling instance.</returns>
 		IHttpConnectable Cancel();
 	}
 }

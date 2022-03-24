@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
@@ -14,6 +16,12 @@ namespace TeleScope.MSTest.Infrastructure
 	[TestClass]
 	public class HttpTests : TestsBase
 	{
+		/*
+		 * List of public test APIs: https://api.publicapis.org/entries
+		 * A public GraphQL API with information about continents and countries
+		 * https://countries.trevorblades.com/ found at https://github.com/APIs-guru/graphql-apis
+		 */
+
 		[TestInitialize]
 		public override void Arrange()
 		{
@@ -28,11 +36,7 @@ namespace TeleScope.MSTest.Infrastructure
 
 		// -- Test methods
 
-		[TestMethod]
-		public void CancelHttpRequest() 
-		{
-			
-		}
+
 
 		[TestMethod]
 		public async Task CallAsync_GetRequest()
@@ -43,9 +47,9 @@ namespace TeleScope.MSTest.Infrastructure
 				new Uri(new Uri("https://reqres.in"), request),
 				HttpMethod.Get);
 
-			endpoint.Request("");
+			endpoint.SetRequest("");
 			Assert.IsFalse(endpoint.Address.AbsoluteUri.Contains(request));
-			endpoint.Request(request);
+			endpoint.SetRequest(request);
 			Assert.IsTrue(endpoint.Address.AbsoluteUri.Contains(request));
 
 			var http = GetHttpConnector(endpoint);
@@ -61,12 +65,6 @@ namespace TeleScope.MSTest.Infrastructure
 		public async Task CallAsync_GraphQl()
 		{
 			// arrange
-
-			/*
-			 * A public GraphQL API with information about continents and countries
-			 * https://countries.trevorblades.com/
-			 * Found at https://github.com/APIs-guru/graphql-apis
-			 */
 			var query = "?query={continents{name%20countries{name}}}";
 			var endpoint = new HttpEndpoint(
 				new Uri(new Uri("https://countries.trevorblades.com/"), query),
@@ -113,10 +111,6 @@ namespace TeleScope.MSTest.Infrastructure
 		[TestMethod]
 		public async Task CallAsync_Multiple_Endpoints_ShouldFail()
 		{
-			/*
-			 * List of public test APIs: https://api.publicapis.org/entries
-			 */
-
 			// arrange
 			Exception exception = null;
 			bool catched = false;
@@ -156,8 +150,138 @@ namespace TeleScope.MSTest.Infrastructure
 				// assert
 				Assert.IsTrue(catched);
 				Assert.IsTrue(exception is InvalidOperationException,
-					$"Wrong Exception type catched. Expected type {nameof(InvalidOperationException)}, but was {exception.GetType()}");
+					$"Wrong Exception type catched. Expected type {nameof(InvalidOperationException)}, but was {exception.GetType()}.");
 			}
+		}
+
+		[TestMethod]
+		public async Task CallAsync_Multiple_Endpoints()
+		{
+			// arrange
+			var endpointOne = new HttpEndpoint(new Uri("https://reqres.in/api/users/1"));
+			var endpointTwo = new HttpEndpoint(new Uri("https://reqres.in/api/users/2"));
+			var endpointThree = new HttpEndpoint(new Uri("https://api.publicapis.org/entries"));
+
+			var resultOne = string.Empty;
+			var resultTwo = string.Empty;
+			var resultThree = string.Empty;
+
+			Exception exception = null;
+			bool catched = false;
+
+			var http = GetHttpConnector(endpointOne);
+
+			// act
+			try
+			{
+				var task1 = http.SetRequest(endpointOne).CallAsync((s) => {
+					log.Trace(s);
+					return s;
+				});
+
+				var task2 = http.SetRequest(endpointTwo).CallAsync((s) => {
+					log.Trace(s);
+					return s;
+				});
+
+				var task3 = http.SetRequest(endpointThree).CallAsync((s) => {
+					log.Trace(s);
+					return s;
+				});
+
+				await Task.WhenAll(task1, task2, task3);
+
+				resultOne = task1.Result;
+				resultTwo = task2.Result;
+				resultThree = task3.Result;
+			}
+			catch (Exception ex)
+			{
+				exception = ex;
+				catched = true;
+			}
+			finally
+			{
+				// assert
+				Assert.IsFalse(catched);
+				Assert.IsTrue(exception is null, "Exception should be null.");
+				Assert.IsFalse(string.IsNullOrEmpty(resultOne));
+				Assert.IsFalse(string.IsNullOrEmpty(resultTwo));
+				Assert.IsFalse(string.IsNullOrEmpty(resultTwo));
+				Assert.AreNotEqual(resultOne, resultTwo);
+				Assert.AreNotEqual(resultOne, resultThree);
+				Assert.AreNotEqual(resultTwo, resultThree);
+			}
+		}
+
+		[TestMethod]
+		public async Task CallAsync_WithCaching() 
+		{
+			// arrange
+			var endpoint = new HttpEndpoint(new Uri("https://api.publicapis.org/entries"));
+			var http = GetHttpConnector(endpoint);
+			
+			long millisOne = 0;
+			long millisTwo = 0;
+
+			// act
+			http.WithCaching(2, 4);
+
+			var watch = Stopwatch.StartNew();
+			var resultOne = await http.CallAsync((s) =>
+			{
+				log.Trace(s);
+				watch.Stop();
+				millisOne = watch.ElapsedMilliseconds;
+				return s;
+			});
+
+			watch.Restart();
+			var resultTwo = await http.CallAsync((s) =>
+			{
+				log.Trace(s);
+				watch.Stop();
+				millisTwo = watch.ElapsedMilliseconds;
+				return s;
+			});
+
+			// assert
+			Assert.IsTrue(millisOne > 0);
+			Assert.IsTrue(millisTwo > 0);
+			Assert.IsTrue((millisOne / 2) > millisTwo);
+			Assert.IsTrue(millisTwo < 100);
+			Assert.AreEqual(resultOne, resultTwo);
+		}
+
+		[TestMethod]
+		public void CallAsync_With_CancellationToken()
+		{
+			// arrange
+			var response = string.Empty;
+			var taskResult = string.Empty;
+			var tokenSource = new CancellationTokenSource();
+
+			var endpoint = new HttpEndpoint(new Uri("https://api.publicapis.org/entries"));
+			var http = GetHttpConnector(endpoint);
+			http.Completed += (o, e) =>
+			{
+				response = e.Response.ToString();
+			};			
+
+			// act
+			var task = http.AddCancelToken(tokenSource.Token).CallAsync((s) =>
+			{
+				log.Trace(s);
+				return s;
+			});
+
+			tokenSource.Cancel();
+			taskResult = task.Result;
+
+
+			// assert
+			Assert.IsTrue(string.IsNullOrEmpty(taskResult));
+			Assert.IsTrue(!string.IsNullOrEmpty(response));
 		}
 
 		// -- helper

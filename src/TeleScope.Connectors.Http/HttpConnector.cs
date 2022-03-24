@@ -28,10 +28,8 @@ namespace TeleScope.Connectors.Http
 		private HttpClient client;
 		private HttpEndpoint endpoint;
 		private StringContent content;
-		private readonly ICacheable<string> cache;
 
-		private bool enableCaching;
-		private string key;
+		private ICacheable<string> cache;
 
 		private CancellationToken cancelToken;
 
@@ -75,31 +73,21 @@ namespace TeleScope.Connectors.Http
 		}
 
 		/// <summary>
+		/// Saves the property and calls the empty default constructor.
+		/// </summary>
+		/// <param name="client">The http client to perform requests.</param>
+		public HttpConnector(HttpClient client) : this()
+		{
+			this.client = client;
+		}
+
+		/// <summary>
 		/// The default empty constructor binds a logger for internal usage.
 		/// </summary>
 		public HttpConnector()
 		{
 			log = LoggingProvider.CreateLogger<HttpConnector>();
 			cancelToken = CancellationToken.None;
-
-			cache = new HttpEndpointCache();
-
-			Connected = (o, e) =>
-			{
-				ResetCacheSetting();
-			};
-			Completed = (o, e) =>
-			{
-				ResetCacheSetting();
-			};
-			Failed = (o, e) =>
-			{
-				ResetCacheSetting();
-			};
-			Disconnected = (o, e) =>
-			{
-				ResetCacheSetting();
-			};
 		}
 
 		// -- Finalizer
@@ -146,17 +134,6 @@ namespace TeleScope.Connectors.Http
 		// -- methods
 
 		/// <summary>
-		/// Tests the connection to the given endpoint and stores the parameter internally. 
-		/// The http client must be ready-to-use before calling this method.
-		/// </summary>
-		/// <param name="endpoint">The endpoint configuration.</param>
-		/// <returns>The calling instance.</returns>
-		public IHttpConnectable Connect(HttpEndpoint endpoint)
-		{
-			return Connect(client, endpoint);
-		}
-
-		/// <summary>
 		/// Tests the connection with the given http client and endpoint and stores both parameters internally.
 		/// </summary>
 		/// <param name="client">The http client that will be used by the connector.</param>
@@ -167,6 +144,17 @@ namespace TeleScope.Connectors.Http
 			this.client = client;
 			this.endpoint = endpoint;
 			return Connect();
+		}
+
+		/// <summary>
+		/// Tests the connection to the given endpoint and stores the parameter internally. 
+		/// The http client must be ready-to-use before calling this method.
+		/// </summary>
+		/// <param name="endpoint">The endpoint configuration.</param>
+		/// <returns>The calling instance.</returns>
+		public IHttpConnectable Connect(HttpEndpoint endpoint)
+		{
+			return Connect(client, endpoint);
 		}
 
 		/// <summary>
@@ -184,17 +172,14 @@ namespace TeleScope.Connectors.Http
 
 			try
 			{
-
-				using (HttpResponseMessage response = client.SendAsync(new HttpRequestMessage(HttpMethod.Head, client.BaseAddress)).Result)
+				using HttpResponseMessage response = client.SendAsync(new HttpRequestMessage(HttpMethod.Head, client.BaseAddress)).Result;
+				if (response.StatusCode == HttpStatusCode.OK)
 				{
-					if (response.StatusCode == HttpStatusCode.OK)
-					{
-						IsConnected = true;
-					}
-					else
-					{
-						throw new WebException(response.ReasonPhrase);
-					}
+					IsConnected = true;
+				}
+				else
+				{
+					throw new WebException(response.ReasonPhrase);
 				}
 			}
 			catch (WebException wex)
@@ -230,15 +215,37 @@ namespace TeleScope.Connectors.Http
 		}
 
 		/// <summary>
-		/// Adds a caching mechanism for the upcoming http request.
+		/// Adds a caching mechanism for all upcoming http requests.
 		/// </summary>
-		/// <param name="key">The optional key to store response data within a cache. 
-		/// If no key is provided the full string of the http request will be used.</param>
+		/// <param name="refreshSeconds">The timeout in seconds where the cache will return (refresh) the cached data.</param>
+		/// <param name="expirationSeconds">The timeout in seconds where the cache will expire the cached data.</param>
 		/// <returns>The calling instance.</returns>
-		public IHttpConnectable WithCaching(string key = null)
+		public IHttpConnectable WithCaching(uint refreshSeconds = 3, uint expirationSeconds = 9)
 		{
-			enableCaching = true;
-			this.key = key;
+			return WithCaching(
+				TimeSpan.FromSeconds(refreshSeconds),
+				TimeSpan.FromSeconds(expirationSeconds));
+		}
+
+		/// <summary>
+		/// Adds a caching mechanism for all upcoming http requests.
+		/// </summary>
+		/// <param name="refreshExpiration">The timeout where the cache will return (refresh) the cached data.</param>
+		/// <param name="resetExpiration">The timeout where the cache will expire the cached data.</param>
+		/// <returns>The calling instance.</returns>
+		public IHttpConnectable WithCaching(TimeSpan refreshExpiration, TimeSpan resetExpiration)
+		{
+			cache = new StringMemoryCache(refreshExpiration, resetExpiration);
+			return this;
+		}
+
+		/// <summary>
+		/// Disables the caching mechanism and frees the allocated memory.
+		/// </summary>
+		/// <returns>The calling instance.</returns>
+		public IHttpConnectable DisableCaching()
+		{
+			cache.Dispose();
 			return this;
 		}
 
@@ -259,14 +266,30 @@ namespace TeleScope.Connectors.Http
 		/// <param name="request">The request part of the url.</param>
 		/// <param name="method">Optional: The method type of the call.</param>
 		/// <returns>The calling instance.</returns>
-		public IHttpConnectable SetRequest(string request, HttpMethod method = null)
+		public IHttpConnectable SetRequest(string request, HttpMethod method)
 		{
 			if (!Validate())
 			{
 				return this;
 			}
 
-			endpoint.Request(request).Method(method);
+			endpoint.SetRequest(request).SetMethodType(method);
+			return this;
+		}
+
+		/// <summary>
+		/// Updates the complete http endpoint configuration.
+		/// </summary>
+		/// <param name="newEndpoint">The new endpoint configuration.</param>
+		/// <returns>The calling instance.</returns>
+		public IHttpConnectable SetRequest(HttpEndpoint newEndpoint)
+		{
+			if (!Validate() || newEndpoint is null)
+			{
+				return this;
+			}
+
+			this.endpoint = newEndpoint;
 			return this;
 		}
 
@@ -305,7 +328,6 @@ namespace TeleScope.Connectors.Http
 			return this;
 		}
 
-
 		/// <summary>
 		/// Performs the http request asynchronously that is defined by the http endpoint and optional parameters.
 		/// </summary>
@@ -326,16 +348,16 @@ namespace TeleScope.Connectors.Http
 		{
 			var request = new HttpRequestMessage
 			{
-				Method = endpoint.MethodType,
+				Method = endpoint.Method,
 				RequestUri = endpoint.Address,
 				Content = content
 			};
 
-			if (enableCaching)
+			if (cache is not null)
 			{
 				return await Task.Run(() =>
 				{
-					var cachingKey = string.IsNullOrEmpty(key) ? endpoint.ToString() : key;
+					var cachingKey = endpoint.ToString();
 					return cache.GetOrInvoke(cachingKey, call);
 				});
 			}
@@ -351,35 +373,26 @@ namespace TeleScope.Connectors.Http
 
 			string call()
 			{
-				log.Trace($"Calling via http '{endpoint}'.");
-
-				var response = client.Send(request, cancelToken);
-				var result = response.Content.ReadAsStringAsync(cancelToken).Result;
-
-				Completed?.Invoke(this, new ConnectorCompletedEventArgs(response.ReasonPhrase, response));
+				var result = string.Empty;
+				try
+				{
+					log.Trace($"Calling via http '{endpoint}'.");
+					var response = client.Send(request, cancelToken);
+					result = response.Content.ReadAsStringAsync(cancelToken).Result;
+					Completed?.Invoke(this, new ConnectorCompletedEventArgs(response.ReasonPhrase, response));
+				}
+				catch (TaskCanceledException ex)
+				{
+					log.Trace(ex);
+					Completed?.Invoke(this, new ConnectorCompletedEventArgs(endpoint.ToString(), ex.Message));
+				}
 
 				return result;
 			}
 		}
 
-		/// <summary>
-		/// Implements a synchronous cancellation of all pending http requests.
-		/// </summary>
-		/// <returns>The calling instance.</returns>
-		public IHttpConnectable Cancel()
-		{
-			client?.CancelPendingRequests();
-			Completed?.Invoke(this, new ConnectorCompletedEventArgs("Pending requests were canceled.", this));
-			return this;
-		}
-
 		// -- helper
-
-		private void ResetCacheSetting()
-		{
-			enableCaching = false;
-			key = null;
-		}
+		
 		private bool Validate()
 		{
 			var err = "The http conncetor is not ready.";

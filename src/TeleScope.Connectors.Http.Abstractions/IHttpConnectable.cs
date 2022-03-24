@@ -29,11 +29,26 @@ namespace TeleScope.Connectors.Http.Abstractions
 		IHttpConnectable Connect(HttpClient client, HttpEndpoint endpoint);
 
 		/// <summary>
-		/// The implementation shall add a caching mechanism for the upcoming http request.
+		/// The implementation shall add a caching mechanism for all upcoming http requests.
 		/// </summary>
-		/// <param name="key">The optional key to store response data within a cache.</param>
+		/// <param name="refreshSeconds">The timeout in seconds where the cache will return (refresh) the cached data.</param>
+		/// <param name="expirationSeconds">The timeout in seconds where the cache will expire the cached data.</param>
 		/// <returns>The calling instance.</returns>
-		IHttpConnectable WithCaching(string key = null);
+		IHttpConnectable WithCaching(uint refreshSeconds = 3, uint expirationSeconds = 9);
+
+		/// <summary>
+		/// The implementation shall add a caching mechanism for all upcoming http requests.
+		/// </summary>
+		/// <param name="refreshExpiration">The timeout where the cache will return (refresh) the cached data.</param>
+		/// <param name="resetExpiration">The timeout where the cache will expire the cached data.</param>
+		/// <returns>The calling instance.</returns>
+		IHttpConnectable WithCaching(TimeSpan refreshExpiration, TimeSpan resetExpiration);
+
+		/// <summary>
+		/// The implementation shall disable the caching mechanism and free all allocated memory.
+		/// </summary>
+		/// <returns>The calling instance.</returns>
+		IHttpConnectable DisableCaching();
 
 		/// <summary>
 		/// The implementation shall add the <see cref="CancellationToken"/> to the internal connector in order to enable an cancellation of the pending http requests.
@@ -43,12 +58,19 @@ namespace TeleScope.Connectors.Http.Abstractions
 		IHttpConnectable AddCancelToken(CancellationToken token);
 
 		/// <summary>
-		/// Updates the request part of the http endpoint configuration.
+		/// The implementation shall update the request part of the http endpoint configuration.
 		/// </summary>
 		/// <param name="request">The request part of the url.</param>
-		/// <param name="method">Optional: The method type of the call.</param>
+		/// <param name="method">The method type of the call.</param>
 		/// <returns>The calling instance.</returns>
-		IHttpConnectable SetRequest(string request, HttpMethod method = null);
+		IHttpConnectable SetRequest(string request, HttpMethod method);
+
+		/// <summary>
+		/// The implementation shall update the complete http endpoint configuration.
+		/// </summary>
+		/// <param name="newEndpoint">The new thhp endpoint.</param>
+		/// <returns>The calling instance.</returns>
+		IHttpConnectable SetRequest(HttpEndpoint newEndpoint);
 
 		/// <summary>
 		/// Adds an http header to the next request as simple pair of name and value.
@@ -87,11 +109,5 @@ namespace TeleScope.Connectors.Http.Abstractions
 		/// </summary>
 		/// <returns>The executing task whereby the result is the raw string of the response body.</returns>
 		Task<string> CallAsync();
-
-		/// <summary>
-		/// The implementation shall implement a synchronous cancellation of pending http requests.
-		/// </summary>
-		/// <returns>The calling instance.</returns>
-		IHttpConnectable Cancel();
 	}
 }

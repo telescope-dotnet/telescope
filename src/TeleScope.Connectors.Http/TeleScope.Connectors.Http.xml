@@ -4,6 +4,58 @@
         <name>TeleScope.Connectors.Http</name>
     </assembly>
     <members>
+        <member name="T:TeleScope.Connectors.Http.Caching.StringMemoryCache">
+            <summary>
+            This class provides a method to invoke external functions and cache its <see cref="T:System.String"/> results.
+            </summary>
+        </member>
+        <member name="M:TeleScope.Connectors.Http.Caching.StringMemoryCache.#ctor(System.UInt32,System.UInt32)">
+            <summary>
+            The constructor instanciates the internal caching with settings, 
+            based on the optional parameters or with default settings. 
+            </summary>
+            <param name="refreshSeconds">The timeout in seconds where the cache will return (refresh) the cached data.</param>
+            <param name="expirationSeconds">The timeout in seconds where the cache will expire the cached data.</param>
+        </member>
+        <member name="M:TeleScope.Connectors.Http.Caching.StringMemoryCache.#ctor(System.TimeSpan,System.TimeSpan)">
+            <summary>
+            The constructor instanciates the internal caching with settings, 
+            based on the two <see cref="T:System.TimeSpan"/> parameters.
+            </summary>
+            <param name="refreshExpiration">The timeout where the cache will return (refresh) the cached data.</param>
+            <param name="resetExpiration">The timeout where the cache will expire the cached data.</param>
+        </member>
+        <member name="M:TeleScope.Connectors.Http.Caching.StringMemoryCache.Finalize">
+            <summary>
+            The finalizer disposes the unmanged resources. 
+            </summary>
+        </member>
+        <member name="M:TeleScope.Connectors.Http.Caching.StringMemoryCache.Dispose">
+            <summary>
+            Disposes all managed resources and supresses the <see cref="T:System.GC"/> to call the finalizer.
+            </summary>
+        </member>
+        <member name="M:TeleScope.Connectors.Http.Caching.StringMemoryCache.Dispose(System.Boolean)">
+            <summary>
+            Implements the Dispose function. 
+            </summary>
+            <param name="disposing">If True, the internal managed resouces will be disposed.</param>
+        </member>
+        <member name="M:TeleScope.Connectors.Http.Caching.StringMemoryCache.GetOrInvoke(System.String,System.Func{System.String})">
+            <summary>
+            Returs the cached data, if the key holds it already or invokes the external function.
+            </summary>
+            <param name="key">The key that is used to store the result of the external function call.</param>
+            <param name="invoke">The external function that shall be called if the cache contains no data.</param>
+            <returns>The result of type T from cache or the external function call.</returns>
+        </member>
+        <member name="M:TeleScope.Connectors.Http.Caching.StringMemoryCache.SetCache(System.String,System.String)">
+            <summary>
+            Sets the new result into the cache with the given key.
+            </summary>
+            <param name="key">The key that is associated with the cached data.</param>
+            <param name="data">The data that will be cached.</param>
+        </member>
         <member name="T:TeleScope.Connectors.Http.HttpConnector">
             <summary>
             This class implements the `IHttpConnectable` interface and uses the standard microsoft http client.
@@ -41,6 +93,12 @@
             <param name="client">The http client to perform requests.</param>
             <param name="endpoint">The endpoint configuration executed by the client.</param>
         </member>
+        <member name="M:TeleScope.Connectors.Http.HttpConnector.#ctor(System.Net.Http.HttpClient)">
+            <summary>
+            Saves the property and calls the empty default constructor.
+            </summary>
+            <param name="client">The http client to perform requests.</param>
+        </member>
         <member name="M:TeleScope.Connectors.Http.HttpConnector.#ctor">
             <summary>
             The default empty constructor binds a logger for internal usage.
@@ -62,19 +120,19 @@
             </summary>
             <param name="disposing">If True, the internal managed resouces will be disposed.</param>
         </member>
-        <member name="M:TeleScope.Connectors.Http.HttpConnector.Connect(TeleScope.Connectors.Http.Abstractions.HttpEndpoint)">
-            <summary>
-            Tests the connection to the given endpoint and stores the parameter internally. 
-            The http client must be ready-to-use before calling this method.
-            </summary>
-            <param name="endpoint">The endpoint configuration.</param>
-            <returns>The calling instance.</returns>
-        </member>
         <member name="M:TeleScope.Connectors.Http.HttpConnector.Connect(System.Net.Http.HttpClient,TeleScope.Connectors.Http.Abstractions.HttpEndpoint)">
             <summary>
             Tests the connection with the given http client and endpoint and stores both parameters internally.
             </summary>
             <param name="client">The http client that will be used by the connector.</param>
+            <param name="endpoint">The endpoint configuration.</param>
+            <returns>The calling instance.</returns>
+        </member>
+        <member name="M:TeleScope.Connectors.Http.HttpConnector.Connect(TeleScope.Connectors.Http.Abstractions.HttpEndpoint)">
+            <summary>
+            Tests the connection to the given endpoint and stores the parameter internally. 
+            The http client must be ready-to-use before calling this method.
+            </summary>
             <param name="endpoint">The endpoint configuration.</param>
             <returns>The calling instance.</returns>
         </member>
@@ -90,12 +148,26 @@
             </summary>
             <returns>The calling instance.</returns>
         </member>
-        <member name="M:TeleScope.Connectors.Http.HttpConnector.WithCaching(System.String)">
+        <member name="M:TeleScope.Connectors.Http.HttpConnector.WithCaching(System.UInt32,System.UInt32)">
             <summary>
-            Adds a caching mechanism for the upcoming http request.
+            Adds a caching mechanism for all upcoming http requests.
             </summary>
-            <param name="key">The optional key to store response data within a cache. 
-            If no key is provided the full string of the http request will be used.</param>
+            <param name="refreshSeconds">The timeout in seconds where the cache will return (refresh) the cached data.</param>
+            <param name="expirationSeconds">The timeout in seconds where the cache will expire the cached data.</param>
+            <returns>The calling instance.</returns>
+        </member>
+        <member name="M:TeleScope.Connectors.Http.HttpConnector.WithCaching(System.TimeSpan,System.TimeSpan)">
+            <summary>
+            Adds a caching mechanism for all upcoming http requests.
+            </summary>
+            <param name="refreshExpiration">The timeout where the cache will return (refresh) the cached data.</param>
+            <param name="resetExpiration">The timeout where the cache will expire the cached data.</param>
+            <returns>The calling instance.</returns>
+        </member>
+        <member name="M:TeleScope.Connectors.Http.HttpConnector.DisableCaching">
+            <summary>
+            Disables the caching mechanism and frees the allocated memory.
+            </summary>
             <returns>The calling instance.</returns>
         </member>
         <member name="M:TeleScope.Connectors.Http.HttpConnector.AddCancelToken(System.Threading.CancellationToken)">
@@ -111,6 +183,13 @@
             </summary>
             <param name="request">The request part of the url.</param>
             <param name="method">Optional: The method type of the call.</param>
+            <returns>The calling instance.</returns>
+        </member>
+        <member name="M:TeleScope.Connectors.Http.HttpConnector.SetRequest(TeleScope.Connectors.Http.Abstractions.HttpEndpoint)">
+            <summary>
+            Updates the complete http endpoint configuration.
+            </summary>
+            <param name="newEndpoint">The new endpoint configuration.</param>
             <returns>The calling instance.</returns>
         </member>
         <member name="M:TeleScope.Connectors.Http.HttpConnector.AddHeader(System.String,System.String)">
@@ -150,12 +229,6 @@
             Performs the http request asynchronously that is defined by the http endpoint and optional parameters.
             </summary>
             <returns>The executing task whereby the result is the raw string of the response body.</returns>
-        </member>
-        <member name="M:TeleScope.Connectors.Http.HttpConnector.Cancel">
-            <summary>
-            Implements a synchronous cancellation of all pending http requests.
-            </summary>
-            <returns>The calling instance.</returns>
         </member>
     </members>
 </doc>

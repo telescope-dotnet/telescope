@@ -15,17 +15,10 @@
             Gets the complete Url that has the base address and request part.
             </summary>
         </member>
-        <member name="P:TeleScope.Connectors.Http.Abstractions.HttpEndpoint.MethodType">
+        <member name="P:TeleScope.Connectors.Http.Abstractions.HttpEndpoint.Method">
             <summary>
             Gets the http method is used by the endpoint.
             </summary>
-        </member>
-        <member name="M:TeleScope.Connectors.Http.Abstractions.HttpEndpoint.#ctor(System.Uri)">
-            <summary>
-            The default constructor sets the property `Address` with the given parameter and 
-            uses the http method `GET` as `MethodType`.
-            </summary>
-            <param name="address">The full adress of the http endpoint.</param>
         </member>
         <member name="M:TeleScope.Connectors.Http.Abstractions.HttpEndpoint.#ctor(System.Uri,System.Net.Http.HttpMethod)">
             <summary>
@@ -36,21 +29,28 @@
         </member>
         <member name="M:TeleScope.Connectors.Http.Abstractions.HttpEndpoint.#ctor(System.String,System.String,System.Net.Http.HttpMethod)">
             <summary>
-            Sets the properties `Address` and `MethodType` with the given parameters.
-            The `Address` is separated by the two parameters `baseAddress` and `request`.
+            Sets the properties <see cref="P:TeleScope.Connectors.Http.Abstractions.HttpEndpoint.Address"/> and <see cref="P:TeleScope.Connectors.Http.Abstractions.HttpEndpoint.Method"/> with the given parameters.
+            The <see cref="P:TeleScope.Connectors.Http.Abstractions.HttpEndpoint.Address"/> is separated by the two parameters `baseAddress` and `request`.
             </summary>
-            <param name="baseAddress">The base adress of the http endpoint.</param>
+            <param name="baseAddress">The base address of the http endpoint.</param>
             <param name="request">The request part of the http endpoint.</param>
             <param name="method">The http method.</param>
         </member>
-        <member name="M:TeleScope.Connectors.Http.Abstractions.HttpEndpoint.Request(System.String)">
+        <member name="M:TeleScope.Connectors.Http.Abstractions.HttpEndpoint.#ctor(System.Uri)">
+            <summary>
+            The default constructor sets the property `Address` with the given parameter and 
+            uses the http method `GET` as `MethodType`.
+            </summary>
+            <param name="address">The full adress of the http endpoint.</param>
+        </member>
+        <member name="M:TeleScope.Connectors.Http.Abstractions.HttpEndpoint.SetRequest(System.String)">
             <summary>
             This method may be overridden and updates the request part of the http endpoint. The base url will not change.
             </summary>
             <param name="request">The request part of the http endpoint.</param>
             <returns>The calling instance.</returns>
         </member>
-        <member name="M:TeleScope.Connectors.Http.Abstractions.HttpEndpoint.Method(System.Net.Http.HttpMethod)">
+        <member name="M:TeleScope.Connectors.Http.Abstractions.HttpEndpoint.SetMethodType(System.Net.Http.HttpMethod)">
             <summary>
             This method may be overridden and updates the http method of the http endpoint. The `Address` property will not change.
             </summary>
@@ -62,6 +62,20 @@
             Overrides the ToString method and returns the method type and the absolute url of the http endpoint.
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:TeleScope.Connectors.Http.Abstractions.ICacheable`1">
+            <summary>
+            This interface provides a generic method to invoke external functions and cache its results.
+            </summary>
+            <typeparam name="T">The result type T is the return value of the external call or the cached data.</typeparam>
+        </member>
+        <member name="M:TeleScope.Connectors.Http.Abstractions.ICacheable`1.GetOrInvoke(System.String,System.Func{`0})">
+            <summary>
+             The implementation shall return the cached data, if the key holds it already or invokes the external function.
+            </summary>
+            <param name="key">The key that is used to store the result of the external function call.</param>
+            <param name="invoke">The external function that shall be called if the cache contains no data.</param>
+            <returns>The result of type T from cache or the external function call.</returns>
         </member>
         <member name="T:TeleScope.Connectors.Http.Abstractions.IHttpConnectable">
             <summary>
@@ -84,11 +98,26 @@
             <param name="endpoint">The endpoint configuration.</param>
             <returns>The calling instance.</returns>
         </member>
-        <member name="M:TeleScope.Connectors.Http.Abstractions.IHttpConnectable.WithCaching(System.String)">
+        <member name="M:TeleScope.Connectors.Http.Abstractions.IHttpConnectable.WithCaching(System.UInt32,System.UInt32)">
             <summary>
-            The implementation shall add a caching mechanism for the upcoming http request.
+            The implementation shall add a caching mechanism for all upcoming http requests.
             </summary>
-            <param name="key">The optional key to store response data within a cache.</param>
+            <param name="refreshSeconds">The timeout in seconds where the cache will return (refresh) the cached data.</param>
+            <param name="expirationSeconds">The timeout in seconds where the cache will expire the cached data.</param>
+            <returns>The calling instance.</returns>
+        </member>
+        <member name="M:TeleScope.Connectors.Http.Abstractions.IHttpConnectable.WithCaching(System.TimeSpan,System.TimeSpan)">
+            <summary>
+            The implementation shall add a caching mechanism for all upcoming http requests.
+            </summary>
+            <param name="refreshExpiration">The timeout where the cache will return (refresh) the cached data.</param>
+            <param name="resetExpiration">The timeout where the cache will expire the cached data.</param>
+            <returns>The calling instance.</returns>
+        </member>
+        <member name="M:TeleScope.Connectors.Http.Abstractions.IHttpConnectable.DisableCaching">
+            <summary>
+            The implementation shall disable the caching mechanism and free all allocated memory.
+            </summary>
             <returns>The calling instance.</returns>
         </member>
         <member name="M:TeleScope.Connectors.Http.Abstractions.IHttpConnectable.AddCancelToken(System.Threading.CancellationToken)">
@@ -100,10 +129,17 @@
         </member>
         <member name="M:TeleScope.Connectors.Http.Abstractions.IHttpConnectable.SetRequest(System.String,System.Net.Http.HttpMethod)">
             <summary>
-            Updates the request part of the http endpoint configuration.
+            The implementation shall update the request part of the http endpoint configuration.
             </summary>
             <param name="request">The request part of the url.</param>
-            <param name="method">Optional: The method type of the call.</param>
+            <param name="method">The method type of the call.</param>
+            <returns>The calling instance.</returns>
+        </member>
+        <member name="M:TeleScope.Connectors.Http.Abstractions.IHttpConnectable.SetRequest(TeleScope.Connectors.Http.Abstractions.HttpEndpoint)">
+            <summary>
+            The implementation shall update the complete http endpoint configuration.
+            </summary>
+            <param name="newEndpoint">The new thhp endpoint.</param>
             <returns>The calling instance.</returns>
         </member>
         <member name="M:TeleScope.Connectors.Http.Abstractions.IHttpConnectable.AddHeader(System.String,System.String)">
@@ -143,12 +179,6 @@
             Performs the http request asynchronously that is defined by the http endpoint and optional parameters.
             </summary>
             <returns>The executing task whereby the result is the raw string of the response body.</returns>
-        </member>
-        <member name="M:TeleScope.Connectors.Http.Abstractions.IHttpConnectable.Cancel">
-            <summary>
-            The implementation shall implement a synchronous cancellation of pending http requests.
-            </summary>
-            <returns>The calling instance.</returns>
         </member>
     </members>
 </doc>

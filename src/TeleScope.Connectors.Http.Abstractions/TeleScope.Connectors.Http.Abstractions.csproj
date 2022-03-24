@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <Version>2.0.0</Version>
+    <Version>3.0.0</Version>
     <Authors>TeleScope-dotnet members</Authors>
     <Company>TeleScope-dotnet</Company>
     <Description>Contains further abstractions and interfaces to implement HTTP connectors. Depends on the assembly TeleScope.Connectors.Abstractions.</Description>

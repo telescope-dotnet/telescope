@@ -84,6 +84,20 @@
             <param name="endpoint">The endpoint configuration.</param>
             <returns>The calling instance.</returns>
         </member>
+        <member name="M:TeleScope.Connectors.Http.Abstractions.IHttpConnectable.WithCaching(System.String)">
+            <summary>
+            The implementation shall add a caching mechanism for the upcoming http request.
+            </summary>
+            <param name="key">The optional key to store response data within a cache.</param>
+            <returns>The calling instance.</returns>
+        </member>
+        <member name="M:TeleScope.Connectors.Http.Abstractions.IHttpConnectable.AddCancelToken(System.Threading.CancellationToken)">
+            <summary>
+            The implementation shall add the <see cref="T:System.Threading.CancellationToken"/> to the internal connector in order to enable an cancellation of the pending http requests.
+            </summary>
+            <param name="token">The token that is provided by the host system.</param>
+            <returns>The calling instance.</returns>
+        </member>
         <member name="M:TeleScope.Connectors.Http.Abstractions.IHttpConnectable.SetRequest(System.String,System.Net.Http.HttpMethod)">
             <summary>
             Updates the request part of the http endpoint configuration.
@@ -129,6 +143,12 @@
             Performs the http request asynchronously that is defined by the http endpoint and optional parameters.
             </summary>
             <returns>The executing task whereby the result is the raw string of the response body.</returns>
+        </member>
+        <member name="M:TeleScope.Connectors.Http.Abstractions.IHttpConnectable.Cancel">
+            <summary>
+            The implementation shall implement a synchronous cancellation of pending http requests.
+            </summary>
+            <returns>The calling instance.</returns>
         </member>
     </members>
 </doc>

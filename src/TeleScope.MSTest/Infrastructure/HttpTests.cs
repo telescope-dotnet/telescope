@@ -35,7 +35,7 @@ namespace TeleScope.MSTest.Infrastructure
 		}
 
 		[TestMethod]
-		public async Task HttpRequest()
+		public async Task CallAsync_GetRequest()
 		{
 			// arrange
 			var request = "/api/users";
@@ -58,7 +58,7 @@ namespace TeleScope.MSTest.Infrastructure
 		}
 
 		[TestMethod]
-		public async Task GraphQlGetRequest()
+		public async Task CallAsync_GraphQl()
 		{
 			// arrange
 
@@ -108,6 +108,56 @@ namespace TeleScope.MSTest.Infrastructure
 			Assert.IsNotNull(result);
 			Assert.IsNotNull(result.Data.Continents);
 			Assert.IsTrue(result.Data.Continents.Count > 0);
+		}
+
+		[TestMethod]
+		public async Task CallAsync_Multiple_Endpoints_ShouldFail()
+		{
+			/*
+			 * List of public test APIs: https://api.publicapis.org/entries
+			 */
+
+			// arrange
+			Exception exception = null;
+			bool catched = false;
+			var endpointOne = new HttpEndpoint(new Uri("https://reqres.in/api/users"));
+			var endpointTwo = new HttpEndpoint(new Uri("https://reqres.in/api/users/2"));
+			var endpointThree = new HttpEndpoint(new Uri("https://api.publicapis.org/entries"));
+
+			var http = GetHttpConnector(endpointOne);
+
+			// act
+			try
+			{
+				var task1 = http.CallAsync((s) => {
+					log.Trace(s);
+					return s;
+				});
+
+				var task2 = http.Connect(endpointTwo).CallAsync((s) => {
+					log.Trace(s);
+					return s;
+				});
+
+				var task3 = http.Connect(endpointThree).CallAsync((s) => {
+					log.Trace(s);
+					return s;
+				});
+
+				Task.WaitAll(task1, task2, task3);
+			}
+			catch (Exception ex)
+			{
+				exception = ex;
+				catched = true;
+			}
+			finally 
+			{
+				// assert
+				Assert.IsTrue(catched);
+				Assert.IsTrue(exception is InvalidOperationException,
+					$"Wrong Exception type catched. Expected type {nameof(InvalidOperationException)}, but was {exception.GetType()}");
+			}
 		}
 
 		// -- helper

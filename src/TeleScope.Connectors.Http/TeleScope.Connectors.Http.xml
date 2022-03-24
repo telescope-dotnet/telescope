@@ -46,6 +46,22 @@
             The default empty constructor binds a logger for internal usage.
             </summary>
         </member>
+        <member name="M:TeleScope.Connectors.Http.HttpConnector.Finalize">
+            <summary>
+            The finalizer disposes the unmanged resources. 
+            </summary>
+        </member>
+        <member name="M:TeleScope.Connectors.Http.HttpConnector.Dispose">
+            <summary>
+            Disposes all managed resources and supresses the <see cref="T:System.GC"/> to call the finalizer.
+            </summary>
+        </member>
+        <member name="M:TeleScope.Connectors.Http.HttpConnector.Dispose(System.Boolean)">
+            <summary>
+            Implements the Dispose function. 
+            </summary>
+            <param name="disposing">If True, the internal managed resouces will be disposed.</param>
+        </member>
         <member name="M:TeleScope.Connectors.Http.HttpConnector.Connect(TeleScope.Connectors.Http.Abstractions.HttpEndpoint)">
             <summary>
             Tests the connection to the given endpoint and stores the parameter internally. 
@@ -72,6 +88,21 @@
             <summary>
             Disposes the http client and deletes the internal fields.
             </summary>
+            <returns>The calling instance.</returns>
+        </member>
+        <member name="M:TeleScope.Connectors.Http.HttpConnector.WithCaching(System.String)">
+            <summary>
+            Adds a caching mechanism for the upcoming http request.
+            </summary>
+            <param name="key">The optional key to store response data within a cache. 
+            If no key is provided the full string of the http request will be used.</param>
+            <returns>The calling instance.</returns>
+        </member>
+        <member name="M:TeleScope.Connectors.Http.HttpConnector.AddCancelToken(System.Threading.CancellationToken)">
+            <summary>
+            Adds the <see cref="T:System.Threading.CancellationToken"/> to the internal connector in order to enable an cancellation of the pending http requests.
+            </summary>
+            <param name="token">The token that is provided by the host system.</param>
             <returns>The calling instance.</returns>
         </member>
         <member name="M:TeleScope.Connectors.Http.HttpConnector.SetRequest(System.String,System.Net.Http.HttpMethod)">
@@ -119,6 +150,12 @@
             Performs the http request asynchronously that is defined by the http endpoint and optional parameters.
             </summary>
             <returns>The executing task whereby the result is the raw string of the response body.</returns>
+        </member>
+        <member name="M:TeleScope.Connectors.Http.HttpConnector.Cancel">
+            <summary>
+            Implements a synchronous cancellation of all pending http requests.
+            </summary>
+            <returns>The calling instance.</returns>
         </member>
     </members>
 </doc>

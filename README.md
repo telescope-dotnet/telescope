@@ -51,6 +51,7 @@ that feature updates also may cause breaking changes.
 | [TeleScope.*](https://www.nuget.org/packages?q=TeleScope) | Packages |
 | ------------ | --- |
 | GuardClauses | [![Nuget](https://img.shields.io/nuget/v/TeleScope.GuardClauses.svg?label=GuardClauses)](https://www.nuget.org/packages/TeleScope.GuardClauses/)
+| Logging      | [![Nuget](https://img.shields.io/nuget/v/TeleScope.Logging.svg?label=Logging)](https://www.nuget.org/packages/TeleScope.Logging/) [![Nuget](https://img.shields.io/nuget/v/TeleScope.Logging.Extensions.Serilog.svg?label=Extensions.Serilog)](https://www.nuget.org/packages/TeleScope.Logging.Extensions.Serilog/)
 
 | [TeleScope.Connectors.*](https://www.nuget.org/packages?q=TeleScope.Connectors) | Packages |
 | ------------ | --- |
@@ -71,12 +72,6 @@ that feature updates also may cause breaking changes.
 | [TeleScope.UI.*](https://www.nuget.org/packages?q=TeleScope.UI) | Packages |
 | ------------ | --- |
 | Cli          | [![Nuget](https://img.shields.io/nuget/v/TeleScope.UI.Cli.svg?label=Cli)](https://www.nuget.org/packages/TeleScope.UI.Cli/)
-
-
-| [TeleScope.Logging.*](https://www.nuget.org/packages?q=TeleScope.Logging) | Packages |
-| ------------ | --- |
-| Logging      | [![Nuget](https://img.shields.io/nuget/v/TeleScope.Logging.svg?label=Logging)](https://www.nuget.org/packages/TeleScope.Logging/)
-| Serilog      | [![Nuget](https://img.shields.io/nuget/v/TeleScope.Logging.Extensions.Serilog.svg?label=Extensions.Serilog)](https://www.nuget.org/packages/TeleScope.Logging.Extensions.Serilog/)
 
 
 ## Development

@@ -75,15 +75,22 @@ namespace TeleScope.MSTest.Logging
 			// arrange
 			var log = LoggingProvider.CreateLogger<LoggingTests>();
 
+			//using var metric = Metrics.StartNew(log);
+			//using var metric = new LoggerMetrics(log);
+
+
 			// act & assert
-			using var fullMetric = log.Metrics("Full scope metrics");
+			var fullMetric = log.Metrics("Full scope metrics");
+
 			Thread.Sleep(100);
 
 			using (var innerMetric = log.Metrics(LogLevel.Trace, true, "Logging Metrics in definded scope in method {Method}", "LogMetrics")) 
 			{
-				using var _ = log.Metrics();		
+				using var foo = log.Metrics("metric of foo");
 				AssertAndLog(log);
 			}
+
+			fullMetric.Dispose();
 		}
 
 		private void AssertAndLog(ILogger log)

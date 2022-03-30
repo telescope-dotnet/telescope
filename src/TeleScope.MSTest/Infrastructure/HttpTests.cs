@@ -116,7 +116,7 @@ namespace TeleScope.MSTest.Infrastructure
 			bool catched = false;
 			var endpointOne = new HttpEndpoint(new Uri("https://reqres.in/api/users"));
 			var endpointTwo = new HttpEndpoint(new Uri("https://reqres.in/api/users/2"));
-			var endpointThree = new HttpEndpoint(new Uri("https://api.publicapis.org/entries"));
+			var endpointThree = new HttpEndpoint(new Uri("https://countries.trevorblades.com/"));
 
 			var http = GetHttpConnector(endpointOne);
 
@@ -160,7 +160,7 @@ namespace TeleScope.MSTest.Infrastructure
 			// arrange
 			var endpointOne = new HttpEndpoint(new Uri("https://reqres.in/api/users/1"));
 			var endpointTwo = new HttpEndpoint(new Uri("https://reqres.in/api/users/2"));
-			var endpointThree = new HttpEndpoint(new Uri("https://api.publicapis.org/entries"));
+			var endpointThree = new HttpEndpoint(new Uri("https://countries.trevorblades.com/"));
 
 			var resultOne = string.Empty;
 			var resultTwo = string.Empty;
@@ -218,7 +218,7 @@ namespace TeleScope.MSTest.Infrastructure
 		public async Task CallAsync_WithCaching() 
 		{
 			// arrange
-			var endpoint = new HttpEndpoint(new Uri("https://api.publicapis.org/entries"));
+			var endpoint = new HttpEndpoint(new Uri("https://countries.trevorblades.com/"));
 			var http = GetHttpConnector(endpoint);
 			
 			long millisOne = 0;

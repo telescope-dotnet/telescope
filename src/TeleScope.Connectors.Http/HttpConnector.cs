@@ -385,6 +385,7 @@ namespace TeleScope.Connectors.Http
 				{
 					log.Trace(ex);
 					Completed?.Invoke(this, new ConnectorCompletedEventArgs(endpoint.ToString(), ex.Message));
+					Failed?.Invoke(this, new ConnectorFailedEventArgs(ex, endpoint.ToString(), ex.Message));
 				}
 
 				return result;

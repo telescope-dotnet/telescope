@@ -2,11 +2,13 @@
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using TeleScope.Connectors.Abstractions;
 using TeleScope.Connectors.Abstractions.Events;
 using TeleScope.Connectors.Http.Abstractions;
+using TeleScope.Connectors.Http.Caching;
 using TeleScope.Logging;
 using TeleScope.Logging.Extensions;
 
@@ -19,16 +21,17 @@ namespace TeleScope.Connectors.Http
 	{
 		// -- fields
 
-		/// <summary>
-		/// The constant timeout defines how long the http client will wait after a request until a response needs to arrive. 
-		/// </summary>
-		public const int TIMEOUT = 10000;
-
 		private readonly ILogger<HttpConnector> log;
+
+		private bool isDisposed;
 
 		private HttpClient client;
 		private HttpEndpoint endpoint;
 		private StringContent content;
+
+		private ICacheable<string> cache;
+
+		private CancellationToken cancelToken;
 
 		// -- events
 
@@ -59,14 +62,6 @@ namespace TeleScope.Connectors.Http
 		// -- constructurs
 
 		/// <summary>
-		/// The default empty constructor binds a logger for internal usage.
-		/// </summary>
-		public HttpConnector()
-		{
-			log = LoggingProvider.CreateLogger<HttpConnector>();
-		}
-
-		/// <summary>
 		/// Saves the properties and calls the empty default constructor.
 		/// </summary>
 		/// <param name="client">The http client to perform requests.</param>
@@ -77,18 +72,66 @@ namespace TeleScope.Connectors.Http
 			this.endpoint = endpoint;
 		}
 
-		// -- methods
+		/// <summary>
+		/// Saves the property and calls the empty default constructor.
+		/// </summary>
+		/// <param name="client">The http client to perform requests.</param>
+		public HttpConnector(HttpClient client) : this()
+		{
+			this.client = client;
+		}
 
 		/// <summary>
-		/// Tests the connection to the given endpoint and stores the parameter internally. 
-		/// The http client must be ready-to-use before calling this method.
+		/// The default empty constructor binds a logger for internal usage.
 		/// </summary>
-		/// <param name="endpoint">The endpoint configuration.</param>
-		/// <returns>The calling instance.</returns>
-		public IHttpConnectable Connect(HttpEndpoint endpoint)
+		public HttpConnector()
 		{
-			return Connect(client, endpoint);
+			log = LoggingProvider.CreateLogger<HttpConnector>();
+			cancelToken = CancellationToken.None;
 		}
+
+		// -- Finalizer
+
+		/// <summary>
+		/// The finalizer disposes the unmanged resources. 
+		/// </summary>
+		~HttpConnector()
+		{
+			Dispose(false);
+		}
+
+		/// <summary>
+		/// Disposes all managed resources and supresses the <see cref="GC"/> to call the finalizer.
+		/// </summary>
+		public void Dispose()
+		{
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+
+		/// <summary>
+		/// Implements the Dispose function. 
+		/// </summary>
+		/// <param name="disposing">If True, the internal managed resouces will be disposed.</param>
+		protected virtual void Dispose(bool disposing)
+		{
+			if (isDisposed)
+			{
+				return;
+
+			}
+			if (disposing)
+			{
+				// dispose managed resources
+				client?.Dispose();
+				content?.Dispose();
+			}
+
+			// dispose unmanaged resources and finish
+			isDisposed = true;
+		}
+
+		// -- methods
 
 		/// <summary>
 		/// Tests the connection with the given http client and endpoint and stores both parameters internally.
@@ -101,6 +144,17 @@ namespace TeleScope.Connectors.Http
 			this.client = client;
 			this.endpoint = endpoint;
 			return Connect();
+		}
+
+		/// <summary>
+		/// Tests the connection to the given endpoint and stores the parameter internally. 
+		/// The http client must be ready-to-use before calling this method.
+		/// </summary>
+		/// <param name="endpoint">The endpoint configuration.</param>
+		/// <returns>The calling instance.</returns>
+		public IHttpConnectable Connect(HttpEndpoint endpoint)
+		{
+			return Connect(client, endpoint);
 		}
 
 		/// <summary>
@@ -118,17 +172,14 @@ namespace TeleScope.Connectors.Http
 
 			try
 			{
-
-				using (HttpResponseMessage response = client.SendAsync(new HttpRequestMessage(HttpMethod.Head, client.BaseAddress)).Result)
+				using HttpResponseMessage response = client.SendAsync(new HttpRequestMessage(HttpMethod.Head, client.BaseAddress)).Result;
+				if (response.StatusCode == HttpStatusCode.OK)
 				{
-					if (response.StatusCode == HttpStatusCode.OK)
-					{
-						IsConnected = true;
-					}
-					else
-					{
-						throw new WebException(response.ReasonPhrase);
-					}
+					IsConnected = true;
+				}
+				else
+				{
+					throw new WebException(response.ReasonPhrase);
 				}
 			}
 			catch (WebException wex)
@@ -164,19 +215,81 @@ namespace TeleScope.Connectors.Http
 		}
 
 		/// <summary>
+		/// Adds a caching mechanism for all upcoming http requests.
+		/// </summary>
+		/// <param name="refreshSeconds">The timeout in seconds where the cache will return (refresh) the cached data.</param>
+		/// <param name="expirationSeconds">The timeout in seconds where the cache will expire the cached data.</param>
+		/// <returns>The calling instance.</returns>
+		public IHttpConnectable WithCaching(uint refreshSeconds = 3, uint expirationSeconds = 9)
+		{
+			return WithCaching(
+				TimeSpan.FromSeconds(refreshSeconds),
+				TimeSpan.FromSeconds(expirationSeconds));
+		}
+
+		/// <summary>
+		/// Adds a caching mechanism for all upcoming http requests.
+		/// </summary>
+		/// <param name="refreshExpiration">The timeout where the cache will return (refresh) the cached data.</param>
+		/// <param name="resetExpiration">The timeout where the cache will expire the cached data.</param>
+		/// <returns>The calling instance.</returns>
+		public IHttpConnectable WithCaching(TimeSpan refreshExpiration, TimeSpan resetExpiration)
+		{
+			cache = new StringMemoryCache(refreshExpiration, resetExpiration);
+			return this;
+		}
+
+		/// <summary>
+		/// Disables the caching mechanism and frees the allocated memory.
+		/// </summary>
+		/// <returns>The calling instance.</returns>
+		public IHttpConnectable DisableCaching()
+		{
+			cache.Dispose();
+			return this;
+		}
+
+		/// <summary>
+		/// Adds the <see cref="CancellationToken"/> to the internal connector in order to enable an cancellation of the pending http requests.
+		/// </summary>
+		/// <param name="token">The token that is provided by the host system.</param>
+		/// <returns>The calling instance.</returns>
+		public IHttpConnectable AddCancelToken(CancellationToken token)
+		{
+			cancelToken = token;
+			return this;
+		}
+
+		/// <summary>
 		/// Updates the request part of the http endpoint configuration.
 		/// </summary>
 		/// <param name="request">The request part of the url.</param>
 		/// <param name="method">Optional: The method type of the call.</param>
 		/// <returns>The calling instance.</returns>
-		public IHttpConnectable SetRequest(string request, HttpMethod method = null)
+		public IHttpConnectable SetRequest(string request, HttpMethod method)
 		{
 			if (!Validate())
 			{
 				return this;
 			}
 
-			endpoint.Request(request).Method(method);
+			endpoint.SetRequest(request).SetMethodType(method);
+			return this;
+		}
+
+		/// <summary>
+		/// Updates the complete http endpoint configuration.
+		/// </summary>
+		/// <param name="newEndpoint">The new endpoint configuration.</param>
+		/// <returns>The calling instance.</returns>
+		public IHttpConnectable SetRequest(HttpEndpoint newEndpoint)
+		{
+			if (!Validate() || newEndpoint is null)
+			{
+				return this;
+			}
+
+			this.endpoint = newEndpoint;
 			return this;
 		}
 
@@ -188,13 +301,7 @@ namespace TeleScope.Connectors.Http
 		/// <returns>The calling instance.</returns>
 		public IHttpConnectable AddHeader(string name, string value)
 		{
-			if (client is null)
-			{
-				return this;
-			}
-
-			client.DefaultRequestHeaders.Add(name, value);
-
+			client?.DefaultRequestHeaders.Add(name, value);
 			return this;
 		}
 
@@ -224,28 +331,6 @@ namespace TeleScope.Connectors.Http
 		/// <summary>
 		/// Performs the http request asynchronously that is defined by the http endpoint and optional parameters.
 		/// </summary>
-		/// <returns>The executing task whereby the result is the raw string of the response body.</returns>
-		public async Task<string> CallAsync()
-		{
-			var request = new HttpRequestMessage
-			{
-				Method = endpoint.MethodType,
-				RequestUri = endpoint.Address,
-				Content = content
-			};
-
-			log.Trace($"Calling via http '{endpoint}'.");
-
-			var response = await client.SendAsync(request);
-			var result = await response.Content.ReadAsStringAsync();
-
-			Completed?.Invoke(this, new ConnectorCompletedEventArgs(response.ReasonPhrase, response));
-			return result;
-		}
-
-		/// <summary>
-		/// Performs the http request asynchronously that is defined by the http endpoint and optional parameters.
-		/// </summary>
 		/// <typeparam name="T">The generic returned type T.</typeparam>
 		/// <param name="convert">The function converts the response body into the generic type T.</param>
 		/// <returns>The executing task whereby the result of the task is of type T.</returns>
@@ -255,8 +340,60 @@ namespace TeleScope.Connectors.Http
 			return convert(response);
 		}
 
-		// -- helper
+		/// <summary>
+		/// Performs the http request asynchronously that is defined by the http endpoint and optional parameters.
+		/// </summary>
+		/// <returns>The executing task whereby the result is the raw string of the response body.</returns>
+		public async Task<string> CallAsync()
+		{
+			var request = new HttpRequestMessage
+			{
+				Method = endpoint.Method,
+				RequestUri = endpoint.Address,
+				Content = content
+			};
 
+			if (cache is not null)
+			{
+				return await Task.Run(() =>
+				{
+					var cachingKey = endpoint.ToString();
+					return cache.GetOrInvoke(cachingKey, call);
+				});
+			}
+			else
+			{
+				return await Task.Run(() =>
+				{
+					return call();
+				});
+			}
+
+			// -- local function
+
+			string call()
+			{
+				var result = string.Empty;
+				try
+				{
+					log.Trace($"Calling via http '{endpoint}'.");
+					var response = client.Send(request, cancelToken);
+					result = response.Content.ReadAsStringAsync(cancelToken).Result;
+					Completed?.Invoke(this, new ConnectorCompletedEventArgs(response.ReasonPhrase, response));
+				}
+				catch (TaskCanceledException ex)
+				{
+					log.Trace(ex);
+					Completed?.Invoke(this, new ConnectorCompletedEventArgs(endpoint.ToString(), ex.Message));
+					Failed?.Invoke(this, new ConnectorFailedEventArgs(ex, endpoint.ToString(), ex.Message));
+				}
+
+				return result;
+			}
+		}
+
+		// -- helper
+		
 		private bool Validate()
 		{
 			var err = "The http conncetor is not ready.";

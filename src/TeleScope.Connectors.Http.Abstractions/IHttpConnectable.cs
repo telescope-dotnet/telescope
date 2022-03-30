@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using TeleScope.Connectors.Abstractions;
 
@@ -9,7 +10,7 @@ namespace TeleScope.Connectors.Http.Abstractions
 	/// <summary>
 	/// This interface provides extended methods, based on the `IConnectable` interface to build http connections. 
 	/// </summary>
-	public interface IHttpConnectable : IConnectable
+	public interface IHttpConnectable : IConnectable, IDisposable
 	{
 		/// <summary>
 		/// Tests the connection to the given endpoint and stores the parameter internally. 
@@ -28,12 +29,48 @@ namespace TeleScope.Connectors.Http.Abstractions
 		IHttpConnectable Connect(HttpClient client, HttpEndpoint endpoint);
 
 		/// <summary>
-		/// Updates the request part of the http endpoint configuration.
+		/// The implementation shall add a caching mechanism for all upcoming http requests.
+		/// </summary>
+		/// <param name="refreshSeconds">The timeout in seconds where the cache will return (refresh) the cached data.</param>
+		/// <param name="expirationSeconds">The timeout in seconds where the cache will expire the cached data.</param>
+		/// <returns>The calling instance.</returns>
+		IHttpConnectable WithCaching(uint refreshSeconds = 3, uint expirationSeconds = 9);
+
+		/// <summary>
+		/// The implementation shall add a caching mechanism for all upcoming http requests.
+		/// </summary>
+		/// <param name="refreshExpiration">The timeout where the cache will return (refresh) the cached data.</param>
+		/// <param name="resetExpiration">The timeout where the cache will expire the cached data.</param>
+		/// <returns>The calling instance.</returns>
+		IHttpConnectable WithCaching(TimeSpan refreshExpiration, TimeSpan resetExpiration);
+
+		/// <summary>
+		/// The implementation shall disable the caching mechanism and free all allocated memory.
+		/// </summary>
+		/// <returns>The calling instance.</returns>
+		IHttpConnectable DisableCaching();
+
+		/// <summary>
+		/// The implementation shall add the <see cref="CancellationToken"/> to the internal connector in order to enable an cancellation of the pending http requests.
+		/// </summary>
+		/// <param name="token">The token that is provided by the host system.</param>
+		/// <returns>The calling instance.</returns>
+		IHttpConnectable AddCancelToken(CancellationToken token);
+
+		/// <summary>
+		/// The implementation shall update the request part of the http endpoint configuration.
 		/// </summary>
 		/// <param name="request">The request part of the url.</param>
-		/// <param name="method">Optional: The method type of the call.</param>
+		/// <param name="method">The method type of the call.</param>
 		/// <returns>The calling instance.</returns>
-		IHttpConnectable SetRequest(string request, HttpMethod method = null);
+		IHttpConnectable SetRequest(string request, HttpMethod method);
+
+		/// <summary>
+		/// The implementation shall update the complete http endpoint configuration.
+		/// </summary>
+		/// <param name="newEndpoint">The new thhp endpoint.</param>
+		/// <returns>The calling instance.</returns>
+		IHttpConnectable SetRequest(HttpEndpoint newEndpoint);
 
 		/// <summary>
 		/// Adds an http header to the next request as simple pair of name and value.
@@ -62,15 +99,15 @@ namespace TeleScope.Connectors.Http.Abstractions
 		/// <summary>
 		/// Performs the http request asynchronously that is defined by the http endpoint and optional parameters.
 		/// </summary>
-		/// <returns>The executing task whereby the result is the raw string of the response body.</returns>
-		Task<string> CallAsync();
-
-		/// <summary>
-		/// Performs the http request asynchronously that is defined by the http endpoint and optional parameters.
-		/// </summary>
 		/// <typeparam name="T">The generic returned type T.</typeparam>
 		/// <param name="convert">The function converts the response body into the generic type T.</param>
 		/// <returns>The executing task whereby the result of the task is of type T.</returns>
 		Task<T> CallAsync<T>(Func<string, T> convert);
+
+		/// <summary>
+		/// Performs the http request asynchronously that is defined by the http endpoint and optional parameters.
+		/// </summary>
+		/// <returns>The executing task whereby the result is the raw string of the response body.</returns>
+		Task<string> CallAsync();
 	}
 }

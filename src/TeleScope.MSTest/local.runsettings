@@ -3,5 +3,6 @@
 	<TestRunParameters>
 		<Parameter name="SkipPlcTests" value="False" />
 		<Parameter name="SkipSmtpTests" value="False" />
+		<Parameter name="SkipHttpTests" value="False" />
 	</TestRunParameters>
 </RunSettings>

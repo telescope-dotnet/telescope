@@ -22,6 +22,24 @@ namespace TeleScope.MSTest.Infrastructure
 		 * https://countries.trevorblades.com/ found at https://github.com/APIs-guru/graphql-apis
 		 */
 
+		// -- fields
+
+		private static bool skip;
+
+		/// <summary>
+		/// Initialize method that runs once for the entire class.
+		/// </summary>
+		/// <param name="context"></param>
+		[ClassInitialize]
+		public static void ClassInitialize(TestContext context)
+		{
+			/*
+			 * add the "local.runsettings" as global runsettings file, if context has no data.
+			 */
+			skip = bool.Parse(GetProperty(context, SKIP_HTTP_TESTS));
+		}
+
+
 		[TestInitialize]
 		public override void Arrange()
 		{
@@ -41,6 +59,12 @@ namespace TeleScope.MSTest.Infrastructure
 		[TestMethod]
 		public async Task CallAsync_GetRequest()
 		{
+			if (skip)
+			{
+				Console.WriteLine($"Skipping {nameof(HttpTests)} test...");
+				return;
+			}
+
 			// arrange
 			var request = "/api/users";
 			var endpoint = new HttpEndpoint(
@@ -64,6 +88,12 @@ namespace TeleScope.MSTest.Infrastructure
 		[TestMethod]
 		public async Task CallAsync_GraphQl()
 		{
+			if (skip)
+			{
+				Console.WriteLine($"Skipping {nameof(HttpTests)} test...");
+				return;
+			}
+
 			// arrange
 			var query = "?query={continents{name%20countries{name}}}";
 			var endpoint = new HttpEndpoint(
@@ -85,6 +115,12 @@ namespace TeleScope.MSTest.Infrastructure
 		[TestMethod]
 		public async Task GraphQlPostRequest()
 		{
+			if (skip)
+			{
+				Console.WriteLine($"Skipping {nameof(HttpTests)} test...");
+				return;
+			}
+
 			// arrange
 			var query = "{ \"query\": \"{ continents {name countries { name }}}\"}";
 			var endpoint = new HttpEndpoint(
@@ -111,6 +147,12 @@ namespace TeleScope.MSTest.Infrastructure
 		[TestMethod]
 		public async Task CallAsync_Multiple_Endpoints_ShouldFail()
 		{
+			if (skip)
+			{
+				Console.WriteLine($"Skipping {nameof(HttpTests)} test...");
+				return;
+			}
+
 			// arrange
 			Exception exception = null;
 			bool catched = false;
@@ -157,6 +199,12 @@ namespace TeleScope.MSTest.Infrastructure
 		[TestMethod]
 		public async Task CallAsync_Multiple_Endpoints()
 		{
+			if (skip)
+			{
+				Console.WriteLine($"Skipping {nameof(HttpTests)} test...");
+				return;
+			}
+
 			// arrange
 			var endpointOne = new HttpEndpoint(new Uri("https://reqres.in/api/users/1"));
 			var endpointTwo = new HttpEndpoint(new Uri("https://reqres.in/api/users/2"));
@@ -217,6 +265,12 @@ namespace TeleScope.MSTest.Infrastructure
 		[TestMethod]
 		public async Task CallAsync_WithCaching() 
 		{
+			if (skip)
+			{
+				Console.WriteLine($"Skipping {nameof(HttpTests)} test...");
+				return;
+			}
+
 			// arrange
 			var endpoint = new HttpEndpoint(new Uri("https://countries.trevorblades.com/"));
 			var http = GetHttpConnector(endpoint);
@@ -256,6 +310,12 @@ namespace TeleScope.MSTest.Infrastructure
 		[TestMethod]
 		public void CallAsync_With_CancellationToken()
 		{
+			if (skip)
+			{
+				Console.WriteLine($"Skipping {nameof(HttpTests)} test...");
+				return;
+			}
+
 			// arrange
 			var response = string.Empty;
 			var taskResult = string.Empty;

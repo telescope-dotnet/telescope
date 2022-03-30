@@ -19,6 +19,7 @@ namespace TeleScope.MSTest
 		protected ILogger log;
 		protected const string SKIP_PLC_TESTS = "SkipPlcTests";
 		protected const string SKIP_SMTP_TESTS = "SkipSmtpTests";
+		protected const string SKIP_HTTP_TESTS = "SkipHttpTests";
 
 		// -- base methods
 

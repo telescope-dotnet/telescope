@@ -1,40 +1,40 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <Version>2.0.0</Version>
-    <PackageIcon>logo-nuget.png</PackageIcon>
-    <RepositoryUrl>https://github.com/telescope-dotnet/telescope</RepositoryUrl>
-    <PackageProjectUrl>https://github.com/telescope-dotnet/telescope</PackageProjectUrl>
-    <Company>TeleScope-dotnet</Company>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <Description>Contains basic abstractions and interfaces to implement different types of conncetors. Potential connectors may be used for HTTP-, MQTT-, S7- or SMTP-based protocols.</Description>
-    <AssemblyVersion></AssemblyVersion>
-    <PackageTags>Abstractions, Connectors</PackageTags>
-    <Authors>TeleScope-dotnet members</Authors>
+	<TargetFramework>net6.0</TargetFramework>
+	<Version>2.0.0</Version>
+	<PackageIcon>logo-nuget.png</PackageIcon>
+	<RepositoryUrl>https://github.com/telescope-dotnet/telescope</RepositoryUrl>
+	<PackageProjectUrl>https://github.com/telescope-dotnet/telescope</PackageProjectUrl>
+	<Company>TeleScope-dotnet</Company>
+	<PackageLicenseFile>LICENSE</PackageLicenseFile>
+	<Description>Contains basic abstractions and interfaces to implement different types of conncetors. Potential connectors may be used for HTTP-, MQTT-, S7- or SMTP-based protocols.</Description>
+	<AssemblyVersion></AssemblyVersion>
+	<PackageTags>Abstractions, Connectors</PackageTags>
+	<Authors>TeleScope-dotnet members</Authors>
 	<SonarQubeTestProject>false</SonarQubeTestProject>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <DocumentationFile>TeleScope.Connectors.Abstractions.xml</DocumentationFile>
+	<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	<DocumentationFile>TeleScope.Connectors.Abstractions.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <DocumentationFile>TeleScope.Connectors.Abstractions.xml</DocumentationFile>
+	<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	<DocumentationFile>TeleScope.Connectors.Abstractions.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\..\images\logo-nuget.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-    <None Include="..\..\LICENSE">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-    <None Include="..\.editorconfig" Link=".editorconfig" />
+	<None Include="..\..\images\logo-nuget.png">
+	  <Pack>True</Pack>
+	  <PackagePath></PackagePath>
+	</None>
+	<None Include="..\..\LICENSE">
+	  <Pack>True</Pack>
+	  <PackagePath></PackagePath>
+	</None>
+	<None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 
 </Project>

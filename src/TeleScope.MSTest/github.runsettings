@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <RunSettings>
   <TestRunParameters>
-    <Parameter name="SkipPlcTests" value="True" />
+	<Parameter name="SkipPlcTests" value="True" />
 	<Parameter name="SkipSmtpTests" value="True" />
+	<Parameter name="SkipHttpTests" value="True" />
   </TestRunParameters>
 </RunSettings>

@@ -9,17 +9,6 @@
             This extension class shortens log method calls.
             </summary>
         </member>
-        <member name="M:TeleScope.Logging.Extensions.ILoggerExtensions.Metrics(Microsoft.Extensions.Logging.ILogger,System.String)">
-            <summary>
-            Writes the metrics `execution time` and `total memory usage` to the logger.
-            The internal <see cref="T:Microsoft.Extensions.Logging.LogLevel"/> is set to <see cref="F:Microsoft.Extensions.Logging.LogLevel.Trace"/>.
-            The <see cref="T:System.GC"/> will not be forced to perform a full memory collection in order to optimize the execution time. 
-            </summary>
-            <param name="logger">The calling instance.</param>
-            <param name="memberName">The client-side message that contains the calling member name.
-            If not present the message will only contain the name of the calling member <seealso cref="T:System.Runtime.CompilerServices.CallerMemberNameAttribute"/>.</param>
-            <returns>The metrics instance as <see cref="T:System.IDisposable"/>.</returns>
-        </member>
         <member name="M:TeleScope.Logging.Extensions.ILoggerExtensions.TraceMember(Microsoft.Extensions.Logging.ILogger,System.String)">
             <summary>
             Writes a trace message with the calling member.
@@ -177,22 +166,6 @@
             </summary>
             <param name="logger">The calling instance.</param>
             <param name="data">A data object whose string representation will be logged.</param>
-        </member>
-        <member name="T:TeleScope.Logging.LoggerMetrics">
-            <summary>
-            This class takes an <see cref="T:Microsoft.Extensions.Logging.ILogger"/> in order to log performance metrics based on the scope where the instance exists.
-            When the <see cref="M:TeleScope.Logging.LoggerMetrics.Dispose"/> method is called the metrics `execution time` and `total memory` are measured and logged. 
-            </summary>
-        </member>
-        <member name="M:TeleScope.Logging.LoggerMetrics.#ctor(Microsoft.Extensions.Logging.ILogger,Microsoft.Extensions.Logging.LogLevel,System.Boolean,System.String,System.Object[])">
-            <summary>
-            The constructor takes all external objects to log client-side messages together with the metrics of its lifetime.
-            </summary>
-            <param name="logger">The logger instance that is used to log the metrics.</param>
-            <param name="logLevel">The target <see cref="T:Microsoft.Extensions.Logging.LogLevel"/>.</param>
-            <param name="forceCollection">If true, the <see cref="T:System.GC"/> will be forced to perform a full collection.</param>
-            <param name="message">The log message that will be put in front of the metrics.</param>
-            <param name="args">The optional args that may be referenced in the log message.</param>
         </member>
         <member name="T:TeleScope.Logging.LoggingProvider">
             <summary>

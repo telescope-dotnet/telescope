@@ -9,34 +9,6 @@ namespace TeleScope.Logging.Extensions
 	/// </summary>
 	public static class ILoggerExtensions
 	{
-		// -- METRICS
-
-		/// <summary>
-		/// Writes the metrics `execution time` and `total memory usage` to the logger.
-		/// The internal <see cref="LogLevel"/> is set to <see cref="LogLevel.Trace"/>.
-		/// The <see cref="GC"/> will not be forced to perform a full memory collection in order to optimize the execution time. 
-		/// </summary>
-		/// <param name="logger">The calling instance.</param>
-		/// <param name="memberName">The client-side message that contains the calling member name.
-		/// If not present the message will only contain the name of the calling member <seealso cref="CallerMemberNameAttribute"/>.</param>
-		/// <returns>The metrics instance as <see cref="IDisposable"/>.</returns>
-		public static IDisposable Metrics(this ILogger logger, [CallerMemberName] string memberName = "")
-		{
-			return Metrics(logger, LogLevel.Trace, false, memberName);
-		}
-
-		public static IDisposable Metrics(this ILogger logger, LogLevel level, bool forceGarbageCollection, string message, params object[] args)
-		{
-			if (logger.IsEnabled(level))
-			{
-				return new LoggerMetrics(logger, level, forceGarbageCollection, message, args);
-			}
-			else
-			{
-				return null;
-			}
-		}
-
 		// -- TRACE
 
 		/// <summary>
@@ -62,6 +34,7 @@ namespace TeleScope.Logging.Extensions
 			if (logger.IsEnabled(LogLevel.Trace))
 				logger.LogTrace(ex, message, args);
 		}
+		
 		/// <summary>
 		/// Writes a trace message.
 		/// </summary>

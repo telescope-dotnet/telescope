@@ -4,6 +4,8 @@ using System;
 using System.Threading;
 using TeleScope.Logging;
 using TeleScope.Logging.Extensions;
+using TeleScope.Logging.Metrics;
+using TeleScope.Logging.Metrics.Extensions;
 
 namespace TeleScope.MSTest.Logging
 {
@@ -53,20 +55,41 @@ namespace TeleScope.MSTest.Logging
 			AssertAndLog(log);
 		}
 
+
 		[TestMethod]
-		public void LogMetrics_With_NullPointer()
+		public void MetricsProvider_StartNew()
 		{
 			// arrange
-			var level = LogLevel.Information;
+			var log = LoggingProvider.CreateLogger<LoggingTests>();
+			var metric = MetricProvider.StartNew();
+
+			// alot workload
+			Thread.Sleep(100);
+			AssertAndLog(log);
+
+			// act
+
+			metric.Stop();
+
+			log.Info("Custom duration usage {Millis} ms.", metric.EllapsedMilliseconds);
+			log.Info("Custom memory usage {Memory} kB.", (metric.AllocatedBytes / 1024));
+		}
+
+		[TestMethod]
+		public void Log_Metrics()
+		{
+			// arrange
+			var level = LogLevel.Trace;
 			base.ArrangeLogging<LoggingTests>(level);
 			var log = LoggingProvider.CreateLogger<LoggingTests>();
-
+			
 			// act 
 			using var metric = log.Metrics();
 			log.Info("Logging runs at level: {Level}", level);
-			
+			Thread.Sleep(10);
+
 			// assert
-			Assert.IsNull(metric, "Metric should be null, but wasn`t.");
+			AssertAndLog(log);
 		}
 
 		[TestMethod]
@@ -75,10 +98,6 @@ namespace TeleScope.MSTest.Logging
 			// arrange
 			var log = LoggingProvider.CreateLogger<LoggingTests>();
 
-			//using var metric = Metrics.StartNew(log);
-			//using var metric = new LoggerMetrics(log);
-
-
 			// act & assert
 			var fullMetric = log.Metrics("Full scope metrics");
 
@@ -86,12 +105,14 @@ namespace TeleScope.MSTest.Logging
 
 			using (var innerMetric = log.Metrics(LogLevel.Trace, true, "Logging Metrics in definded scope in method {Method}", "LogMetrics")) 
 			{
-				using var foo = log.Metrics("metric of foo");
+				using var foo = log.Metrics("inner metric with foo");
 				AssertAndLog(log);
 			}
 
 			fullMetric.Dispose();
 		}
+
+		// -- helper
 
 		private void AssertAndLog(ILogger log)
 		{

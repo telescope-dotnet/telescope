@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using TeleScope.Logging.Extensions;
+using TeleScope.Logging.Metrics.Extensions;
 using TeleScope.MSTest.Mockups;
 using TeleScope.MSTest.Persistence.Attributes;
 using TeleScope.Persistence.Abstractions;

@@ -6,6 +6,9 @@ using TeleScope.Logging.Metrics.Abstractions;
 
 namespace TeleScope.Logging.Metrics
 {
+	/// <summary>
+	/// The sealed class implements the interface methods and provides default functionality to measure metrics and to log them.
+	/// </summary>
 	internal sealed class Metric : IMetric
 	{
 		// -- fields
@@ -20,18 +23,38 @@ namespace TeleScope.Logging.Metrics
 
 		// -- properties
 
+		/// <summary>
+		/// Gets the ellapsed milliseconds between autostart and stop.
+		/// </summary>
 		public long EllapsedMilliseconds { get; private set; }
 
+		/// <summary>
+		/// Gets the allocated bytes between autostart and stop.
+		/// </summary>
 		public long AllocatedBytes { get; private set; }
 
 		// -- constructor
 
+		/// <summary>
+		/// The default constructor starts a new metric measurement with or without a forced memory collection and
+		/// without a logger.
+		/// </summary>
+		/// <param name="forceMemoryCollection">Determines if the <see cref="GC"/> will perform a full memory collection or not.</param>
 		public Metric(bool forceMemoryCollection = false)
 			: this(forceMemoryCollection, NullLogger.Instance, LogLevel.None, string.Empty)
 		{
 
 		}
 
+		/// <summary>
+		/// The default constructor starts a new metric measurement with or without a forced memory collection and
+		/// with the specified logger data.
+		/// </summary>
+		/// <param name="forceMemoryCollection">Determines if the <see cref="GC"/> will perform a full memory collection or not.</param>
+		/// <param name="logger">The logger as sink for log information.</param>
+		/// <param name="logLevel">The minimum log level for logging the metrics.</param>
+		/// <param name="message">The client-side message.</param>
+		/// <param name="args">Optional data arguments that should appear in the message.</param>
 		public Metric(bool forceMemoryCollection, ILogger logger, LogLevel logLevel, string message, params object[] args)
 		{
 			this.forceMemoryCollection = forceMemoryCollection;
@@ -46,6 +69,9 @@ namespace TeleScope.Logging.Metrics
 
 		// -- Finalizer
 
+		/// <summary>
+		/// Calls the <see cref="Dispose"/> method.
+		/// </summary>
 		~Metric()
 		{
 			Dispose();
@@ -53,6 +79,9 @@ namespace TeleScope.Logging.Metrics
 
 		// -- methods
 
+		/// <summary>
+		/// Calls the <see cref="Stop"/> method and logs the metrics, if a logger is present.
+		/// </summary>
 		public void Dispose()
 		{
 			GC.SuppressFinalize(this);
@@ -63,6 +92,9 @@ namespace TeleScope.Logging.Metrics
 			log.Log(logLevel, "Allocated Bytes: {AllocatedBytes}", FormatNumber(AllocatedBytes));
 		}
 
+		/// <summary>
+		/// Stops all measurements and provide the data through the properties.
+		/// </summary>
 		public void Stop()
 		{
 			watch.Stop();

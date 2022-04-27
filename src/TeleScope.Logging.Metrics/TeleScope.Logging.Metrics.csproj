@@ -5,7 +5,23 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <Authors>TeleScope-dotnet members</Authors>
+    <Version>1.0.0</Version>
+    <Company>TeleScope-dotnet</Company>
+    <Description>Extends Microsofts ILogger interface with a new metric method and provides static access in order to create metric classes manually.</Description>
+    <PackageProjectUrl>https://github.com/telescope-dotnet/telescope</PackageProjectUrl>
+    <PackageIcon>logo-nuget.png</PackageIcon>
+    <RepositoryUrl>https://github.com/telescope-dotnet/telescope</RepositoryUrl>
+    <PackageTags>metrics, logging, extensions</PackageTags>
+    <PackageLicenseFile>..\..\LICENSE</PackageLicenseFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\images\logo-nuget.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.9" />

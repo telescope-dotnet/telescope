@@ -12,7 +12,7 @@
     <PackageTags>logging, extensions</PackageTags>
     <Description>Extends Microsofts ILogger interface and provides static access to bind logger factories and use them within the entire architecture. Depends on the assembly Microsoft.Extensions.Logging.Abstractions.</Description>
     <Authors>TeleScope-dotnet members</Authors>
-    <PackageReleaseNotes>Metrics feature added</PackageReleaseNotes>
+    <PackageReleaseNotes></PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

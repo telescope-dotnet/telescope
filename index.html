@@ -1,0 +1,338 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>TeleScope DOCS | TeleScope Documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="TeleScope DOCS | TeleScope Documentation ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    
+    <link rel="shortcut icon" href="images/favicon.png">
+    <link rel="stylesheet" href="styles/docfx.vendor.css">
+    <link rel="stylesheet" href="styles/docfx.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@6.5.95/css/materialdesignicons.min.css">
+    <meta property="docfx:navrel" content="toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="">
+    
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="index.html">
+                <img id="logo" class="svg" src="images/logo.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="telescope-docs">TeleScope <strong>DOCS</strong></h1>
+
+<div style="font-size:1.3em;color:#337ab7;">
+<p>✨ The project aims for any project type or distant targets, just like a <b>telescope</b>.</p>
+<p>💎 The NuGet packages are strongly based on <b>Clean Architecture Principles</b> and are encapsukated to maximize their reusability.</p>
+<p>📚 The framework contains of <b>15+ packages for cross-cutting concerns</b>,
+like connectors to external services, persistence layer and helpers for client code or user interactions.</p>
+</div>
+<h2 id="-structure-of-this-site">🔭 Structure of this site</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><span style="font-size:1.3em"> 📋 <a href="articles">Articles</a></span></th>
+<th style="text-align: center;"><span style="font-size:1.3em"> 📚 <a href="api">API Documentation</a></span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>Explore examples</strong> and further explanations about major features. In the next time there will be examples about all cathegories.</td>
+<td style="text-align: center;"><strong>Discover the entire public API</strong>. Classes, methods, events, members and so on are described with the auto-generated documentation.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="-quick-start">🚀 Quick Start</h2>
+<p>The TeleScope project provides separate <strong><a href="https://www.nuget.org/profiles/telescope-dotnet">NuGet packages</a></strong>
+for abstractions and implementations.
+Please use the assemblies within a particular application layer, depending on whether an abstraction or its implementation is needed.</p>
+<p>Simply install the desired packages in your preferred way with NuGet Package Manager, CLI or xml reference.</p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_nuget" role="tab" aria-controls="tabpanel_CeZOj-G++Q_nuget" data-tab="nuget" tabindex="0" aria-selected="true">Package Manager</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_cli" role="tab" aria-controls="tabpanel_CeZOj-G++Q_cli" data-tab="cli" tabindex="-1">CLI</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q_reference" role="tab" aria-controls="tabpanel_CeZOj-G++Q_reference" data-tab="reference" tabindex="-1">Reference</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q_nuget" role="tabpanel" data-tab="nuget">
+
+<pre><code class="lang-bash">PM&gt; Install-Package TeleScope.{awesome-package} -Version 2.*.*
+</code></pre>
+</section>
+<section id="tabpanel_CeZOj-G++Q_cli" role="tabpanel" data-tab="cli" aria-hidden="true" hidden="hidden">
+
+<pre><code class="lang-bash">&gt; dotnet add package TeleScope.{awesome-package} --version 2.*.*
+</code></pre>
+</section>
+<section id="tabpanel_CeZOj-G++Q_reference" role="tabpanel" data-tab="reference" aria-hidden="true" hidden="hidden">
+
+<pre><code class="lang-xml">&lt;PackageReference Include=&quot;TeleScope.Connectors.Abstractions&quot; Version=&quot;2.0.0&quot; /&gt;
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>For projects that support PackageReference, copy this XML node into the project file to reference the package.</p>
+</div>
+</section>
+</div>
+<h3 id="nuget-packages">NuGet Packages</h3>
+<p>A full overview of all provided packages can be found below.</p>
+<div class="tabGroup" id="tabgroup_CeZOj-G++Q-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q-1_general" role="tab" aria-controls="tabpanel_CeZOj-G++Q-1_general" data-tab="general" tabindex="0" aria-selected="true">General</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q-1_connectors" role="tab" aria-controls="tabpanel_CeZOj-G++Q-1_connectors" data-tab="connectors" tabindex="-1">Connectors</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q-1_persistence" role="tab" aria-controls="tabpanel_CeZOj-G++Q-1_persistence" data-tab="persistence" tabindex="-1">Persistence</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_CeZOj-G++Q-1_ui" role="tab" aria-controls="tabpanel_CeZOj-G++Q-1_ui" data-tab="ui" tabindex="-1">User Interfaces</a>
+</li>
+</ul>
+<section id="tabpanel_CeZOj-G++Q-1_general" role="tabpanel" data-tab="general">
+
+<table>
+<thead>
+<tr>
+<th><a href="https://www.nuget.org/packages?q=TeleScope">TeleScope.*</a></th>
+<th>Packages</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GuardClauses</td>
+<td><a href="https://www.nuget.org/packages/TeleScope.GuardClauses/"><img src="https://img.shields.io/nuget/v/TeleScope.GuardClauses.svg?label=GuardClauses" alt="Nuget"></a></td>
+</tr>
+<tr>
+<td>Logging</td>
+<td><a href="https://www.nuget.org/packages/TeleScope.Logging/"><img src="https://img.shields.io/nuget/v/TeleScope.Logging.svg?label=Logging" alt="Nuget"></a> <a href="https://www.nuget.org/packages/TeleScope.Logging.Extensions.Serilog/"><img src="https://img.shields.io/nuget/v/TeleScope.Logging.Extensions.Serilog.svg?label=Extensions.Serilog" alt="Nuget"></a></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tabpanel_CeZOj-G++Q-1_connectors" role="tabpanel" data-tab="connectors" aria-hidden="true" hidden="hidden">
+
+<table>
+<thead>
+<tr>
+<th><a href="https://www.nuget.org/packages?q=TeleScope.Connectors">TeleScope.Connectors.*</a></th>
+<th>Packages</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Abstractions</td>
+<td><a href="https://www.nuget.org/packages/TeleScope.Connectors.Abstractions/"><img src="https://img.shields.io/nuget/v/TeleScope.Connectors.Abstractions.svg?label=Connectors.Abstractions" alt="Nuget"></a></td>
+</tr>
+<tr>
+<td>Mqtt <code>beta</code></td>
+<td><a href="https://www.nuget.org/packages/TeleScope.Connectors.Mqtt.Abstractions/"><img src="https://img.shields.io/nuget/v/TeleScope.Connectors.Mqtt.Abstractions.svg?label=Mqtt.Abstractions" alt="Nuget"></a> <a href="https://www.nuget.org/packages/TeleScope.Connectors.Mqtt/"><img src="https://img.shields.io/nuget/v/TeleScope.Connectors.Mqtt.svg?label=Mqtt" alt="Nuget"></a></td>
+</tr>
+<tr>
+<td>Http</td>
+<td><a href="https://www.nuget.org/packages/TeleScope.Connectors.Http.Abstractions/"><img src="https://img.shields.io/nuget/v/TeleScope.Connectors.Http.Abstractions.svg?label=Http.Abstractions" alt="Nuget"></a> <a href="https://www.nuget.org/packages/TeleScope.Connectors.Http/"><img src="https://img.shields.io/nuget/v/TeleScope.Connectors.Http.svg?label=Http" alt="Nuget"></a></td>
+</tr>
+<tr>
+<td>Plc <code>beta</code></td>
+<td><a href="https://www.nuget.org/packages/TeleScope.Connectors.Plc.Abstractions/"><img src="https://img.shields.io/nuget/v/TeleScope.Connectors.Plc.Abstractions.svg?label=Plc.Abstractions" alt="Nuget"></a> <a href="https://www.nuget.org/packages/TeleScope.Connectors.Plc.Siemens/"><img src="https://img.shields.io/nuget/v/TeleScope.Connectors.Plc.Siemens.svg?label=Plc.Siemens" alt="Nuget"></a></td>
+</tr>
+<tr>
+<td>Smtp</td>
+<td><a href="https://www.nuget.org/packages/TeleScope.Connectors.Smtp.Abstractions/"><img src="https://img.shields.io/nuget/v/TeleScope.Connectors.Smtp.Abstractions.svg?label=Smtp.Abstractions" alt="Nuget"></a> <a href="https://www.nuget.org/packages/TeleScope.Connectors.Smtp/"><img src="https://img.shields.io/nuget/v/TeleScope.Connectors.Smtp.svg?label=Smtp" alt="Nuget"></a></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tabpanel_CeZOj-G++Q-1_persistence" role="tabpanel" data-tab="persistence" aria-hidden="true" hidden="hidden">
+
+<table>
+<thead>
+<tr>
+<th><a href="https://www.nuget.org/packages?q=TeleScope.Persistence">TeleScope.Persistence.*</a></th>
+<th>Packages</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Abstractions</td>
+<td><a href="https://www.nuget.org/packages/TeleScope.Persistence.Abstractions/"><img src="https://img.shields.io/nuget/v/TeleScope.Persistence.Abstractions.svg?label=Persistence.Abstractions" alt="Nuget"></a></td>
+</tr>
+<tr>
+<td>Json</td>
+<td><a href="https://www.nuget.org/packages/TeleScope.Persistence.Json/"><img src="https://img.shields.io/nuget/v/TeleScope.Persistence.Json.svg?label=Json" alt="Nuget"></a></td>
+</tr>
+<tr>
+<td>Yaml</td>
+<td><a href="https://www.nuget.org/packages/TeleScope.Persistence.Yaml/"><img src="https://img.shields.io/nuget/v/TeleScope.Persistence.Yaml.svg?label=Yaml" alt="Nuget"></a></td>
+</tr>
+<tr>
+<td>Csv</td>
+<td><a href="https://www.nuget.org/packages/TeleScope.Persistence.Csv/"><img src="https://img.shields.io/nuget/v/TeleScope.Persistence.Csv.svg?label=Csv" alt="Nuget"></a></td>
+</tr>
+<tr>
+<td>Parquet</td>
+<td><a href="https://www.nuget.org/packages/TeleScope.Persistence.Parquet/"><img src="https://img.shields.io/nuget/v/TeleScope.Persistence.Parquet.svg?label=Parquet" alt="Nuget"></a></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tabpanel_CeZOj-G++Q-1_ui" role="tabpanel" data-tab="ui" aria-hidden="true" hidden="hidden">
+
+<table>
+<thead>
+<tr>
+<th><a href="https://www.nuget.org/packages?q=TeleScope.UI">TeleScope.UI.*</a></th>
+<th>Packages</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cli</td>
+<td><a href="https://www.nuget.org/packages/TeleScope.UI.Cli/"><img src="https://img.shields.io/nuget/v/TeleScope.UI.Cli.svg?label=Cli" alt="Nuget"></a></td>
+</tr>
+</tbody>
+</table>
+</section>
+</div>
+<h2 id="-clean-architecture-principles">🌐 Clean Architecture Principles</h2>
+<p><strong>The TeleScope project supports any architectural approach, but it was designed for Clean Architecture projects.</strong>
+There might be differences in naming this architectural approach or its layers, but the goal remains the same.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Keep your business logic clean and free from external dependencies or their breaking changes.</p>
+</div>
+<p><img src="images/telescope_ca.svg" alt="TeleScope Principle"></p>
+<p>The implementation of follows the ideals of <a href="https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html" target="_blank">Uncle Bob</a> and <a target="_blank" href="https://www.codingflow.net/">Jason Taylor</a> - so
+thank you both! 🍻</p>
+<p>Of course, TeleScope packages are external dependencies for other projects.
+So TeleScope separates its entities from the implementations, so that other projects may inject them where they are needed.
+Additionally, you can take advantage of the example implementations or you are also free to create your own implementations.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/telescope-dotnet/telescope" target="_blank" class="contribution-link"><span class="mdi mdi-github" style="margin-right:0.5em"></span> GITHUB</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Docu/index.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="toggle-mode">
+                <div class="icon">
+                  <i aria-hidden="true">☀</i>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="switch-style">
+                  <span class="slider round"></span>
+                </label>
+                <div class="icon">
+                  <i aria-hidden="true">☾</i>
+                </div>
+              </div>
+          
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In This Article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+              Copyright 2020-2022 <strong>TeleScope-dotnet</strong>. Generated by <strong>DocFX</strong>.
+              
+            </div>
+            <div class="toggle-mode pull-right visible-sm visible-xs">
+              <div class="icon">
+                <i aria-hidden="true">☀</i>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="switch-style-m">
+                <span class="slider round"></span>
+              </label>
+              <div class="icon">
+                <i aria-hidden="true">☾</i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="styles/toggle-theme.js"></script>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="styles/docfx.js"></script>
+    <script type="text/javascript" src="styles/main.js"></script>
+  </body>
+</html>

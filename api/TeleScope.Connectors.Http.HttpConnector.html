@@ -1,0 +1,1241 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class HttpConnector
+   | TeleScope Documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class HttpConnector
+   | TeleScope Documentation ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    
+    <link rel="shortcut icon" href="../images/favicon.png">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@6.5.95/css/materialdesignicons.min.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../images/logo.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="TeleScope.Connectors.Http.HttpConnector">
+  
+  
+  <h1 id="TeleScope_Connectors_Http_HttpConnector" data-uid="TeleScope.Connectors.Http.HttpConnector" class="text-break">Class HttpConnector
+  </h1>
+  <div class="markdown level0 summary"><p>This class implements the <code>IHttpConnectable</code> interface and uses the standard microsoft http client.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">HttpConnector</span></div>
+  </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="TeleScope.Connectors.Http.Abstractions.IHttpConnectable.html">IHttpConnectable</a></div>
+    <div><a class="xref" href="TeleScope.Connectors.Abstractions.IConnectable.html">IConnectable</a></div>
+    <div><span class="xref">IDisposable</span></div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="TeleScope.Connectors.Http.html">TeleScope.Connectors.Http</a></h6>
+  <h6><strong>Assembly</strong>: TeleScope.Connectors.Http.dll</h6>
+  <h5 id="TeleScope_Connectors_Http_HttpConnector_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class HttpConnector : object, IHttpConnectable, IConnectable, IDisposable</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Connectors_Http_HttpConnector__ctor.md&amp;value=---%0Auid%3A%20TeleScope.Connectors.Http.HttpConnector.%23ctor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Connectors.Http/HttpConnector.cs/#L87">View Source</a>
+  </span>
+  <a id="TeleScope_Connectors_Http_HttpConnector__ctor_" data-uid="TeleScope.Connectors.Http.HttpConnector.#ctor*"></a>
+  <h4 id="TeleScope_Connectors_Http_HttpConnector__ctor" data-uid="TeleScope.Connectors.Http.HttpConnector.#ctor">HttpConnector()</h4>
+  <div class="markdown level1 summary"><p>The default empty constructor binds a logger for internal usage.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public HttpConnector()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Connectors_Http_HttpConnector__ctor_HttpClient_.md&amp;value=---%0Auid%3A%20TeleScope.Connectors.Http.HttpConnector.%23ctor(HttpClient)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Connectors.Http/HttpConnector.cs/#L79">View Source</a>
+  </span>
+  <a id="TeleScope_Connectors_Http_HttpConnector__ctor_" data-uid="TeleScope.Connectors.Http.HttpConnector.#ctor*"></a>
+  <h4 id="TeleScope_Connectors_Http_HttpConnector__ctor_HttpClient_" data-uid="TeleScope.Connectors.Http.HttpConnector.#ctor(HttpClient)">HttpConnector(HttpClient)</h4>
+  <div class="markdown level1 summary"><p>Saves the property and calls the empty default constructor.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public HttpConnector(HttpClient client)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">HttpClient</span></td>
+        <td><span class="parametername">client</span></td>
+        <td><p>The http client to perform requests.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Connectors_Http_HttpConnector__ctor_HttpClient_TeleScope_Connectors_Http_Abstractions_HttpEndpoint_.md&amp;value=---%0Auid%3A%20TeleScope.Connectors.Http.HttpConnector.%23ctor(HttpClient%2CTeleScope.Connectors.Http.Abstractions.HttpEndpoint)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Connectors.Http/HttpConnector.cs/#L69">View Source</a>
+  </span>
+  <a id="TeleScope_Connectors_Http_HttpConnector__ctor_" data-uid="TeleScope.Connectors.Http.HttpConnector.#ctor*"></a>
+  <h4 id="TeleScope_Connectors_Http_HttpConnector__ctor_HttpClient_TeleScope_Connectors_Http_Abstractions_HttpEndpoint_" data-uid="TeleScope.Connectors.Http.HttpConnector.#ctor(HttpClient,TeleScope.Connectors.Http.Abstractions.HttpEndpoint)">HttpConnector(HttpClient, HttpEndpoint)</h4>
+  <div class="markdown level1 summary"><p>Saves the properties and calls the empty default constructor.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public HttpConnector(HttpClient client, HttpEndpoint endpoint)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">HttpClient</span></td>
+        <td><span class="parametername">client</span></td>
+        <td><p>The http client to perform requests.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="TeleScope.Connectors.Http.Abstractions.HttpEndpoint.html">HttpEndpoint</a></td>
+        <td><span class="parametername">endpoint</span></td>
+        <td><p>The endpoint configuration executed by the client.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Connectors_Http_HttpConnector_IsConnected.md&amp;value=---%0Auid%3A%20TeleScope.Connectors.Http.HttpConnector.IsConnected%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Connectors.Http/HttpConnector.cs/#L60">View Source</a>
+  </span>
+  <a id="TeleScope_Connectors_Http_HttpConnector_IsConnected_" data-uid="TeleScope.Connectors.Http.HttpConnector.IsConnected*"></a>
+  <h4 id="TeleScope_Connectors_Http_HttpConnector_IsConnected" data-uid="TeleScope.Connectors.Http.HttpConnector.IsConnected">IsConnected</h4>
+  <div class="markdown level1 summary"><p>Gets the state, if the connection is established or not.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsConnected { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Connectors_Http_HttpConnector_AddCancelToken_CancellationToken_.md&amp;value=---%0Auid%3A%20TeleScope.Connectors.Http.HttpConnector.AddCancelToken(CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Connectors.Http/HttpConnector.cs/#L257">View Source</a>
+  </span>
+  <a id="TeleScope_Connectors_Http_HttpConnector_AddCancelToken_" data-uid="TeleScope.Connectors.Http.HttpConnector.AddCancelToken*"></a>
+  <h4 id="TeleScope_Connectors_Http_HttpConnector_AddCancelToken_CancellationToken_" data-uid="TeleScope.Connectors.Http.HttpConnector.AddCancelToken(CancellationToken)">AddCancelToken(CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Adds the <see cref="!:CancellationToken"></see> to the internal connector in order to enable an cancellation of the pending http requests.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IHttpConnectable AddCancelToken(CancellationToken token)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">CancellationToken</span></td>
+        <td><span class="parametername">token</span></td>
+        <td><p>The token that is provided by the host system.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TeleScope.Connectors.Http.Abstractions.IHttpConnectable.html">IHttpConnectable</a></td>
+        <td><p>The calling instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Connectors_Http_HttpConnector_AddHeader_System_String_System_String_.md&amp;value=---%0Auid%3A%20TeleScope.Connectors.Http.HttpConnector.AddHeader(System.String%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Connectors.Http/HttpConnector.cs/#L302">View Source</a>
+  </span>
+  <a id="TeleScope_Connectors_Http_HttpConnector_AddHeader_" data-uid="TeleScope.Connectors.Http.HttpConnector.AddHeader*"></a>
+  <h4 id="TeleScope_Connectors_Http_HttpConnector_AddHeader_System_String_System_String_" data-uid="TeleScope.Connectors.Http.HttpConnector.AddHeader(System.String,System.String)">AddHeader(String, String)</h4>
+  <div class="markdown level1 summary"><p>Adds an http header to the next request as simple pair of name and value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IHttpConnectable AddHeader(string name, string value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>The name of the header information.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>The value of the header information.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TeleScope.Connectors.Http.Abstractions.IHttpConnectable.html">IHttpConnectable</a></td>
+        <td><p>The calling instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Connectors_Http_HttpConnector_CallAsync.md&amp;value=---%0Auid%3A%20TeleScope.Connectors.Http.HttpConnector.CallAsync%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Connectors.Http/HttpConnector.cs/#L347">View Source</a>
+  </span>
+  <a id="TeleScope_Connectors_Http_HttpConnector_CallAsync_" data-uid="TeleScope.Connectors.Http.HttpConnector.CallAsync*"></a>
+  <h4 id="TeleScope_Connectors_Http_HttpConnector_CallAsync" data-uid="TeleScope.Connectors.Http.HttpConnector.CallAsync">CallAsync()</h4>
+  <div class="markdown level1 summary"><p>Performs the http request asynchronously that is defined by the http endpoint and optional parameters.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;string&gt; CallAsync()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;<span class="xref">System.String</span>&gt;</td>
+        <td><p>The executing task whereby the result is the raw string of the response body.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Connectors_Http_HttpConnector_CallAsync__1_Func_System_String___0__.md&amp;value=---%0Auid%3A%20TeleScope.Connectors.Http.HttpConnector.CallAsync%60%601(Func%7BSystem.String%2C%60%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Connectors.Http/HttpConnector.cs/#L337">View Source</a>
+  </span>
+  <a id="TeleScope_Connectors_Http_HttpConnector_CallAsync_" data-uid="TeleScope.Connectors.Http.HttpConnector.CallAsync*"></a>
+  <h4 id="TeleScope_Connectors_Http_HttpConnector_CallAsync__1_Func_System_String___0__" data-uid="TeleScope.Connectors.Http.HttpConnector.CallAsync``1(Func{System.String,``0})">CallAsync&lt;T&gt;(Func&lt;String, T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Performs the http request asynchronously that is defined by the http endpoint and optional parameters.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;T&gt; CallAsync&lt;T&gt;(Func&lt;string, T&gt; convert)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Func</span>&lt;<span class="xref">System.String</span>, T&gt;</td>
+        <td><span class="parametername">convert</span></td>
+        <td><p>The function converts the response body into the generic type T.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;T&gt;</td>
+        <td><p>The executing task whereby the result of the task is of type T.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The generic returned type T.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Connectors_Http_HttpConnector_Connect.md&amp;value=---%0Auid%3A%20TeleScope.Connectors.Http.HttpConnector.Connect%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Connectors.Http/HttpConnector.cs/#L164">View Source</a>
+  </span>
+  <a id="TeleScope_Connectors_Http_HttpConnector_Connect_" data-uid="TeleScope.Connectors.Http.HttpConnector.Connect*"></a>
+  <h4 id="TeleScope_Connectors_Http_HttpConnector_Connect" data-uid="TeleScope.Connectors.Http.HttpConnector.Connect">Connect()</h4>
+  <div class="markdown level1 summary"><p>Tests the connection with the internal http client and endpoint.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IHttpConnectable Connect()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TeleScope.Connectors.Http.Abstractions.IHttpConnectable.html">IHttpConnectable</a></td>
+        <td><p>The calling instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Connectors_Http_HttpConnector_Connect_HttpClient_TeleScope_Connectors_Http_Abstractions_HttpEndpoint_.md&amp;value=---%0Auid%3A%20TeleScope.Connectors.Http.HttpConnector.Connect(HttpClient%2CTeleScope.Connectors.Http.Abstractions.HttpEndpoint)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Connectors.Http/HttpConnector.cs/#L142">View Source</a>
+  </span>
+  <a id="TeleScope_Connectors_Http_HttpConnector_Connect_" data-uid="TeleScope.Connectors.Http.HttpConnector.Connect*"></a>
+  <h4 id="TeleScope_Connectors_Http_HttpConnector_Connect_HttpClient_TeleScope_Connectors_Http_Abstractions_HttpEndpoint_" data-uid="TeleScope.Connectors.Http.HttpConnector.Connect(HttpClient,TeleScope.Connectors.Http.Abstractions.HttpEndpoint)">Connect(HttpClient, HttpEndpoint)</h4>
+  <div class="markdown level1 summary"><p>Tests the connection with the given http client and endpoint and stores both parameters internally.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IHttpConnectable Connect(HttpClient client, HttpEndpoint endpoint)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">HttpClient</span></td>
+        <td><span class="parametername">client</span></td>
+        <td><p>The http client that will be used by the connector.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="TeleScope.Connectors.Http.Abstractions.HttpEndpoint.html">HttpEndpoint</a></td>
+        <td><span class="parametername">endpoint</span></td>
+        <td><p>The endpoint configuration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TeleScope.Connectors.Http.Abstractions.IHttpConnectable.html">IHttpConnectable</a></td>
+        <td><p>The calling instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Connectors_Http_HttpConnector_Connect_TeleScope_Connectors_Http_Abstractions_HttpEndpoint_.md&amp;value=---%0Auid%3A%20TeleScope.Connectors.Http.HttpConnector.Connect(TeleScope.Connectors.Http.Abstractions.HttpEndpoint)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Connectors.Http/HttpConnector.cs/#L155">View Source</a>
+  </span>
+  <a id="TeleScope_Connectors_Http_HttpConnector_Connect_" data-uid="TeleScope.Connectors.Http.HttpConnector.Connect*"></a>
+  <h4 id="TeleScope_Connectors_Http_HttpConnector_Connect_TeleScope_Connectors_Http_Abstractions_HttpEndpoint_" data-uid="TeleScope.Connectors.Http.HttpConnector.Connect(TeleScope.Connectors.Http.Abstractions.HttpEndpoint)">Connect(HttpEndpoint)</h4>
+  <div class="markdown level1 summary"><p>Tests the connection to the given endpoint and stores the parameter internally.
+The http client must be ready-to-use before calling this method.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IHttpConnectable Connect(HttpEndpoint endpoint)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TeleScope.Connectors.Http.Abstractions.HttpEndpoint.html">HttpEndpoint</a></td>
+        <td><span class="parametername">endpoint</span></td>
+        <td><p>The endpoint configuration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TeleScope.Connectors.Http.Abstractions.IHttpConnectable.html">IHttpConnectable</a></td>
+        <td><p>The calling instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Connectors_Http_HttpConnector_DisableCaching.md&amp;value=---%0Auid%3A%20TeleScope.Connectors.Http.HttpConnector.DisableCaching%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Connectors.Http/HttpConnector.cs/#L246">View Source</a>
+  </span>
+  <a id="TeleScope_Connectors_Http_HttpConnector_DisableCaching_" data-uid="TeleScope.Connectors.Http.HttpConnector.DisableCaching*"></a>
+  <h4 id="TeleScope_Connectors_Http_HttpConnector_DisableCaching" data-uid="TeleScope.Connectors.Http.HttpConnector.DisableCaching">DisableCaching()</h4>
+  <div class="markdown level1 summary"><p>Disables the caching mechanism and frees the allocated memory.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IHttpConnectable DisableCaching()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TeleScope.Connectors.Http.Abstractions.IHttpConnectable.html">IHttpConnectable</a></td>
+        <td><p>The calling instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Connectors_Http_HttpConnector_Disconnect.md&amp;value=---%0Auid%3A%20TeleScope.Connectors.Http.HttpConnector.Disconnect%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Connectors.Http/HttpConnector.cs/#L204">View Source</a>
+  </span>
+  <a id="TeleScope_Connectors_Http_HttpConnector_Disconnect_" data-uid="TeleScope.Connectors.Http.HttpConnector.Disconnect*"></a>
+  <h4 id="TeleScope_Connectors_Http_HttpConnector_Disconnect" data-uid="TeleScope.Connectors.Http.HttpConnector.Disconnect">Disconnect()</h4>
+  <div class="markdown level1 summary"><p>Disposes the http client and deletes the internal fields.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IConnectable Disconnect()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IConnectable</span></td>
+        <td><p>The calling instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Connectors_Http_HttpConnector_Dispose.md&amp;value=---%0Auid%3A%20TeleScope.Connectors.Http.HttpConnector.Dispose%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Connectors.Http/HttpConnector.cs/#L106">View Source</a>
+  </span>
+  <a id="TeleScope_Connectors_Http_HttpConnector_Dispose_" data-uid="TeleScope.Connectors.Http.HttpConnector.Dispose*"></a>
+  <h4 id="TeleScope_Connectors_Http_HttpConnector_Dispose" data-uid="TeleScope.Connectors.Http.HttpConnector.Dispose">Dispose()</h4>
+  <div class="markdown level1 summary"><p>Disposes all managed resources and supresses the <see cref="!:GC"></see> to call the finalizer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Connectors_Http_HttpConnector_Dispose_System_Boolean_.md&amp;value=---%0Auid%3A%20TeleScope.Connectors.Http.HttpConnector.Dispose(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Connectors.Http/HttpConnector.cs/#L116">View Source</a>
+  </span>
+  <a id="TeleScope_Connectors_Http_HttpConnector_Dispose_" data-uid="TeleScope.Connectors.Http.HttpConnector.Dispose*"></a>
+  <h4 id="TeleScope_Connectors_Http_HttpConnector_Dispose_System_Boolean_" data-uid="TeleScope.Connectors.Http.HttpConnector.Dispose(System.Boolean)">Dispose(Boolean)</h4>
+  <div class="markdown level1 summary"><p>Implements the Dispose function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void Dispose(bool disposing)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">disposing</span></td>
+        <td><p>If True, the internal managed resouces will be disposed.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Connectors_Http_HttpConnector_Finalize.md&amp;value=---%0Auid%3A%20TeleScope.Connectors.Http.HttpConnector.Finalize%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Connectors.Http/HttpConnector.cs/#L98">View Source</a>
+  </span>
+  <a id="TeleScope_Connectors_Http_HttpConnector_Finalize_" data-uid="TeleScope.Connectors.Http.HttpConnector.Finalize*"></a>
+  <h4 id="TeleScope_Connectors_Http_HttpConnector_Finalize" data-uid="TeleScope.Connectors.Http.HttpConnector.Finalize">Finalize()</h4>
+  <div class="markdown level1 summary"><p>The finalizer disposes the unmanged resources.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void Finalize()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Connectors_Http_HttpConnector_SetContent_System_String_.md&amp;value=---%0Auid%3A%20TeleScope.Connectors.Http.HttpConnector.SetContent(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Connectors.Http/HttpConnector.cs/#L313">View Source</a>
+  </span>
+  <a id="TeleScope_Connectors_Http_HttpConnector_SetContent_" data-uid="TeleScope.Connectors.Http.HttpConnector.SetContent*"></a>
+  <h4 id="TeleScope_Connectors_Http_HttpConnector_SetContent_System_String_" data-uid="TeleScope.Connectors.Http.HttpConnector.SetContent(System.String)">SetContent(String)</h4>
+  <div class="markdown level1 summary"><p>Sets the payload of the http request which must be represented as json compliant string.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IHttpConnectable SetContent(string jsonContent)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">jsonContent</span></td>
+        <td><p>The payload for the next http request.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TeleScope.Connectors.Http.Abstractions.IHttpConnectable.html">IHttpConnectable</a></td>
+        <td><p>The calling instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Connectors_Http_HttpConnector_SetContent_System_String_Encoding_System_String_.md&amp;value=---%0Auid%3A%20TeleScope.Connectors.Http.HttpConnector.SetContent(System.String%2CEncoding%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Connectors.Http/HttpConnector.cs/#L325">View Source</a>
+  </span>
+  <a id="TeleScope_Connectors_Http_HttpConnector_SetContent_" data-uid="TeleScope.Connectors.Http.HttpConnector.SetContent*"></a>
+  <h4 id="TeleScope_Connectors_Http_HttpConnector_SetContent_System_String_Encoding_System_String_" data-uid="TeleScope.Connectors.Http.HttpConnector.SetContent(System.String,Encoding,System.String)">SetContent(String, Encoding, String)</h4>
+  <div class="markdown level1 summary"><p>Sets the payload of the next http request.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IHttpConnectable SetContent(string content, Encoding encoding, string mediatype)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">content</span></td>
+        <td><p>The payload as string.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Encoding</span></td>
+        <td><span class="parametername">encoding</span></td>
+        <td><p>The encoding to format the string before serialization.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">mediatype</span></td>
+        <td><p>The media type of the payload.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TeleScope.Connectors.Http.Abstractions.IHttpConnectable.html">IHttpConnectable</a></td>
+        <td><p>The calling instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Connectors_Http_HttpConnector_SetRequest_System_String_HttpMethod_.md&amp;value=---%0Auid%3A%20TeleScope.Connectors.Http.HttpConnector.SetRequest(System.String%2CHttpMethod)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Connectors.Http/HttpConnector.cs/#L269">View Source</a>
+  </span>
+  <a id="TeleScope_Connectors_Http_HttpConnector_SetRequest_" data-uid="TeleScope.Connectors.Http.HttpConnector.SetRequest*"></a>
+  <h4 id="TeleScope_Connectors_Http_HttpConnector_SetRequest_System_String_HttpMethod_" data-uid="TeleScope.Connectors.Http.HttpConnector.SetRequest(System.String,HttpMethod)">SetRequest(String, HttpMethod)</h4>
+  <div class="markdown level1 summary"><p>Updates the request part of the http endpoint configuration.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IHttpConnectable SetRequest(string request, HttpMethod method)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">request</span></td>
+        <td><p>The request part of the url.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">HttpMethod</span></td>
+        <td><span class="parametername">method</span></td>
+        <td><p>Optional: The method type of the call.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TeleScope.Connectors.Http.Abstractions.IHttpConnectable.html">IHttpConnectable</a></td>
+        <td><p>The calling instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Connectors_Http_HttpConnector_SetRequest_TeleScope_Connectors_Http_Abstractions_HttpEndpoint_.md&amp;value=---%0Auid%3A%20TeleScope.Connectors.Http.HttpConnector.SetRequest(TeleScope.Connectors.Http.Abstractions.HttpEndpoint)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Connectors.Http/HttpConnector.cs/#L285">View Source</a>
+  </span>
+  <a id="TeleScope_Connectors_Http_HttpConnector_SetRequest_" data-uid="TeleScope.Connectors.Http.HttpConnector.SetRequest*"></a>
+  <h4 id="TeleScope_Connectors_Http_HttpConnector_SetRequest_TeleScope_Connectors_Http_Abstractions_HttpEndpoint_" data-uid="TeleScope.Connectors.Http.HttpConnector.SetRequest(TeleScope.Connectors.Http.Abstractions.HttpEndpoint)">SetRequest(HttpEndpoint)</h4>
+  <div class="markdown level1 summary"><p>Updates the complete http endpoint configuration.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IHttpConnectable SetRequest(HttpEndpoint newEndpoint)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TeleScope.Connectors.Http.Abstractions.HttpEndpoint.html">HttpEndpoint</a></td>
+        <td><span class="parametername">newEndpoint</span></td>
+        <td><p>The new endpoint configuration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TeleScope.Connectors.Http.Abstractions.IHttpConnectable.html">IHttpConnectable</a></td>
+        <td><p>The calling instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Connectors_Http_HttpConnector_WithCaching_System_UInt32_System_UInt32_.md&amp;value=---%0Auid%3A%20TeleScope.Connectors.Http.HttpConnector.WithCaching(System.UInt32%2CSystem.UInt32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Connectors.Http/HttpConnector.cs/#L223">View Source</a>
+  </span>
+  <a id="TeleScope_Connectors_Http_HttpConnector_WithCaching_" data-uid="TeleScope.Connectors.Http.HttpConnector.WithCaching*"></a>
+  <h4 id="TeleScope_Connectors_Http_HttpConnector_WithCaching_System_UInt32_System_UInt32_" data-uid="TeleScope.Connectors.Http.HttpConnector.WithCaching(System.UInt32,System.UInt32)">WithCaching(UInt32, UInt32)</h4>
+  <div class="markdown level1 summary"><p>Adds a caching mechanism for all upcoming http requests.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IHttpConnectable WithCaching(uint refreshSeconds = null, uint expirationSeconds = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.UInt32</span></td>
+        <td><span class="parametername">refreshSeconds</span></td>
+        <td><p>The timeout in seconds where the cache will return (refresh) the cached data.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.UInt32</span></td>
+        <td><span class="parametername">expirationSeconds</span></td>
+        <td><p>The timeout in seconds where the cache will expire the cached data.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TeleScope.Connectors.Http.Abstractions.IHttpConnectable.html">IHttpConnectable</a></td>
+        <td><p>The calling instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Connectors_Http_HttpConnector_WithCaching_TimeSpan_TimeSpan_.md&amp;value=---%0Auid%3A%20TeleScope.Connectors.Http.HttpConnector.WithCaching(TimeSpan%2CTimeSpan)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Connectors.Http/HttpConnector.cs/#L236">View Source</a>
+  </span>
+  <a id="TeleScope_Connectors_Http_HttpConnector_WithCaching_" data-uid="TeleScope.Connectors.Http.HttpConnector.WithCaching*"></a>
+  <h4 id="TeleScope_Connectors_Http_HttpConnector_WithCaching_TimeSpan_TimeSpan_" data-uid="TeleScope.Connectors.Http.HttpConnector.WithCaching(TimeSpan,TimeSpan)">WithCaching(TimeSpan, TimeSpan)</h4>
+  <div class="markdown level1 summary"><p>Adds a caching mechanism for all upcoming http requests.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IHttpConnectable WithCaching(TimeSpan refreshExpiration, TimeSpan resetExpiration)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TimeSpan</span></td>
+        <td><span class="parametername">refreshExpiration</span></td>
+        <td><p>The timeout where the cache will return (refresh) the cached data.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">TimeSpan</span></td>
+        <td><span class="parametername">resetExpiration</span></td>
+        <td><p>The timeout where the cache will expire the cached data.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TeleScope.Connectors.Http.Abstractions.IHttpConnectable.html">IHttpConnectable</a></td>
+        <td><p>The calling instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="events">Events
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Connectors_Http_HttpConnector_Completed.md&amp;value=---%0Auid%3A%20TeleScope.Connectors.Http.HttpConnector.Completed%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Connectors.Http/HttpConnector.cs/#L49">View Source</a>
+  </span>
+  <h4 id="TeleScope_Connectors_Http_HttpConnector_Completed" data-uid="TeleScope.Connectors.Http.HttpConnector.Completed">Completed</h4>
+  <div class="markdown level1 summary"><p>The event is invoked when a type specific method or action has finished successfully.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event ConnectorCompletedEventHandler Completed</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">ConnectorCompletedEventHandler</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Connectors_Http_HttpConnector_Connected.md&amp;value=---%0Auid%3A%20TeleScope.Connectors.Http.HttpConnector.Connected%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Connectors.Http/HttpConnector.cs/#L41">View Source</a>
+  </span>
+  <h4 id="TeleScope_Connectors_Http_HttpConnector_Connected" data-uid="TeleScope.Connectors.Http.HttpConnector.Connected">Connected</h4>
+  <div class="markdown level1 summary"><p>The event is invoked when the <code>Connect</code> method has finished successfully.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event ConnectorEventHandler Connected</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">ConnectorEventHandler</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Connectors_Http_HttpConnector_Disconnected.md&amp;value=---%0Auid%3A%20TeleScope.Connectors.Http.HttpConnector.Disconnected%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Connectors.Http/HttpConnector.cs/#L45">View Source</a>
+  </span>
+  <h4 id="TeleScope_Connectors_Http_HttpConnector_Disconnected" data-uid="TeleScope.Connectors.Http.HttpConnector.Disconnected">Disconnected</h4>
+  <div class="markdown level1 summary"><p>The event is invoked when the <code>Disconnect</code> method has finished successfully.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event ConnectorEventHandler Disconnected</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">ConnectorEventHandler</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Connectors_Http_HttpConnector_Failed.md&amp;value=---%0Auid%3A%20TeleScope.Connectors.Http.HttpConnector.Failed%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Connectors.Http/HttpConnector.cs/#L53">View Source</a>
+  </span>
+  <h4 id="TeleScope_Connectors_Http_HttpConnector_Failed" data-uid="TeleScope.Connectors.Http.HttpConnector.Failed">Failed</h4>
+  <div class="markdown level1 summary"><p>The event is invoked when any method or action has finished with a failure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event ConnectorFailedEventHandler Failed</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">ConnectorFailedEventHandler</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="TeleScope.Connectors.Http.Abstractions.IHttpConnectable.html">IHttpConnectable</a>
+  </div>
+  <div>
+      <a class="xref" href="TeleScope.Connectors.Abstractions.IConnectable.html">IConnectable</a>
+  </div>
+  <div>
+      <span class="xref">IDisposable</span>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/telescope-dotnet/telescope" target="_blank" class="contribution-link"><span class="mdi mdi-github" style="margin-right:0.5em"></span> GITHUB</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Connectors_Http_HttpConnector.md&amp;value=---%0Auid%3A%20TeleScope.Connectors.Http.HttpConnector%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Connectors.Http/HttpConnector.cs/#L20" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="toggle-mode">
+                <div class="icon">
+                  <i aria-hidden="true">☀</i>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="switch-style">
+                  <span class="slider round"></span>
+                </label>
+                <div class="icon">
+                  <i aria-hidden="true">☾</i>
+                </div>
+              </div>
+          
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In This Article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+              Copyright 2020-2022 <strong>TeleScope-dotnet</strong>. Generated by <strong>DocFX</strong>.
+              
+            </div>
+            <div class="toggle-mode pull-right visible-sm visible-xs">
+              <div class="icon">
+                <i aria-hidden="true">☀</i>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="switch-style-m">
+                <span class="slider round"></span>
+              </label>
+              <div class="icon">
+                <i aria-hidden="true">☾</i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="../styles/toggle-theme.js"></script>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

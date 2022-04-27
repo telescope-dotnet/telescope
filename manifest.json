@@ -1,0 +1,1382 @@
+{
+  "homepages": [],
+  "source_base_path": "/github/workspace/src/TeleScope.Docu",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "Resource",
+      "output": {
+        "resource": {
+          "relative_path": "index.json"
+        }
+      },
+      "is_incremental": false
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "README.md",
+      "output": {
+        ".html": {
+          "relative_path": "README.html",
+          "hash": "SrQu3HbVLxP2oYG4yzJHkQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Connectors.Abstractions.Events.ConnectorCompletedEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Connectors.Abstractions.Events.ConnectorCompletedEventArgs.html",
+          "hash": "knKph5sa1PnIr35sNXVXZw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Connectors.Abstractions.Events.ConnectorCompletedEventHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Connectors.Abstractions.Events.ConnectorCompletedEventHandler.html",
+          "hash": "L+98dFM9msXjEBWFHHybhw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Connectors.Abstractions.Events.ConnectorEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Connectors.Abstractions.Events.ConnectorEventArgs.html",
+          "hash": "DrwPNruCaSSy2gxbhbEl+g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Connectors.Abstractions.Events.ConnectorEventHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Connectors.Abstractions.Events.ConnectorEventHandler.html",
+          "hash": "nYtHoMPnRkDy5W5Ic3EBzg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Connectors.Abstractions.Events.ConnectorFailedEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Connectors.Abstractions.Events.ConnectorFailedEventArgs.html",
+          "hash": "zOCWbP2pN6/tJkVadcpkKQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Connectors.Abstractions.Events.ConnectorFailedEventHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Connectors.Abstractions.Events.ConnectorFailedEventHandler.html",
+          "hash": "27lJ4SbWjTYsaiDFjnsxTQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Connectors.Abstractions.Events.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Connectors.Abstractions.Events.html",
+          "hash": "zoG8DGliO57lTss+ZW/ujQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Connectors.Abstractions.IAsyncConnectable.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Connectors.Abstractions.IAsyncConnectable.html",
+          "hash": "iIpEzV6wtY7xv06SCPdXuw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Connectors.Abstractions.IConnectable.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Connectors.Abstractions.IConnectable.html",
+          "hash": "etZV0BSlzcW2x1nLKqs0iQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Connectors.Abstractions.Secrets.ISecret.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Connectors.Abstractions.Secrets.ISecret.html",
+          "hash": "hWLerKOlbDj2tnHDOuENjA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Connectors.Abstractions.Secrets.Secret.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Connectors.Abstractions.Secrets.Secret.html",
+          "hash": "BE3/lZ0qZ+UODO98I8NHsg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Connectors.Abstractions.Secrets.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Connectors.Abstractions.Secrets.html",
+          "hash": "b0kq+FLU/wIKBMMoz04qaA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Connectors.Abstractions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Connectors.Abstractions.html",
+          "hash": "axiARfFyk7pzDuzBfxoiWg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Connectors.Http.Abstractions.HttpEndpoint.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Connectors.Http.Abstractions.HttpEndpoint.html",
+          "hash": "6tK22RVWbXFr6J6WbHiUNA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Connectors.Http.Abstractions.ICacheable-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Connectors.Http.Abstractions.ICacheable-1.html",
+          "hash": "DcomLkW7Mmw0Eb7KB6ym9g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Connectors.Http.Abstractions.IHttpConnectable.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Connectors.Http.Abstractions.IHttpConnectable.html",
+          "hash": "v8wMgqgNHR4wWXLUDmp3Zg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Connectors.Http.Abstractions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Connectors.Http.Abstractions.html",
+          "hash": "u7JoMKTeNPJrCaOdxo/+qw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Connectors.Http.Caching.StringMemoryCache.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Connectors.Http.Caching.StringMemoryCache.html",
+          "hash": "bxZ+SIcIenQ0eprbLdU7fA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Connectors.Http.Caching.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Connectors.Http.Caching.html",
+          "hash": "U2e8eBW2WoBcnaseqlybKQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Connectors.Http.HttpConnector.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Connectors.Http.HttpConnector.html",
+          "hash": "ONvFg2ljOqdYWD2ze6PcMA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Connectors.Http.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Connectors.Http.html",
+          "hash": "+HQkpQh8s2tdOb6MkrbVTw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Connectors.Mqtt.Abstractions.IMqttConnectable.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Connectors.Mqtt.Abstractions.IMqttConnectable.html",
+          "hash": "kKTiz6qe6tc2kaFkN6nA5A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Connectors.Mqtt.Abstractions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Connectors.Mqtt.Abstractions.html",
+          "hash": "oMznB77e1RLJhCgRwSnVCQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Connectors.Mqtt.Events.MqttConnectorEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Connectors.Mqtt.Events.MqttConnectorEventArgs.html",
+          "hash": "HgADb0y/sMDtMzjj2FAUgg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Connectors.Mqtt.Events.MqttConnectorEventHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Connectors.Mqtt.Events.MqttConnectorEventHandler.html",
+          "hash": "yXHBlbTXer48AMm+dqab6g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Connectors.Mqtt.Events.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Connectors.Mqtt.Events.html",
+          "hash": "uSIEENiBXolemaLEIplUcw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Connectors.Mqtt.MqttConnector.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Connectors.Mqtt.MqttConnector.html",
+          "hash": "kB7ow82SdKHEjwvpFcw9sA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Connectors.Mqtt.MqttSetup.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Connectors.Mqtt.MqttSetup.html",
+          "hash": "Dbmkzg5u5+OzltXUDmtuIQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Connectors.Mqtt.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Connectors.Mqtt.html",
+          "hash": "jSa54Sv7rOmP+IoR71Ko3w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Connectors.Plc.Abstractions.IPlcConnectable.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Connectors.Plc.Abstractions.IPlcConnectable.html",
+          "hash": "FR53qPm83Z1B3o4NFQHKgQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Connectors.Plc.Abstractions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Connectors.Plc.Abstractions.html",
+          "hash": "Ce/u7V5kTVqW/uZuPJXuGQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Connectors.Plc.Siemens.Events.SiemensConnectorEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Connectors.Plc.Siemens.Events.SiemensConnectorEventArgs.html",
+          "hash": "u6CwinkYBXKY+rQ+pwG4XQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Connectors.Plc.Siemens.Events.SiemensConnectorFailedEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Connectors.Plc.Siemens.Events.SiemensConnectorFailedEventArgs.html",
+          "hash": "sTS7tNWEsb+AZ8/0jyku8g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Connectors.Plc.Siemens.Events.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Connectors.Plc.Siemens.Events.html",
+          "hash": "Mzic+NH1kqW/21f+Jb3ynw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Connectors.Plc.Siemens.S7Connector.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Connectors.Plc.Siemens.S7Connector.html",
+          "hash": "rQoixDaP17by7tvapxedfw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Connectors.Plc.Siemens.S7Results.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Connectors.Plc.Siemens.S7Results.html",
+          "hash": "xK5xDtFB4c6qK6qRdN3QPA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Connectors.Plc.Siemens.S7Selector.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Connectors.Plc.Siemens.S7Selector.html",
+          "hash": "aN/Mw9MuBDZWEdcEfwYRaw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Connectors.Plc.Siemens.S7Setup.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Connectors.Plc.Siemens.S7Setup.html",
+          "hash": "noOnYmc+IXv2lfxx7N34xg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Connectors.Plc.Siemens.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Connectors.Plc.Siemens.html",
+          "hash": "7CnII3kHSDGBtK+Shk0wtw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Connectors.Smtp.Abstractions.ISmtpConnectable.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Connectors.Smtp.Abstractions.ISmtpConnectable.html",
+          "hash": "xHyI3H+i5JepX+UCq/Gheg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Connectors.Smtp.Abstractions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Connectors.Smtp.Abstractions.html",
+          "hash": "1aQsOjs8Q6YxY2+4l9jiIw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Connectors.Smtp.SmtpConnector.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Connectors.Smtp.SmtpConnector.html",
+          "hash": "jkcb+S4NAzaREOo7TCBVxw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Connectors.Smtp.SmtpSetup.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Connectors.Smtp.SmtpSetup.html",
+          "hash": "2oVnsM79ddmlycFyha6y/A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Connectors.Smtp.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Connectors.Smtp.html",
+          "hash": "lS7HK6E/9ijGgnX/NHn1XQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.GuardClauses.Abstractions.GuardBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.GuardClauses.Abstractions.GuardBase.html",
+          "hash": "LQYR+OEbxC/mwBNzK2rhKw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.GuardClauses.Abstractions.ICollectionGuardable.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.GuardClauses.Abstractions.ICollectionGuardable.html",
+          "hash": "YfWqjapTVd8IDR5yyORnEw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.GuardClauses.Abstractions.IDefensiveGuardable.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.GuardClauses.Abstractions.IDefensiveGuardable.html",
+          "hash": "mmpa7RCwlo27oZBaa7KxWQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.GuardClauses.Abstractions.INumericGuardable.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.GuardClauses.Abstractions.INumericGuardable.html",
+          "hash": "AhHO7DkSpmpIK/Jy8kM+Zw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.GuardClauses.Abstractions.IStringGuardable.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.GuardClauses.Abstractions.IStringGuardable.html",
+          "hash": "ngxCAZF1Ezm27yRinEXTXQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.GuardClauses.Abstractions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.GuardClauses.Abstractions.html",
+          "hash": "RHiABjxPyhhECzdUIeiqVg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.GuardClauses.Enumerations.InternetProtocols.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.GuardClauses.Enumerations.InternetProtocols.html",
+          "hash": "q42ginvB40Hyv/gnd5i49g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.GuardClauses.Enumerations.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.GuardClauses.Enumerations.html",
+          "hash": "F8Ocg8XpSeLg4zP5YB/Zeg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.GuardClauses.Guard.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.GuardClauses.Guard.html",
+          "hash": "s2UyX/nsx7ERCxu6aqHOfQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.GuardClauses.GuardProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.GuardClauses.GuardProvider.html",
+          "hash": "MF6boFL9pOUK8Wm5tRuBow=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.GuardClauses.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.GuardClauses.html",
+          "hash": "ibPtyYGQp38/KCuh+egIbg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Logging.Extensions.ILoggerExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Logging.Extensions.ILoggerExtensions.html",
+          "hash": "EdWeXZsMp3WnS4VljaigxA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Logging.Extensions.Serilog.ILoggerFactoryExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Logging.Extensions.Serilog.ILoggerFactoryExtensions.html",
+          "hash": "Lk/waX7wu1oXAXAa1EnI3g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Logging.Extensions.Serilog.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Logging.Extensions.Serilog.html",
+          "hash": "g7SAKqB4qg5FvPWE4pLKoA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Logging.Extensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Logging.Extensions.html",
+          "hash": "f/Kgm3H42JiPm6XVirhPfA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Logging.LoggingProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Logging.LoggingProvider.html",
+          "hash": "+Z6wgYG3jpljEruIxBWemA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Logging.Metrics.Abstractions.IMetric.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Logging.Metrics.Abstractions.IMetric.html",
+          "hash": "y2EceHpgjKAvojtXUR0S/g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Logging.Metrics.Abstractions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Logging.Metrics.Abstractions.html",
+          "hash": "Qeef/shTJ35xq4UklwU73g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Logging.Metrics.Extensions.ILoggerExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Logging.Metrics.Extensions.ILoggerExtensions.html",
+          "hash": "fjdmeH7A6+ai2mFSu4O6vw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Logging.Metrics.Extensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Logging.Metrics.Extensions.html",
+          "hash": "YghX5H/AI/fNu6cjjKCCTQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Logging.Metrics.MetricProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Logging.Metrics.MetricProvider.html",
+          "hash": "j6yFkSurEHjhLGIUQwDYSg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Logging.Metrics.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Logging.Metrics.html",
+          "hash": "31JMRYSxEJwmP6IKB9eFQw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Logging.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Logging.html",
+          "hash": "ec8n6cUbDvYgI4LBJSpGXQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Persistence.Abstractions.Enumerations.WritePermissions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Persistence.Abstractions.Enumerations.WritePermissions.html",
+          "hash": "Tah7laek/XZHH17u0y+S1A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Persistence.Abstractions.Enumerations.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Persistence.Abstractions.Enumerations.html",
+          "hash": "Rafsh34wBys5WMocg7wxLw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Persistence.Abstractions.Extensions.IWritableExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Persistence.Abstractions.Extensions.IWritableExtensions.html",
+          "hash": "oNW4fxVcEq8vvCYWmEv/9A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Persistence.Abstractions.Extensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Persistence.Abstractions.Extensions.html",
+          "hash": "597XLVooJkrshOKNt3gFKA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Persistence.Abstractions.FileSetupBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Persistence.Abstractions.FileSetupBase.html",
+          "hash": "3oWZo9l7tK7LmqRnhbnKhA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Persistence.Abstractions.Handlers.PersistenceHandler-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Persistence.Abstractions.Handlers.PersistenceHandler-2.html",
+          "hash": "WQ0NZd3es02sjUl5vlNbHg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Persistence.Abstractions.Handlers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Persistence.Abstractions.Handlers.html",
+          "hash": "nFlgBmq84hdf/aUOiDG95Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Persistence.Abstractions.IFileWritable-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Persistence.Abstractions.IFileWritable-1.html",
+          "hash": "l6AdhwXqZAOtXYzNQ5Q2jQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Persistence.Abstractions.IParsable-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Persistence.Abstractions.IParsable-1.html",
+          "hash": "FQpCezh3XDWLMinZANlV/A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Persistence.Abstractions.IReadable-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Persistence.Abstractions.IReadable-1.html",
+          "hash": "kbj19Fmc2NYXcd+j4P02zw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Persistence.Abstractions.IWritable-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Persistence.Abstractions.IWritable-1.html",
+          "hash": "QDZWlmIfYKO9Cdrc6/TYmQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Persistence.Abstractions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Persistence.Abstractions.html",
+          "hash": "tsIenBxWQuw/QC8Ceses6A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Persistence.Csv.CsvStorage-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Persistence.Csv.CsvStorage-1.html",
+          "hash": "IpzRva7Y61q3VO73PyYL6Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Persistence.Csv.CsvStorageSetup.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Persistence.Csv.CsvStorageSetup.html",
+          "hash": "B1PCjN+FpWfIqVLNwLVi+g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Persistence.Csv.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Persistence.Csv.html",
+          "hash": "t0XJe7AOjB+f0gtBsvKHfA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Persistence.Json.Binder.KnownTypesBinder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Persistence.Json.Binder.KnownTypesBinder.html",
+          "hash": "PtLFatNFGCxj8Q8iniV8HQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Persistence.Json.Binder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Persistence.Json.Binder.html",
+          "hash": "kUbL7qo+Go4XyzYdhpFxtg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Persistence.Json.Extensions.JsonSerializerSettingExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Persistence.Json.Extensions.JsonSerializerSettingExtensions.html",
+          "hash": "xEvatoT+Y1nzktgaFthisg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Persistence.Json.Extensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Persistence.Json.Extensions.html",
+          "hash": "RpNi/g3KAyxtx7mmhiC7hw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Persistence.Json.JsonStorage-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Persistence.Json.JsonStorage-1.html",
+          "hash": "cHD/p77VgQaS2Y8ix+XAXQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Persistence.Json.JsonStorageSetup.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Persistence.Json.JsonStorageSetup.html",
+          "hash": "phcLNSwS3X6nh7CGdEB8Zw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Persistence.Json.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Persistence.Json.html",
+          "hash": "3KVx+Fg3Ig8yA4GqDT+9zQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Persistence.Parquet.ParquetStorage-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Persistence.Parquet.ParquetStorage-1.html",
+          "hash": "kscaq0OgDJS6fn8pl9reCg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Persistence.Parquet.ParquetStorageSetup.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Persistence.Parquet.ParquetStorageSetup.html",
+          "hash": "TbsIULaOSs190nB09Zoi9g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Persistence.Parquet.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Persistence.Parquet.html",
+          "hash": "AUJcNQ6xZa6glediXurKEg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Persistence.Yaml.YamlStorage-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Persistence.Yaml.YamlStorage-1.html",
+          "hash": "In42ORIO6XFRH8Ys2Fu5xA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Persistence.Yaml.YamlStorageSetup.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Persistence.Yaml.YamlStorageSetup.html",
+          "hash": "ha/r42DLTGq6sIseU0SwzQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.Persistence.Yaml.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.Persistence.Yaml.html",
+          "hash": "qOdE3imN3mzAqs7kvacDbg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.UI.Cli.Options.CliAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.UI.Cli.Options.CliAttribute.html",
+          "hash": "XBmVVTW76Ap+Bgi1ZqDA8A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.UI.Cli.Options.CliOptionParser-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.UI.Cli.Options.CliOptionParser-1.html",
+          "hash": "4gQVJO3iDsYW+4wkvCZi8Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/TeleScope.UI.Cli.Options.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/TeleScope.UI.Cli.Options.html",
+          "hash": "ruZS8CtkcKRCcKV3k2tkyw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
+      "type": "Conceptual",
+      "source_relative_path": "api/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/index.html",
+          "hash": "fS5JTSMuwpkXZY5nytCCDA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html",
+          "hash": "nLukcraIa5i3T40vlJHqSg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/index.html",
+          "hash": "2h/9AEzW5x+c7uT7MzLDrQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "articles/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "articles/toc.html",
+          "hash": "4wuyGSqXbqpMP+neCkytSw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/favicon.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/favicon.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/github.svg",
+      "output": {
+        "resource": {
+          "relative_path": "images/github.svg"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/logo.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/logo.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/telescope_ca.svg",
+      "output": {
+        "resource": {
+          "relative_path": "images/telescope_ca.svg"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html",
+          "hash": "l6g4dac133rq1Cz5J6DPtQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html",
+          "hash": "r8z8rjKvenXVVyB5Ra0Sqg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    }
+  ],
+  "incremental_info": [
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot build incrementally because last build info is missing.",
+        "incrementalPhase": "build",
+        "total_file_count": 0,
+        "skipped_file_count": 0,
+        "full_build_reason_code": "NoAvailableBuildCache"
+      },
+      "processors": {
+        "ConceptualDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 4,
+          "skipped_file_count": 0
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 98,
+          "skipped_file_count": 0
+        },
+        "ResourceDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        },
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        }
+      }
+    },
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot support incremental post processing, the reason is: should not trace intermediate info.",
+        "incrementalPhase": "postProcessing",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {}
+    }
+  ],
+  "version_info": {},
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}

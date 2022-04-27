@@ -1,0 +1,761 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class MqttConnector
+   | TeleScope Documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class MqttConnector
+   | TeleScope Documentation ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    
+    <link rel="shortcut icon" href="../images/favicon.png">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@6.5.95/css/materialdesignicons.min.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../images/logo.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="TeleScope.Connectors.Mqtt.MqttConnector">
+  
+  
+  <h1 id="TeleScope_Connectors_Mqtt_MqttConnector" data-uid="TeleScope.Connectors.Mqtt.MqttConnector" class="text-break">Class MqttConnector
+  </h1>
+  <div class="markdown level0 summary"><p>This class implements the <code>IMqttConnectable</code> interface and uses the The library <a href="https://github.com/chkr1011/MQTTnet">MQTTnet</a> internally.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">MqttConnector</span></div>
+  </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="TeleScope.Connectors.Mqtt.Abstractions.IMqttConnectable.html">IMqttConnectable</a></div>
+    <div><a class="xref" href="TeleScope.Connectors.Abstractions.IConnectable.html">IConnectable</a></div>
+    <div><a class="xref" href="TeleScope.Connectors.Abstractions.IAsyncConnectable.html">IAsyncConnectable</a></div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="TeleScope.Connectors.Mqtt.html">TeleScope.Connectors.Mqtt</a></h6>
+  <h6><strong>Assembly</strong>: TeleScope.Connectors.Mqtt.dll</h6>
+  <h5 id="TeleScope_Connectors_Mqtt_MqttConnector_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class MqttConnector : object, IMqttConnectable, IConnectable, IAsyncConnectable</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Connectors_Mqtt_MqttConnector__ctor_TeleScope_Connectors_Mqtt_MqttSetup_.md&amp;value=---%0Auid%3A%20TeleScope.Connectors.Mqtt.MqttConnector.%23ctor(TeleScope.Connectors.Mqtt.MqttSetup)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Connectors.Mqtt/MqttConnector.cs/#L70">View Source</a>
+  </span>
+  <a id="TeleScope_Connectors_Mqtt_MqttConnector__ctor_" data-uid="TeleScope.Connectors.Mqtt.MqttConnector.#ctor*"></a>
+  <h4 id="TeleScope_Connectors_Mqtt_MqttConnector__ctor_TeleScope_Connectors_Mqtt_MqttSetup_" data-uid="TeleScope.Connectors.Mqtt.MqttConnector.#ctor(TeleScope.Connectors.Mqtt.MqttSetup)">MqttConnector(MqttSetup)</h4>
+  <div class="markdown level1 summary"><p>The constructor instanciates the internal logging,
+stores the setup configuration and prepares the internal mqtt client.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public MqttConnector(MqttSetup setup)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TeleScope.Connectors.Mqtt.MqttSetup.html">MqttSetup</a></td>
+        <td><span class="parametername">setup</span></td>
+        <td><p>The setup for the mqtt client.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Connectors_Mqtt_MqttConnector_IsConnected.md&amp;value=---%0Auid%3A%20TeleScope.Connectors.Mqtt.MqttConnector.IsConnected%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Connectors.Mqtt/MqttConnector.cs/#L61">View Source</a>
+  </span>
+  <a id="TeleScope_Connectors_Mqtt_MqttConnector_IsConnected_" data-uid="TeleScope.Connectors.Mqtt.MqttConnector.IsConnected*"></a>
+  <h4 id="TeleScope_Connectors_Mqtt_MqttConnector_IsConnected" data-uid="TeleScope.Connectors.Mqtt.MqttConnector.IsConnected">IsConnected</h4>
+  <div class="markdown level1 summary"><p>Gets the state, if the connection is established or not.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsConnected { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Connectors_Mqtt_MqttConnector_Connect.md&amp;value=---%0Auid%3A%20TeleScope.Connectors.Mqtt.MqttConnector.Connect%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Connectors.Mqtt/MqttConnector.cs/#L84">View Source</a>
+  </span>
+  <a id="TeleScope_Connectors_Mqtt_MqttConnector_Connect_" data-uid="TeleScope.Connectors.Mqtt.MqttConnector.Connect*"></a>
+  <h4 id="TeleScope_Connectors_Mqtt_MqttConnector_Connect" data-uid="TeleScope.Connectors.Mqtt.MqttConnector.Connect">Connect()</h4>
+  <div class="markdown level1 summary"><p>Connects the internal Mqtt client with the prepared options and
+invokes the Failed event if an error occures.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IConnectable Connect()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IConnectable</span></td>
+        <td><p>The calling instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Connectors_Mqtt_MqttConnector_ConnectAsync.md&amp;value=---%0Auid%3A%20TeleScope.Connectors.Mqtt.MqttConnector.ConnectAsync%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Connectors.Mqtt/MqttConnector.cs/#L95">View Source</a>
+  </span>
+  <a id="TeleScope_Connectors_Mqtt_MqttConnector_ConnectAsync_" data-uid="TeleScope.Connectors.Mqtt.MqttConnector.ConnectAsync*"></a>
+  <h4 id="TeleScope_Connectors_Mqtt_MqttConnector_ConnectAsync" data-uid="TeleScope.Connectors.Mqtt.MqttConnector.ConnectAsync">ConnectAsync()</h4>
+  <div class="markdown level1 summary"><p>Connects the internal Mqtt client asynchronously with the prepared options and
+invokes the Failed event if an error occures.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task ConnectAsync()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span></td>
+        <td><p>The executing task.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Connectors_Mqtt_MqttConnector_Disconnect.md&amp;value=---%0Auid%3A%20TeleScope.Connectors.Mqtt.MqttConnector.Disconnect%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Connectors.Mqtt/MqttConnector.cs/#L126">View Source</a>
+  </span>
+  <a id="TeleScope_Connectors_Mqtt_MqttConnector_Disconnect_" data-uid="TeleScope.Connectors.Mqtt.MqttConnector.Disconnect*"></a>
+  <h4 id="TeleScope_Connectors_Mqtt_MqttConnector_Disconnect" data-uid="TeleScope.Connectors.Mqtt.MqttConnector.Disconnect">Disconnect()</h4>
+  <div class="markdown level1 summary"><p>Disconnects the internal Mqtt client.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IConnectable Disconnect()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IConnectable</span></td>
+        <td><p>The calling instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Connectors_Mqtt_MqttConnector_DisconnectAsync.md&amp;value=---%0Auid%3A%20TeleScope.Connectors.Mqtt.MqttConnector.DisconnectAsync%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Connectors.Mqtt/MqttConnector.cs/#L136">View Source</a>
+  </span>
+  <a id="TeleScope_Connectors_Mqtt_MqttConnector_DisconnectAsync_" data-uid="TeleScope.Connectors.Mqtt.MqttConnector.DisconnectAsync*"></a>
+  <h4 id="TeleScope_Connectors_Mqtt_MqttConnector_DisconnectAsync" data-uid="TeleScope.Connectors.Mqtt.MqttConnector.DisconnectAsync">DisconnectAsync()</h4>
+  <div class="markdown level1 summary"><p>Disconnects the internal Mqtt client asynchronously.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task DisconnectAsync()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span></td>
+        <td><p>The executing task.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Connectors_Mqtt_MqttConnector_PublishAsync_System_String_System_String_.md&amp;value=---%0Auid%3A%20TeleScope.Connectors.Mqtt.MqttConnector.PublishAsync(System.String%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Connectors.Mqtt/MqttConnector.cs/#L147">View Source</a>
+  </span>
+  <a id="TeleScope_Connectors_Mqtt_MqttConnector_PublishAsync_" data-uid="TeleScope.Connectors.Mqtt.MqttConnector.PublishAsync*"></a>
+  <h4 id="TeleScope_Connectors_Mqtt_MqttConnector_PublishAsync_System_String_System_String_" data-uid="TeleScope.Connectors.Mqtt.MqttConnector.PublishAsync(System.String,System.String)">PublishAsync(String, String)</h4>
+  <div class="markdown level1 summary"><p>Sends a message string asynchronously to a given broker.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task PublishAsync(string topic, string message)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">topic</span></td>
+        <td><p>The topic of the message.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The message that will be sent.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span></td>
+        <td><p>The executing task.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Connectors_Mqtt_MqttConnector_PublishAsync_System_String_System_String_System_Int32_.md&amp;value=---%0Auid%3A%20TeleScope.Connectors.Mqtt.MqttConnector.PublishAsync(System.String%2CSystem.String%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Connectors.Mqtt/MqttConnector.cs/#L159">View Source</a>
+  </span>
+  <a id="TeleScope_Connectors_Mqtt_MqttConnector_PublishAsync_" data-uid="TeleScope.Connectors.Mqtt.MqttConnector.PublishAsync*"></a>
+  <h4 id="TeleScope_Connectors_Mqtt_MqttConnector_PublishAsync_System_String_System_String_System_Int32_" data-uid="TeleScope.Connectors.Mqtt.MqttConnector.PublishAsync(System.String,System.String,System.Int32)">PublishAsync(String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Sends a message string asynchronously to a given broker.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task PublishAsync(string topic, string message, int qualityOfService)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">topic</span></td>
+        <td><p>The topic of the message.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">message</span></td>
+        <td><p>The message that will be sent.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">qualityOfService</span></td>
+        <td><p>The level of quality that will be used for sending.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span></td>
+        <td><p>The executing task.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Connectors_Mqtt_MqttConnector_Subscribe_System_String_.md&amp;value=---%0Auid%3A%20TeleScope.Connectors.Mqtt.MqttConnector.Subscribe(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Connectors.Mqtt/MqttConnector.cs/#L196">View Source</a>
+  </span>
+  <a id="TeleScope_Connectors_Mqtt_MqttConnector_Subscribe_" data-uid="TeleScope.Connectors.Mqtt.MqttConnector.Subscribe*"></a>
+  <h4 id="TeleScope_Connectors_Mqtt_MqttConnector_Subscribe_System_String_" data-uid="TeleScope.Connectors.Mqtt.MqttConnector.Subscribe(System.String)">Subscribe(String)</h4>
+  <div class="markdown level1 summary"><p>Subscribes to a new topic that the client will listen to.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IMqttConnectable Subscribe(string topic)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">topic</span></td>
+        <td><p>The topic of interest.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TeleScope.Connectors.Mqtt.Abstractions.IMqttConnectable.html">IMqttConnectable</a></td>
+        <td><p>The calling instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Connectors_Mqtt_MqttConnector_Unsubscribe_System_String_.md&amp;value=---%0Auid%3A%20TeleScope.Connectors.Mqtt.MqttConnector.Unsubscribe(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Connectors.Mqtt/MqttConnector.cs/#L213">View Source</a>
+  </span>
+  <a id="TeleScope_Connectors_Mqtt_MqttConnector_Unsubscribe_" data-uid="TeleScope.Connectors.Mqtt.MqttConnector.Unsubscribe*"></a>
+  <h4 id="TeleScope_Connectors_Mqtt_MqttConnector_Unsubscribe_System_String_" data-uid="TeleScope.Connectors.Mqtt.MqttConnector.Unsubscribe(System.String)">Unsubscribe(String)</h4>
+  <div class="markdown level1 summary"><p>Unsubscribes from a topic that the client will no longer listen to.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IMqttConnectable Unsubscribe(string topic)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">topic</span></td>
+        <td><p>The topic that will be removed.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TeleScope.Connectors.Mqtt.Abstractions.IMqttConnectable.html">IMqttConnectable</a></td>
+        <td><p>The calling instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="events">Events
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Connectors_Mqtt_MqttConnector_Completed.md&amp;value=---%0Auid%3A%20TeleScope.Connectors.Mqtt.MqttConnector.Completed%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Connectors.Mqtt/MqttConnector.cs/#L46">View Source</a>
+  </span>
+  <h4 id="TeleScope_Connectors_Mqtt_MqttConnector_Completed" data-uid="TeleScope.Connectors.Mqtt.MqttConnector.Completed">Completed</h4>
+  <div class="markdown level1 summary"><p>The event is invoked when the <code>PublishAsync</code> methods have finished successfully.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event ConnectorCompletedEventHandler Completed</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">ConnectorCompletedEventHandler</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Connectors_Mqtt_MqttConnector_Connected.md&amp;value=---%0Auid%3A%20TeleScope.Connectors.Mqtt.MqttConnector.Connected%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Connectors.Mqtt/MqttConnector.cs/#L38">View Source</a>
+  </span>
+  <h4 id="TeleScope_Connectors_Mqtt_MqttConnector_Connected" data-uid="TeleScope.Connectors.Mqtt.MqttConnector.Connected">Connected</h4>
+  <div class="markdown level1 summary"><p>The event is invoked when the <code>Connect</code> method has finished successfully.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event ConnectorEventHandler Connected</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">ConnectorEventHandler</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Connectors_Mqtt_MqttConnector_Disconnected.md&amp;value=---%0Auid%3A%20TeleScope.Connectors.Mqtt.MqttConnector.Disconnected%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Connectors.Mqtt/MqttConnector.cs/#L42">View Source</a>
+  </span>
+  <h4 id="TeleScope_Connectors_Mqtt_MqttConnector_Disconnected" data-uid="TeleScope.Connectors.Mqtt.MqttConnector.Disconnected">Disconnected</h4>
+  <div class="markdown level1 summary"><p>The event is invoked when the <code>Disconnect</code> method has finished successfully.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event ConnectorEventHandler Disconnected</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">ConnectorEventHandler</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Connectors_Mqtt_MqttConnector_Failed.md&amp;value=---%0Auid%3A%20TeleScope.Connectors.Mqtt.MqttConnector.Failed%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Connectors.Mqtt/MqttConnector.cs/#L50">View Source</a>
+  </span>
+  <h4 id="TeleScope_Connectors_Mqtt_MqttConnector_Failed" data-uid="TeleScope.Connectors.Mqtt.MqttConnector.Failed">Failed</h4>
+  <div class="markdown level1 summary"><p>The event is invoked when any method or action has finished with a failure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event ConnectorFailedEventHandler Failed</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">ConnectorFailedEventHandler</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Connectors_Mqtt_MqttConnector_MessageReceived.md&amp;value=---%0Auid%3A%20TeleScope.Connectors.Mqtt.MqttConnector.MessageReceived%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Connectors.Mqtt/MqttConnector.cs/#L54">View Source</a>
+  </span>
+  <h4 id="TeleScope_Connectors_Mqtt_MqttConnector_MessageReceived" data-uid="TeleScope.Connectors.Mqtt.MqttConnector.MessageReceived">MessageReceived</h4>
+  <div class="markdown level1 summary"><p>The event is invoked when the subscription to a topic has received a message.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event MqttConnectorEventHandler MessageReceived</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TeleScope.Connectors.Mqtt.Events.MqttConnectorEventHandler.html">MqttConnectorEventHandler</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="TeleScope.Connectors.Mqtt.Abstractions.IMqttConnectable.html">IMqttConnectable</a>
+  </div>
+  <div>
+      <a class="xref" href="TeleScope.Connectors.Abstractions.IConnectable.html">IConnectable</a>
+  </div>
+  <div>
+      <a class="xref" href="TeleScope.Connectors.Abstractions.IAsyncConnectable.html">IAsyncConnectable</a>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/telescope-dotnet/telescope" target="_blank" class="contribution-link"><span class="mdi mdi-github" style="margin-right:0.5em"></span> GITHUB</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Connectors_Mqtt_MqttConnector.md&amp;value=---%0Auid%3A%20TeleScope.Connectors.Mqtt.MqttConnector%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Connectors.Mqtt/MqttConnector.cs/#L23" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="toggle-mode">
+                <div class="icon">
+                  <i aria-hidden="true">☀</i>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="switch-style">
+                  <span class="slider round"></span>
+                </label>
+                <div class="icon">
+                  <i aria-hidden="true">☾</i>
+                </div>
+              </div>
+          
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In This Article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+              Copyright 2020-2022 <strong>TeleScope-dotnet</strong>. Generated by <strong>DocFX</strong>.
+              
+            </div>
+            <div class="toggle-mode pull-right visible-sm visible-xs">
+              <div class="icon">
+                <i aria-hidden="true">☀</i>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="switch-style-m">
+                <span class="slider round"></span>
+              </label>
+              <div class="icon">
+                <i aria-hidden="true">☾</i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="../styles/toggle-theme.js"></script>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

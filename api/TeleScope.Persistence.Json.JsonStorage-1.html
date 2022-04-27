@@ -1,0 +1,534 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class JsonStorage&lt;T&gt;
+   | TeleScope Documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class JsonStorage&lt;T&gt;
+   | TeleScope Documentation ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    
+    <link rel="shortcut icon" href="../images/favicon.png">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@6.5.95/css/materialdesignicons.min.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../images/logo.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="TeleScope.Persistence.Json.JsonStorage`1">
+  
+  
+  <h1 id="TeleScope_Persistence_Json_JsonStorage_1" data-uid="TeleScope.Persistence.Json.JsonStorage`1" class="text-break">Class JsonStorage&lt;T&gt;
+  </h1>
+  <div class="markdown level0 summary"><p>This class provides access to JSON files and parses the data into the application-side type T.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">JsonStorage&lt;T&gt;</span></div>
+  </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="TeleScope.Persistence.Abstractions.IReadable-1.html">IReadable</a>&lt;T&gt;</div>
+    <div><a class="xref" href="TeleScope.Persistence.Abstractions.IFileWritable-1.html">IFileWritable</a>&lt;T&gt;</div>
+    <div><a class="xref" href="TeleScope.Persistence.Abstractions.IWritable-1.html">IWritable</a>&lt;T&gt;</div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="TeleScope.Persistence.Json.html">TeleScope.Persistence.Json</a></h6>
+  <h6><strong>Assembly</strong>: TeleScope.Persistence.Json.dll</h6>
+  <h5 id="TeleScope_Persistence_Json_JsonStorage_1_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class JsonStorage&lt;T&gt; : object, IReadable&lt;T&gt;, IFileWritable&lt;T&gt;, IWritable&lt;T&gt;</code></pre>
+  </div>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type T is used application-side and can be read from the data source
+or be written to the data sink.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="constructors">Constructors
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Persistence_Json_JsonStorage_1__ctor_System_String_.md&amp;value=---%0Auid%3A%20TeleScope.Persistence.Json.JsonStorage%601.%23ctor(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Persistence.Json/JsonStorage.cs/#L41">View Source</a>
+  </span>
+  <a id="TeleScope_Persistence_Json_JsonStorage_1__ctor_" data-uid="TeleScope.Persistence.Json.JsonStorage`1.#ctor*"></a>
+  <h4 id="TeleScope_Persistence_Json_JsonStorage_1__ctor_System_String_" data-uid="TeleScope.Persistence.Json.JsonStorage`1.#ctor(System.String)">JsonStorage(String)</h4>
+  <div class="markdown level1 summary"><p>The constructor takes the file string as input parameter,
+creates the <a class="xref" href="TeleScope.Persistence.Json.JsonStorageSetup.html">JsonStorageSetup</a> and allows to config the properties afterwards.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public JsonStorage(string file)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">file</span></td>
+        <td><p>The specific JSON file that the storage is related to.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Persistence_Json_JsonStorage_1__ctor_TeleScope_Persistence_Json_JsonStorageSetup_.md&amp;value=---%0Auid%3A%20TeleScope.Persistence.Json.JsonStorage%601.%23ctor(TeleScope.Persistence.Json.JsonStorageSetup)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Persistence.Json/JsonStorage.cs/#L52">View Source</a>
+  </span>
+  <a id="TeleScope_Persistence_Json_JsonStorage_1__ctor_" data-uid="TeleScope.Persistence.Json.JsonStorage`1.#ctor*"></a>
+  <h4 id="TeleScope_Persistence_Json_JsonStorage_1__ctor_TeleScope_Persistence_Json_JsonStorageSetup_" data-uid="TeleScope.Persistence.Json.JsonStorage`1.#ctor(TeleScope.Persistence.Json.JsonStorageSetup)">JsonStorage(JsonStorageSetup)</h4>
+  <div class="markdown level1 summary"><p>The constructor takes the setup of type <a class="xref" href="TeleScope.Persistence.Json.JsonStorageSetup.html">JsonStorageSetup</a> as input parameter
+and binds the logging mechanism.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public JsonStorage(JsonStorageSetup jsonSetup)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TeleScope.Persistence.Json.JsonStorageSetup.html">JsonStorageSetup</a></td>
+        <td><span class="parametername">jsonSetup</span></td>
+        <td><p>The setup is needed to work with a specific CSV file.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Persistence_Json_JsonStorage_1_Permissions.md&amp;value=---%0Auid%3A%20TeleScope.Persistence.Json.JsonStorage%601.Permissions%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Persistence.Json/JsonStorage.cs/#L32">View Source</a>
+  </span>
+  <a id="TeleScope_Persistence_Json_JsonStorage_1_Permissions_" data-uid="TeleScope.Persistence.Json.JsonStorage`1.Permissions*"></a>
+  <h4 id="TeleScope_Persistence_Json_JsonStorage_1_Permissions" data-uid="TeleScope.Persistence.Json.JsonStorage`1.Permissions">Permissions</h4>
+  <div class="markdown level1 summary"><p>Gets the flags of permissions how files may be treated.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public WritePermissions Permissions { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TeleScope.Persistence.Abstractions.Enumerations.WritePermissions.html">WritePermissions</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Persistence_Json_JsonStorage_1_HasPermission_TeleScope_Persistence_Abstractions_Enumerations_WritePermissions_.md&amp;value=---%0Auid%3A%20TeleScope.Persistence.Json.JsonStorage%601.HasPermission(TeleScope.Persistence.Abstractions.Enumerations.WritePermissions)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Persistence.Json/JsonStorage.cs/#L73">View Source</a>
+  </span>
+  <a id="TeleScope_Persistence_Json_JsonStorage_1_HasPermission_" data-uid="TeleScope.Persistence.Json.JsonStorage`1.HasPermission*"></a>
+  <h4 id="TeleScope_Persistence_Json_JsonStorage_1_HasPermission_TeleScope_Persistence_Abstractions_Enumerations_WritePermissions_" data-uid="TeleScope.Persistence.Json.JsonStorage`1.HasPermission(TeleScope.Persistence.Abstractions.Enumerations.WritePermissions)">HasPermission(WritePermissions)</h4>
+  <div class="markdown level1 summary"><p>Checks if the permission is a present flag or not.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool HasPermission(WritePermissions permission)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TeleScope.Persistence.Abstractions.Enumerations.WritePermissions.html">WritePermissions</a></td>
+        <td><span class="parametername">permission</span></td>
+        <td><p>The enum that is checked.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>True if the value is a present flag, otherwise false.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Persistence_Json_JsonStorage_1_Read.md&amp;value=---%0Auid%3A%20TeleScope.Persistence.Json.JsonStorage%601.Read%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Persistence.Json/JsonStorage.cs/#L83">View Source</a>
+  </span>
+  <a id="TeleScope_Persistence_Json_JsonStorage_1_Read_" data-uid="TeleScope.Persistence.Json.JsonStorage`1.Read*"></a>
+  <h4 id="TeleScope_Persistence_Json_JsonStorage_1_Read" data-uid="TeleScope.Persistence.Json.JsonStorage`1.Read">Read()</h4>
+  <div class="markdown level1 summary"><p>Reads a given JSON file as data source and provides a collection of type T.
+If there is only one data object a collection with the length one is returned.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;T&gt; Read()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IEnumerable</span>&lt;T&gt;</td>
+        <td><p>The resulting data objects of type T.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Persistence_Json_JsonStorage_1_Update_FileInfo_.md&amp;value=---%0Auid%3A%20TeleScope.Persistence.Json.JsonStorage%601.Update(FileInfo)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Persistence.Json/JsonStorage.cs/#L146">View Source</a>
+  </span>
+  <a id="TeleScope_Persistence_Json_JsonStorage_1_Update_" data-uid="TeleScope.Persistence.Json.JsonStorage`1.Update*"></a>
+  <h4 id="TeleScope_Persistence_Json_JsonStorage_1_Update_FileInfo_" data-uid="TeleScope.Persistence.Json.JsonStorage`1.Update(FileInfo)">Update(FileInfo)</h4>
+  <div class="markdown level1 summary"><p>Updates the reference to the internal <see cref="!:FileInfo"></see> instance
+so that the data sink can be updated.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IFileWritable&lt;T&gt; Update(FileInfo fileInfo)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FileInfo</span></td>
+        <td><span class="parametername">fileInfo</span></td>
+        <td><p>The new FileInfo object.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TeleScope.Persistence.Abstractions.IFileWritable-1.html">IFileWritable</a>&lt;T&gt;</td>
+        <td><p>The calling instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Persistence_Json_JsonStorage_1_Update_System_String_.md&amp;value=---%0Auid%3A%20TeleScope.Persistence.Json.JsonStorage%601.Update(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Persistence.Json/JsonStorage.cs/#L135">View Source</a>
+  </span>
+  <a id="TeleScope_Persistence_Json_JsonStorage_1_Update_" data-uid="TeleScope.Persistence.Json.JsonStorage`1.Update*"></a>
+  <h4 id="TeleScope_Persistence_Json_JsonStorage_1_Update_System_String_" data-uid="TeleScope.Persistence.Json.JsonStorage`1.Update(System.String)">Update(String)</h4>
+  <div class="markdown level1 summary"><p>Updates the reference to the internal <see cref="!:FileInfo"></see> instance
+so that the data sink can be updated.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IFileWritable&lt;T&gt; Update(string file)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">file</span></td>
+        <td><p>The new string of the file.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="TeleScope.Persistence.Abstractions.IFileWritable-1.html">IFileWritable</a>&lt;T&gt;</td>
+        <td><p>The calling instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Persistence_Json_JsonStorage_1_Write_IEnumerable__0__.md&amp;value=---%0Auid%3A%20TeleScope.Persistence.Json.JsonStorage%601.Write(IEnumerable%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Persistence.Json/JsonStorage.cs/#L102">View Source</a>
+  </span>
+  <a id="TeleScope_Persistence_Json_JsonStorage_1_Write_" data-uid="TeleScope.Persistence.Json.JsonStorage`1.Write*"></a>
+  <h4 id="TeleScope_Persistence_Json_JsonStorage_1_Write_IEnumerable__0__" data-uid="TeleScope.Persistence.Json.JsonStorage`1.Write(IEnumerable{`0})">Write(IEnumerable&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Writes a collection of type T to a JSON file as data sink.
+If there is only one data object there is the need to provide a collection with one element.
+If the collection has only one element the JSON file won't have an array as root element.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Write(IEnumerable&lt;T&gt; data)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IEnumerable</span>&lt;T&gt;</td>
+        <td><span class="parametername">data</span></td>
+        <td><p>The application-side data collection of type T.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="TeleScope.Persistence.Abstractions.IReadable-1.html">IReadable&lt;T&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="TeleScope.Persistence.Abstractions.IFileWritable-1.html">IFileWritable&lt;T&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="TeleScope.Persistence.Abstractions.IWritable-1.html">IWritable&lt;T&gt;</a>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/telescope-dotnet/telescope" target="_blank" class="contribution-link"><span class="mdi mdi-github" style="margin-right:0.5em"></span> GITHUB</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/telescope-dotnet/telescope/new/main/apiSpec/new?filename=TeleScope_Persistence_Json_JsonStorage_1.md&amp;value=---%0Auid%3A%20TeleScope.Persistence.Json.JsonStorage%601%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/telescope-dotnet/telescope/blob/main/src/TeleScope.Persistence.Json/JsonStorage.cs/#L20" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="toggle-mode">
+                <div class="icon">
+                  <i aria-hidden="true">☀</i>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="switch-style">
+                  <span class="slider round"></span>
+                </label>
+                <div class="icon">
+                  <i aria-hidden="true">☾</i>
+                </div>
+              </div>
+          
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In This Article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+              Copyright 2020-2022 <strong>TeleScope-dotnet</strong>. Generated by <strong>DocFX</strong>.
+              
+            </div>
+            <div class="toggle-mode pull-right visible-sm visible-xs">
+              <div class="icon">
+                <i aria-hidden="true">☀</i>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="switch-style-m">
+                <span class="slider round"></span>
+              </label>
+              <div class="icon">
+                <i aria-hidden="true">☾</i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="../styles/toggle-theme.js"></script>
+      </footer>    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

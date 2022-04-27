@@ -13,6 +13,9 @@ namespace TeleScope.Logging.Metrics
 	{
 		// -- fields
 
+		private const int MEGABYTE = 1048576;
+		private const int KILOBYTE = 1024;
+
 		private readonly Stopwatch watch;
 		private readonly bool forceMemoryCollection;
 
@@ -88,8 +91,8 @@ namespace TeleScope.Logging.Metrics
 			Stop();
 
 			log.Log(logLevel, $"Metrics: {message}", args);
-			log.Log(logLevel, "Duration: {EllapsedMilliseconds}", FormatNumber(EllapsedMilliseconds));
-			log.Log(logLevel, "Allocated Bytes: {AllocatedBytes}", FormatNumber(AllocatedBytes));
+			log.Log(logLevel, "Duration: {EllapsedMilliseconds}.", FormatDuration(EllapsedMilliseconds));
+			log.Log(logLevel, "Allocated Memory: {AllocatedBytes}.", FormatBytes(AllocatedBytes));
 		}
 
 		/// <summary>
@@ -104,9 +107,26 @@ namespace TeleScope.Logging.Metrics
 
 		// -- helper
 
-		private static string FormatNumber(long number)
+		private static string FormatDuration(long number)
 		{
-			return number.ToString("#,0.00", CultureInfo.CurrentCulture.NumberFormat);
+			return $"{number.ToString("#,0.00", CultureInfo.CurrentCulture.NumberFormat)} ms";
+		}
+
+		private static string FormatBytes(long number)
+		{
+			float memory = number;
+			string unit = "bytes";
+			if (number > MEGABYTE)
+			{
+				memory = ((float)number / MEGABYTE);
+				unit = "Mb";
+			}
+			else if (number > KILOBYTE)
+			{
+				memory = ((float)number / KILOBYTE);
+				unit = "Kb";
+			}
+			return $"{memory.ToString("#,0.00", CultureInfo.CurrentCulture.NumberFormat)} {unit}";
 		}
 	}
 }

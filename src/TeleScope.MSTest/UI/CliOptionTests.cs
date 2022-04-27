@@ -10,13 +10,12 @@ namespace TeleScope.MSTest.UI
 		[TestInitialize]
 		public override void Arrange()
 		{
-			base.Arrange();
+			base.ArrangeLogging<CliOptionTests>();
 		}
 
 		[TestCleanup]
 		public override void Cleanup()
 		{
-			base.Cleanup();
 		}
 
 		// -- Test methods

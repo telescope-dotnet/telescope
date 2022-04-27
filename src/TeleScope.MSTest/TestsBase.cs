@@ -14,42 +14,27 @@ namespace TeleScope.MSTest
 		// -- fields
 
 		public const string APP_FOLDER = "App_Data";
-
-		private Stopwatch watch;
-		protected ILogger log;
 		protected const string SKIP_PLC_TESTS = "SkipPlcTests";
 		protected const string SKIP_SMTP_TESTS = "SkipSmtpTests";
 		protected const string SKIP_HTTP_TESTS = "SkipHttpTests";
 
+		protected ILogger log;
+
 		// -- base methods
 
-		public virtual void Arrange()
+		public abstract void Arrange();
+
+		public void ArrangeLogging<T>(LogLevel level = LogLevel.Trace)
 		{
-			watch = new Stopwatch();
 			LoggingProvider.Initialize(
 				 new LoggerFactory()
 					 .UseTemplate("{Timestamp: HH:mm:ss} [{Level} | {SourceContext:l}] - {Message}{NewLine}{Exception}")
-					 .UseLevel(LogLevel.Trace)
+					 .UseLevel(level)
 					 .AddSerilogConsole());
-			log = LoggingProvider.CreateLogger<TestsBase>();
+			log = LoggingProvider.CreateLogger<T>();
 		}
 
-		public virtual void Cleanup()
-		{
-			watch.Stop();
-			watch = null;
-		}
-
-		protected long RunWithMetrics(string name, Action action)
-		{
-			watch.Restart();
-			action();
-			watch.Stop();
-			var ms = watch.ElapsedMilliseconds;
-			log.Trace($"'{name}' executed in {ms} ms.");
-
-			return watch.ElapsedMilliseconds;
-		}
+		public abstract void Cleanup();
 
 		/// <summary>
 		/// Helper method to throw specific exceptions and returns the properties

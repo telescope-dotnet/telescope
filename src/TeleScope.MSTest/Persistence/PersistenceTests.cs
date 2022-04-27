@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using TeleScope.Logging.Extensions;
+using TeleScope.Logging.Metrics.Extensions;
 using TeleScope.MSTest.Mockups;
 using TeleScope.MSTest.Persistence.Attributes;
 using TeleScope.Persistence.Abstractions;
@@ -30,15 +31,13 @@ namespace TeleScope.MSTest.Persistence
 		[TestInitialize]
 		public override void Arrange()
 		{
-			base.Arrange();
+			base.ArrangeLogging<PersistenceTests>();
 			length = 10000;
 		}
 
 		[TestCleanup]
 		public override void Cleanup()
 		{
-			base.Cleanup();
-
 			if (!string.IsNullOrEmpty(file) && File.Exists(file))
 			{
 				log.Trace($"Cleanup after test, deleting {file}");
@@ -81,7 +80,8 @@ namespace TeleScope.MSTest.Persistence
 		{
 			// arrange
 			file = "complex.yml";
-			var yaml = new YamlStorage<object>(new YamlStorageSetup(file) {
+			var yaml = new YamlStorage<object>(new YamlStorageSetup(file)
+			{
 				Permissions = WritePermissions.Delete | WritePermissions.Create,
 				ValueHandling = YamlDotNet.Serialization.DefaultValuesHandling.Preserve
 			});
@@ -186,22 +186,24 @@ namespace TeleScope.MSTest.Persistence
 			}
 			else
 			{
+
 				// ENUMERATION act & assert: Write (create), read, delete 
 				var data = Mockup.RandomArray(length);
 
 				// write (create)
-				RunWithMetrics($"Create {extension}", () =>
+				using (var metrics = log.Metrics("write"))
 				{
 					writer.Write(data);
-				});
+				}
 				Assert.IsTrue(File.Exists(source), $"The source '{source}' was not created.");
 
 				// read
 				IEnumerable<Mockup> result = default;
-				RunWithMetrics($"Read {extension}", () =>
+
+				using (var metrics = log.Metrics("read"))
 				{
 					result = reader.Read();
-				});
+				}
 				Assert.IsNotNull(result);
 				Assert.IsTrue(result.Count() == length);
 

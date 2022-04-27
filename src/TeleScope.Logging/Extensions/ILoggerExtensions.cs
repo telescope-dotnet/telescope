@@ -9,7 +9,6 @@ namespace TeleScope.Logging.Extensions
 	/// </summary>
 	public static class ILoggerExtensions
 	{
-
 		// -- TRACE
 
 		/// <summary>
@@ -35,6 +34,7 @@ namespace TeleScope.Logging.Extensions
 			if (logger.IsEnabled(LogLevel.Trace))
 				logger.LogTrace(ex, message, args);
 		}
+		
 		/// <summary>
 		/// Writes a trace message.
 		/// </summary>
@@ -69,7 +69,7 @@ namespace TeleScope.Logging.Extensions
 		/// <param name="args">An array of objects that will to be logged.</param>
 		public static void Debug(this ILogger logger, Exception ex, string message, params object[] args)
 		{
-			if (logger.IsEnabled(LogLevel.Debug)) 
+			if (logger.IsEnabled(LogLevel.Debug))
 				logger.LogDebug(ex, message, args);
 		}
 

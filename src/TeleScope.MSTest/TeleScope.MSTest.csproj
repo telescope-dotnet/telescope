@@ -26,6 +26,7 @@
     <ProjectReference Include="..\TeleScope.Connectors.Smtp\TeleScope.Connectors.Smtp.csproj" />
     <ProjectReference Include="..\TeleScope.GuardClauses\TeleScope.GuardClauses.csproj" />
     <ProjectReference Include="..\TeleScope.Logging.Extensions.Serilog\TeleScope.Logging.Extensions.Serilog.csproj" />
+    <ProjectReference Include="..\TeleScope.Logging.Metrics\TeleScope.Logging.Metrics.csproj" />
     <ProjectReference Include="..\TeleScope.Logging\TeleScope.Logging.csproj" />
     <ProjectReference Include="..\TeleScope.Persistence.Abstractions\TeleScope.Persistence.Abstractions.csproj" />
     <ProjectReference Include="..\TeleScope.Persistence.Csv\TeleScope.Persistence.Csv.csproj" />

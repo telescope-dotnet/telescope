@@ -14,7 +14,7 @@ namespace TeleScope.MSTest.Entities
 		[TestInitialize]
 		public override void Arrange()
 		{
-			base.Arrange();
+			base.ArrangeLogging<GuardTests>();
 
 			Guard.Provide().New(null);
 
@@ -27,7 +27,6 @@ namespace TeleScope.MSTest.Entities
 		[TestCleanup]
 		public override void Cleanup()
 		{
-			base.Cleanup();
 		}
 
 		// -- tests

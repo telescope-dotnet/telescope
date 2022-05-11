@@ -43,6 +43,16 @@ namespace TeleScope.MSTest.Entities
 			// act & assert
 
 			// basic units
+
+			TryAndCatch(() => Guard.Against.Null(myNull, () => {
+				// optional logging or other cool stuff.
+				return new Exception("My awesome custom exception");
+			}));
+
+			TryAndCatch(() => Guard.Against.Null(" ", () => {
+				return new Exception("my custom exception");
+			}));
+
 			TryAndCatch(() => Guard.Against.Null(myNull));
 			TryAndCatch(() => Guard.Against.False(myFalse));
 			TryAndCatch(() => Guard.Against.True(myTrue, "truely false value", "Hey the guard protected us against True."));
@@ -63,6 +73,10 @@ namespace TeleScope.MSTest.Entities
 			TryAndCatch(() => Guard.Numeric.IsLarger(myNumber, 43, nameof(myNumber), "You failed!"));
 			TryAndCatch(() => Guard.Numeric.IsExact(myNumber, 24, nameof(myNumber)));
 			TryAndCatch(() => Guard.Numeric.IsNot(myNumber, nameof(myNumber), null, 41, 42, 43));
+
+			TryAndCatch(() => Guard.Numeric.IsNot(myNumber, 
+				(c) => new Exception($"Custom error found at {c}"), 
+				41, 42, 43));
 		}
 
 		[TestMethod]
@@ -86,7 +100,7 @@ namespace TeleScope.MSTest.Entities
 
 			// act & assert
 			TryAndCatch(() => Guard.String.IsNotNullOrEmpty(myEmptyString, nameof(myEmptyString), "NO empty strings please!!!"));
-			TryAndCatch(() => Guard.String.IsNotNullOrWhiteSpace(myWhiteSpace, nameof(myWhiteSpace)));
+			TryAndCatch(() => Guard.String.IsNotNullOrWhiteSpace(myWhiteSpace));
 
 			TryAndCatch(() => Guard.String.IsMailAddress(myBrokenMail));
 			TryAndSucceed(() => {
@@ -95,16 +109,16 @@ namespace TeleScope.MSTest.Entities
 			},
 			nameof(Guard.String.ToMailAddress));
 
-			TryAndCatch(() => Guard.String.IsIpAddress(myBrokenIPv4, InternetProtocols.IPv4, nameof(myBrokenIPv4)));
-			TryAndCatch(() => Guard.String.IsIpAddress(myIPv4, InternetProtocols.IPv6, nameof(myIPv4)));
+			TryAndCatch(() => Guard.String.IsIpAddress(myBrokenIPv4, InternetProtocols.IPv4));
+			TryAndCatch(() => Guard.String.IsIpAddress(myIPv4, InternetProtocols.IPv6));
 			TryAndSucceed(() => Guard.String.IsIpAddress(myIPv4), nameof(Guard.String.IsIpAddress));
 			TryAndSucceed(() => Guard.String.IsIpAddress(myIPv6_1, InternetProtocols.IPv6), nameof(Guard.String.IsIpAddress));
 			TryAndSucceed(() => Guard.String.IsIpAddress(myIPv6_2, InternetProtocols.IPv6), nameof(Guard.String.IsIpAddress));
-			TryAndCatch(() => Guard.String.IsIpAddress(myIPv6_1, InternetProtocols.IPv4, nameof(myIPv6_1)));
+			TryAndCatch(() => Guard.String.IsIpAddress(myIPv6_1, InternetProtocols.IPv4));
 
 			TryAndSucceed(() => Guard.String.IsUri(myLocalhost), nameof(Guard.String.IsUri));
 			TryAndCatch(() => Guard.String.IsUri(myBrokenUri, UriKind.Absolute, nameof(myBrokenUri), "Hey the guard protected us against a broken Uri."));
-			TryAndCatch(() => Guard.String.IsWebUri(myBrokenWebUri, nameof(myBrokenWebUri)));
+			TryAndCatch(() => Guard.String.IsWebUri(myBrokenWebUri));
 
 			TryAndSucceed(() => {
 				var uri = Guard.String.ToUri(myLocalhost);

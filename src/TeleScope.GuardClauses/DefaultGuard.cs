@@ -14,11 +14,15 @@ namespace TeleScope.GuardClauses
 
 		public override T Null<T>(T input, [CallerArgumentExpression("input")] string expression = null, string message = null)
 		{
-			if (input is null) 
-			{
-				throw new ArgumentNullException(expression, message ?? "The value must not be Null.");
-			}
+			return Null(input, () => new ArgumentNullException(expression, message ?? "The value must not be Null."));
+		}
 
+		public override T Null<T>(T input, Func<Exception> callback)
+		{
+			if (input is null)
+			{
+				throw callback();
+			}
 			return input;
 		}
 
@@ -59,6 +63,7 @@ namespace TeleScope.GuardClauses
 			}
 			return input;
 		}
+
 
 	}
 }

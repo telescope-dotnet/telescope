@@ -31,6 +31,9 @@ namespace TeleScope.GuardClauses.Abstractions
 		/// <returns>The input data, if no exception will be thrown.</returns>
 		T IsNot<T>(T input, [CallerArgumentExpression("input")] string expression = null, string message = null, params T[] comparators) where T : IComparable;
 
+		T IsNot<T>(T input, Func<T, Exception> callException, params T[] comparators) where T : IComparable;
+
+
 		/// <summary>
 		/// The implementation shall check, if the input number is not zero. 
 		/// </summary>

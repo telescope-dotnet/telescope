@@ -21,22 +21,20 @@ namespace TeleScope.GuardClauses
 
 		public override T IsNot<T>(T input, [CallerArgumentExpression("input")] string expression = null, string message = null, params T[] comparators)
 		{
-			_ = Null(input, expression, message);
-			foreach (var c in comparators)
-			{
-				compareOrThrow(c);
-			}
-			return input;
+			return IsNot(input, (comparator) => new ArgumentException(message ?? $"The value must not be {comparator}, but was {input}.", expression), comparators);
+		}
 
-			// -- local functions
-
-			void compareOrThrow(T comparator)
+		public override T IsNot<T>(T input, Func<T, Exception> callException, params T[] comparators)
+		{
+			_ = Null(input, () => callException(input));
+			foreach (var comparator in comparators)
 			{
 				if (input.CompareTo(comparator) == 0)
 				{
-					throw new ArgumentException(message ?? $"The value must not be {comparator}, but was {input}.", expression);
+					throw callException(comparator);
 				}
 			}
+			return input;
 		}
 
 		public override T IsNotZero<T>(T input, [CallerArgumentExpression("input")] string expression = null, string message = null)
@@ -78,5 +76,7 @@ namespace TeleScope.GuardClauses
 			}
 			return input;
 		}
+
+
 	}
 }

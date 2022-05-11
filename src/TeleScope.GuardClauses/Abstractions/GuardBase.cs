@@ -34,6 +34,8 @@ namespace TeleScope.GuardClauses.Abstractions
 		/// <returns>The input data, if no exception will be thrown.</returns>
 		public abstract T Null<T>(T input, [CallerArgumentExpression("input")] string expression = null, string message = null);
 
+		public abstract T Null<T>(T input, Func<Exception> callback);
+
 		/// <summary>
 		/// The implementation shall check the boolean input against `True` and fail, if that is the case. 
 		/// </summary>
@@ -92,6 +94,8 @@ namespace TeleScope.GuardClauses.Abstractions
 		/// <returns>The input data, if no exception will be thrown.</returns>
 		public abstract T IsNot<T>(T input, [CallerArgumentExpression("input")] string expression = null, string message = null, params T[] comparators) where T : IComparable;
 
+		public abstract T IsNot<T>(T input, Func<T, Exception> callException, params T[] comparators) where T : IComparable;
+
 		/// <summary>
 		/// The implementation shall check, if the input number is larger than the comparator. 
 		/// </summary>
@@ -102,7 +106,6 @@ namespace TeleScope.GuardClauses.Abstractions
 		/// <param name="message">The optional exception message that wil be used, if the method implementation throws.</param>
 		/// <returns>The input data, if no exception will be thrown.</returns>
 		public abstract T IsLarger<T>(T input, T comparator, [CallerArgumentExpression("input")] string expression = null, string message = null) where T : IComparable;
-
 
 		/// <summary>
 		/// The implementation shall check, if the input number is larger than zero. 
@@ -272,5 +275,7 @@ namespace TeleScope.GuardClauses.Abstractions
 		/// <param name="message">The optional exception message that wil be used, if the method implementation throws.</param>
 		/// <returns>The input data, if no exception will be thrown.</returns>
 		public abstract IEnumerable<T> ContainsNot<T>(IEnumerable<T> input, T item, [CallerArgumentExpression("input")] string expression = null, string message = null);
+
+
 	}
 }

@@ -49,9 +49,7 @@ namespace TeleScope.MSTest.Entities
 				return new Exception("My awesome custom exception");
 			}));
 
-			TryAndCatch(() => Guard.Against.Null(" ", () => {
-				return new Exception("my custom exception");
-			}));
+			TryAndCatch(() => Guard.Against.Null(" ", () => new Exception("my custom exception")));
 
 			TryAndCatch(() => Guard.Against.Null(myNull));
 			TryAndCatch(() => Guard.Against.False(myFalse));
@@ -75,7 +73,7 @@ namespace TeleScope.MSTest.Entities
 			TryAndCatch(() => Guard.Numeric.IsNot(myNumber, nameof(myNumber), null, 41, 42, 43));
 
 			TryAndCatch(() => Guard.Numeric.IsNot(myNumber, 
-				(c) => new Exception($"Custom error found at {c}"), 
+				(comparator) => new Exception($"Custom error found at {comparator}"), 
 				41, 42, 43));
 		}
 

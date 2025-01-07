@@ -21,10 +21,10 @@ jobs:
     
     steps:
     - uses: actions/checkout@v2
-    - name: Setup .NET 6 for build and test
+    - name: Setup .NET 8 for build and test
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: '6.0.x'
+        dotnet-version: '8.x.x'
     - name: Install dependencies
       run: dotnet restore
     - name: Build
